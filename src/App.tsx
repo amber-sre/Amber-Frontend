@@ -185,7 +185,7 @@ export default function App() {
 
         {/* Word 1: AMBER (Top Left) */}
         <div className="relative z-20 mt-6 select-none">
-          <h1 className="text-[17vw] font-black tracking-[-0.07em] text-[#120c06] leading-[0.80] uppercase m-0">
+          <h1 className="text-[17vw] font-black tracking-[-0.07em] text-[#d97809] leading-[0.80] uppercase m-0">
             AMBER
           </h1>
         </div>
@@ -194,8 +194,8 @@ export default function App() {
         <div className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-end my-12">
           <div className="md:col-span-5 flex items-center gap-3">
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d97706] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#d97706]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d97809] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#d97809]"></span>
             </span>
             <span className="text-xs font-mono tracking-widest uppercase text-black/60 font-semibold">
               PRESERVED RESILIENCE // 99.999%
@@ -220,7 +220,7 @@ export default function App() {
             <div>04 // SHA-256 SIGNED HITL</div>
           </div>
 
-          <h1 className="text-[17vw] font-black tracking-[-0.07em] text-[#120c06] leading-[0.80] uppercase m-0 self-end select-none">
+          <h1 className="text-[17vw] font-black tracking-[-0.07em] text-[#d97809] leading-[0.80] uppercase m-0 self-end select-none">
             ENGINE
           </h1>
         </div>
@@ -438,80 +438,77 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Novuq-Style Dedicated // CONNECT Section in Radiant Golden Amber Palette */}
+      {/* Dedicated // CONNECT Section matching Image 0 Dark Obsidian & Amber Accent Theme */}
       <section 
         id="connect" 
-        className="relative min-h-screen text-white px-8 md:px-16 py-28 flex flex-col justify-between overflow-hidden border-t border-amber-600/40"
-        style={{
-          background: 'radial-gradient(ellipse at 75% 35%, #fbbf24 0%, #f59e0b 25%, #d97706 55%, #b45309 80%, #78350f 100%)'
-        }}
+        className="relative min-h-screen bg-[#120c06] text-white px-8 md:px-16 py-28 flex flex-col justify-between overflow-hidden border-t border-white/10"
       >
-        {/* Subtle Ambient Golden Glow Layers */}
-        <div className="absolute top-10 right-10 w-[600px] h-[600px] bg-[#fde68a]/20 blur-[130px] pointer-events-none rounded-full" />
-        <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-[#92400e]/30 blur-[100px] pointer-events-none rounded-full" />
+        {/* Subtle Ambient Amber Accent Glow (No yellow wash) */}
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#d97809]/10 blur-[140px] pointer-events-none rounded-full" />
+        <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-[#b45309]/10 blur-[120px] pointer-events-none rounded-full" />
 
         {/* Top Section Metadata Header */}
-        <div className="flex justify-between items-center text-[11px] font-mono tracking-widest text-white/80 uppercase border-b border-white/20 pb-5 mb-16 relative z-10">
+        <div className="flex justify-between items-center text-[11px] font-mono tracking-widest text-amber-400/80 uppercase border-b border-white/10 pb-5 mb-16 relative z-10">
           <div>■ CONNECT // 05</div>
-          <div className="hidden sm:block">[ VPC PROVISIONING & SRE INTAKE ]</div>
+          <div className="hidden sm:block text-white/40">[ VPC PROVISIONING & SRE INTAKE ]</div>
           <div>// RESPONSE SLA: &lt; 2 HRS</div>
         </div>
 
         {/* Main 2-Column Split matching Novuq layout */}
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start my-auto">
           
-          {/* Left Column: Huge White Headline + Divider Rows */}
+          {/* Left Column: Huge Headline + Divider Rows */}
           <div className="lg:col-span-6 flex flex-col justify-between">
             <div>
-              <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-white uppercase leading-[0.92] mb-8 select-none drop-shadow-sm">
+              <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-white uppercase leading-[0.92] mb-8 select-none">
                 // CONNECT
               </h2>
-              <p className="text-white/90 text-base md:text-xl font-normal leading-relaxed max-w-lg mb-12">
+              <p className="text-zinc-400 text-base md:text-lg font-normal leading-relaxed max-w-lg mb-12">
                 Deploy Amber into your AWS, GCP, or bare-metal Kubernetes clusters. Request single-tenant VPC blueprints, custom Prometheus/Sentry adapters, or private evaluation access.
               </p>
             </div>
 
-            {/* Novuq Metadata Stack with thin horizontal dividing lines */}
+            {/* Metadata Stack with thin horizontal dividing lines */}
             <div className="w-full max-w-xl font-mono text-xs sm:text-sm">
-              <div className="py-5 border-t border-white/25 flex items-center justify-between">
+              <div className="py-5 border-t border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <span className="text-[#fef08a] font-bold tracking-wider">// 01</span>
-                  <span className="text-white font-medium tracking-wide">+1 (415) 890-AMBER</span>
+                  <span className="text-amber-400 font-bold tracking-wider">// 01</span>
+                  <span className="text-white tracking-wide">+1 (415) 890-AMBER</span>
                 </div>
-                <span className="text-white/60 text-[11px] hidden sm:inline">[ SRE HOTLINE ]</span>
+                <span className="text-zinc-500 text-[11px] hidden sm:inline">[ SRE HOTLINE ]</span>
               </div>
 
-              <div className="py-5 border-t border-white/25 flex items-center justify-between">
+              <div className="py-5 border-t border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <span className="text-[#fef08a] font-bold tracking-wider">// 02</span>
+                  <span className="text-amber-400 font-bold tracking-wider">// 02</span>
                   <a 
                     href="mailto:access@amber.sh" 
-                    className="text-white hover:text-[#fef08a] transition-colors tracking-wide flex items-center gap-2 underline-offset-4 hover:underline"
+                    className="text-white hover:text-amber-400 transition-colors tracking-wide flex items-center gap-2"
                   >
-                    access@amber.sh <ArrowUpRight className="w-4 h-4 text-white" />
+                    access@amber.sh <ArrowUpRight className="w-4 h-4 text-amber-400" />
                   </a>
                 </div>
-                <span className="text-white/60 text-[11px] hidden sm:inline">[ DIRECT DISPATCH ]</span>
+                <span className="text-zinc-500 text-[11px] hidden sm:inline">[ DIRECT DISPATCH ]</span>
               </div>
 
-              <div className="py-5 border-t border-white/25 flex items-center justify-between">
+              <div className="py-5 border-t border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <span className="text-[#fef08a] font-bold tracking-wider">// 03</span>
-                  <span className="text-white font-medium tracking-wide">San Francisco, CA // Cloud SRE Ops</span>
+                  <span className="text-amber-400 font-bold tracking-wider">// 03</span>
+                  <span className="text-white tracking-wide">San Francisco, CA // Cloud SRE Ops</span>
                 </div>
-                <span className="text-white/60 text-[11px] hidden sm:inline">[ DEDICATED VPC ]</span>
+                <span className="text-zinc-500 text-[11px] hidden sm:inline">[ DEDICATED VPC ]</span>
               </div>
 
-              <div className="py-5 border-t border-b border-white/25 flex items-center justify-between">
+              <div className="py-5 border-t border-b border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <span className="text-[#fef08a] font-bold tracking-wider">// 04</span>
-                  <span className="text-white font-medium tracking-wide">Socials //</span>
-                  <div className="flex items-center gap-5 text-white">
+                  <span className="text-amber-400 font-bold tracking-wider">// 04</span>
+                  <span className="text-white tracking-wide">Socials //</span>
+                  <div className="flex items-center gap-5 text-zinc-300">
                     <a 
                       href="https://github.com/himanshu-xyz-1/Amber" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="hover:text-[#fef08a] transition-colors flex items-center gap-1 underline-offset-4 hover:underline"
+                      className="hover:text-amber-400 transition-colors flex items-center gap-1"
                     >
                       GitHub <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
@@ -519,7 +516,7 @@ export default function App() {
                       href="https://twitter.com/himanshu1xy" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="hover:text-[#fef08a] transition-colors flex items-center gap-1 underline-offset-4 hover:underline"
+                      className="hover:text-amber-400 transition-colors flex items-center gap-1"
                     >
                       Twitter <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
@@ -527,7 +524,7 @@ export default function App() {
                       href="http://localhost:8000/docs" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="hover:text-[#fef08a] transition-colors flex items-center gap-1 underline-offset-4 hover:underline"
+                      className="hover:text-amber-400 transition-colors flex items-center gap-1"
                     >
                       OpenAPI <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
@@ -537,22 +534,22 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right Column: Floating Frosted Golden Glass Card */}
+          {/* Right Column: Floating Dark Amber Card matching Benchmark Cards in Image 0 */}
           <div className="lg:col-span-6 flex justify-start lg:justify-end">
-            <div className="w-full max-w-xl bg-black/25 backdrop-blur-2xl border border-white/25 rounded-[32px] p-8 sm:p-12 shadow-2xl shadow-black/40 relative">
+            <div className="w-full max-w-xl bg-[#1c130b] border border-white/10 rounded-[32px] p-8 sm:p-12 shadow-2xl hover:border-amber-500/40 transition-all relative">
               
               {formSubmitted ? (
                 <div className="py-16 text-center">
-                  <div className="w-16 h-16 rounded-full bg-white/20 text-white border border-white/40 flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <div className="text-xs font-mono text-[#fef08a] tracking-widest uppercase mb-2 font-bold">
+                  <div className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2 font-bold">
                     // DISPATCH CONFIRMED
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">
                     VPC Access Request Queued
                   </h3>
-                  <p className="text-white/80 text-sm leading-relaxed max-w-sm mx-auto mb-8 font-light">
+                  <p className="text-zinc-400 text-sm leading-relaxed max-w-sm mx-auto mb-8 font-light">
                     Our lead SRE architects have received your cluster details. You will receive an invitation token and single-tenant Terraform spec within 2 hours.
                   </p>
                   <button
@@ -560,7 +557,7 @@ export default function App() {
                       setFormSubmitted(false);
                       setFormData({ name: '', email: '', phone: '', message: '' });
                     }}
-                    className="border border-white/40 text-white hover:bg-white hover:text-[#92400e] px-6 py-2.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all"
+                    className="border border-white/20 text-zinc-300 hover:text-white hover:border-amber-400 px-6 py-2.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer"
                   >
                     [ Submit Another Inquiry ]
                   </button>
@@ -574,8 +571,8 @@ export default function App() {
                   className="space-y-6"
                 >
                   <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-widest text-white/95 mb-2 font-bold">
-                      Name
+                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
+                      // NAME
                     </label>
                     <input
                       type="text"
@@ -583,13 +580,13 @@ export default function App() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Jane Smith"
-                      className="w-full bg-black/25 border border-white/25 focus:border-white focus:bg-black/40 rounded-2xl px-5 py-4 text-white placeholder-white/60 text-sm sm:text-base outline-none transition-all font-sans"
+                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-widest text-white/95 mb-2 font-bold">
-                      Email
+                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
+                      // EMAIL
                     </label>
                     <input
                       type="email"
@@ -597,33 +594,33 @@ export default function App() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="jane@company.com"
-                      className="w-full bg-black/25 border border-white/25 focus:border-white focus:bg-black/40 rounded-2xl px-5 py-4 text-white placeholder-white/60 text-sm sm:text-base outline-none transition-all font-sans"
+                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-widest text-white/95 mb-2 font-bold">
-                      Phone / Cluster Scale
+                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
+                      // PHONE / CLUSTER SCALE
                     </label>
                     <input
                       type="text"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+1 34567 890123 / 500+ EKS Nodes"
-                      className="w-full bg-black/25 border border-white/25 focus:border-white focus:bg-black/40 rounded-2xl px-5 py-4 text-white placeholder-white/60 text-sm sm:text-base outline-none transition-all font-sans"
+                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-mono uppercase tracking-widest text-white/95 mb-2 font-bold">
-                      Message
+                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
+                      // MESSAGE
                     </label>
                     <textarea
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Say Hi! Or describe your production alert storms, runbooks, and VPC isolation requirements..."
-                      className="w-full bg-black/25 border border-white/25 focus:border-white focus:bg-black/40 rounded-2xl px-5 py-4 text-white placeholder-white/60 text-sm sm:text-base outline-none transition-all font-sans resize-none"
+                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans resize-none"
                     />
                   </div>
 
@@ -631,7 +628,7 @@ export default function App() {
                     type="submit"
                     onMouseEnter={() => setCursorHovered(true)}
                     onMouseLeave={() => setCursorHovered(false)}
-                    className="w-full mt-4 py-4 rounded-full bg-white text-[#78350f] font-black text-sm tracking-widest uppercase hover:bg-black hover:text-white transition-all duration-300 shadow-xl flex items-center justify-center gap-2 group cursor-pointer"
+                    className="w-full mt-4 py-4 rounded-full bg-white text-[#120c06] font-bold text-sm tracking-widest uppercase hover:bg-[#d97809] hover:text-white transition-all duration-300 shadow-xl flex items-center justify-center gap-2 group cursor-pointer"
                   >
                     <span>SUBMIT</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -644,11 +641,11 @@ export default function App() {
         </div>
 
         {/* Bottom Signature & System Status Bar */}
-        <div className="relative z-10 pt-16 mt-20 border-t border-white/20 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-white/80 gap-4">
+        <div className="relative z-10 pt-16 mt-20 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-zinc-500 gap-4">
           <div>© 2026 AMBER SRE TECHNOLOGIES INC. // DETERMINISTIC CLOUD AUTONOMY</div>
           <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            <span className="text-white font-medium">AUTONOMOUS AGENT MESH: ACTIVE (500 EPS)</span>
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-zinc-400">AUTONOMOUS AGENT MESH: ACTIVE (500 EPS)</span>
           </div>
         </div>
 
