@@ -85,44 +85,39 @@ export default function App() {
 
   const pipelineCards = [
     {
-      num: "01",
-      title: "Real-Time Ingestion",
-      category: "500 ALERTS / SEC",
-      desc: "Zero-loss sliding window correlation engine absorbing raw alert bursts from Datadog, PagerDuty, and Sentry.",
+      category: "ALERT CLUSTERING",
+      title: "Cluster Alert Storms into 1 Incident",
+      desc: "When a core service fails, monitoring tools fire hundreds of noisy alerts at once. Amber automatically groups them into one clean incident in under 80 milliseconds.",
       metric: "< 80ms p99",
-      accent: "border-amber-500/40 bg-[#fbf8f3]"
+      accent: "border-amber-500/30 bg-[#fbf8f3]"
     },
     {
-      num: "02",
-      title: "Deterministic Triage",
-      category: "GEMINI 3.8 FLASH",
-      desc: "P0 to P4 severity classification with structured rationale. Sub-3-second latency before operator paging.",
-      metric: "2.4s Latency",
-      accent: "border-amber-600/40 bg-[#fbf8f3]"
+      category: "ROOT CAUSE DIAGNOSIS",
+      title: "Pinpoint Broken Services in Seconds",
+      desc: "Inspects live container logs, CPU/memory spikes, and recent git commits to identify the exact failing microservice before your on-call team even opens a laptop.",
+      metric: "< 3s Diagnosis",
+      accent: "border-amber-600/30 bg-[#fbf8f3]"
     },
     {
-      num: "03",
-      title: "Hybrid Runbook RAG",
-      category: "PGVECTOR HNSW",
-      desc: "Dual dense-vector embeddings and BM25 token matching against internal company runbooks and post-mortems.",
-      metric: "98.4% Precision",
-      accent: "border-amber-700/40 bg-[#fbf8f3]"
+      category: "RUNBOOK AUTOMATION",
+      title: "Match Proven Internal Runbooks",
+      desc: "Scans your company wiki, Notion playbooks, and past incident post-mortems to surface the exact verified fix commands your senior engineers used previously.",
+      metric: "Verified Steps",
+      accent: "border-amber-700/30 bg-[#fbf8f3]"
     },
     {
-      num: "04",
-      title: "Cryptographic HITL",
-      category: "SHA-256 SIGNED",
-      desc: "Mutating SRE tools require human authorization. Action payloads are hashed and bounded by 10-minute TTLs.",
-      metric: "Zero Unbounded",
-      accent: "border-amber-800/40 bg-[#fbf8f3]"
+      category: "HUMAN CONFIRMATION",
+      title: "One-Click Slack Approvals",
+      desc: "Never runs unexpected commands in production. High-risk fixes require a single-click engineer confirmation in Slack with strict 10-minute expiry limits.",
+      metric: "100% Audited",
+      accent: "border-amber-800/30 bg-[#fbf8f3]"
     },
     {
-      num: "05",
-      title: "Verification & Undo",
-      category: "AUTOMATED ROLLBACK",
-      desc: "Immediate health verification probes execute post-remediation. Instant automatic rollback on metric regression.",
-      metric: "100% Guaranteed",
-      accent: "border-amber-900/40 bg-[#fbf8f3]"
+      category: "HEALTH VERIFICATION",
+      title: "Auto-Verify & Instant Rollback",
+      desc: "Applies the approved fix and watches real-time error rates. If cluster metrics do not return to normal within 10 seconds, Amber automatically reverts the changes.",
+      metric: "Auto-Rollback",
+      accent: "border-amber-900/30 bg-[#fbf8f3]"
     }
   ];
 
@@ -141,33 +136,40 @@ export default function App() {
       />
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-16 py-7 z-50 text-xs tracking-[0.25em] uppercase font-mono bg-white/80 backdrop-blur-md border-b border-black/5">
+      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-16 py-6 z-50 bg-white/85 backdrop-blur-md border-b border-black/5">
         <div 
-          className="flex items-center gap-3 font-bold text-sm tracking-normal text-[#120c06]"
+          className="flex items-center gap-3 font-bold text-sm tracking-normal text-[#120c06] cursor-pointer"
           onMouseEnter={() => setCursorHovered(true)}
           onMouseLeave={() => setCursorHovered(false)}
         >
-          <span className="text-[#d97706]">✦</span> AMBER
+          <span className="text-[#d97809]">✦</span> AMBER
         </div>
 
-        <div className="hidden md:flex gap-14 text-black/60 font-medium">
-          <a href="#hero" className="hover:text-[#d97706] transition-colors">Core</a>
-          <a href="#thesis" className="hover:text-[#d97706] transition-colors">Thesis</a>
-          <a href="#pipeline" className="hover:text-[#d97706] transition-colors">Pipeline</a>
-          <a href="#benchmarks" className="hover:text-[#d97706] transition-colors">SLA</a>
-          <a href="#connect" className="hover:text-[#d97706] transition-colors">Connect</a>
+        <div className="hidden md:flex gap-12 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold">
+          <a href="#pipeline" className="hover:text-[#d97809] transition-colors">Services</a>
+          <a href="#thesis" className="hover:text-[#d97809] transition-colors">Architecture</a>
+          <a href="#benchmarks" className="hover:text-[#d97809] transition-colors">Benchmarks</a>
+          <a href="#connect" className="hover:text-[#d97809] transition-colors">Blog</a>
+          <a href="#connect" className="hover:text-[#d97809] transition-colors">Contact</a>
         </div>
 
-        <a
-          href="http://localhost:8000/docs"
-          target="_blank"
-          rel="noreferrer"
-          onMouseEnter={() => setCursorHovered(true)}
-          onMouseLeave={() => setCursorHovered(false)}
-          className="flex items-center gap-2 border border-black/15 px-5 py-2 rounded-full font-mono text-[11px] hover:border-[#d97706] hover:bg-[#fffbeb] transition-all"
-        >
-          OPENAPI SPECS <ArrowUpRight className="w-3.5 h-3.5" />
-        </a>
+        <div className="flex items-center gap-6">
+          <a
+            href="#connect"
+            className="text-black/70 hover:text-[#d97809] font-sans font-semibold text-xs tracking-wider uppercase transition-colors hidden sm:block"
+          >
+            Sign In
+          </a>
+          <a
+            href="#connect"
+            onMouseEnter={() => setCursorHovered(true)}
+            onMouseLeave={() => setCursorHovered(false)}
+            className="flex items-center gap-2 bg-[#d97809] text-white hover:bg-[#b45309] px-5 py-2.5 rounded-full font-sans font-bold text-xs tracking-wider uppercase shadow-md shadow-amber-900/15 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+          >
+            <span>Sign Up</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
       </nav>
 
       {/* Hero Section (White + Real Amber Fossil Centerpiece + Split Typography) */}
@@ -313,39 +315,37 @@ export default function App() {
           className="flex gap-10 px-8 md:px-16 items-center select-none"
           style={{ width: 'max-content' }}
         >
-          {pipelineCards.map((card) => (
+          {pipelineCards.map((card, idx) => (
             <div
-              key={card.num}
+              key={idx}
               onMouseEnter={() => setCursorHovered(true)}
               onMouseLeave={() => setCursorHovered(false)}
               className={`w-[360px] sm:w-[480px] md:w-[540px] h-[480px] rounded-3xl border ${card.accent} p-10 flex flex-col justify-between shadow-xl shadow-amber-900/5 transition-all duration-300 hover:-translate-y-2`}
             >
               <div>
-                <div className="flex justify-between items-start">
-                  <span className="text-xs font-mono font-bold text-[#b45309] tracking-widest">
-                    // STAGE {card.num}
-                  </span>
-                  <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-amber-100 text-amber-900 font-bold">
+                <div className="flex justify-between items-center pb-6 border-b border-black/5">
+                  <span className="text-xs font-sans font-bold text-[#b45309] tracking-widest uppercase">
                     {card.category}
                   </span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#d97809]" />
                 </div>
 
                 <h3 className="text-3xl md:text-5xl font-black tracking-tight text-[#120c06] mt-8">
                   {card.title}
                 </h3>
 
-                <p className="text-black/60 text-base md:text-lg leading-relaxed mt-6">
+                <p className="text-black/70 text-base md:text-lg leading-relaxed mt-6 font-normal">
                   {card.desc}
                 </p>
               </div>
 
               <div className="pt-8 border-t border-black/5 flex justify-between items-center">
                 <div>
-                  <div className="text-[10px] font-mono text-black/40 uppercase">BENCHMARK SLA</div>
+                  <div className="text-[10px] font-sans font-bold text-black/40 uppercase tracking-wider">RECOVERY SLA</div>
                   <div className="text-2xl font-black text-[#b45309]">{card.metric}</div>
                 </div>
 
-                <div className="w-12 h-12 rounded-full border border-black/15 flex items-center justify-center text-black/50 group-hover:bg-[#d97706] group-hover:text-white transition-all">
+                <div className="w-12 h-12 rounded-full border border-black/15 flex items-center justify-center text-black/50 group-hover:bg-[#d97809] group-hover:text-white transition-all">
                   <ArrowRight className="w-5 h-5 text-[#b45309]" />
                 </div>
               </div>
@@ -353,42 +353,42 @@ export default function App() {
           ))}
         </div>
 
-        <div className="px-8 md:px-16 text-xs font-mono text-black/40">
-          KEEP SCROLLING ➔
+        <div className="px-8 md:px-16 text-xs font-sans font-semibold tracking-wider text-black/40 uppercase">
+          Scroll Horizontally ➔
         </div>
       </section>
 
       {/* Deep Obsidian Contrast Section: SLA Benchmarks */}
       <section id="benchmarks" className="px-8 md:px-16 py-32 bg-[#120c06] text-white border-b border-white/10">
-        <div className="flex justify-between items-center text-[11px] font-mono tracking-widest text-amber-400/60 uppercase border-b border-white/10 pb-4 mb-20">
-          <div>■ PERFORMANCE // 04</div>
-          <div>[ VERIFIED BENCHMARKS ]</div>
-          <div>// PRODUCTION AUDITED</div>
+        <div className="flex justify-between items-center text-xs font-sans font-bold tracking-widest text-amber-400 uppercase border-b border-white/10 pb-5 mb-20">
+          <div>PRODUCTION PERFORMANCE & SLAS</div>
+          <div className="hidden sm:block text-zinc-400">MEASURED ON HIGH-TRAFFIC CLUSTERS</div>
+          <div className="text-amber-400">ZERO DATA LOSS</div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#f59e0b] transition-all">
-            <div className="text-xs font-mono text-amber-400 mb-6">// THROUGHPUT</div>
+          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
+            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">THROUGHPUT CAPACITY</div>
             <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">500+</div>
-            <div className="text-sm text-zinc-400 leading-relaxed">Alerts ingested per second with zero webhook packet loss under flood.</div>
+            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Alerts processed per second without dropping a single webhook during major cloud outages.</div>
           </div>
 
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#f59e0b] transition-all">
-            <div className="text-xs font-mono text-amber-400 mb-6">// TRIAGE LATENCY</div>
+          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
+            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">INCIDENT TRIAGE</div>
             <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">&lt;3s</div>
-            <div className="text-sm text-zinc-400 leading-relaxed">P0-P4 severity triage via Gemini 3.8 Flash structured reasoning.</div>
+            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Identifies failing microservices, error logs, and severity in under 3 seconds so engineers aren't paged for noise.</div>
           </div>
 
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#f59e0b] transition-all">
-            <div className="text-xs font-mono text-amber-400 mb-6">// UNBOUNDED TOOLS</div>
+          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
+            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">BLOCKED COMMANDS</div>
             <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">0</div>
-            <div className="text-sm text-zinc-400 leading-relaxed">Zero uncontrolled terminal or SQL executions allowed by policy.</div>
+            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Zero unvetted terminal or raw database commands. Every remediation tool is strictly allowlisted.</div>
           </div>
 
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#f59e0b] transition-all">
-            <div className="text-xs font-mono text-amber-400 mb-6">// MEAN RECOVERY</div>
+          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
+            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">RECOVERY TIME</div>
             <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">8.4s</div>
-            <div className="text-sm text-zinc-400 leading-relaxed">End-to-end automated diagnostic inspection and remediation time.</div>
+            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Average time from initial alert arrival to automated diagnosis, approved fix, and healthy cluster state.</div>
           </div>
         </div>
       </section>
