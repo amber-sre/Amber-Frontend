@@ -2,23 +2,93 @@ import { useState, useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { 
+  ArrowUpRight, 
+  ArrowRight, 
+  CheckCircle2, 
+  ShieldCheck, 
+  Cpu, 
+  Server, 
+  Copy, 
+  Check, 
+  Sparkles,
+  Zap,
+  RotateCcw
+} from 'lucide-react';
+import { SpotlightCard } from './components/SpotlightCard';
+import { AnimatedCounter } from './components/AnimatedCounter';
+import { RemediationVideoPlayer } from './components/RemediationVideoPlayer';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// 5-Stage Orchestration Pipeline Cards (Static Module Constant)
+const PIPELINE_CARDS = [
+  {
+    category: "Alert Clustering",
+    title: "Cluster Alert Storms into 1 Incident",
+    desc: "When a core service fails, monitoring tools fire hundreds of noisy alerts at once. Amber automatically groups them into one clean incident in under 80 milliseconds.",
+    metric: "< 80ms p99",
+    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
+    tag: "500 EPS Ingestion",
+    icon: Zap
+  },
+  {
+    category: "Root Cause Diagnosis",
+    title: "Pinpoint Broken Services in Seconds",
+    desc: "Inspects live container logs, CPU/memory spikes, and recent git commits to identify the exact failing microservice before your on-call team even opens a laptop.",
+    metric: "< 3s Diagnosis",
+    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
+    tag: "Deterministic Graph",
+    icon: Cpu
+  },
+  {
+    category: "Runbook Automation",
+    title: "Match Proven Internal Runbooks",
+    desc: "Scans your company wiki, Notion playbooks, and past incident post-mortems to surface the exact verified fix commands your senior engineers used previously.",
+    metric: "Verified Steps",
+    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
+    tag: "Hybrid Search",
+    icon: Server
+  },
+  {
+    category: "Human Confirmation",
+    title: "One-Click Slack Approvals",
+    desc: "Never runs unexpected commands in production. High-risk fixes require a single-click engineer confirmation in Slack with strict 10-minute expiry limits.",
+    metric: "100% Audited",
+    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
+    tag: "SHA-256 Gated",
+    icon: ShieldCheck
+  },
+  {
+    category: "Health Verification",
+    title: "Auto-Verify & Instant Rollback",
+    desc: "Applies the approved fix and watches real-time error rates. If cluster metrics do not return to normal within 10 seconds, Amber automatically reverts the changes.",
+    metric: "Auto-Rollback",
+    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
+    tag: "Provable Recovery",
+    icon: RotateCcw
+  }
+];
+
 export default function App() {
-  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
-  const [cursorHovered, setCursorHovered] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [selectedInfra, setSelectedInfra] = useState<string>('AWS');
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
+  const [selectedPlan, setSelectedPlan] = useState<string>('Autonomous');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    clusterScale: '',
     message: '',
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const horizontalSectionRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
 
   // 1. Lenis Smooth Scroll Setup
   useEffect(() => {
@@ -48,19 +118,9 @@ export default function App() {
     };
   }, []);
 
-  // 2. Mouse Tracking for Honey Cursor
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // 3. GSAP ScrollTrigger Animations (Horizontal Scroll Track + Fossil Parallax)
+  // 2. GSAP ScrollTrigger Animations (Horizontal Scroll Track)
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Horizontal Pinned Section (Pages move horizontally with vertical scroll)
       if (horizontalSectionRef.current && horizontalTrackRef.current) {
         const track = horizontalTrackRef.current;
         const totalScroll = track.scrollWidth - window.innerWidth;
@@ -83,230 +143,323 @@ export default function App() {
     return () => ctx.revert();
   }, []);
 
-  const pipelineCards = [
-    {
-      category: "ALERT CLUSTERING",
-      title: "Cluster Alert Storms into 1 Incident",
-      desc: "When a core service fails, monitoring tools fire hundreds of noisy alerts at once. Amber automatically groups them into one clean incident in under 80 milliseconds.",
-      metric: "< 80ms p99",
-      accent: "border-amber-500/30 bg-[#fbf8f3]"
-    },
-    {
-      category: "ROOT CAUSE DIAGNOSIS",
-      title: "Pinpoint Broken Services in Seconds",
-      desc: "Inspects live container logs, CPU/memory spikes, and recent git commits to identify the exact failing microservice before your on-call team even opens a laptop.",
-      metric: "< 3s Diagnosis",
-      accent: "border-amber-600/30 bg-[#fbf8f3]"
-    },
-    {
-      category: "RUNBOOK AUTOMATION",
-      title: "Match Proven Internal Runbooks",
-      desc: "Scans your company wiki, Notion playbooks, and past incident post-mortems to surface the exact verified fix commands your senior engineers used previously.",
-      metric: "Verified Steps",
-      accent: "border-amber-700/30 bg-[#fbf8f3]"
-    },
-    {
-      category: "HUMAN CONFIRMATION",
-      title: "One-Click Slack Approvals",
-      desc: "Never runs unexpected commands in production. High-risk fixes require a single-click engineer confirmation in Slack with strict 10-minute expiry limits.",
-      metric: "100% Audited",
-      accent: "border-amber-800/30 bg-[#fbf8f3]"
-    },
-    {
-      category: "HEALTH VERIFICATION",
-      title: "Auto-Verify & Instant Rollback",
-      desc: "Applies the approved fix and watches real-time error rates. If cluster metrics do not return to normal within 10 seconds, Amber automatically reverts the changes.",
-      metric: "Auto-Rollback",
-      accent: "border-amber-900/30 bg-[#fbf8f3]"
+  const smoothScrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo(el, { duration: 1.4 });
+    } else {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
-  ];
+  };
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          selectedPlan,
+          selectedInfra,
+          clusterScale: formData.clusterScale,
+          message: formData.message,
+        }),
+      });
+    } catch (err) {
+      console.error('Contact form submission error:', err);
+    } finally {
+      setIsSubmitting(false);
+      setFormSubmitted(true);
+    }
+  };
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    smoothScrollTo(id);
+  };
+
+  const handleSelectPlan = (planName: string) => {
+    setSelectedPlan(planName);
+    smoothScrollTo('connect');
+  };
 
   return (
-    <div className="relative bg-[#ffffff] text-[#120c06] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
+    <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
       
-      {/* Amber Honey Fluid Cursor */}
-      <div
-        className={`fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-[9999] transition-transform duration-75 ease-out hidden md:block ${
-          cursorHovered ? 'scale-[2.8] bg-[#d97706]/90 backdrop-blur-sm' : 'scale-100 bg-[#d97706]'
-        }`}
-        style={{
-          transform: `translate3d(${mousePos.x - 10}px, ${mousePos.y - 10}px, 0)`,
-          boxShadow: '0 0 20px rgba(217, 119, 6, 0.4)'
-        }}
-      />
-
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-16 py-6 z-50 bg-white/85 backdrop-blur-md border-b border-black/5">
-        <div 
-          className="flex items-center gap-3 font-bold text-sm tracking-normal text-[#120c06] cursor-pointer"
-          onMouseEnter={() => setCursorHovered(true)}
-          onMouseLeave={() => setCursorHovered(false)}
+      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-16 py-6 z-50 bg-white/90 backdrop-blur-md border-b border-black/5">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          onClick={(e) => scrollToSection(e as any, 'hero')}
+          className="flex items-center gap-2.5 font-bold text-sm tracking-normal text-[#0a0a0a] cursor-pointer group"
         >
-          <span className="text-[#d97809]">✦</span> AMBER
-        </div>
+          <img 
+            src="/assets/amber-symbol.svg" 
+            alt="Amber Symbol" 
+            className="w-7 h-9 object-contain drop-shadow-[0_2px_8px_rgba(217,119,6,0.3)] group-hover:scale-105 transition-transform duration-200" 
+          />
+          <span className="tracking-tight text-lg font-black text-[#0a0a0a]">AMBER</span>
+        </motion.div>
 
-        <div className="hidden md:flex gap-12 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold">
-          <a href="#pipeline" className="hover:text-[#d97809] transition-colors">Services</a>
-          <a href="#thesis" className="hover:text-[#d97809] transition-colors">Architecture</a>
-          <a href="#benchmarks" className="hover:text-[#d97809] transition-colors">Benchmarks</a>
-          <a href="#connect" className="hover:text-[#d97809] transition-colors">Blog</a>
-          <a href="#connect" className="hover:text-[#d97809] transition-colors">Contact</a>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="hidden md:flex gap-8 lg:gap-12 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold ml-6"
+        >
+          <a href="#pipeline" onClick={(e) => scrollToSection(e, 'pipeline')} className="hover:text-black transition-colors cursor-pointer">Services</a>
+          <a href="#thesis" onClick={(e) => scrollToSection(e, 'thesis')} className="hover:text-black transition-colors cursor-pointer">Architecture</a>
+          <a href="#live-engine" onClick={(e) => scrollToSection(e, 'live-engine')} className="hover:text-black transition-colors cursor-pointer">Simulator</a>
+          <a href="#benchmarks" onClick={(e) => scrollToSection(e, 'benchmarks')} className="hover:text-black transition-colors cursor-pointer">Benchmarks</a>
+          <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-black transition-colors cursor-pointer">Pricing</a>
+          <a href="#connect" onClick={(e) => scrollToSection(e, 'connect')} className="hover:text-black transition-colors cursor-pointer">Contact</a>
+        </motion.div>
 
-        <div className="flex items-center gap-6">
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center"
+        >
           <a
             href="#connect"
-            className="text-black/70 hover:text-[#d97809] font-sans font-semibold text-xs tracking-wider uppercase transition-colors hidden sm:block"
+            onClick={(e) => scrollToSection(e, 'connect')}
+            className="flex items-center gap-2 bg-[#d97706] hover:bg-black text-white px-5 py-2.5 rounded-full font-sans font-bold text-xs tracking-wider uppercase shadow-md shadow-[#d97706]/20 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
           >
-            Sign In
-          </a>
-          <a
-            href="#connect"
-            onMouseEnter={() => setCursorHovered(true)}
-            onMouseLeave={() => setCursorHovered(false)}
-            className="flex items-center gap-2 bg-[#d97809] text-white hover:bg-[#b45309] px-5 py-2.5 rounded-full font-sans font-bold text-xs tracking-wider uppercase shadow-md shadow-amber-900/15 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
-          >
-            <span>Sign Up</span>
+            <span>Schedule a Call</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </a>
-        </div>
+        </motion.div>
       </nav>
 
-      {/* Hero Section (White + Real Amber Fossil Centerpiece + Split Typography) */}
+      {/* Hero Section */}
       <section 
         id="hero" 
-        ref={heroRef}
         className="relative min-h-screen flex flex-col justify-between px-8 md:px-16 pt-32 pb-16 bg-[#ffffff] border-b border-black/5 overflow-hidden"
       >
-        {/* Top Metadata Header */}
-        <div className="flex justify-between items-center text-[11px] font-mono tracking-widest text-black/40 uppercase border-b border-black/10 pb-4">
-          <div>■ SRE ENGINE // 01</div>
-          <div className="hidden sm:block">[ DETERMINISTIC CLOUD AUTONOMY ]</div>
-          <div>// ZERO-HUMAN LATENCY</div>
-        </div>
+        {/* Top Metadata Header — Clean Editorial Sans */}
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex justify-between items-center text-xs font-sans font-medium tracking-wider text-black/50 uppercase border-b border-black/10 pb-4 relative z-10"
+        >
+          <div>SRE Engine</div>
+          <div className="hidden sm:block">Deterministic Cloud Autonomy</div>
+          <div className="text-black font-bold">Zero-Human Latency</div>
+        </motion.div>
 
         {/* Word 1: AMBER (Top Left) */}
-        <div className="relative z-20 mt-6 select-none">
-          <h1 className="text-[17vw] font-black tracking-[-0.07em] text-[#d97809] leading-[0.80] uppercase m-0">
+        <div className="relative z-20 mt-6 select-none overflow-hidden">
+          <motion.h1 
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[17vw] font-black tracking-[-0.07em] text-[#d97809] leading-[0.80] uppercase m-0 hover:tracking-[-0.065em] transition-all duration-300"
+          >
             AMBER
-          </h1>
+          </motion.h1>
         </div>
 
         {/* Middle Context Bar */}
-        <div className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-end my-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-end my-12"
+        >
           <div className="md:col-span-5 flex items-center gap-3">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d97809] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-[#d97809]"></span>
             </span>
-            <span className="text-xs font-mono tracking-widest uppercase text-black/60 font-semibold">
-              PRESERVED RESILIENCE // 99.999%
+            <span className="text-xs font-sans tracking-wider uppercase text-black/70 font-semibold">
+              99.999% Preserved Resilience
             </span>
           </div>
 
           <div className="md:col-span-7 md:text-right">
-            <p className="text-black/70 text-base md:text-xl font-normal leading-relaxed max-w-xl md:ml-auto">
+            <p className="text-black/75 text-base md:text-xl font-normal leading-relaxed max-w-xl md:ml-auto">
               Like fossilized resin preserving ancient forms, Amber freezes incident chaos into 
-              <span className="text-[#b45309] font-bold"> deterministic, cryptographic proof</span>. 
+              <span className="text-black font-bold"> deterministic, cryptographic proof</span>. 
               Autonomous triage, RAG playbooks, and verified healing for production clusters.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Word 2: ENGINE (Bottom Right) */}
-        <div className="relative z-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-          <div className="grid grid-cols-2 gap-x-12 gap-y-3 text-xs font-mono tracking-wider text-black/50 uppercase">
-            <div>01 // 500 ALERTS / SEC</div>
-            <div>02 // &lt;3s LLM TRIAGE</div>
-            <div>03 // STATIC RISK REGISTRY</div>
-            <div>04 // SHA-256 SIGNED HITL</div>
-          </div>
+        <div className="relative z-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-10 overflow-hidden">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="grid grid-cols-2 gap-x-12 gap-y-3 text-xs font-sans font-medium text-black/60 uppercase"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-[#d97809] font-bold">01</span>
+              <span>500 alerts / sec throughput</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[#d97809] font-bold">02</span>
+              <span>&lt;3s triage latency</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[#d97809] font-bold">03</span>
+              <span>Static risk registry</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[#d97809] font-bold">04</span>
+              <span>SHA-256 signed approval</span>
+            </div>
+          </motion.div>
 
-          <h1 className="text-[17vw] font-black tracking-[-0.07em] text-[#d97809] leading-[0.80] uppercase m-0 self-end select-none">
+          <motion.h1 
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[17vw] font-black tracking-[-0.07em] text-[#d97809] leading-[0.80] uppercase m-0 self-end select-none hover:tracking-[-0.065em] transition-all duration-300"
+          >
             ENGINE
-          </h1>
+          </motion.h1>
         </div>
       </section>
 
-      {/* Infinite Marquee in Honey Amber & White */}
-      <div className="py-7 bg-[#fffbeb] border-b border-amber-200/80 overflow-hidden select-none">
-        <div className="animate-marquee whitespace-nowrap text-2xl md:text-4xl font-extrabold uppercase tracking-tight flex items-center text-[#78350f]">
-          <span className="mx-6">AUTONOMOUS SRE HEALING</span>
-          <span className="text-[#d97706] mx-4">✦</span>
-          <span className="mx-6">500 ALERTS / SEC SUSTAINED</span>
-          <span className="text-[#d97706] mx-4">✱</span>
-          <span className="mx-6">ZERO-HALLUCINATION POLICY</span>
-          <span className="text-[#d97706] mx-4">✦</span>
-          <span className="mx-6">10-MINUTE CRYPTOGRAPHIC TTL</span>
-          <span className="text-[#d97706] mx-4">✱</span>
-          <span className="mx-6">PROVABLE HEALTH ROLLBACK</span>
-          <span className="text-[#d97706] mx-4">✦</span>
+      {/* Infinite Marquee in Pure Obsidian & Crisp White with Gold Accents */}
+      <div className="py-6 bg-[#09090b] border-y border-white/10 overflow-hidden select-none">
+        <div className="animate-marquee whitespace-nowrap text-2xl md:text-3xl font-extrabold uppercase tracking-tight flex items-center text-white">
+          <span className="mx-6">Autonomous SRE Healing</span>
+          <span className="text-[#facc15] mx-4">✦</span>
+          <span className="mx-6">500 Alerts / Sec Sustained</span>
+          <span className="text-[#facc15] mx-4">✱</span>
+          <span className="mx-6">Zero-Hallucination Policy</span>
+          <span className="text-[#facc15] mx-4">✦</span>
+          <span className="mx-6">10-Minute Cryptographic TTL</span>
+          <span className="text-[#facc15] mx-4">✱</span>
+          <span className="mx-6">Provable Health Rollback</span>
+          <span className="text-[#facc15] mx-4">✦</span>
           {/* Loop duplicate */}
-          <span className="mx-6">AUTONOMOUS SRE HEALING</span>
-          <span className="text-[#d97706] mx-4">✦</span>
-          <span className="mx-6">500 ALERTS / SEC SUSTAINED</span>
-          <span className="text-[#d97706] mx-4">✱</span>
-          <span className="mx-6">ZERO-HALLUCINATION POLICY</span>
-          <span className="text-[#d97706] mx-4">✦</span>
-          <span className="mx-6">10-MINUTE CRYPTOGRAPHIC TTL</span>
-          <span className="text-[#d97706] mx-4">✱</span>
-          <span className="mx-6">PROVABLE HEALTH ROLLBACK</span>
-          <span className="text-[#d97706] mx-4">✦</span>
+          <span className="mx-6">Autonomous SRE Healing</span>
+          <span className="text-[#facc15] mx-4">✦</span>
+          <span className="mx-6">500 Alerts / Sec Sustained</span>
+          <span className="text-[#facc15] mx-4">✱</span>
+          <span className="mx-6">Zero-Hallucination Policy</span>
+          <span className="text-[#facc15] mx-4">✦</span>
+          <span className="mx-6">10-Minute Cryptographic TTL</span>
+          <span className="text-[#facc15] mx-4">✱</span>
+          <span className="mx-6">Provable Health Rollback</span>
+          <span className="text-[#facc15] mx-4">✦</span>
         </div>
       </div>
 
-      {/* Thesis Section: Stark Editorial White & Deep Amber Typography */}
+      {/* Thesis Section */}
       <section id="thesis" className="px-8 md:px-16 py-32 bg-[#ffffff] border-b border-black/5">
-        <div className="flex justify-between items-center text-[11px] font-mono tracking-widest text-black/40 uppercase border-b border-black/10 pb-4 mb-20">
-          <div>■ THESIS // 02</div>
-          <div>[ THE CORE PRINCIPLE ]</div>
-          <div>// BOUNDED EXECUTION</div>
+        <div className="flex justify-between items-center text-xs font-sans font-medium tracking-wider text-black/50 uppercase border-b border-black/10 pb-4 mb-20">
+          <div>Architecture Thesis</div>
+          <div>Core Operating Principle</div>
+          <div>Bounded Execution</div>
         </div>
 
         <div className="max-w-6xl">
-          <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-[-0.04em] leading-[1.0] text-[#120c06]">
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl sm:text-6xl md:text-8xl font-black tracking-[-0.04em] leading-[1.0] text-[#0a0a0a]"
+          >
             LLMs propose actions. <br />
-            <span className="text-[#b45309]">Deterministic code and human operators decide.</span>
-          </h2>
+            <span className="text-black font-black">Deterministic code and human operators decide.</span>
+          </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-24 pt-16 border-t border-black/10">
-            <div>
-              <div className="text-xs font-mono text-[#d97706] font-bold tracking-widest mb-3">01 / SAFETY GUARANTEE</div>
-              <h4 className="text-xl font-bold mb-3 text-[#120c06]">Zero Raw Terminal Access</h4>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="text-xs font-sans text-black font-bold tracking-wider mb-3">01 Safety Guarantee</div>
+              <h4 className="text-xl font-bold mb-3 text-[#0a0a0a]">Zero Raw Terminal Access</h4>
               <p className="text-black/60 text-sm leading-relaxed">
                 Amber strictly prohibits open-ended terminal executions. Every action is registered with static risk tiers in compile-time code.
               </p>
-            </div>
+            </motion.div>
 
-            <div>
-              <div className="text-xs font-mono text-[#d97706] font-bold tracking-widest mb-3">02 / CRYPTOGRAPHIC PROOF</div>
-              <h4 className="text-xl font-bold mb-3 text-[#120c06]">SHA-256 Argument Binding</h4>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="text-xs font-sans text-black font-bold tracking-wider mb-3">02 Cryptographic Proof</div>
+              <h4 className="text-xl font-bold mb-3 text-[#0a0a0a]">SHA-256 Argument Binding</h4>
               <p className="text-black/60 text-sm leading-relaxed">
                 Remediation arguments are cryptographically hashed into approval tokens with a strict 10-minute TTL to prevent payload tampering.
               </p>
-            </div>
+            </motion.div>
 
-            <div>
-              <div className="text-xs font-mono text-[#d97706] font-bold tracking-widest mb-3">03 / REAL-TIME VERIFICATION</div>
-              <h4 className="text-xl font-bold mb-3 text-[#120c06]">Automated Health Probes</h4>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="text-xs font-sans text-black font-bold tracking-wider mb-3">03 Real-Time Verification</div>
+              <h4 className="text-xl font-bold mb-3 text-[#0a0a0a]">Automated Health Probes</h4>
               <p className="text-black/60 text-sm leading-relaxed">
                 After any mutating tool executes, automated health verification probes inspect target cluster metrics, triggering rollbacks on anomalies.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* GSAP Horizontal Pinned Scroll Track Section (Pages move horizontally on vertical scroll) */}
+      {/* Interactive Live Telemetry Engine Section (Pure Obsidian & Radiant Gold) */}
+      <section id="live-engine" className="px-8 md:px-16 py-28 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 border-b border-white/10 pb-6">
+            <div>
+              <div className="text-xs font-sans tracking-wider text-[#facc15] uppercase font-bold mb-2">
+                Autonomous Remediation Demo
+              </div>
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white">
+                Experience Amber In Action.
+              </h2>
+            </div>
+
+            <p className="text-zinc-400 text-sm md:text-base max-w-md font-sans leading-relaxed md:text-right">
+              Watch Amber ingest an alert storm, dispatch a cryptographic fix, move to 1-click confirmation, and auto-resolve the cluster.
+            </p>
+          </div>
+
+          <RemediationVideoPlayer />
+        </div>
+      </section>
+
+      {/* GSAP Horizontal Pinned Scroll Track Section */}
       <section 
         id="pipeline" 
         ref={horizontalSectionRef}
         className="h-screen bg-[#faf8f5] overflow-hidden flex flex-col justify-between py-16 border-b border-black/5"
       >
-        <div className="px-8 md:px-16 flex justify-between items-center text-[11px] font-mono tracking-widest text-black/40 uppercase">
-          <div>■ PIPELINE // 03 [ SCROLL TO ADVANCE ]</div>
-          <div className="hidden sm:block">HORIZONTAL ORCHESTRATION</div>
-          <div>5-STAGE AUTONOMY</div>
+        <div className="px-8 md:px-16 flex justify-between items-center text-xs font-sans font-medium tracking-wider text-black/50 uppercase">
+          <div>Pipeline Architecture</div>
+          <div className="hidden sm:block">Horizontal Orchestration</div>
+          <div>5-Stage Autonomy</div>
         </div>
 
         {/* The Track that glides horizontally via GSAP */}
@@ -315,325 +468,958 @@ export default function App() {
           className="flex gap-10 px-8 md:px-16 items-center select-none"
           style={{ width: 'max-content' }}
         >
-          {pipelineCards.map((card, idx) => (
-            <div
-              key={idx}
-              onMouseEnter={() => setCursorHovered(true)}
-              onMouseLeave={() => setCursorHovered(false)}
-              className={`w-[360px] sm:w-[480px] md:w-[540px] h-[480px] rounded-3xl border ${card.accent} p-10 flex flex-col justify-between shadow-xl shadow-amber-900/5 transition-all duration-300 hover:-translate-y-2`}
-            >
-              <div>
-                <div className="flex justify-between items-center pb-6 border-b border-black/5">
-                  <span className="text-xs font-sans font-bold text-[#b45309] tracking-widest uppercase">
-                    {card.category}
-                  </span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#d97809]" />
-                </div>
-
-                <h3 className="text-3xl md:text-5xl font-black tracking-tight text-[#120c06] mt-8">
-                  {card.title}
-                </h3>
-
-                <p className="text-black/70 text-base md:text-lg leading-relaxed mt-6 font-normal">
-                  {card.desc}
-                </p>
-              </div>
-
-              <div className="pt-8 border-t border-black/5 flex justify-between items-center">
-                <div>
-                  <div className="text-[10px] font-sans font-bold text-black/40 uppercase tracking-wider">RECOVERY SLA</div>
-                  <div className="text-2xl font-black text-[#b45309]">{card.metric}</div>
-                </div>
-
-                <div className="w-12 h-12 rounded-full border border-black/15 flex items-center justify-center text-black/50 group-hover:bg-[#d97809] group-hover:text-white transition-all">
-                  <ArrowRight className="w-5 h-5 text-[#b45309]" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="px-8 md:px-16 text-xs font-sans font-semibold tracking-wider text-black/40 uppercase">
-          Scroll Horizontally ➔
-        </div>
-      </section>
-
-      {/* Deep Obsidian Contrast Section: SLA Benchmarks */}
-      <section id="benchmarks" className="px-8 md:px-16 py-32 bg-[#120c06] text-white border-b border-white/10">
-        <div className="flex justify-between items-center text-xs font-sans font-bold tracking-widest text-amber-400 uppercase border-b border-white/10 pb-5 mb-20">
-          <div>PRODUCTION PERFORMANCE & SLAS</div>
-          <div className="hidden sm:block text-zinc-400">MEASURED ON HIGH-TRAFFIC CLUSTERS</div>
-          <div className="text-amber-400">ZERO DATA LOSS</div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
-            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">THROUGHPUT CAPACITY</div>
-            <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">500+</div>
-            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Alerts processed per second without dropping a single webhook during major cloud outages.</div>
-          </div>
-
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
-            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">INCIDENT TRIAGE</div>
-            <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">&lt;3s</div>
-            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Identifies failing microservices, error logs, and severity in under 3 seconds so engineers aren't paged for noise.</div>
-          </div>
-
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
-            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">BLOCKED COMMANDS</div>
-            <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">0</div>
-            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Zero unvetted terminal or raw database commands. Every remediation tool is strictly allowlisted.</div>
-          </div>
-
-          <div className="border border-white/10 p-10 rounded-2xl bg-[#1c130b] hover:border-[#d97809] transition-all">
-            <div className="text-xs font-sans font-bold tracking-wider text-amber-400 uppercase mb-5">RECOVERY TIME</div>
-            <div className="text-6xl md:text-7xl font-black text-white tracking-tight mb-4">8.4s</div>
-            <div className="text-sm text-zinc-400 leading-relaxed font-normal">Average time from initial alert arrival to automated diagnosis, approved fix, and healthy cluster state.</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer (Bold Call to Action + Inverted Amber Brand Wordmark) */}
-      <footer className="px-8 md:px-16 pt-32 pb-12 bg-[#ffffff] text-[#120c06]">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 pb-24 border-b border-black/10">
-          <div className="md:col-span-8">
-            <div className="text-xs font-mono text-[#b45309] tracking-widest uppercase mb-4 font-bold">
-              // PRODUCTION OUTAGES?
-            </div>
-            <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tight leading-[0.92]">
-              Deploy Amber to Your VPC.
-            </h2>
-            <div className="mt-10">
-              <a 
-                href="mailto:himanshu.zyx7@gmail.com"
-                onMouseEnter={() => setCursorHovered(true)}
-                onMouseLeave={() => setCursorHovered(false)}
-                className="inline-flex items-center gap-4 text-3xl md:text-6xl font-bold text-[#120c06] hover:text-[#d97706] transition-colors"
+          {PIPELINE_CARDS.map((card, idx) => {
+            const IconComp = card.icon;
+            return (
+              <div
+                key={idx}
+                className={`w-[360px] sm:w-[480px] md:w-[540px] h-[500px] rounded-3xl border ${card.accent} p-10 flex flex-col justify-between shadow-xl shadow-black/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group`}
               >
-                access@amber.sh <ArrowUpRight className="w-10 h-10 md:w-14 md:h-14" />
-              </a>
-            </div>
+                <div>
+                  <div className="flex justify-between items-center pb-6 border-b border-black/5">
+                    <span className="text-xs font-sans font-bold text-black tracking-wider uppercase flex items-center gap-2">
+                      <IconComp className="w-4 h-4 text-black" />
+                      {card.category}
+                    </span>
+                    <span className="text-[11px] font-sans font-semibold bg-black/5 text-black px-3 py-1 rounded-full">
+                      {card.tag}
+                    </span>
+                  </div>
+
+                  <h3 className="text-3xl md:text-5xl font-black tracking-tight text-[#0a0a0a] mt-8 group-hover:text-black transition-colors">
+                    {card.title}
+                  </h3>
+
+                  <p className="text-black/70 text-base md:text-lg leading-relaxed mt-6 font-normal">
+                    {card.desc}
+                  </p>
+                </div>
+
+                <div className="pt-8 border-t border-black/5 flex justify-between items-center">
+                  <div>
+                    <div className="text-[11px] font-sans font-semibold text-black/40 uppercase tracking-wider">Recovery SLA</div>
+                    <div className="text-2xl font-black text-black font-mono">{card.metric}</div>
+                  </div>
+
+                  <div className="w-12 h-12 rounded-full border border-black/15 flex items-center justify-center text-black/50 group-hover:bg-black group-hover:text-white group-hover:border-transparent transition-all">
+                    <ArrowRight className="w-5 h-5 text-black group-hover:text-white" />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="px-8 md:px-16 flex items-center gap-2 text-xs font-sans font-semibold tracking-wider text-black/40 uppercase">
+          <span>Scroll Horizontally</span>
+          <ArrowRight className="w-3.5 h-3.5 animate-pulse text-[#d97809]" />
+        </div>
+      </section>
+
+      {/* Deep Midnight Obsidian Section: SLA Benchmarks */}
+      <section id="benchmarks" className="px-8 md:px-16 py-32 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
+        
+        <div className="flex justify-between items-center text-xs font-sans font-semibold tracking-wider text-[#facc15] uppercase border-b border-white/10 pb-5 mb-16 relative z-10">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#facc15] animate-ping" />
+            <span className="text-white">Production Performance & SLAs</span>
           </div>
+          <div className="hidden sm:block text-zinc-400 font-mono text-[11px]">Measured on High-Traffic Clusters</div>
+          <div className="text-[#facc15] font-bold drop-shadow-[0_0_12px_rgba(250,204,21,0.6)]">Zero Data Loss</div>
+        </div>
 
-          <div className="md:col-span-4 flex flex-col justify-between">
-            <div className="text-sm text-black/60 leading-relaxed font-mono text-xs">
-              AMBER SRE TECHNOLOGIES INC.<br />
-              DETERMINISTIC CLOUD AUTONOMY<br />
-              DESIGNED FOR PRODUCTION // 2026
+        {/* 4 Interactive Spotlight Cards with Clean High-Contrast Numbers */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+          
+          {/* Card 1: 500+ Throughput */}
+          <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+                  Throughput Capacity
+                </span>
+                <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
+                </span>
+              </div>
+
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-baseline font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+                <AnimatedCounter target={500} suffix="+" duration={1.8} liveJitter={true} jitterRange={18} />
+              </div>
+
+              {/* Animated Mini Waveform Bars in Crisp Gold */}
+              <div className="flex items-end gap-1.5 h-5 mb-4">
+                {[40, 75, 55, 90, 65, 85, 50, 95, 70, 80].map((h, i) => (
+                  <motion.div
+                    key={i}
+                    animate={{ height: [`${h}%`, `${Math.max(20, (h + 35) % 100)}%`, `${h}%`] }}
+                    transition={{ duration: 1.2 + (i % 3) * 0.4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="w-1.5 bg-gradient-to-t from-[#facc15] to-white rounded-full shadow-[0_0_8px_rgba(250,204,21,0.4)]"
+                  />
+                ))}
+              </div>
+
+              <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans">
+                Alerts processed per second without dropping a single webhook during major cloud outages.
+              </div>
             </div>
 
-            <div className="flex gap-8 text-xs font-mono text-black/50 pt-12">
-              <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">GITHUB</a>
-              <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">TWITTER</a>
-              <a href="http://localhost:8000/docs" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">OPENAPI</a>
+            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+              <span>Redis Stream Buffer</span>
+              <span className="text-[#facc15] font-bold">0.00% Loss</span>
             </div>
+          </SpotlightCard>
+
+          {/* Card 2: <3s Incident Triage */}
+          <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+                  Incident Triage
+                </span>
+                <span className="text-[11px] font-mono text-zinc-200 bg-white/10 border border-white/20 px-2 py-0.5 rounded-full">
+                  LangGraph
+                </span>
+              </div>
+
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+                <AnimatedCounter target={2.8} prefix="<" suffix="s" decimals={1} duration={1.4} />
+              </div>
+
+              {/* Triage latency breakdown micro-bar */}
+              <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden flex mb-4">
+                <div className="bg-white w-[20%]" title="Triage 80ms" />
+                <div className="bg-[#facc15] w-[35%]" title="RAG 410ms" />
+                <div className="bg-zinc-600 w-[45%]" title="Diagnostics 1.8s" />
+              </div>
+
+              <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans">
+                Identifies failing microservices, error logs, and severity in under 3 seconds so engineers aren't paged for noise.
+              </div>
+            </div>
+
+            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+              <span>Zero Hallucinations</span>
+              <span className="text-[#facc15] font-bold">P0 - P4 Mesh</span>
+            </div>
+          </SpotlightCard>
+
+          {/* Card 3: 0 Blocked Commands */}
+          <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+                  Blocked Commands
+                </span>
+                <span className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                  <ShieldCheck className="w-3 h-3 text-emerald-400" /> Strict
+                </span>
+              </div>
+
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-center gap-3 font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+                <span>0</span>
+                <span className="text-xs font-sans text-emerald-400 font-bold px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30">
+                  Allowlist Only
+                </span>
+              </div>
+
+              <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans mt-7">
+                Zero unvetted terminal or raw database commands. Every remediation tool is strictly allowlisted in static compile-time code.
+              </div>
+            </div>
+
+            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+              <span>Static Registry</span>
+              <span className="text-emerald-400 font-bold">100% Audited</span>
+            </div>
+          </SpotlightCard>
+
+          {/* Card 4: 8.4s Recovery Time */}
+          <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+                  Recovery Time
+                </span>
+                <span className="text-[11px] font-mono text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2.5 py-0.5 rounded-full">
+                  Auto-Rollback
+                </span>
+              </div>
+
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+                <AnimatedCounter target={8.4} suffix="s" decimals={1} duration={1.6} />
+              </div>
+
+              {/* Sparkline Recovery Curve */}
+              <div className="mb-4">
+                <svg className="w-full h-4 overflow-visible" viewBox="0 0 100 20">
+                  <path
+                    d="M 0 5 Q 30 18 50 16 T 70 4 T 100 2"
+                    fill="none"
+                    stroke="#facc15"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    className="drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]"
+                  />
+                </svg>
+              </div>
+
+              <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans">
+                Average time from initial alert arrival to automated diagnosis, approved fix, and healthy cluster state.
+              </div>
+            </div>
+
+            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+              <span>Health Verified</span>
+              <span className="text-[#facc15] font-bold">&lt; 10s SLA</span>
+            </div>
+          </SpotlightCard>
+
+        </div>
+      </section>
+
+      {/* PRICING Section — Light Warm Amber Canvas & Editorial Typography */}
+      <section 
+        id="pricing" 
+        className="relative bg-[#FAF8F5] text-[#0c0a09] px-8 md:px-16 py-32 overflow-hidden border-t border-stone-200/80 scroll-mt-20"
+      >
+        {/* Subtle Warm Amber Dot Grid & Soft Ambient Glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(217,119,6,0.10)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#fef3c7]/60 via-[#fde68a]/30 to-transparent blur-[120px] pointer-events-none" />
+
+        {/* Top Eyebrow & Editorial Header */}
+        <div className="relative z-10 max-w-4xl mx-auto text-center mb-16 sm:mb-20">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#fde68a] bg-[#fef3c7] text-[#92400e] text-xs font-sans font-bold tracking-wider uppercase mb-4 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
+            Transparent Pricing
+          </div>
+          <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-[#0c0a09] leading-[1.05] mb-6">
+            Predictable Economics for <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d97706] via-[#b45309] to-[#92400e]">Mission-Critical Autonomy.</span>
+          </h2>
+          <p className="text-stone-600 text-base sm:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
+            Zero per-seat taxes. Zero unpredictable LLM token billing. Choose the governance and automation depth that fits your team's operational readiness.
+          </p>
+
+          {/* Monthly / Annual Billing Toggle */}
+          <div className="mt-10 inline-flex items-center p-1.5 rounded-full bg-stone-200/70 border border-stone-300/80 backdrop-blur-xl shadow-inner">
+            <button
+              type="button"
+              onClick={() => setBillingCycle('monthly')}
+              className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                billingCycle === 'monthly'
+                  ? 'bg-white text-stone-900 shadow-md font-bold'
+                  : 'text-stone-600 hover:text-stone-900'
+              }`}
+            >
+              Monthly Billing
+            </button>
+            <button
+              type="button"
+              onClick={() => setBillingCycle('annual')}
+              className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                billingCycle === 'annual'
+                  ? 'bg-[#d97706] text-white shadow-md shadow-[#d97706]/30 font-bold'
+                  : 'text-stone-600 hover:text-stone-900'
+              }`}
+            >
+              <span>Annual Commitment</span>
+              <span className={`text-[10px] uppercase font-sans font-bold px-2 py-0.5 rounded-full ${
+                billingCycle === 'annual'
+                  ? 'bg-black/20 text-white'
+                  : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
+              }`}>
+                Save ~18%
+              </span>
+            </button>
           </div>
         </div>
 
-        {/* Massive Amber Stamp Cutting Edge */}
-        <div className="overflow-hidden select-none pt-12">
-          <div className="text-[23vw] font-black tracking-[-0.08em] leading-none text-black/5 hover:text-amber-500/10 transition-colors uppercase -mb-16">
-            AMBER
+        {/* The 3 Cards Grid */}
+        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          
+          {/* Card 1: Observe */}
+          <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
+            <div>
+              <div className="text-xs font-sans font-bold uppercase tracking-wider text-stone-500 mb-2">
+                Incident Intelligence
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-2 font-sans tracking-tight">
+                Observe
+              </h3>
+              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6 font-normal min-h-[40px]">
+                Automated incident intelligence, alert storm correlation, and root-cause proof without write permissions.
+              </p>
+
+              {/* Price Display */}
+              <div className="pt-4 pb-6 border-y border-stone-200/80 mb-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl sm:text-5xl font-black text-[#0c0a09] tracking-tight">
+                    {billingCycle === 'annual' ? '$649' : '$799'}
+                  </span>
+                  <span className="text-stone-500 text-xs font-sans font-semibold uppercase tracking-wider">
+                    / month
+                  </span>
+                </div>
+                <div className="text-xs font-sans text-stone-500 mt-1">
+                  {billingCycle === 'annual' ? '$7,788 billed annually (Save $1,800)' : 'Billed monthly, cancel anytime'}
+                </div>
+              </div>
+
+              {/* Usage Quota Box */}
+              <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-4 mb-6 space-y-1.5 text-xs font-sans text-stone-700">
+                <div className="flex justify-between">
+                  <span className="text-stone-500">SERVICES:</span>
+                  <span className="text-stone-900 font-bold">Up to 15 Production Services</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-500">NODES:</span>
+                  <span className="text-stone-900 font-bold">Up to 50 Cloud / K8s Nodes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-500">ALERTS:</span>
+                  <span className="text-[#b45309] font-bold">1,000 alerts / month</span>
+                </div>
+                <div className="flex justify-between pt-1 border-t border-[#e7e5e4]">
+                  <span className="text-stone-500">PERMISSIONS:</span>
+                  <span className="text-emerald-700 font-bold">100% Read-Only IAM (0 Writes)</span>
+                </div>
+              </div>
+
+              {/* Features List */}
+              <ul className="space-y-3 text-xs sm:text-sm text-stone-700 font-sans">
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span><strong>Alert Storm Deduplication:</strong> 500 alerts into 1 incident in &lt; 80ms</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span><strong>Deterministic Root-Cause:</strong> Exact file path, line number & proof</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Memory leak, connection pool deadlock & OOM tracing</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Automated markdown post-mortem report compilation</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>50+ Pre-built standard SRE runbooks (Postgres, K8s, Redis)</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-8 mt-8 border-t border-stone-200/80">
+              <button
+                type="button"
+                onClick={() => handleSelectPlan('Observe')}
+                className="w-full py-3.5 px-6 rounded-2xl bg-[#1c1917] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg"
+              >
+                <span>Deploy Observe</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: Autonomous (Most Popular) */}
+          <div className="bg-[#ffffff] border-2 border-[#d97706] ring-4 ring-[#d97706]/15 rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 relative shadow-[0_25px_50px_-12px_rgba(217,119,6,0.22)] scale-[1.02] hover:-translate-y-1.5">
+            {/* Top Popular Floating Badge */}
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#d97706] text-white font-sans font-black text-[10px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
+              <Sparkles className="w-3 h-3 fill-white" />
+              Most Popular
+            </div>
+
+            <div>
+              <div className="text-xs font-sans font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
+                <span>Autonomous Remediation</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-2 font-sans tracking-tight">
+                Autonomous
+              </h3>
+              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6 font-normal min-h-[40px]">
+                Deterministic automated triage, low-risk verified auto-remediation, and auto-rollbacks. Replaces 3:00 AM on-call firefighting.
+              </p>
+
+              {/* Price Display */}
+              <div className="pt-4 pb-6 border-y border-stone-200/80 mb-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl sm:text-5xl font-black text-[#0c0a09] tracking-tight">
+                    {billingCycle === 'annual' ? '$1,499' : '$1,799'}
+                  </span>
+                  <span className="text-stone-500 text-xs font-sans font-semibold uppercase tracking-wider">
+                    / month
+                  </span>
+                </div>
+                <div className="text-xs font-sans text-[#b45309] mt-1 font-bold">
+                  {billingCycle === 'annual' ? '$17,988 billed annually (Save $3,600)' : 'Billed monthly, cancel anytime'}
+                </div>
+              </div>
+
+              {/* Usage Quota Box */}
+              <div className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-4 mb-6 space-y-1.5 text-xs font-sans text-amber-950">
+                <div className="flex justify-between">
+                  <span className="text-stone-600">SERVICES:</span>
+                  <span className="text-stone-950 font-bold">Up to 35 Microservices</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-600">NODES:</span>
+                  <span className="text-stone-950 font-bold">Up to 200 Cloud / K8s Nodes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-600">ALERTS:</span>
+                  <span className="text-stone-950 font-bold">Unlimited Ingestion</span>
+                </div>
+                <div className="flex justify-between pt-1 border-t border-[#fde68a]">
+                  <span className="text-stone-600">INCLUDED ACTIONS:</span>
+                  <span className="text-[#b45309] font-black">100 Verified Actions / mo</span>
+                </div>
+              </div>
+
+              {/* Features List */}
+              <ul className="space-y-3 text-xs sm:text-sm text-stone-800 font-sans">
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Everything in Observe tier</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Autonomous low-risk remediation (pod restart, connection drain)</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Governed HITL with SHA-256 cryptographic payload binding</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Automated post-fix health verification & instant rollback</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>5 Custom microservice runbooks authored & calibrated by Amber</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>1-Click interactive Slack Connect approval cards</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-8 mt-8 border-t border-stone-200/80">
+              <button
+                type="button"
+                onClick={() => handleSelectPlan('Autonomous')}
+                className="w-full py-3.5 px-6 rounded-2xl bg-[#d97706] hover:bg-[#b45309] text-white font-sans font-black text-xs uppercase tracking-wider shadow-lg shadow-[#d97706]/30 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span>Deploy Autonomous</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Card 3: Response */}
+          <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
+            <div>
+              <div className="text-xs font-sans font-bold uppercase tracking-wider text-stone-500 mb-2">
+                Enterprise Response
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-2 font-sans tracking-tight">
+                Response
+              </h3>
+              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6 font-normal min-h-[40px]">
+                High-volume autonomous remediation backed by dedicated incident bridge escalation. If Amber halts, a Principal SRE joins your war room.
+              </p>
+
+              {/* Price Display */}
+              <div className="pt-4 pb-6 border-y border-stone-200/80 mb-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl sm:text-5xl font-black text-[#0c0a09] tracking-tight">
+                    {billingCycle === 'annual' ? '$2,299' : '$2,799'}
+                  </span>
+                  <span className="text-stone-500 text-xs font-sans font-semibold uppercase tracking-wider">
+                    / month
+                  </span>
+                </div>
+                <div className="text-xs font-sans text-stone-500 mt-1">
+                  {billingCycle === 'annual' ? '$27,588 billed annually (Save $6,000)' : 'Billed monthly, cancel anytime'}
+                </div>
+              </div>
+
+              {/* Usage Quota Box */}
+              <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-4 mb-6 space-y-1.5 text-xs font-sans text-stone-700">
+                <div className="flex justify-between">
+                  <span className="text-stone-500">SERVICES & NODES:</span>
+                  <span className="text-stone-900 font-bold">Custom / Enterprise Scale</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-500">TOPOLOGY:</span>
+                  <span className="text-[#b45309] font-bold">Single-Tenant VPC Cluster</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-500">INCLUDED ACTIONS:</span>
+                  <span className="text-emerald-700 font-bold">500 High-Volume Actions / mo</span>
+                </div>
+                <div className="flex justify-between pt-1 border-t border-[#e7e5e4]">
+                  <span className="text-stone-500">INCIDENT BRIDGE SLA:</span>
+                  <span className="text-[#0c0a09] font-bold">&lt; 15-min SLA (Principal SRE)</span>
+                </div>
+              </div>
+
+              {/* Features List */}
+              <ul className="space-y-3 text-xs sm:text-sm text-stone-700 font-sans">
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Everything in Autonomous tier</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span><strong>Amber Principal SRE on Direct Incident Bridge (&lt; 15-min SLA)</strong></span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>500 High-volume automated remediations included monthly</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Air-gapped local LLM runtime option (Zero external egress)</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>White-glove custom runbook engineering & staging dry-runs</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                  <span>Dedicated private Slack Connect & emergency escalation channel</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-8 mt-8 border-t border-stone-200/80">
+              <button
+                type="button"
+                onClick={() => handleSelectPlan('Response')}
+                className="w-full py-3.5 px-6 rounded-2xl bg-[#1c1917] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg"
+              >
+                <span>Deploy Response</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Enterprise Safety & Policy Confidence Row */}
+        <div className="relative z-10 max-w-7xl mx-auto mt-16 pt-12 border-t border-stone-200/80 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+          <div className="flex gap-4 items-start bg-white/70 border border-stone-200/80 rounded-2xl p-6 shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-[#fef3c7] border border-[#fde68a] flex items-center justify-center shrink-0 text-[#d97706]">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-sm font-bold text-[#0c0a09] mb-1 font-sans">Zero-Hallucination Safe Execution</div>
+              <div className="text-xs text-stone-600 leading-relaxed font-normal">
+                Compiled code allowlist. If confidence score is below 85%, Amber halts immediately without state mutation.
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start bg-white/70 border border-stone-200/80 rounded-2xl p-6 shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-[#fef3c7] border border-[#fde68a] flex items-center justify-center shrink-0 text-[#d97706]">
+              <Cpu className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-sm font-bold text-[#0c0a09] mb-1 font-sans">Zero Model Training Guarantee</div>
+              <div className="text-xs text-stone-600 leading-relaxed font-normal">
+                Customer telemetry, stack traces, and runbooks never leave your perimeter and never train public AI models.
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-start bg-white/70 border border-stone-200/80 rounded-2xl p-6 shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-[#fef3c7] border border-[#fde68a] flex items-center justify-center shrink-0 text-[#d97706]">
+              <RotateCcw className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-sm font-bold text-[#0c0a09] mb-1 font-sans">CTO Emergency Kill-Switch</div>
+              <div className="text-xs text-stone-600 leading-relaxed font-normal">
+                One-click API trigger instantly downgrades all worker nodes to read-only observation mode in &le; 250 ms.
+              </div>
+            </div>
           </div>
         </div>
-      </footer>
+      </section>
 
-      {/* Dedicated // CONNECT Section matching Image 0 Dark Obsidian & Amber Accent Theme */}
+      {/* CONNECT Section — Pure Luxury Obsidian Black & Crisp White */}
       <section 
         id="connect" 
-        className="relative min-h-screen bg-[#120c06] text-white px-8 md:px-16 py-28 flex flex-col justify-between overflow-hidden border-t border-white/10"
+        className="relative min-h-screen bg-[#050505] text-white px-8 md:px-16 py-32 flex flex-col justify-between overflow-hidden border-t border-white/10"
       >
-        {/* Subtle Ambient Amber Accent Glow (No yellow wash) */}
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#d97809]/10 blur-[140px] pointer-events-none rounded-full" />
-        <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-[#b45309]/10 blur-[120px] pointer-events-none rounded-full" />
+        {/* Clean Subtle White Star Grid Background */}
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:32px_32px] pointer-events-none" />
 
-        {/* Top Section Metadata Header */}
-        <div className="flex justify-between items-center text-[11px] font-mono tracking-widest text-amber-400/80 uppercase border-b border-white/10 pb-5 mb-16 relative z-10">
-          <div>■ CONNECT // 05</div>
-          <div className="hidden sm:block text-white/40">[ VPC PROVISIONING & SRE INTAKE ]</div>
-          <div>// RESPONSE SLA: &lt; 2 HRS</div>
+        {/* Top Header — Clean Editorial */}
+        <div className="flex justify-between items-center text-xs font-sans font-medium tracking-wider text-zinc-400 uppercase border-b border-white/10 pb-6 mb-20 relative z-10">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-white font-semibold">Direct Intake</span>
+          </div>
+          <div className="hidden sm:block text-zinc-400 font-sans text-xs">Replies within 24 hours</div>
         </div>
 
-        {/* Main 2-Column Split matching Novuq layout */}
+        {/* Main 2-Column Split */}
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start my-auto">
           
-          {/* Left Column: Huge Headline + Divider Rows */}
-          <div className="lg:col-span-6 flex flex-col justify-between">
+          {/* Left Column: Clean Massive Heading + Calm Content */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[-0.04em] text-white uppercase leading-[0.92] mb-8 select-none">
-                // CONNECT
-              </h2>
-              <p className="text-zinc-400 text-base md:text-lg font-normal leading-relaxed max-w-lg mb-12">
-                Deploy Amber into your AWS, GCP, or bare-metal Kubernetes clusters. Request single-tenant VPC blueprints, custom Prometheus/Sentry adapters, or private evaluation access.
-              </p>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[-0.05em] uppercase leading-[0.90] mb-8 select-none text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+              >
+                CONNECT
+              </motion.h2>
+
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="space-y-4 mb-16"
+              >
+                <p className="text-white text-2xl sm:text-3xl font-medium tracking-tight">
+                  Tell us what you're building. <br />
+                  <span className="text-zinc-400 font-normal">We'll figure out the infrastructure.</span>
+                </p>
+                <p className="text-zinc-400 text-base leading-relaxed max-w-lg font-sans">
+                  Deploy Amber into your AWS, GCP, or bare-metal Kubernetes clusters. Request single-tenant VPC blueprints, custom telemetry adapters, or private evaluation access.
+                </p>
+              </motion.div>
             </div>
 
-            {/* Metadata Stack with thin horizontal dividing lines */}
-            <div className="w-full max-w-xl font-mono text-xs sm:text-sm">
-              <div className="py-5 border-t border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-6">
-                  <span className="text-amber-400 font-bold tracking-wider">// 01</span>
-                  <span className="text-white tracking-wide">+1 (415) 890-AMBER</span>
-                </div>
-                <span className="text-zinc-500 text-[11px] hidden sm:inline">[ SRE HOTLINE ]</span>
-              </div>
-
-              <div className="py-5 border-t border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-6">
-                  <span className="text-amber-400 font-bold tracking-wider">// 02</span>
-                  <a 
-                    href="mailto:access@amber.sh" 
-                    className="text-white hover:text-amber-400 transition-colors tracking-wide flex items-center gap-2"
-                  >
-                    access@amber.sh <ArrowUpRight className="w-4 h-4 text-amber-400" />
-                  </a>
-                </div>
-                <span className="text-zinc-500 text-[11px] hidden sm:inline">[ DIRECT DISPATCH ]</span>
-              </div>
-
-              <div className="py-5 border-t border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-6">
-                  <span className="text-amber-400 font-bold tracking-wider">// 03</span>
-                  <span className="text-white tracking-wide">San Francisco, CA // Cloud SRE Ops</span>
-                </div>
-                <span className="text-zinc-500 text-[11px] hidden sm:inline">[ DEDICATED VPC ]</span>
-              </div>
-
-              <div className="py-5 border-t border-b border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-6">
-                  <span className="text-amber-400 font-bold tracking-wider">// 04</span>
-                  <span className="text-white tracking-wide">Socials //</span>
-                  <div className="flex items-center gap-5 text-zinc-300">
-                    <a 
-                      href="https://github.com/himanshu-xyz-1/Amber" 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="hover:text-amber-400 transition-colors flex items-center gap-1"
-                    >
-                      GitHub <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                    <a 
-                      href="https://twitter.com/himanshu1xy" 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="hover:text-amber-400 transition-colors flex items-center gap-1"
-                    >
-                      Twitter <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                    <a 
-                      href="http://localhost:8000/docs" 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="hover:text-amber-400 transition-colors flex items-center gap-1"
-                    >
-                      OpenAPI <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
+            {/* Clean Contact Metadata Rows */}
+            <div className="w-full max-w-md space-y-6 pt-8 border-t border-white/10 font-sans">
+              
+              {/* Phone */}
+              <div 
+                onClick={() => copyToClipboard('+919625404565', 'phone')}
+                className="group flex justify-between items-baseline cursor-pointer"
+              >
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1">
+                    Phone
+                  </div>
+                  <div className="text-lg text-zinc-100 group-hover:text-white font-medium transition-colors">
+                    +91 96254 04565
                   </div>
                 </div>
+                <div className="text-xs text-zinc-500 group-hover:text-white flex items-center gap-1.5 transition-colors">
+                  {copiedField === 'phone' ? (
+                    <span className="text-emerald-400 flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5" /> Copied
+                    </span>
+                  ) : (
+                    <>Copy <Copy className="w-3.5 h-3.5" /></>
+                  )}
+                </div>
               </div>
+
+              {/* Email */}
+              <div 
+                onClick={() => copyToClipboard('amber.incident@gmail.com', 'email')}
+                className="group flex justify-between items-baseline cursor-pointer pt-6 border-t border-white/10"
+              >
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1">
+                    Direct Email
+                  </div>
+                  <div className="text-lg text-zinc-100 group-hover:text-white font-medium transition-colors flex items-center gap-2">
+                    amber.incident@gmail.com <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </div>
+                </div>
+                <div className="text-xs text-zinc-500 group-hover:text-white flex items-center gap-1.5 transition-colors">
+                  {copiedField === 'email' ? (
+                    <span className="text-emerald-400 flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5" /> Copied
+                    </span>
+                  ) : (
+                    <>Copy <Copy className="w-3.5 h-3.5" /></>
+                  )}
+                </div>
+              </div>
+
+              {/* Availability */}
+              <div className="pt-6 border-t border-white/10">
+                <div className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1">
+                  Availability
+                </div>
+                <div className="text-lg text-zinc-100 font-medium">
+                  24/7 · On-Call Standby
+                </div>
+              </div>
+
+              {/* Social Channels */}
+              <div className="pt-6 border-t border-white/10">
+                <div className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+                  Channels
+                </div>
+                <div className="flex items-center gap-5 text-sm text-zinc-300">
+                  <a 
+                    href="https://github.com/himanshu-xyz-1/Amber" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="hover:text-white transition-colors"
+                  >
+                    GitHub
+                  </a>
+                  <span className="text-zinc-600">·</span>
+                  <a 
+                    href="https://twitter.com/himanshu1xy" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="hover:text-white transition-colors"
+                  >
+                    Twitter
+                  </a>
+                  <span className="text-zinc-600">·</span>
+                  <a 
+                    href="http://localhost:8000/docs" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="hover:text-white transition-colors"
+                  >
+                    API Docs
+                  </a>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          {/* Right Column: Floating Dark Amber Card matching Benchmark Cards in Image 0 */}
-          <div className="lg:col-span-6 flex justify-start lg:justify-end">
-            <div className="w-full max-w-xl bg-[#1c130b] border border-white/10 rounded-[32px] p-8 sm:p-12 shadow-2xl hover:border-amber-500/40 transition-all relative">
+          {/* Right Column: Clean Enterprise Form */}
+          <div className="lg:col-span-7 flex justify-start lg:justify-end w-full">
+            <div className="w-full max-w-xl bg-[#0b0b0b] border border-white/15 rounded-3xl p-8 sm:p-12 shadow-2xl relative backdrop-blur-2xl ring-1 ring-white/10">
               
               {formSubmitted ? (
-                <div className="py-16 text-center">
-                  <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 className="w-8 h-8" />
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="py-6 text-center font-sans"
+                >
+                  <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-emerald-500/5">
+                    <CheckCircle2 className="w-7 h-7" />
                   </div>
-                  <div className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2 font-bold">
-                    // DISPATCH CONFIRMED
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">
-                    VPC Access Request Queued
+
+                  <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">
+                    Message received.
                   </h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed max-w-sm mx-auto mb-8 font-light">
-                    Our lead SRE architects have received your cluster details. You will receive an invitation token and single-tenant Terraform spec within 2 hours.
+
+                  <p className="text-zinc-300 text-sm leading-relaxed max-w-md mx-auto mb-6">
+                    Thanks for reaching out{formData.name ? `, ${formData.name}` : ''}. We've received your note and will review your setup {formData.email ? <>for <span className="text-white font-semibold">{formData.email}</span></> : 'promptly'}.
                   </p>
+
+                  {/* Summary of what happens next — honest & clear */}
+                  <div className="bg-[#050505] border border-white/10 rounded-2xl p-5 mb-6 text-left text-xs text-zinc-300 space-y-2.5">
+                    <div className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">
+                      What happens next
+                    </div>
+                    <p className="text-zinc-300 leading-relaxed">
+                      We'll review your {selectedInfra} environment details ({selectedPlan} tier) and write back directly within 24 hours to schedule a 15-minute walkthrough.
+                    </p>
+                    {formData.phone && (
+                      <p className="text-zinc-400 text-[11px]">
+                        Phone noted: <span className="text-zinc-200">{formData.phone}</span>
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Direct Contact Option if Urgent */}
+                  <div className="text-xs text-zinc-400 mb-6 border-t border-white/10 pt-4">
+                    Need immediate incident assistance?
+                    <a 
+                      href="https://wa.me/919625404565" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-white font-medium underline underline-offset-4 hover:text-[#facc15] ml-1.5 transition-colors"
+                    >
+                      WhatsApp us at +91 96254 04565 &rarr;
+                    </a>
+                  </div>
+
                   <button
                     onClick={() => {
                       setFormSubmitted(false);
-                      setFormData({ name: '', email: '', phone: '', message: '' });
+                      setFormData({ name: '', email: '', phone: '', clusterScale: '', message: '' });
                     }}
-                    className="border border-white/20 text-zinc-300 hover:text-white hover:border-amber-400 px-6 py-2.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer"
+                    className="border border-white/15 text-zinc-400 hover:text-white hover:border-white px-5 py-2 rounded-full text-xs transition-all cursor-pointer"
                   >
-                    [ Submit Another Inquiry ]
+                    Send another message
                   </button>
-                </div>
+                </motion.div>
               ) : (
-                <form 
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setFormSubmitted(true);
-                  }}
-                  className="space-y-6"
-                >
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
-                      // NAME
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Jane Smith"
-                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans"
-                    />
-                  </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-2 font-sans tracking-tight">
+                    Tell us about your infrastructure
+                  </h3>
+                  <p className="text-zinc-400 text-sm mb-6 font-sans">
+                    Share your stack and incident bottlenecks. We'll review your setup and get back to you directly.
+                  </p>
 
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
-                      // EMAIL
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="jane@company.com"
-                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans"
-                    />
-                  </div>
+                  <form onSubmit={handleFormSubmit} className="space-y-4 font-sans">
+                    
+                    {/* Field 1: Name */}
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Jane Smith"
+                        className="w-full bg-[#060606] border border-white/10 focus:border-white focus:ring-2 focus:ring-white/20 focus:shadow-[0_0_20px_rgba(255,255,255,0.15)] rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 text-sm outline-none transition-all"
+                      />
+                    </div>
 
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
-                      // PHONE / CLUSTER SCALE
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+1 34567 890123 / 500+ EKS Nodes"
-                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans"
-                    />
-                  </div>
+                    {/* Field 2 & 3: Work Email and Contact Number */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
+                          Work Email
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="jane@company.com"
+                          className="w-full bg-[#060606] border border-white/10 focus:border-white focus:ring-2 focus:ring-white/20 focus:shadow-[0_0_20px_rgba(255,255,255,0.15)] rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 text-sm outline-none transition-all"
+                        />
+                      </div>
 
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-widest text-amber-400 mb-2 font-bold">
-                      // MESSAGE
-                    </label>
-                    <textarea
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Say Hi! Or describe your production alert storms, runbooks, and VPC isolation requirements..."
-                      className="w-full bg-[#120c06] border border-white/10 focus:border-amber-400 focus:bg-[#181009] rounded-2xl px-5 py-4 text-white placeholder-zinc-500 text-sm sm:text-base outline-none transition-all font-sans resize-none"
-                    />
-                  </div>
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
+                          Contact Number
+                        </label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+1 (555) 000-0000"
+                          className="w-full bg-[#060606] border border-white/10 focus:border-white focus:ring-2 focus:ring-white/20 focus:shadow-[0_0_20px_rgba(255,255,255,0.15)] rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 text-sm outline-none transition-all"
+                        />
+                      </div>
+                    </div>
 
-                  <button
-                    type="submit"
-                    onMouseEnter={() => setCursorHovered(true)}
-                    onMouseLeave={() => setCursorHovered(false)}
-                    className="w-full mt-4 py-4 rounded-full bg-white text-[#120c06] font-bold text-sm tracking-widest uppercase hover:bg-[#d97809] hover:text-white transition-all duration-300 shadow-xl flex items-center justify-center gap-2 group cursor-pointer"
-                  >
-                    <span>SUBMIT</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </form>
+                    {/* Field: Selected Architectural Tier */}
+                    <div>
+                      <div className="flex justify-between items-center mb-2">
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300">
+                          Selected Tier
+                        </label>
+                        <span className="text-[11px] font-mono text-[#facc15]">
+                          {billingCycle === 'annual' ? 'Annual Plan (Save ~18%)' : 'Monthly Plan'}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        {['Observe', 'Autonomous', 'Response'].map((plan) => {
+                          const isSelected = selectedPlan === plan;
+                          return (
+                            <button
+                              type="button"
+                              key={plan}
+                              onClick={() => setSelectedPlan(plan)}
+                              className={`py-2.5 px-2 rounded-xl text-xs font-semibold border text-center transition-all cursor-pointer ${
+                                isSelected
+                                  ? 'bg-[#facc15] text-black font-bold border-[#facc15] shadow-[0_0_20px_rgba(250,204,21,0.3)]'
+                                  : 'bg-[#060606] text-zinc-400 border-white/10 hover:border-white/20 hover:text-white'
+                              }`}
+                            >
+                              {plan}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Field 3: Infrastructure Selector & Scale */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
+                          Infrastructure
+                        </label>
+                        <div className="grid grid-cols-2 gap-2">
+                          {['AWS', 'GCP', 'Bare Metal', 'Multi-Cloud'].map((infra) => {
+                            const isSelected = selectedInfra === infra;
+                            return (
+                              <button
+                                type="button"
+                                key={infra}
+                                onClick={() => setSelectedInfra(infra)}
+                                className={`py-2.5 px-3 rounded-xl text-xs font-medium border text-center transition-all cursor-pointer ${
+                                  isSelected
+                                    ? 'bg-white text-black font-bold border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]'
+                                    : 'bg-[#060606] text-zinc-400 border-white/10 hover:border-white/20 hover:text-white'
+                                }`}
+                              >
+                                {infra}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
+                          Cluster Scale
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.clusterScale}
+                          onChange={(e) => setFormData({ ...formData, clusterScale: e.target.value })}
+                          placeholder="e.g. 500+ nodes"
+                          className="w-full bg-[#060606] border border-white/10 focus:border-white focus:ring-2 focus:ring-white/20 focus:shadow-[0_0_20px_rgba(255,255,255,0.15)] rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 text-sm outline-none transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Field 4: What are you trying to solve? */}
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-2">
+                        What are you trying to solve?
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Tell us about your production alert storms, runbooks, or SLA requirements..."
+                        className="w-full bg-[#060606] border border-white/10 focus:border-white focus:ring-2 focus:ring-white/20 focus:shadow-[0_0_20px_rgba(255,255,255,0.15)] rounded-xl px-4 py-3 text-white placeholder-zinc-500 text-sm outline-none transition-all resize-none"
+                      />
+                    </div>
+
+                    {/* Submit Button in Clean Crisp Gold */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-4 rounded-full bg-[#facc15] hover:bg-white text-black font-bold text-sm tracking-wide shadow-[0_0_30px_rgba(250,204,21,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.8)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center gap-2 font-medium">
+                          <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                          <span>Dispatching...</span>
+                        </span>
+                      ) : (
+                        <>
+                          <span>Send Request</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                        </>
+                      )}
+                    </button>
+                  </form>
+                </div>
               )}
             </div>
           </div>
@@ -641,15 +1427,64 @@ export default function App() {
         </div>
 
         {/* Bottom Signature & System Status Bar */}
-        <div className="relative z-10 pt-16 mt-20 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs font-mono text-zinc-500 gap-4">
-          <div>© 2026 AMBER SRE TECHNOLOGIES INC. // DETERMINISTIC CLOUD AUTONOMY</div>
+        <div className="relative z-10 pt-16 mt-20 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs font-sans text-zinc-500 gap-4">
+          <div>© 2026 Amber · Deterministic Cloud Autonomy</div>
           <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-zinc-400">AUTONOMOUS AGENT MESH: ACTIVE (500 EPS)</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-zinc-300 font-medium">Remote — Built for SRE teams worldwide</span>
           </div>
         </div>
 
       </section>
+
+      {/* Footer */}
+      <footer className="px-8 md:px-16 pt-32 pb-12 bg-[#ffffff] text-[#0a0a0a]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 pb-24 border-b border-black/10">
+          <div className="md:col-span-8">
+            <div className="text-xs font-sans text-black tracking-wider uppercase mb-4 font-bold">
+              Production Outages?
+            </div>
+            <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tight leading-[0.92]">
+              Deploy Amber to Your VPC.
+            </h2>
+            <div className="mt-10">
+              <a 
+                href="mailto:amber.incident@gmail.com"
+                className="inline-flex items-center gap-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#0a0a0a] hover:text-black transition-colors"
+              >
+                amber.incident@gmail.com <ArrowUpRight className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14" />
+              </a>
+            </div>
+          </div>
+
+          <div className="md:col-span-4 flex flex-col justify-between">
+            <div className="text-sm text-black/60 leading-relaxed font-sans">
+              <div className="flex items-center gap-2.5 mb-2">
+                <img src="/assets/amber-symbol.svg" alt="Amber" className="w-5 h-7 object-contain" />
+                <span className="font-bold text-black tracking-tight text-lg">Amber</span>
+              </div>
+              <div className="font-medium text-black/80">Deterministic Cloud Autonomy</div>
+              <div className="text-xs text-black/60 mt-1">Remote — Built for SRE teams worldwide</div>
+              <div className="text-xs text-black/40 mt-3">© 2026 Amber</div>
+            </div>
+
+            <div className="flex flex-wrap gap-6 text-xs font-sans font-semibold text-black/50 pt-12">
+              <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
+              <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-black transition">TWITTER</a>
+              <a href="http://localhost:8000/docs" target="_blank" rel="noreferrer" className="hover:text-black transition">OPENAPI</a>
+              <a href="/docs/privacy-policy.md" target="_blank" rel="noreferrer" className="hover:text-black transition">PRIVACY</a>
+              <a href="/docs/terms-of-service.md" target="_blank" rel="noreferrer" className="hover:text-black transition">TERMS</a>
+            </div>
+          </div>
+        </div>
+
+        {/* Massive Amber Stamp Cutting Edge */}
+        <div className="overflow-hidden select-none pt-12">
+          <div className="text-[23vw] font-black tracking-[-0.08em] leading-none text-black/5 hover:text-black/10 transition-colors uppercase -mb-16">
+            AMBER
+          </div>
+        </div>
+      </footer>
 
     </div>
   );

@@ -9,7 +9,12 @@ export default {
       colors: {
         chalk: '#ffffff',
         ivory: '#faf8f5',
-        obsidian: '#120c06',
+        obsidian: '#050505',
+        surface: {
+          dark: '#0c0c0c',
+          card: '#111111',
+          border: 'rgba(255, 255, 255, 0.08)',
+        },
         amber: {
           50: '#fffbeb',
           100: '#fef3c7',
@@ -22,6 +27,15 @@ export default {
           800: '#92400e',
           900: '#78350f',
           950: '#451a03',
+        },
+        gold: {
+          100: '#fef9c3',
+          200: '#fef08a',
+          300: '#fde047',
+          400: '#facc15',
+          500: '#eab308',
+          600: '#ca8a04',
+          700: '#a16207',
         },
       },
       fontFamily: {

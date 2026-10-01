@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 660" fill="none">
+  <defs>
+    <!-- Amber Resin Body Gradient -->
+    <linearGradient id="amberResinGrad" x1="256" y1="10" x2="256" y2="650" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="25%" stop-color="#FBBF24" />
+      <stop offset="65%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Translucent Gem Rim Highlight -->
+    <linearGradient id="amberRimHighlight" x1="120" y1="20" x2="400" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6" />
+      <stop offset="30%" stop-color="#FEF08A" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#D97706" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Internal Radial Core Glow -->
+    <radialGradient id="amberCoreGlow" cx="256" cy="380" r="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.45" />
+      <stop offset="60%" stop-color="#F59E0B" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#B45309" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Shield & Circuit Stroke Color -->
+    <linearGradient id="shieldStroke" x1="256" y1="270" x2="256" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#92400E" />
+      <stop offset="100%" stop-color="#78350F" />
+    </linearGradient>
+  </defs>
+
+  <!-- Filter for Subtle Ambient Drop Glow -->
+  <filter id="amberDropShadow" x="-10%" y="-10%" width="120%" height="120%">
+    <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#D97706" flood-opacity="0.25" />
+  </filter>
+
+  <!-- 1. Outer Resin Teardrop Body -->
+  <path
+    d="M 256 18
+       C 272 55, 360 215, 435 345
+       C 490 440, 485 540, 410 605
+       C 340 660, 172 660, 102 605
+       C 27 540, 22 440, 77 345
+       C 152 215, 240 55, 256 18 Z"
+    fill="url(#amberResinGrad)"
+    stroke="url(#amberRimHighlight)"
+    stroke-width="5"
+    filter="url(#amberDropShadow)"
+  />
+
+  <!-- 2. Translucent Internal Glow -->
+  <path
+    d="M 256 32
+       C 270 65, 350 215, 420 340
+       C 470 430, 465 525, 395 585
+       C 330 635, 182 635, 117 585
+       C 47 525, 42 430, 92 340
+       C 162 215, 242 65, 256 32 Z"
+    fill="url(#amberCoreGlow)"
+  />
+
+  <!-- 3. Fossil Resin Facet Shards / Internal Inclusions -->
+  <path d="M 230 65 L 205 180" stroke="#B45309" stroke-width="2.5" stroke-linecap="round" opacity="0.35" />
+  <path d="M 205 180 L 140 260" stroke="#B45309" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+  <path d="M 320 180 L 390 150" stroke="#B45309" stroke-width="2" stroke-linecap="round" opacity="0.35" />
+  <path d="M 250 200 L 375 240" stroke="#B45309" stroke-width="2.5" stroke-linecap="round" opacity="0.4" />
+  <path d="M 90 410 L 140 450" stroke="#B45309" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+  <path d="M 380 430 L 435 480" stroke="#B45309" stroke-width="2.5" stroke-linecap="round" opacity="0.35" />
+
+  <!-- 4. Security Shield (Outer Rim) -->
+  <path
+    d="M 256 260
+       L 366 280
+       L 366 405
+       C 366 470, 310 515, 256 535
+       C 202 515, 146 470, 146 405
+       L 146 280
+       Z"
+    fill="none"
+    stroke="url(#shieldStroke)"
+    stroke-width="9"
+    stroke-linejoin="round"
+  />
+
+  <!-- 5. Security Shield (Inner Rim) -->
+  <path
+    d="M 256 282
+       L 348 298
+       L 348 402
+       C 348 452, 302 490, 256 508
+       C 210 490, 164 452, 164 402
+       L 164 298
+       Z"
+    fill="none"
+    stroke="url(#shieldStroke)"
+    stroke-width="5"
+    stroke-linejoin="round"
+    opacity="0.85"
+  />
+
+  <!-- 6. Central Microprocessor CPU Chip -->
+  <rect
+    x="226"
+    y="350"
+    width="60"
+    height="60"
+    rx="7"
+    fill="url(#amberResinGrad)"
+    stroke="url(#shieldStroke)"
+    stroke-width="7"
+  />
+
+  <!-- 7. Microprocessor Traces & Solder Nodes (Top) -->
+  <!-- Pin 1 Top Left -->
+  <path d="M 241 350 L 241 324" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="241" cy="320" r="6" fill="url(#shieldStroke)" />
+
+  <!-- Pin 2 Top Right -->
+  <path d="M 271 350 L 271 316 L 282 308" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="284" cy="306" r="6" fill="url(#shieldStroke)" />
+
+  <!-- Pin 3 Top Center -->
+  <path d="M 256 350 L 256 320" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="256" cy="316" r="6" fill="url(#shieldStroke)" />
+
+  <!-- 8. Microprocessor Traces & Solder Nodes (Bottom) -->
+  <!-- Pin 1 Bottom Left -->
+  <path d="M 241 410 L 241 436" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="241" cy="440" r="6" fill="url(#shieldStroke)" />
+
+  <!-- Pin 2 Bottom Right -->
+  <path d="M 271 410 L 271 436" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="271" cy="440" r="6" fill="url(#shieldStroke)" />
+
+  <!-- Ground Trace connecting to shield -->
+  <path d="M 226 400 L 210 416 L 210 460" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- 9. Microprocessor Traces & Solder Nodes (Left) -->
+  <path d="M 226 365 L 202 365" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="198" cy="365" r="6" fill="url(#shieldStroke)" />
+
+  <path d="M 226 390 L 198 390" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="194" cy="390" r="6" fill="url(#shieldStroke)" />
+
+  <!-- 10. Microprocessor Traces & Solder Nodes (Right) -->
+  <path d="M 286 365 L 310 365" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="314" cy="365" r="6" fill="url(#shieldStroke)" />
+
+  <path d="M 286 390 L 314 390" stroke="url(#shieldStroke)" stroke-width="5" stroke-linecap="round" />
+  <circle cx="318" cy="390" r="6" fill="url(#shieldStroke)" />
+</svg>
