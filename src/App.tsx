@@ -431,21 +431,6 @@ export default function App() {
       <section id="live-engine" className="px-8 md:px-16 py-28 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 border-b border-white/10 pb-6">
-            <div>
-              <div className="text-xs font-sans tracking-wider text-[#facc15] uppercase font-bold mb-2">
-                Autonomous Remediation Demo
-              </div>
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white">
-                Experience Amber In Action.
-              </h2>
-            </div>
-
-            <p className="text-zinc-400 text-sm md:text-base max-w-md font-sans leading-relaxed md:text-right">
-              Watch Amber ingest an alert storm, dispatch a cryptographic fix, move to 1-click confirmation, and auto-resolve the cluster.
-            </p>
-          </div>
-
           <RemediationVideoPlayer />
         </div>
       </section>
