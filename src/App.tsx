@@ -75,6 +75,7 @@ export default function App() {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedInfra, setSelectedInfra] = useState<string>('AWS');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
+  const [pricingAudience, setPricingAudience] = useState<'companies' | 'agencies'>('companies');
   const [selectedPlan, setSelectedPlan] = useState<string>('Autonomous');
 
   const [formData, setFormData] = useState({
@@ -701,42 +702,77 @@ export default function App() {
             Zero per-seat taxes. Zero unpredictable LLM token billing. Choose the governance and automation depth that fits your team's operational readiness.
           </p>
 
-          {/* Monthly / Annual Billing Toggle */}
-          <div className="mt-10 inline-flex items-center p-1.5 rounded-full bg-stone-200/70 border border-stone-300/80 backdrop-blur-xl shadow-inner">
-            <button
-              type="button"
-              onClick={() => setBillingCycle('monthly')}
-              className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
-                billingCycle === 'monthly'
-                  ? 'bg-white text-stone-900 shadow-md font-bold'
-                  : 'text-stone-600 hover:text-stone-900'
-              }`}
-            >
-              Monthly Billing
-            </button>
-            <button
-              type="button"
-              onClick={() => setBillingCycle('annual')}
-              className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
-                billingCycle === 'annual'
-                  ? 'bg-[#d97706] text-white shadow-md shadow-[#d97706]/30 font-bold'
-                  : 'text-stone-600 hover:text-stone-900'
-              }`}
-            >
-              <span>Annual Commitment</span>
-              <span className={`text-[10px] uppercase font-sans font-bold px-2 py-0.5 rounded-full ${
-                billingCycle === 'annual'
-                  ? 'bg-black/20 text-white'
-                  : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
-              }`}>
-                Save ~18%
-              </span>
-            </button>
+          {/* Dual Controls: Audience Segment Toggle + Monthly/Annual Billing Toggle */}
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            {/* Audience Segment: For Companies vs For Agencies & MSPs */}
+            <div className="inline-flex items-center p-1 rounded-full bg-stone-200/90 border border-stone-300/90 backdrop-blur-xl shadow-inner">
+              <button
+                type="button"
+                onClick={() => setPricingAudience('companies')}
+                className={`px-6 py-2.5 rounded-full text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                  pricingAudience === 'companies'
+                    ? 'bg-[#1c1917] text-white shadow-md'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                For Companies
+              </button>
+              <button
+                type="button"
+                onClick={() => setPricingAudience('agencies')}
+                className={`px-6 py-2.5 rounded-full text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                  pricingAudience === 'agencies'
+                    ? 'bg-[#d97706] text-white shadow-md shadow-[#d97706]/30'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                <span>For Agencies & MSPs</span>
+                <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
+                  pricingAudience === 'agencies' ? 'bg-black/20 text-white' : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
+                }`}>
+                  White-Label
+                </span>
+              </button>
+            </div>
+
+            {/* Monthly / Annual Billing Toggle */}
+            <div className="inline-flex items-center p-1 rounded-full bg-stone-200/70 border border-stone-300/80 backdrop-blur-xl shadow-inner">
+              <button
+                type="button"
+                onClick={() => setBillingCycle('monthly')}
+                className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                  billingCycle === 'monthly'
+                    ? 'bg-white text-stone-900 shadow-md font-bold'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                Monthly
+              </button>
+              <button
+                type="button"
+                onClick={() => setBillingCycle('annual')}
+                className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                  billingCycle === 'annual'
+                    ? 'bg-[#d97706] text-white shadow-md shadow-[#d97706]/30 font-bold'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                <span>Annual</span>
+                <span className={`text-[10px] uppercase font-sans font-bold px-2 py-0.5 rounded-full ${
+                  billingCycle === 'annual'
+                    ? 'bg-black/20 text-white'
+                    : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
+                }`}>
+                  Save ~18%
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* The 3 Cards Grid */}
-        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        {/* Pricing Cards: Companies vs Agencies & MSPs */}
+        {pricingAudience === 'companies' ? (
+          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           
           {/* Card 1: Observe */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
@@ -1006,8 +1042,210 @@ export default function App() {
               </button>
             </div>
           </div>
-
         </div>
+        ) : (
+          /* Agencies & MSPs Grid */
+          <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            
+            {/* Card 1: Agency Partner (Option A - Main Requested Plan) */}
+            <div className="bg-[#ffffff] border-2 border-[#d97706] ring-4 ring-[#d97706]/15 rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 relative shadow-[0_25px_50px_-12px_rgba(217,119,6,0.22)] scale-[1.01] hover:-translate-y-1.5">
+              {/* Top Floating Badge */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#d97706] text-white font-sans font-black text-[10px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3 fill-white" />
+                White-Label MSP Partner
+              </div>
+
+              <div>
+                <div className="text-xs font-sans font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
+                  <span>DevOps & Cloud Consultancies</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-2 font-sans tracking-tight">
+                  Agency Partner
+                </h3>
+                <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6 font-normal min-h-[40px]">
+                  Deliver automated 24/7 AI-SRE under your agency brand & domain. Eliminate overnight on-call shifts across your entire client portfolio.
+                </p>
+
+                {/* Price Display */}
+                <div className="pt-4 pb-6 border-y border-stone-200/80 mb-6">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl sm:text-5xl font-black text-[#0c0a09] tracking-tight">
+                      {billingCycle === 'annual' ? '$4,999' : '$5,999'}
+                    </span>
+                    <span className="text-stone-500 text-xs font-sans font-semibold uppercase tracking-wider">
+                      / month
+                    </span>
+                  </div>
+                  <div className="text-xs font-sans text-[#b45309] mt-1 font-bold">
+                    {billingCycle === 'annual' ? '$59,988 billed annually (Save $12,000)' : 'Billed monthly, cancel anytime'}
+                  </div>
+                </div>
+
+                {/* Usage Quota Box */}
+                <div className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-4 mb-6 space-y-2 text-xs font-sans text-amber-950">
+                  <div className="flex justify-between items-center">
+                    <span className="text-stone-600 font-medium">INCLUDED WORKSPACES:</span>
+                    <span className="text-stone-950 font-black">10 Client Workspaces Included</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-stone-600 font-medium">EXTRA CLIENT WORKSPACE:</span>
+                    <span className="text-[#b45309] font-black">+$200 / mo per extra client</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-stone-600 font-medium">TOTAL MANAGED NODES:</span>
+                    <span className="text-stone-950 font-bold">Up to 500 Cloud / K8s Nodes</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-1.5 border-t border-[#fde68a]">
+                    <span className="text-stone-600 font-medium">BRANDING RIGHTS:</span>
+                    <span className="text-emerald-700 font-black">100% White-Label (Custom Domain & Logo)</span>
+                  </div>
+                </div>
+
+                {/* Features List */}
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-800 font-sans">
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>10 Isolated Client Workspaces:</strong> Zero cross-client alert mixing or credential leakage</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>Custom CNAME & Branding:</strong> Your agency domain (<code>ops.youragency.com</code>) & logo</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>Custom Bot Tokens:</strong> Branded Slack App & Telegram Bot (<code>@YourAgencyOpsBot</code>)</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>1-Click Multi-Channel HITL Approvals</strong> across all your client clusters</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>500 Included Automated Remediations / mo</strong> (pod restarts, DB pool drains, auto-rollbacks)</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>Client Sub-License Key Generator:</strong> Provision client keys from your master portal</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>Priority War Room Escalation:</strong> &lt; 15-min SLA direct with Amber Principal SRE</span>
+                  </li>
+                </ul>
+
+                {/* Agency Profit Margin Highlight Callout */}
+                <div className="mt-6 p-4 rounded-xl bg-[#f5f5f4] border border-[#e7e5e4] text-stone-700 text-xs leading-relaxed font-sans">
+                  <div className="font-bold text-stone-900 mb-1 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span>Agency Margin Economics:</span>
+                  </div>
+                  Charge your 10 clients $1,500/mo ($15,000 total). Pay Amber $5,999/mo. Keep <strong className="text-emerald-700 font-bold">$9,000+ monthly net profit</strong> with zero human night-shift salaries.
+                </div>
+              </div>
+
+              <div className="pt-8 mt-8 border-t border-stone-200/80">
+                <button
+                  type="button"
+                  onClick={() => handleSelectPlan('Agency MSP Partner')}
+                  className="w-full py-3.5 px-6 rounded-2xl bg-[#d97706] hover:bg-[#b45309] text-white font-sans font-black text-xs uppercase tracking-wider shadow-lg shadow-[#d97706]/30 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <span>Deploy Agency Partner</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Card 2: Agency Scale (Unlimited Enterprise) */}
+            <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
+              <div>
+                <div className="text-xs font-sans font-bold uppercase tracking-wider text-stone-500 mb-2">
+                  High-Scale Enterprise MSP
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-2 font-sans tracking-tight">
+                  Agency Scale
+                </h3>
+                <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6 font-normal min-h-[40px]">
+                  For global MSPs and high-volume DevOps consultancies managing 30+ client environments with custom compliance.
+                </p>
+
+                {/* Price Display */}
+                <div className="pt-4 pb-6 border-y border-stone-200/80 mb-6">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl sm:text-5xl font-black text-[#0c0a09] tracking-tight">
+                      {billingCycle === 'annual' ? '$8,499' : '$9,999'}
+                    </span>
+                    <span className="text-stone-500 text-xs font-sans font-semibold uppercase tracking-wider">
+                      / month
+                    </span>
+                  </div>
+                  <div className="text-xs font-sans text-stone-500 mt-1">
+                    {billingCycle === 'annual' ? '$101,988 billed annually (Save $18,000)' : 'Billed monthly, cancel anytime'}
+                  </div>
+                </div>
+
+                {/* Usage Quota Box */}
+                <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-4 mb-6 space-y-2 text-xs font-sans text-stone-700">
+                  <div className="flex justify-between items-center">
+                    <span className="text-stone-500 font-medium">INCLUDED WORKSPACES:</span>
+                    <span className="text-stone-900 font-bold">25 Client Workspaces Included</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-stone-500 font-medium">EXTRA CLIENT WORKSPACE:</span>
+                    <span className="text-emerald-700 font-bold">+$150 / mo per extra client</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-stone-500 font-medium">TOTAL MANAGED NODES:</span>
+                    <span className="text-stone-900 font-bold">Up to 2,000 Total Nodes</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-1.5 border-t border-[#e7e5e4]">
+                    <span className="text-stone-500 font-medium">DEPLOYMENT TOPOLOGY:</span>
+                    <span className="text-[#b45309] font-bold">Air-Gapped Private VPC in Agency Cloud</span>
+                  </div>
+                </div>
+
+                {/* Features List */}
+                <ul className="space-y-3 text-xs sm:text-sm text-stone-700 font-sans">
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span>Everything in Agency Partner tier</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>Air-Gapped Private LLM Runtime:</strong> Deployed in your cloud (Zero data egress)</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>Unlimited Verified Automated Remediations</strong> across all client clusters</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span><strong>Custom Runbook Engineering:</strong> Amber SRE team authors runbooks for your client architectures</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span>White-glove client onboarding & staging dry-run validation</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-0.5" />
+                    <span>Dedicated Partner Account Director & custom SLA guarantees</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="pt-8 mt-8 border-t border-stone-200/80">
+                <button
+                  type="button"
+                  onClick={() => handleSelectPlan('Agency Scale')}
+                  className="w-full py-3.5 px-6 rounded-2xl bg-[#1c1917] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg"
+                >
+                  <span>Deploy Agency Scale</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        )}
 
         {/* Enterprise Safety & Policy Confidence Row */}
         <div className="relative z-10 max-w-7xl mx-auto mt-16 pt-12 border-t border-stone-200/80 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
@@ -1325,9 +1563,9 @@ export default function App() {
                           {billingCycle === 'annual' ? 'Annual Plan (Save ~18%)' : 'Monthly Plan'}
                         </span>
                       </div>
-                      <div className="grid grid-cols-3 gap-2">
-                        {['Observe', 'Autonomous', 'Response'].map((plan) => {
-                          const isSelected = selectedPlan === plan;
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {['Observe', 'Autonomous', 'Response', 'Agency Partner'].map((plan) => {
+                          const isSelected = selectedPlan === plan || (plan === 'Agency Partner' && selectedPlan.includes('Agency'));
                           return (
                             <button
                               type="button"
