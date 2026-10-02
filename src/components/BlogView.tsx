@@ -88,12 +88,12 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
 
           <div className="flex flex-wrap items-center gap-3 text-xs font-sans font-semibold tracking-wider text-stone-500 uppercase mb-4">
             <span className="px-3 py-1 rounded-full bg-[#fef3c7] text-[#92400e] border border-[#fde68a] font-bold">
-              Systems Architecture
+              Systems Architecture &amp; Security
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5 text-stone-600">
               <Clock className="w-3.5 h-3.5 text-[#d97706]" />
-              6 Min Read
+              7 Min Read
             </span>
             <span>•</span>
             <span>October 2026</span>
@@ -140,7 +140,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             </p>
           </motion.section>
 
-          {/* Pillar 1: Data Stays Inside Your Perimeter */}
+          {/* Section: The Security Boundary */}
           <motion.section 
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -149,37 +149,84 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             className="space-y-4 pt-8 border-t border-stone-200/80"
           >
             <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
-              1. Data Stays Inside Your Perimeter
+              The Security Boundary: Perimeter Containment
             </h2>
 
             <p className="text-stone-700 leading-relaxed">
-              Amber deploys as a single-tenant service natively within your AWS VPC, GCP project, Azure VNet, or bare-metal Kubernetes cluster. It does not export production telemetry to our servers or third-party multi-tenant databases.
+              The foundational architecture of Amber is perimeter isolation: <strong>no raw production telemetry (logs, metrics, traces, or database records) leaves your security boundary</strong>.
             </p>
 
-            {/* ASCII Architecture Diagram */}
+            {/* ASCII Security Boundary Diagram */}
             <div className="bg-stone-900 text-stone-200 font-mono text-xs sm:text-sm p-5 sm:p-6 rounded-2xl border border-stone-800 my-6 shadow-md overflow-x-auto leading-relaxed">
-              <div className="text-stone-400 font-bold mb-2">Customer Sovereign VPC / Kubernetes Cluster</div>
+              <div className="text-stone-400 font-bold mb-2">Customer Sovereign VPC / Private Cluster</div>
               <pre className="m-0 text-amber-300 font-mono">
-{`Your VPC
- ├── Logs (Application, Syslog, Kubelet)
- ├── Metrics (Prometheus, CloudWatch, Datadog Agent)
- ├── Traces (OpenTelemetry, Jaeger)
- ├── Deployments & Cloud APIs (K8s API, RDS, Cloud SQL)
- ├── Runbooks & Post-Mortems (Internal Docs, Git Repo)
- └── Amber Engine (In-VPC Container)
-       │
-       ├── In-memory sliding-window correlation
-       ├── Bounded read-only diagnostic tools
-       └── Cryptographically signed remediation proposals`}
+{`                    CUSTOMER PRIVATE VPC
+┌────────────────────────────────────────────────────────┐
+│                                                        │
+│  Logs ─────┐                                           │
+│  Metrics ──┤                                           │
+│  Traces ───┤                                           │
+│  K8s ──────┤──→ Amber Engine ──→ Causal Diagnosis      │
+│  Git ──────┤             │                             │
+│  DB ───────┘             ↓                             │
+│                    Remediation                         │
+│                         │                              │
+│                  HMAC Verification                     │
+│                         │                              │
+│                    Health Probe                        │
+│                         │                              │
+│                    Rollback                            │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+                         │
+                         │ Sanitized incident metadata only
+                         ▼
+                Slack / Telegram / WhatsApp`}
               </pre>
             </div>
 
             <p className="text-stone-700 leading-relaxed">
-              Because telemetry ingestion and analysis occur locally in memory, your team maintains direct control over production security boundaries. Outbound network traffic is limited strictly to notification webhooks (Slack, Telegram, WhatsApp) containing sanitized incident summaries and cryptographic approval tokens.
+              Amber deploys as a single-tenant container natively inside your AWS VPC, GCP project, Azure VNet, or bare-metal Kubernetes cluster. Because ingestion, correlation, and diagnostics happen locally in memory, your production data never crosses into a multi-tenant SaaS vendor environment.
             </p>
           </motion.section>
 
-          {/* Privacy & Data Boundary Specification Table */}
+          {/* Pillar 1: Layered Privacy & Redaction */}
+          <motion.section 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-4 pt-8 border-t border-stone-200/80"
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
+              1. Layered Data Protection: Beyond Simple Regex
+            </h2>
+
+            <p className="text-stone-700 leading-relaxed">
+              Relying solely on pattern-matching regex to redact sensitive credentials and PII is dangerous; non-standard token prefixes, nested JSON payloads, and encoded values frequently slip past single-pass regex rules.
+            </p>
+
+            <p className="text-stone-700 leading-relaxed">
+              Amber implements a <strong>defense-in-depth data containment model</strong>:
+            </p>
+
+            <ul className="list-disc pl-6 space-y-3.5 my-4 text-stone-700 leading-relaxed">
+              <li>
+                <strong className="text-stone-900 font-semibold">Default-Deny Outbound NetworkPolicy:</strong> At the Kubernetes and VPC level, Amber containers operate under strict egress firewall rules. Inbound telemetry is ingested from cluster sources, but arbitrary outbound connections are blocked at the packet level.
+              </li>
+              <li>
+                <strong className="text-stone-900 font-semibold">Structured-Field Masking:</strong> Target headers, cookies, authorization tokens, and authentication parameters are stripped by object key before telemetry is processed.
+              </li>
+              <li>
+                <strong className="text-stone-900 font-semibold">Shannon Entropy Secret Detection:</strong> High-randomness strings (such as API keys, JWT signatures, and private keys) are identified via entropy analysis, catching secrets regardless of variable names.
+              </li>
+              <li>
+                <strong className="text-stone-900 font-semibold">Least-Privilege Database Diagnostics:</strong> Diagnostic connections connect using a dedicated database role with read-only permissions, query timeouts (`statement_timeout = 3000ms`), and explicit allowlists limited to performance metadata views (`pg_stat_activity`, pool statistics)—never scanning application user tables.
+              </li>
+            </ul>
+          </motion.section>
+
+          {/* Data Boundary Specification Table */}
           <motion.section 
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -216,29 +263,29 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
                     <td className="p-3.5 sm:p-4 text-stone-600">Queried via internal OTel collector endpoints inside the cluster</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Database Contents &amp; Schemas</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Database Records &amp; Schemas</td>
                     <td className="p-3.5 sm:p-4 font-bold text-emerald-800 bg-emerald-50/40">Never Exported</td>
-                    <td className="p-3.5 sm:p-4 text-stone-600">Diagnostic queries execute with read-only connection limits</td>
+                    <td className="p-3.5 sm:p-4 text-stone-600">Least-privilege diagnostic identity with 3,000ms query timeout</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Customer PII &amp; Credentials</td>
                     <td className="p-3.5 sm:p-4 font-bold text-emerald-800 bg-emerald-50/40">Never Exported</td>
-                    <td className="p-3.5 sm:p-4 text-stone-600">Deterministic regex stripping removes tokens, auth headers, and IP addresses</td>
+                    <td className="p-3.5 sm:p-4 text-stone-600">Layered redaction: structured masking + entropy secret detection</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Incident State &amp; Audit Logs</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Incident Audit Logs &amp; State</td>
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Local Only</td>
-                    <td className="p-3.5 sm:p-4 text-stone-600">Persisted strictly in customer-owned PostgreSQL within the VPC</td>
+                    <td className="p-3.5 sm:p-4 text-stone-600">Stored strictly in customer-owned PostgreSQL within the VPC</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Incident Notification Payloads</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Notification Payloads</td>
                     <td className="p-3.5 sm:p-4 text-stone-800 font-medium">Sanitized Metadata</td>
-                    <td className="p-3.5 sm:p-4 text-stone-600">Outbound webhook containing service name, error title, and HMAC hash</td>
+                    <td className="p-3.5 sm:p-4 text-stone-600">Outbound webhook containing service name, error title, and HMAC token</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">LLM Inference Calls</td>
                     <td className="p-3.5 sm:p-4 font-bold text-stone-900 bg-amber-50/40">Customer-Controlled</td>
-                    <td className="p-3.5 sm:p-4 text-stone-600">Local vLLM / Ollama (air-gapped), AWS Bedrock PrivateLink, or redacted API</td>
+                    <td className="p-3.5 sm:p-4 text-stone-600">Air-gapped local model (vLLM/Ollama), AWS Bedrock PrivateLink, or redacted API</td>
                   </tr>
                 </tbody>
               </table>
@@ -247,15 +294,15 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             <div className="bg-stone-50 border border-stone-200 rounded-xl p-5 my-6 text-sm text-stone-700 space-y-2">
               <div className="font-bold text-stone-900 text-xs uppercase tracking-wider flex items-center gap-2">
                 <Lock className="w-3.5 h-3.5 text-[#d97706]" />
-                <span>How LLM Inference Works in Amber</span>
+                <span>Customer-Controlled Inference Architecture</span>
               </div>
               <p className="leading-relaxed">
                 Organizations can operate Amber in three distinct inference modes depending on security posture:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-stone-600 pt-1">
-                <li><strong className="text-stone-900">Air-Gapped Local Model:</strong> Run open-weights models (such as Qwen 2.5 or Llama 3) via vLLM or Ollama on VPC compute. Zero bytes leave your infrastructure.</li>
-                <li><strong className="text-stone-900">Cloud PrivateLink:</strong> Route requests to your own enterprise AWS Bedrock or Azure OpenAI endpoints over private VPC peering without traversing the public internet.</li>
-                <li><strong className="text-stone-900">External Provider with Redaction:</strong> When using public model endpoints, Amber&apos;s local pre-flight engine strips database connection strings, credentials, authorization headers, and IP addresses before query dispatch.</li>
+                <li><strong className="text-stone-900">Air-Gapped Local Model (Default):</strong> Run open-weights models (such as Qwen 2.5 or Llama 3) via vLLM or Ollama on VPC compute. Zero bytes leave your infrastructure.</li>
+                <li><strong className="text-stone-900">Enterprise Cloud PrivateLink:</strong> Route requests to your internal AWS Bedrock or Azure OpenAI endpoints over private VPC peering without traversing the public internet.</li>
+                <li><strong className="text-stone-900">External Provider with Redaction:</strong> When using public model endpoints, Amber&apos;s local pre-flight engine strips connection strings, credentials, authorization headers, and IP addresses before query dispatch.</li>
               </ul>
             </div>
           </motion.section>
@@ -269,7 +316,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             className="space-y-4 pt-8 border-t border-stone-200/80"
           >
             <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
-              2. Amber Turns Alert Storms Into One Incident
+              2. Amber Turns Alert Storms Into One Causal Incident
             </h2>
 
             <p className="text-stone-700 leading-relaxed">
@@ -277,24 +324,56 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             </p>
 
             <blockquote className="border-l-2 border-amber-600 pl-5 my-6 text-stone-900 text-base sm:text-lg font-medium leading-relaxed italic">
-              The goal of SRE automation is not to notify an engineer 500 times. It is to isolate the failure graph into a single root diagnosis.
+              Real SREs know distributed microservices do not experience a single magical &ldquo;root cause&rdquo;—they experience cascading failure modes across dependencies.
             </blockquote>
 
             <p className="text-stone-700 leading-relaxed">
-              Amber uses an in-memory sliding-window fingerprinting algorithm to cluster chaotic alert storms:
+              Instead of dumping 500 alerts into on-call channels, Amber isolates the <strong>most likely causal chain</strong> backed by verifiable telemetry timestamps:
             </p>
 
-            <ul className="list-disc pl-6 space-y-3.5 my-4 text-stone-700 leading-relaxed">
-              <li>
-                <strong className="text-stone-900 font-semibold">Temporal &amp; Topological Correlation:</strong> Inbound alerts from Prometheus, Sentry, Datadog, or CloudWatch are matched against your service dependency tree and grouped into a single unified incident object.
-              </li>
-              <li>
-                <strong className="text-stone-900 font-semibold">Root Cause Isolation:</strong> Instead of asking on-call engineers to cross-reference multiple dashboards, Amber traces the failure cascade upstream to identify the originating bottleneck.
-              </li>
-              <li>
-                <strong className="text-stone-900 font-semibold">Runbook Matching:</strong> The engine queries your existing runbooks and post-mortems stored in local vector embeddings (pgvector) to recommend verified mitigation steps.
-              </li>
-            </ul>
+            {/* Causal Chain Timeline Block */}
+            <div className="bg-stone-900 text-stone-200 font-mono text-xs sm:text-sm p-5 sm:p-6 rounded-2xl border border-stone-800 my-6 shadow-md leading-relaxed">
+              <div className="text-amber-400 font-bold mb-3 flex items-center justify-between">
+                <span>MOST LIKELY CAUSAL CHAIN</span>
+                <span className="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-mono">
+                  94% Confidence
+                </span>
+              </div>
+              <div className="space-y-1.5 text-stone-300">
+                <div className="flex items-center gap-2">
+                  <span className="text-stone-500">1.</span>
+                  <span className="text-white font-semibold">Deployment changed</span>
+                  <span className="text-stone-400">(v2.14.1 via Git / ArgoCD)</span>
+                </div>
+                <div className="text-stone-500 pl-4">↓ +37s</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-stone-500">2.</span>
+                  <span className="text-rose-400 font-semibold">Postgres connection pool saturated</span>
+                  <span className="text-stone-400">(active pool &gt; 98%)</span>
+                </div>
+                <div className="text-stone-500 pl-4">↓ +4s</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-stone-500">3.</span>
+                  <span className="text-amber-400 font-semibold">Worker queue retries increased</span>
+                  <span className="text-stone-400">(exponential backoff exhausted)</span>
+                </div>
+                <div className="text-stone-500 pl-4">↓ +2s</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-stone-500">4.</span>
+                  <span className="text-rose-400 font-semibold">Checkout API p99 latency spiked</span>
+                  <span className="text-stone-400">(&gt; 8,400ms gateway timeout)</span>
+                </div>
+                <div className="text-stone-500 pl-4">↓</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-stone-500">5.</span>
+                  <span className="text-white font-semibold">504 Gateway Timeout storm across upstream services</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-stone-700 leading-relaxed">
+              By reconstructing the temporal dependency tree, Amber identifies the upstream bottleneck, correlates related signals, and suppresses downstream alert noise.
+            </p>
           </motion.section>
 
           {/* Pillar 3: Bounded Execution & Cryptographic Verification */}
@@ -306,7 +385,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             className="space-y-4 pt-8 border-t border-stone-200/80"
           >
             <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
-              3. Closed-Loop Execution With Cryptographic Safety
+              3. Closed-Loop Execution With HMAC-SHA-256 Authentication
             </h2>
 
             <p className="text-stone-700 leading-relaxed">
@@ -314,11 +393,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             </p>
 
             <div className="bg-stone-50 border border-stone-200 rounded-xl p-4 sm:p-5 my-5 text-center font-mono text-xs sm:text-sm text-stone-800 font-bold overflow-x-auto">
-              Detect → Investigate (Read-Only) → Propose → Cryptographically Verify → Execute &amp; Probe
+              Detect → Investigate (Read-Only) → Propose → HMAC-SHA-256 Verify → Execute &amp; Probe
             </div>
 
             <p className="text-stone-700 leading-relaxed">
-              Remediation safety is governed by three deterministic controls:
+              Remediation safety is governed by strict cryptographic controls:
             </p>
 
             <ul className="list-disc pl-6 space-y-3.5 my-4 text-stone-700 leading-relaxed">
@@ -326,13 +405,16 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
                 <strong className="text-stone-900 font-semibold">Bounded Tool Allowlist:</strong> Amber cannot invent new bash commands or execute arbitrary code. It can only call pre-registered, auditable Python tool modules (e.g. terminating specific hanging database connection PIDs, rolling back a deployment to a known revision).
               </li>
               <li>
-                <strong className="text-stone-900 font-semibold">SHA-256 HMAC Payload Binding:</strong> When Amber proposes a mutating action, it computes an HMAC SHA-256 signature of the exact parameters. If the payload is modified in transit or altered by an unauthorized actor, execution is halted immediately.
+                <strong className="text-stone-900 font-semibold">HMAC-SHA-256 Payload Authentication:</strong> Proposing a mutating action generates a signed HMAC-SHA-256 hash bound to the exact execution parameters (`tool_name`, `target_resource`, `parameters`). Any unauthorized modification in transit invalidates the signature, halting execution immediately.
               </li>
               <li>
-                <strong className="text-stone-900 font-semibold">10-Minute Time-To-Live (TTL):</strong> Approval tokens carry an automated 10-minute expiration window. If cluster state changes before an engineer approves the action, the token expires to prevent replay attacks or stale executions.
+                <strong className="text-stone-900 font-semibold">Customer-Managed Key Protection:</strong> The HMAC signing secret is stored in customer-managed key stores (Kubernetes Secrets, AWS KMS, HashiCorp Vault, or GCP Secret Manager) and never shared externally.
               </li>
               <li>
-                <strong className="text-stone-900 font-semibold">Automated Health Probes:</strong> Post-execution, Amber runs automated health verification checks against target endpoints. If latency or error rates fail to normalize, automated rollback policies are triggered.
+                <strong className="text-stone-900 font-semibold">10-Minute Time-To-Live (TTL):</strong> Action tokens carry an automated 10-minute expiration window. If cluster state changes before an engineer approves the action, the token expires to eliminate replay attacks on stale infrastructure state.
+              </li>
+              <li>
+                <strong className="text-stone-900 font-semibold">Automated Health Probes &amp; Rollback:</strong> Post-execution, Amber runs automated health verification checks against target endpoints. If latency or error rates fail to normalize, automated rollback policies are triggered.
               </li>
             </ul>
           </motion.section>
@@ -371,7 +453,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Alert Processing &amp; Triage</td>
                     <td className="p-3.5 sm:p-4 text-stone-500">Threshold alerts routed to human on-call pagers</td>
-                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-amber-50/30">Alert storm clustered into 1 unified incident graph</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-amber-50/30">Alert storm clustered into 1 unified causal graph</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Remediation Capability</td>
@@ -381,7 +463,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Safety &amp; Authorization</td>
                     <td className="p-3.5 sm:p-4 text-stone-500">Manual engineer SSH / bastion terminal access</td>
-                    <td className="p-3.5 sm:p-4 font-semibold text-emerald-800 bg-amber-50/30">SHA-256 HMAC payload binding + 10-minute TTL tokens</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-emerald-800 bg-amber-50/30">HMAC-SHA-256 payload authentication + 10m TTL</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Code Auditability</td>
