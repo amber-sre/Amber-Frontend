@@ -1052,12 +1052,12 @@ export default function App() {
               {/* Top Floating Badge */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-[#d97706] text-white font-sans font-black text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
                 <Sparkles className="w-3 h-3 fill-white" />
-                White-Label MSP Partner
+                Most Popular
               </div>
 
               <div>
                 <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-1 flex items-center gap-2">
-                  <span>DevOps & Cloud Consultancies</span>
+                  <span>White-Label MSP • 10 Workspaces</span>
                 </div>
                 <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Partner
@@ -1157,9 +1157,15 @@ export default function App() {
 
             {/* Card 2: Agency Scale (Unlimited Enterprise) */}
             <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
+              {/* Top Floating Badge */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-[#1c1917] text-white font-sans font-black text-[9px] uppercase tracking-widest shadow-md flex items-center gap-1.5 border border-stone-700">
+                <ShieldCheck className="w-3 h-3 text-[#d97706]" />
+                Enterprise Dedicated
+              </div>
+
               <div>
                 <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-1">
-                  High-Scale Enterprise MSP
+                  White-Label Enterprise • 25+ Workspaces
                 </div>
                 <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Scale
@@ -1198,8 +1204,8 @@ export default function App() {
                     <span className="text-stone-900 font-bold">Up to 2,000 Total Nodes</span>
                   </div>
                   <div className="flex justify-between items-center pt-1 border-t border-[#e7e5e4]">
-                    <span className="text-stone-500 font-medium">DEPLOYMENT TOPOLOGY:</span>
-                    <span className="text-[#b45309] font-bold">Air-Gapped Private VPC in Agency Cloud</span>
+                    <span className="text-stone-500 font-medium">BRANDING & TOPOLOGY:</span>
+                    <span className="text-emerald-700 font-black">100% White-Label + Air-Gapped VPC</span>
                   </div>
                 </div>
 
@@ -1207,7 +1213,7 @@ export default function App() {
                 <ul className="space-y-2 text-xs sm:text-[13px] text-stone-700 font-sans">
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Everything in Agency Partner tier</strong> (White-label & sub-license portal)</span>
+                    <span><strong>Everything in Agency Partner tier</strong> (100% White-Label, Custom CNAME & Sub-License Portal)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
