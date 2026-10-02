@@ -3,14 +3,9 @@ import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
   ArrowRight, 
-  ShieldCheck, 
-  Lock, 
-  Zap, 
   Check, 
   Share2, 
-  Clock, 
-  Sparkles,
-  Code2
+  Clock 
 } from 'lucide-react';
 
 interface BlogViewProps {
@@ -160,195 +155,165 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
           
           {/* Section: The Problem */}
           <motion.section 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="space-y-4"
+            className="space-y-5"
           >
-            <p className="text-lg sm:text-xl font-medium text-stone-900 leading-relaxed">
+            <p className="text-lg sm:text-xl font-normal text-stone-900 leading-relaxed">
               Modern infrastructure monitoring is fundamentally broken. Tech teams are forced into a toxic trade-off: either pay an escalating, unpredictable <strong>&ldquo;per-node&rdquo; or &ldquo;per-seat&rdquo; tax</strong> to legacy monitoring giants, or compromise strict data governance by exfiltrating highly sensitive production telemetry, error logs, and stack traces to a third-party cloud.
             </p>
-            <p>
+            <p className="text-stone-700 leading-relaxed">
               For highly regulated industries like <strong>FinTech, HealthTech, and cyber-security startups in the US, UK, and Europe</strong>, this data exfiltration isn’t just expensive—it’s a massive liability under <strong>GDPR and HIPAA</strong>.
             </p>
             
-            <div className="p-5 my-6 rounded-2xl bg-[#fffbeb] border-l-4 border-[#d97706] text-amber-950 text-base leading-relaxed shadow-sm">
-              <strong className="text-stone-900 block font-bold text-sm uppercase tracking-wider mb-1">
-                The Core Thesis:
-              </strong>
-              We built Amber to introduce a third way: <strong>Complete, deterministic cloud autonomy.</strong>
-            </div>
+            <blockquote className="border-l-2 border-stone-900 pl-5 my-8 text-stone-900 text-lg sm:text-xl font-medium leading-relaxed italic">
+              &ldquo;We built Amber to introduce a third way: Complete, deterministic cloud autonomy.&rdquo;
+            </blockquote>
           </motion.section>
 
           {/* Pillar 1 */}
           <motion.section 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="space-y-4 pt-6 border-t border-stone-200"
+            className="space-y-4 pt-8 border-t border-stone-200/80"
           >
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-xl bg-[#d97706]/10 text-[#d97706] font-bold text-sm flex items-center justify-center border border-[#d97706]/20">
-                1
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0c0a09] tracking-tight font-sans m-0">
-                Zero Data Egress. 100% Perimeter Security.
-              </h2>
-            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
+              1. Zero Data Egress. 100% Perimeter Security.
+            </h2>
 
-            <p>
+            <p className="text-stone-700 leading-relaxed">
               Amber does not ask you to ship a single byte of log data outside your network. It deploys natively inside your own <strong>private VPC or bare-metal Kubernetes clusters</strong>.
             </p>
 
-            <ul className="space-y-3 pl-0 list-none my-4">
-              <li className="flex items-start gap-3 p-3 rounded-xl bg-stone-50 border border-stone-200/70">
-                <ShieldCheck className="w-5 h-5 text-[#d97706] shrink-0 mt-0.5" />
-                <span><strong>Local High-Throughput Ingestion:</strong> All telemetry processing (handling <strong>510+ EPS</strong> throughput seamlessly) happens purely locally inside your cluster.</span>
+            <ul className="list-disc pl-6 space-y-3.5 my-5 text-stone-700 leading-relaxed font-normal">
+              <li>
+                <strong className="text-stone-900 font-semibold">Local High-Throughput Ingestion:</strong> All telemetry processing (handling <strong>510+ EPS</strong> throughput seamlessly) happens purely locally inside your cluster.
               </li>
-              <li className="flex items-start gap-3 p-3 rounded-xl bg-stone-50 border border-stone-200/70">
-                <Lock className="w-5 h-5 text-[#d97706] shrink-0 mt-0.5" />
-                <span><strong>Sovereign Security Perimeter:</strong> Your production customer data, stack traces, and database schemas remain strictly within your sovereign security perimeter.</span>
+              <li>
+                <strong className="text-stone-900 font-semibold">Sovereign Security Perimeter:</strong> Your production customer data, stack traces, and database schemas remain strictly within your sovereign security perimeter.
               </li>
-              <li className="flex items-start gap-3 p-3 rounded-xl bg-stone-50 border border-stone-200/70">
-                <Zap className="w-5 h-5 text-[#d97706] shrink-0 mt-0.5" />
-                <span><strong>Eliminate Hidden Egress Fees:</strong> You completely eliminate cloud network egress charges ($0.09/GB on AWS) that inflate typical Datadog bills by 30-40%.</span>
+              <li>
+                <strong className="text-stone-900 font-semibold">Eliminate Hidden Egress Fees:</strong> You completely eliminate cloud network egress charges ($0.09/GB on AWS) that inflate typical Datadog bills by 30–40%.
               </li>
-              <li className="flex items-start gap-3 p-3 rounded-xl bg-[#fffbeb] border border-[#fde68a] text-amber-950">
-                <Code2 className="w-5 h-5 text-[#d97706] shrink-0 mt-0.5" />
-                <span><strong>100% Source-Available Transparency:</strong> Amber is fully source-available. Your security and platform engineering teams can inspect, audit, and verify every single line of Python and remediation logic before deploying to production—zero black boxes or closed-source agents.</span>
+              <li>
+                <strong className="text-stone-900 font-semibold">100% Source-Available Transparency:</strong> Amber is fully source-available. Your security and platform engineering teams can inspect, audit, and verify every single line of Python and remediation logic before deploying to production—zero black boxes or closed-source agents.
               </li>
             </ul>
           </motion.section>
 
           {/* Pillar 2 */}
           <motion.section 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="space-y-4 pt-6 border-t border-stone-200"
+            className="space-y-4 pt-8 border-t border-stone-200/80"
           >
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-xl bg-[#d97706]/10 text-[#d97706] font-bold text-sm flex items-center justify-center border border-[#d97706]/20">
-                2
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0c0a09] tracking-tight font-sans m-0">
-                From Storms to Telemetry: Under 80ms Alert Deduplication
-              </h2>
-            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
+              2. From Storms to Telemetry: Under 80ms Alert Deduplication
+            </h2>
 
-            <p>
+            <p className="text-stone-700 leading-relaxed">
               Legacy platforms dump hundreds of noisy, disconnected alerts into your channels during a core service failure, inducing instant cognitive fatigue. Amber operates via a <strong>localized deterministic graph approach</strong>.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
-              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-sm">
-                <div className="text-3xl font-black text-[#0c0a09] tracking-tight mb-1">&lt; 80ms p99</div>
-                <div className="text-xs uppercase font-bold text-[#d97706] tracking-wider mb-2">Alert Storm Correlation</div>
-                <p className="text-xs text-stone-600 leading-relaxed m-0">
-                  Clusters chaotic alert storms of 500+ alerts across microservices into one single, unified incident in milliseconds.
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-white border border-stone-200 shadow-sm">
-                <div className="text-3xl font-black text-[#0c0a09] tracking-tight mb-1">&lt; 3 Seconds</div>
-                <div className="text-xs uppercase font-bold text-stone-700 tracking-wider mb-2">Deterministic Diagnosis</div>
-                <p className="text-xs text-stone-600 leading-relaxed m-0">
-                  Instead of engineers digging through multi-service logs, your team gets a pinpoint root-cause diagnosis with code line proof.
-                </p>
-              </div>
-            </div>
+            <ul className="list-disc pl-6 space-y-3.5 my-5 text-stone-700 leading-relaxed font-normal">
+              <li>
+                <strong className="text-stone-900 font-semibold">Sub-80ms Alert Storm Clustering:</strong> It clusters chaotic alert storms of 500+ alerts across microservices into one single, unified incident in under 80ms (p99).
+              </li>
+              <li>
+                <strong className="text-stone-900 font-semibold">Under 3-Second Root-Cause Diagnosis:</strong> Instead of digging through multi-service logs, your team gets a clear root-cause diagnosis with code line proof in under 3 seconds.
+              </li>
+            </ul>
           </motion.section>
 
           {/* Pillar 3 */}
           <motion.section 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="space-y-4 pt-6 border-t border-stone-200"
+            className="space-y-4 pt-8 border-t border-stone-200/80"
           >
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-xl bg-[#d97706]/10 text-[#d97706] font-bold text-sm flex items-center justify-center border border-[#d97706]/20">
-                3
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#0c0a09] tracking-tight font-sans m-0">
-                Cryptographically Signed, Mobile Remediations
-              </h2>
-            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
+              3. Cryptographically Signed, Mobile Remediations
+            </h2>
 
-            <p>
+            <p className="text-stone-700 leading-relaxed">
               Autonomous AI shouldn't blindly run raw database commands or unverified scripts in production. That is why Amber enforces strict <strong>Human-in-the-Loop (HITL) Cryptographic Safety</strong>.
             </p>
 
-            <p>
+            <p className="text-stone-700 leading-relaxed">
               When a service breaks, Amber surfaces verified remediation steps matched from your internal playbooks or past post-mortems. It shoots a precise, 3-option action prompt (<strong>Approve</strong>, <strong>See Details</strong>, <strong>Reject</strong>) directly to your team’s <strong>Slack, Telegram, or WhatsApp</strong> via secure device-pairing.
             </p>
 
-            <div className="space-y-3 my-4">
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200">
-                <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-1" />
-                <span><strong>SHA-256 Cryptographic Payload Binding:</strong> Every mutating tool execution requires a signed payload hash. If a prompt or argument changes in transit, the signature breaks and halts immediately.</span>
-              </div>
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200">
-                <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-1" />
-                <span><strong>Strict 10-Minute TTL Expiration:</strong> Approval tokens automatically expire in 10 minutes to completely eliminate replay attacks or stale state executions.</span>
-              </div>
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200">
-                <Check className="w-4 h-4 text-[#d97706] shrink-0 mt-1" />
-                <span><strong>8.4s Average Recovery Time:</strong> Verified fixes execute safely within your cluster in an average of 8.4 seconds, without an engineer ever having to open a laptop or wake up at 3:00 AM.</span>
-              </div>
-            </div>
+            <ul className="list-disc pl-6 space-y-3.5 my-5 text-stone-700 leading-relaxed font-normal">
+              <li>
+                <strong className="text-stone-900 font-semibold">SHA-256 Cryptographic Payload Binding:</strong> Every mutating tool execution requires a signed payload hash. If a prompt or argument changes in transit, the signature breaks and halts immediately.
+              </li>
+              <li>
+                <strong className="text-stone-900 font-semibold">Strict 10-Minute TTL Expiration:</strong> Action tokens carry a strict 10-minute Time-To-Live (TTL) expiration window to prevent replay attacks or stale state executions.
+              </li>
+              <li>
+                <strong className="text-stone-900 font-semibold">8.4s Average Recovery Time:</strong> Execution happens safely within your cluster in an average of 8.4 seconds recovery time, without an engineer ever having to open a laptop at 3:00 AM.
+              </li>
+            </ul>
           </motion.section>
 
-          {/* Architectural Comparison Matrix (High-Conversion Hook) */}
+          {/* Architectural Comparison Matrix */}
           <motion.section 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="pt-6 border-t border-stone-200"
+            className="pt-8 border-t border-stone-200/80"
           >
-            <h3 className="text-xl sm:text-2xl font-black text-[#0c0a09] tracking-tight font-sans mb-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#0c0a09] tracking-tight font-sans mb-3">
               The Architecture Shift: Legacy SaaS vs. Amber Deterministic Autonomy
             </h3>
             
-            <div className="overflow-x-auto rounded-2xl border border-stone-200/90 shadow-sm my-6">
+            <p className="text-stone-600 text-sm mb-6 leading-relaxed">
+              A breakdown of the structural differences between traditional SaaS monitoring and Amber&apos;s in-VPC autonomous engine:
+            </p>
+
+            <div className="overflow-x-auto rounded-xl border border-stone-200 my-6">
               <table className="w-full text-left border-collapse text-xs sm:text-sm font-sans">
                 <thead>
-                  <tr className="bg-stone-100 text-stone-700 font-bold uppercase tracking-wider text-[11px] border-b border-stone-200">
+                  <tr className="bg-stone-50 text-stone-700 font-bold uppercase tracking-wider text-[11px] border-b border-stone-200">
                     <th className="p-3.5 sm:p-4">Capability</th>
                     <th className="p-3.5 sm:p-4 text-stone-500">Legacy SRE (Datadog / PagerDuty)</th>
-                    <th className="p-3.5 sm:p-4 text-[#b45309] bg-[#fffbeb]">Amber In-VPC Engine</th>
+                    <th className="p-3.5 sm:p-4 text-[#92400e] bg-amber-50/60 font-black">Amber In-VPC Engine</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-200 text-stone-800">
+                <tbody className="divide-y divide-stone-200 text-stone-700">
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-bold text-stone-900">Data Sovereignty</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Data Sovereignty</td>
                     <td className="p-3.5 sm:p-4 text-stone-500">Raw logs & traces exported to US SaaS</td>
-                    <td className="p-3.5 sm:p-4 font-semibold text-emerald-800 bg-[#fffbeb]/40">100% In-VPC (Zero Data Egress)</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-emerald-800 bg-amber-50/30">100% In-VPC (Zero Data Egress)</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-bold text-stone-900">Pricing Model</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Pricing Model</td>
                     <td className="p-3.5 sm:p-4 text-stone-500">$30–$40/user seat + log overages</td>
-                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-[#fffbeb]/40">Flat Predictable Tiers (Unlimited Seats)</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-amber-50/30">Flat Predictable Tiers (Unlimited Seats)</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-bold text-stone-900">Code Auditability</td>
-                    <td className="p-3.5 sm:p-4 text-stone-500">Closed-source black-box binary agents</td>
-                    <td className="p-3.5 sm:p-4 font-semibold text-emerald-800 bg-[#fffbeb]/40">100% Source-Available Python & LangGraph</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Code Auditability</td>
+                    <td className="p-3.5 sm:p-4 text-stone-500">Closed-source binary agents</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-emerald-800 bg-amber-50/30">100% Source-Available Python & LangGraph</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-bold text-stone-900">Incident Remediation</td>
-                    <td className="p-3.5 sm:p-4 text-stone-500">Passive graphs & manual playbook clicking</td>
-                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-[#fffbeb]/40">Autonomous Verification + SHA-256 HITL</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Incident Remediation</td>
+                    <td className="p-3.5 sm:p-4 text-stone-500">Passive dashboards & manual runbook clicking</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-amber-50/30">Autonomous Verification + SHA-256 HITL</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
-                    <td className="p-3.5 sm:p-4 font-bold text-stone-900">On-Call Channels</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900">On-Call Notification</td>
                     <td className="p-3.5 sm:p-4 text-stone-500">Phone sirens & noisy laptop dashboards</td>
-                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-[#fffbeb]/40">1-Click Slack, Telegram & WhatsApp Bot</td>
+                    <td className="p-3.5 sm:p-4 font-semibold text-stone-900 bg-amber-50/30">1-Click Slack, Telegram & WhatsApp Bot</td>
                   </tr>
                 </tbody>
               </table>
@@ -357,55 +322,46 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
 
           {/* The New Math of Reliability */}
           <motion.section 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="space-y-4 pt-6 border-t border-stone-200"
+            className="space-y-4 pt-8 border-t border-stone-200/80"
           >
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0c0a09] tracking-tight font-sans">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0c0a09] tracking-tight font-sans m-0">
               The New Math of Reliability
             </h2>
 
-            <p>
-              We believe infrastructure health shouldn't penalize scaling. By removing third-party API dependencies (like Twilio gateways) and running purely inside your perimeter, Amber operates with <strong>virtually zero external overhead</strong>.
+            <p className="text-stone-700 leading-relaxed">
+              We believe infrastructure health shouldn&apos;t penalize scaling. By removing third-party API dependencies (like Twilio gateways) and running purely inside your perimeter, Amber operates with <strong>virtually zero external overhead</strong>.
             </p>
 
-            <p>
+            <p className="text-stone-700 leading-relaxed">
               We pass those structural savings directly to you with <strong>unlimited user seats</strong> and flat, predictable infrastructure tiers starting at <strong>$799/month</strong>.
             </p>
 
-            <div className="p-6 rounded-2xl bg-stone-900 text-white my-6 shadow-xl relative overflow-hidden">
-              <div className="relative z-10">
-                <div className="text-xs font-mono uppercase tracking-widest text-[#facc15] mb-2 font-bold flex items-center gap-2">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>The Bottom Line</span>
-                </div>
-                <div className="text-2xl sm:text-3xl font-black tracking-tight mb-2">
-                  Stop funding the legacy SRE tax. Keep your data. Freeze your incident chaos.
-                </div>
-                <p className="text-stone-300 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
+            <p className="text-lg sm:text-xl font-bold text-stone-900 my-6">
+              Stop funding the legacy SRE tax. Keep your data. Freeze your incident chaos.
+            </p>
+
+            {/* Clean Editorial Callout CTA */}
+            <div className="pt-8 pb-10 border-t border-b border-stone-200/90 my-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-1">
+                  Ready to eliminate your SRE seat tax?
+                </h3>
+                <p className="text-sm text-stone-600 m-0">
                   Deploy Amber into your AWS, GCP, Azure, or bare-metal Kubernetes cluster in under 10 minutes.
                 </p>
-
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    type="button"
-                    onClick={onNavigateToContact}
-                    className="py-3 px-6 rounded-full bg-[#facc15] hover:bg-white text-black font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md hover:scale-105 active:scale-95"
-                  >
-                    <span>Schedule Technical Demo / VPC Deploy</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onBack}
-                    className="py-3 px-6 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer border border-white/10"
-                  >
-                    Explore Live Simulator
-                  </button>
-                </div>
               </div>
+              <button
+                type="button"
+                onClick={onNavigateToContact}
+                className="shrink-0 inline-flex items-center justify-center gap-2 bg-[#1c1917] hover:bg-black text-white px-6 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <span>Deploy Amber to Your VPC</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </motion.section>
 
