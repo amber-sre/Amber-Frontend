@@ -208,11 +208,14 @@ export default function App() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  const [formError, setFormError] = useState<string | null>(null);
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormError(null);
     try {
-      await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -225,11 +228,18 @@ export default function App() {
           message: formData.message,
         }),
       });
-    } catch (err) {
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to dispatch notification');
+      }
+
+      setFormSubmitted(true);
+    } catch (err: any) {
       console.error('Contact form submission error:', err);
+      setFormError(err.message || 'Unable to submit directly. Please email amber.incident@gmail.com or message us on WhatsApp.');
     } finally {
       setIsSubmitting(false);
-      setFormSubmitted(true);
     }
   };
 
@@ -1501,7 +1511,7 @@ export default function App() {
                   </a>
                   <span className="text-zinc-600">·</span>
                   <a 
-                    href="http://localhost:8000/docs" 
+                    href="https://github.com/himanshu-xyz-1/Amber" 
                     target="_blank" 
                     rel="noreferrer" 
                     className="hover:text-white transition-colors"
@@ -1716,6 +1726,29 @@ export default function App() {
                       />
                     </div>
 
+                    {/* Error Feedback with Direct Fallback Options */}
+                    {formError && (
+                      <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-200 text-xs leading-relaxed space-y-2">
+                        <div className="font-semibold text-white">{formError}</div>
+                        <div className="flex flex-wrap gap-4 pt-1">
+                          <a 
+                            href="mailto:amber.incident@gmail.com" 
+                            className="text-[#facc15] font-bold underline hover:text-white"
+                          >
+                            Email Directly →
+                          </a>
+                          <a 
+                            href="https://wa.me/919625404565" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-emerald-400 font-bold underline hover:text-white"
+                          >
+                            WhatsApp Us (+91 96254 04565) →
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Submit Button in Clean Crisp Gold */}
                     <button
                       type="submit"
@@ -1788,7 +1821,7 @@ export default function App() {
               <button type="button" onClick={navigateToBlog} className="hover:text-black transition uppercase cursor-pointer">BLOG</button>
               <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
               <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-black transition">TWITTER</a>
-              <a href="http://localhost:8000/docs" target="_blank" rel="noreferrer" className="hover:text-black transition">OPENAPI</a>
+              <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">OPENAPI</a>
               <a href="/docs/privacy-policy.md" target="_blank" rel="noreferrer" className="hover:text-black transition">PRIVACY</a>
               <a href="/docs/terms-of-service.md" target="_blank" rel="noreferrer" className="hover:text-black transition">TERMS</a>
             </div>
