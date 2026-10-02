@@ -14,13 +14,11 @@ import {
   Check, 
   Sparkles,
   Zap,
-  RotateCcw,
-  Key
+  RotateCcw
 } from 'lucide-react';
 import { SpotlightCard } from './components/SpotlightCard';
 import { AnimatedCounter } from './components/AnimatedCounter';
 import { RemediationVideoPlayer } from './components/RemediationVideoPlayer';
-import { LicenseModal } from './components/LicenseModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,7 +86,6 @@ export default function App() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLicenseModalOpen, setIsLicenseModalOpen] = useState(false);
 
   const horizontalSectionRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
@@ -155,6 +152,21 @@ export default function App() {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Auto-scroll directly to the contact form when visiting #contact or #connect (e.g. from Get Your Key)
+  useEffect(() => {
+    const handleInitialHash = () => {
+      const hash = window.location.hash;
+      if (hash === '#contact' || hash === '#connect') {
+        setTimeout(() => {
+          smoothScrollTo('connect');
+        }, 400);
+      }
+    };
+    handleInitialHash();
+    window.addEventListener('hashchange', handleInitialHash);
+    return () => window.removeEventListener('hashchange', handleInitialHash);
+  }, []);
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -235,17 +247,8 @@ export default function App() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-2.5"
+          className="flex items-center"
         >
-          <button
-            onClick={() => setIsLicenseModalOpen(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-black/10 bg-black/5 hover:bg-black/10 text-[#0a0a0a] font-sans font-semibold text-xs tracking-wider uppercase transition-all duration-200 cursor-pointer"
-            title="Commercial Enterprise License Activation"
-          >
-            <Key className="w-3.5 h-3.5 text-[#d97706]" />
-            <span className="hidden sm:inline">License</span>
-          </button>
-
           <a
             href="#connect"
             onClick={(e) => scrollToSection(e, 'connect')}
@@ -1483,13 +1486,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* Commercial Enterprise License Activation Modal */}
-      <LicenseModal
-        isOpen={isLicenseModalOpen}
-        onClose={() => setIsLicenseModalOpen(false)}
-        onGetStarted={() => smoothScrollTo('connect')}
-      />
 
     </div>
   );
