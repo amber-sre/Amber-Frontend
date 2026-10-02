@@ -19,6 +19,7 @@ import {
 import { SpotlightCard } from './components/SpotlightCard';
 import { AnimatedCounter } from './components/AnimatedCounter';
 import { RemediationVideoPlayer } from './components/RemediationVideoPlayer';
+import { BlogView } from './components/BlogView';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,6 +73,7 @@ const PIPELINE_CARDS = [
 ];
 
 export default function App() {
+  const [currentView, setCurrentView] = useState<'landing' | 'blog'>('landing');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedInfra, setSelectedInfra] = useState<string>('AWS');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
@@ -154,20 +156,51 @@ export default function App() {
     }
   };
 
-  // Auto-scroll directly to the contact form when visiting #contact or #connect (e.g. from Get Your Key)
+  // Auto-scroll directly to the contact form when visiting #contact or #connect, or route to #blog
   useEffect(() => {
-    const handleInitialHash = () => {
+    const handleRoute = () => {
       const hash = window.location.hash;
-      if (hash === '#contact' || hash === '#connect') {
-        setTimeout(() => {
-          smoothScrollTo('connect');
-        }, 400);
+      const pathname = window.location.pathname;
+      if (hash === '#blog' || pathname === '/blog') {
+        setCurrentView('blog');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else {
+        setCurrentView('landing');
+        if (hash === '#contact' || hash === '#connect') {
+          setTimeout(() => {
+            smoothScrollTo('connect');
+          }, 400);
+        }
       }
     };
-    handleInitialHash();
-    window.addEventListener('hashchange', handleInitialHash);
-    return () => window.removeEventListener('hashchange', handleInitialHash);
+    handleRoute();
+    window.addEventListener('hashchange', handleRoute);
+    window.addEventListener('popstate', handleRoute);
+    return () => {
+      window.removeEventListener('hashchange', handleRoute);
+      window.removeEventListener('popstate', handleRoute);
+    };
   }, []);
+
+  const navigateToBlog = () => {
+    window.location.hash = 'blog';
+    setCurrentView('blog');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToLanding = () => {
+    window.location.hash = '';
+    setCurrentView('landing');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToContactFromBlog = () => {
+    setCurrentView('landing');
+    window.location.hash = 'connect';
+    setTimeout(() => {
+      smoothScrollTo('connect');
+    }, 150);
+  };
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -210,6 +243,15 @@ export default function App() {
     smoothScrollTo('connect');
   };
 
+  if (currentView === 'blog') {
+    return (
+      <BlogView 
+        onBack={navigateToLanding} 
+        onNavigateToContact={navigateToContactFromBlog} 
+      />
+    );
+  }
+
   return (
     <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
       
@@ -234,7 +276,7 @@ export default function App() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="hidden md:flex gap-8 lg:gap-12 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold ml-6"
+          className="hidden md:flex gap-7 lg:gap-10 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold ml-6 items-center"
         >
           <a href="#pipeline" onClick={(e) => scrollToSection(e, 'pipeline')} className="hover:text-black transition-colors cursor-pointer">Services</a>
           <a href="#thesis" onClick={(e) => scrollToSection(e, 'thesis')} className="hover:text-black transition-colors cursor-pointer">Architecture</a>
@@ -242,6 +284,14 @@ export default function App() {
           <a href="#benchmarks" onClick={(e) => scrollToSection(e, 'benchmarks')} className="hover:text-black transition-colors cursor-pointer">Benchmarks</a>
           <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-black transition-colors cursor-pointer">Pricing</a>
           <a href="#connect" onClick={(e) => scrollToSection(e, 'connect')} className="hover:text-black transition-colors cursor-pointer">Contact</a>
+          <button 
+            type="button" 
+            onClick={navigateToBlog} 
+            className="hover:text-[#d97706] text-black/85 font-bold transition-colors cursor-pointer uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <span>Blog</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-pulse" />
+          </button>
         </motion.div>
 
         <motion.div 
@@ -1734,7 +1784,8 @@ export default function App() {
               <div className="text-xs text-black/40 mt-3">© 2026 Amber</div>
             </div>
 
-            <div className="flex flex-wrap gap-6 text-xs font-sans font-semibold text-black/50 pt-12">
+            <div className="flex flex-wrap gap-6 text-xs font-sans font-semibold text-black/50 pt-12 items-center">
+              <button type="button" onClick={navigateToBlog} className="hover:text-black transition uppercase cursor-pointer">BLOG</button>
               <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
               <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-black transition">TWITTER</a>
               <a href="http://localhost:8000/docs" target="_blank" rel="noreferrer" className="hover:text-black transition">OPENAPI</a>
