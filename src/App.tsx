@@ -702,10 +702,10 @@ export default function App() {
             Zero per-seat taxes. Zero unpredictable LLM token billing. Choose the governance and automation depth that fits your team's operational readiness.
           </p>
 
-          {/* Dual Controls: Audience Segment Toggle + Monthly/Annual Billing Toggle */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            {/* Audience Segment: For Companies vs For Agencies & MSPs */}
-            <div className="inline-flex items-center p-1 rounded-full bg-stone-200/90 border border-stone-300/90 backdrop-blur-xl shadow-inner">
+          {/* Dual Stacked Controls: Audience Segment (Top) + Billing Cycle (Bottom) */}
+          <div className="mt-10 flex flex-col items-center justify-center gap-3.5">
+            {/* Top Pill: Audience Segment */}
+            <div className="inline-flex items-center p-1.5 rounded-full bg-stone-200/90 border border-stone-300/90 backdrop-blur-xl shadow-inner">
               <button
                 type="button"
                 onClick={() => setPricingAudience('companies')}
@@ -735,29 +735,29 @@ export default function App() {
               </button>
             </div>
 
-            {/* Monthly / Annual Billing Toggle */}
-            <div className="inline-flex items-center p-1 rounded-full bg-stone-200/70 border border-stone-300/80 backdrop-blur-xl shadow-inner">
+            {/* Bottom Pill: Monthly vs Annual Billing Toggle */}
+            <div className="inline-flex items-center p-1.5 rounded-full bg-stone-200/70 border border-stone-300/80 backdrop-blur-xl shadow-inner">
               <button
                 type="button"
                 onClick={() => setBillingCycle('monthly')}
-                className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                className={`px-6 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                   billingCycle === 'monthly'
                     ? 'bg-white text-stone-900 shadow-md font-bold'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
-                Monthly
+                Monthly Billing
               </button>
               <button
                 type="button"
                 onClick={() => setBillingCycle('annual')}
-                className={`px-5 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                className={`px-6 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                   billingCycle === 'annual'
                     ? 'bg-[#d97706] text-white shadow-md shadow-[#d97706]/30 font-bold'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
-                <span>Annual</span>
+                <span>Annual Commitment</span>
                 <span className={`text-[10px] uppercase font-sans font-bold px-2 py-0.5 rounded-full ${
                   billingCycle === 'annual'
                     ? 'bg-black/20 text-white'
