@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
   ArrowRight, 
-  Check, 
-  Share2, 
   Clock 
 } from 'lucide-react';
 
@@ -14,13 +12,6 @@ interface BlogViewProps {
 }
 
 export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact }) => {
-  const [copiedLink, setCopiedLink] = useState(false);
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2500);
-  };
 
   return (
     <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
@@ -115,39 +106,6 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
           <p className="text-base sm:text-xl text-stone-600 leading-relaxed font-normal mb-8 border-b border-stone-200 pb-8">
             Why shipping raw telemetry to third-party clouds is a toxic compliance liability—and how deterministic in-VPC automation eliminates both the seat tax and 3:00 AM alert fatigue.
           </p>
-
-          {/* Author Byline & Social Actions Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 py-3 px-5 rounded-2xl bg-stone-100/80 border border-stone-200/80">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#d97706] text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                AM
-              </div>
-              <div>
-                <div className="text-xs font-bold text-stone-900 font-sans">Amber Engineering Core</div>
-                <div className="text-[11px] text-stone-500 font-sans">Published by Amber Systems Research Team</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleCopyLink}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-stone-200/80 text-stone-700 text-xs font-sans font-semibold border border-stone-200 transition-all cursor-pointer shadow-sm active:scale-95"
-              >
-                {copiedLink ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-700">Link Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="w-3.5 h-3.5 text-stone-500" />
-                    <span>Share Article</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
         </motion.div>
 
         {/* Article Body Content */}
