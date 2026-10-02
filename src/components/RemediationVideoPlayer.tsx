@@ -6,9 +6,17 @@ import {
   ShieldCheck, 
   Zap, 
   Activity, 
-  Clock, 
-  Lock,
-  RotateCcw
+  Lock, 
+  RotateCcw,
+  Paperclip,
+  Smile,
+  Mic,
+  MoreVertical,
+  ChevronLeft,
+  Search,
+  Wifi,
+  Battery,
+  Sparkles
 } from 'lucide-react';
 
 // Official Brand SVGs
@@ -35,37 +43,29 @@ const TelegramLogo: React.FC<{ className?: string }> = ({ className = "w-4 h-4 s
   </svg>
 );
 
-type ChannelType = 'slack' | 'whatsapp' | 'telegram';
+type ActiveViewMode = 'dual' | 'slack' | 'telegram' | 'whatsapp';
 
 export const RemediationVideoPlayer: React.FC = () => {
-  const [selectedChannel, setSelectedChannel] = useState<ChannelType>('slack');
+  const [activeTab, setActiveTab] = useState<ActiveViewMode>('dual');
   const [isResolved, setIsResolved] = useState<boolean>(true);
   const [isRemediating, setIsRemediating] = useState<boolean>(false);
-
-  const CHANNELS: { id: ChannelType; name: string; handle: string; icon: React.FC<{ className?: string }> }[] = [
-    { id: 'slack', name: 'Slack', handle: '#sre-critical', icon: SlackLogo },
-    { id: 'whatsapp', name: 'WhatsApp', handle: '+91 96254 04565', icon: WhatsAppLogo },
-    { id: 'telegram', name: 'Telegram', handle: '@AmberSREBot', icon: TelegramLogo },
-  ];
 
   const handleApprove = () => {
     setIsRemediating(true);
     setTimeout(() => {
       setIsRemediating(false);
       setIsResolved(true);
-    }, 1200);
+    }, 1100);
   };
 
   const handleReplay = () => {
     setIsResolved(false);
   };
 
-  const activeChannelObj = CHANNELS.find((c) => c.id === selectedChannel) || CHANNELS[0];
-
   return (
     <div className="w-full text-left">
-      {/* ── Section Header Row: Left Heading & Right Clean White Pill Tabs ── */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-10 border-b border-white/10 pb-8">
+      {/* ── Section Header Row: Title & Modern Device Selector Tabs ── */}
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-12 border-b border-white/10 pb-8">
         <div>
           <div className="text-xs font-sans tracking-wider text-[#facc15] uppercase font-bold mb-2.5 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -74,311 +74,583 @@ export const RemediationVideoPlayer: React.FC = () => {
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white font-sans">
             Experience Amber In Action.
           </h2>
+          <p className="text-stone-400 text-sm sm:text-base mt-2 max-w-2xl font-sans">
+            Deterministic, Human-In-The-Loop incident remediation across your team&apos;s desktop Slack and mobile Telegram channels.
+          </p>
         </div>
 
-        {/* Right: 3 tabs - Slack | WhatsApp | Telegram (Clean White Pill Style) */}
-        <div className="inline-flex items-center p-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-xl shadow-2xl">
-          {CHANNELS.map((ch) => {
-            const isSelected = selectedChannel === ch.id;
-            const Icon = ch.icon;
-            return (
-              <button
-                key={ch.id}
-                type="button"
-                onClick={() => setSelectedChannel(ch.id)}
-                className={`px-5 py-2.5 rounded-full text-xs font-sans tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
-                  isSelected
-                    ? 'bg-white text-black font-bold shadow-md shadow-white/20 scale-[1.02]'
-                    : 'text-zinc-300 hover:text-white hover:bg-white/5 font-semibold'
-                }`}
-              >
-                <Icon className="w-4 h-4 shrink-0" />
-                <span>{ch.name}</span>
-              </button>
-            );
-          })}
+        {/* Tab Switcher: Dual Studio View | PC Slack | Mobile Telegram | Mobile WhatsApp */}
+        <div className="inline-flex items-center p-1.5 rounded-full bg-stone-900/90 border border-stone-800 shadow-2xl backdrop-blur-xl">
+          <button
+            type="button"
+            onClick={() => setActiveTab('dual')}
+            className={`px-4 sm:px-5 py-2 rounded-full text-xs font-sans tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+              activeTab === 'dual'
+                ? 'bg-amber-400 text-black font-bold shadow-md shadow-amber-400/20 scale-[1.02]'
+                : 'text-stone-400 hover:text-white hover:bg-white/5 font-semibold'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Studio</span> Dual View
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('slack')}
+            className={`px-4 sm:px-5 py-2 rounded-full text-xs font-sans tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+              activeTab === 'slack'
+                ? 'bg-white text-black font-bold shadow-md shadow-white/20 scale-[1.02]'
+                : 'text-stone-400 hover:text-white hover:bg-white/5 font-semibold'
+            }`}
+          >
+            <SlackLogo className="w-3.5 h-3.5" />
+            <span>Slack (PC)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('telegram')}
+            className={`px-4 sm:px-5 py-2 rounded-full text-xs font-sans tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+              activeTab === 'telegram'
+                ? 'bg-white text-black font-bold shadow-md shadow-white/20 scale-[1.02]'
+                : 'text-stone-400 hover:text-white hover:bg-white/5 font-semibold'
+            }`}
+          >
+            <TelegramLogo className="w-3.5 h-3.5" />
+            <span>Telegram (Phone)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('whatsapp')}
+            className={`px-3 sm:px-4 py-2 rounded-full text-xs font-sans tracking-wider uppercase transition-all duration-200 hidden md:flex items-center gap-2 cursor-pointer ${
+              activeTab === 'whatsapp'
+                ? 'bg-white text-black font-bold shadow-md shadow-white/20 scale-[1.02]'
+                : 'text-stone-400 hover:text-white hover:bg-white/5 font-semibold'
+            }`}
+          >
+            <WhatsAppLogo className="w-3.5 h-3.5" />
+            <span>WhatsApp</span>
+          </button>
         </div>
       </div>
 
-      {/* ── Main Big White Brutalist Incident Card (Zero Hacker Terminal / Zero Green Glow) ── */}
-      <div className="w-full bg-white text-black border border-stone-200 rounded-3xl p-8 sm:p-12 md:p-14 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.85)] relative overflow-hidden select-none">
+      {/* ── Main Showcase Container ── */}
+      <div className="w-full relative select-none">
         
-        <AnimatePresence mode="wait">
-          {isResolved ? (
-            // ── Phase 1: Remediated Brutalist Incident Card (Default State) ──
-            <motion.div
-              key="remediated-card"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Top Bar: Status Badge + Engine Name + 2.4s MTTR */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-stone-200">
-                <div className="flex items-center gap-3">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold font-sans tracking-wider uppercase">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>✓ REMEDIATED</span>
+        {/* Ambient Glows */}
+        <div className="absolute -top-10 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 right-10 w-80 h-80 bg-sky-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+        {/* Dynamic Multi-Device Layout */}
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 xl:gap-12 relative z-10">
+          
+          {/* ════════════════════════════════════════════════════════════
+              1. THE PC MONITOR (Slack Desktop Workplace)
+             ════════════════════════════════════════════════════════════ */}
+          <AnimatePresence mode="popLayout">
+            {(activeTab === 'dual' || activeTab === 'slack') && (
+              <motion.div
+                key="pc-monitor"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className={`flex-1 w-full flex flex-col items-center ${
+                  activeTab === 'slack' ? 'max-w-5xl' : 'max-w-3xl xl:max-w-4xl'
+                }`}
+              >
+                {/* Outer Monitor Frame / Bezel */}
+                <div className="w-full bg-[#18181b] border-2 border-stone-700/80 rounded-[24px] p-2.5 sm:p-3.5 shadow-[0_30px_90px_-15px_rgba(0,0,0,0.95),0_0_50px_rgba(217,119,6,0.12)] relative">
+                  
+                  {/* Top Monitor Bezel Webcam Lens Dot */}
+                  <div className="absolute top-1.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-stone-900 border border-stone-700" />
+                    <div className="w-1 h-1 rounded-full bg-emerald-500/60" />
                   </div>
-                  <span className="text-stone-300 font-sans">|</span>
-                  <span className="font-sans font-bold text-stone-900 text-sm sm:text-base tracking-tight">
-                    Amber Incident Engine
-                  </span>
-                </div>
 
-                <div className="flex items-center gap-2.5">
-                  <span className="text-xs font-sans text-stone-500 font-medium hidden sm:inline">
-                    Incident #AMB-8492
-                  </span>
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-100 text-stone-900 border border-stone-200 font-sans text-xs font-bold uppercase tracking-wider">
-                    <span>2.4s MTTR</span>
-                  </div>
-                </div>
-              </div>
+                  {/* Inner Monitor Display Surface */}
+                  <div className="w-full bg-[#1a1d21] rounded-[16px] overflow-hidden border border-white/10 flex flex-col">
+                    
+                    {/* macOS / Slack App Titlebar */}
+                    <div className="bg-[#121517] px-4 py-2.5 flex items-center justify-between border-b border-white/5 select-none">
+                      {/* Window Controls */}
+                      <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[#ff5f56] inline-block shadow-sm" />
+                        <span className="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block shadow-sm" />
+                        <span className="w-3 h-3 rounded-full bg-[#27c93f] inline-block shadow-sm" />
+                      </div>
 
-              {/* Headline */}
-              <div className="mt-8 mb-6">
-                <div className="text-xs font-sans font-bold uppercase tracking-wider text-stone-500 mb-1.5">
-                  Deterministic Autonomous Resolution
-                </div>
-                <h3 className="text-2xl sm:text-4xl md:text-5xl font-black text-black tracking-tight font-sans leading-tight">
-                  INCIDENT AUTO-RESOLVED · 2.4s MTTR
-                </h3>
-                <p className="text-stone-600 text-sm sm:text-base font-sans mt-2">
-                  Postgres Connection Pool Saturation on <code className="bg-stone-100 text-stone-800 px-2 py-0.5 rounded font-mono text-xs border border-stone-200">payment-db-prod</code> cluster.
-                </p>
-              </div>
+                      {/* Slack Channel Indicator Bar */}
+                      <div className="flex items-center gap-2 bg-[#1f2328] px-3.5 py-1 rounded-md text-[11px] text-stone-300 font-sans border border-white/5 shadow-inner">
+                        <SlackLogo className="w-3 h-3" />
+                        <span className="font-bold text-white">#all-himanshu</span>
+                        <span className="text-stone-500">•</span>
+                        <span className="text-stone-400">Amber SRE Gateway</span>
+                      </div>
 
-              {/* Engineer Confirmation Quote Card */}
-              <div className="bg-stone-50 border-l-4 border-black p-6 sm:p-8 rounded-r-2xl border-y border-r border-stone-200 my-8 shadow-sm">
-                <div className="text-xs font-sans font-bold uppercase tracking-wider text-stone-500 mb-2.5 flex items-center gap-2">
-                  <span>Human-In-The-Loop Audit Log</span>
-                  <span className="text-stone-300">·</span>
-                  <span className="text-emerald-700 font-bold flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" /> Cryptographically Verified
-                  </span>
-                </div>
-
-                <blockquote className="text-lg sm:text-2xl md:text-3xl font-bold text-stone-900 font-sans leading-snug tracking-tight">
-                  “Engineer confirmed via {selectedChannel.toUpperCase()}. 4 idle connections terminated.”
-                </blockquote>
-
-                <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-sans text-stone-600">
-                  <div>
-                    <strong>Action:</strong> <code className="bg-white border border-stone-200 px-1.5 py-0.5 rounded text-stone-800 font-mono text-xs">kill_db_connections(pids=[412, 415, 419, 428])</code>
-                  </div>
-                  <div>
-                    <strong>Signer:</strong> Lead SRE ({activeChannelObj.handle})
-                  </div>
-                  <div>
-                    <strong>Latency:</strong> 180ms round-trip
-                  </div>
-                </div>
-              </div>
-
-              {/* 3 Wide, Spacious Metric Blocks (Not small cramped cards) */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
-                {/* Metric 1: Pool Utilization */}
-                <div className="bg-[#fafafa] border border-stone-200 rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-black/30 transition-all shadow-sm">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-bold font-sans uppercase tracking-wider text-stone-500">
-                        Pool Utilization
-                      </span>
-                      <span className="text-[10px] font-bold font-sans px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        Restored
-                      </span>
+                      {/* Right Workspace Icons */}
+                      <div className="flex items-center gap-2 text-stone-500 text-xs">
+                        <div className="hidden sm:inline-flex items-center gap-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span>Connected</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight font-sans my-2">
-                      98% → 14%
+
+                    {/* Slack Main Canvas: Real Uploaded Screenshot with Interactive Overlay */}
+                    <div className="relative w-full bg-white overflow-hidden group">
+                      <img 
+                        src="/assets/slack-alert.png" 
+                        alt="Amber SRE Slack Alert in #all-himanshu" 
+                        className="w-full h-auto object-cover block select-none pointer-events-none"
+                      />
+
+                      {/* Interactive Clickable Hotspot directly overlaying the "1-Click Approve (Web)" button */}
+                      <div 
+                        className="absolute bottom-[20%] left-[4.8%] sm:bottom-[20.5%] sm:left-[4.8%] z-20 cursor-pointer"
+                        title="Click to trigger autonomous 1-click remediation"
+                        onClick={handleApprove}
+                      >
+                        {!isResolved ? (
+                          <div className="relative group/hotspot">
+                            <span className="absolute -inset-1 rounded bg-amber-400 animate-ping opacity-60 pointer-events-none" />
+                            <button
+                              type="button"
+                              className="relative px-3 sm:px-4 py-1.5 sm:py-2 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-[11px] sm:text-xs shadow-lg transition-transform active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                            >
+                              <CheckCircle2 className="w-3.5 h-3.5 text-white" />
+                              <span>1-Click Approve (Web)</span>
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+
+                      {/* Live Remediated Confirmation Banner when Resolved */}
+                      <AnimatePresence>
+                        {isResolved && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 25 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 25 }}
+                            transition={{ duration: 0.35, ease: "easeOut" }}
+                            className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 bg-stone-950/95 backdrop-blur-md border border-emerald-500/40 rounded-xl p-3.5 sm:p-4 text-white shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 z-30"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                                <Check className="w-4 h-4 font-bold" />
+                              </div>
+                              <div>
+                                <div className="text-xs font-bold text-emerald-400 font-sans flex items-center gap-1.5">
+                                  <span>AUTONOMOUS EXECUTION VERIFIED</span>
+                                  <span className="text-stone-500">•</span>
+                                  <span className="text-white font-mono">2.4s MTTR</span>
+                                </div>
+                                <div className="text-xs text-stone-300 font-sans mt-0.5">
+                                  Terminated 4 idle connections on <code className="text-amber-300 font-mono">payment-db-prod</code>. Cluster restored.
+                                </div>
+                              </div>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={handleReplay}
+                              className="self-end sm:self-auto px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-stone-200 text-xs font-sans font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-white/10"
+                            >
+                              <RotateCcw className="w-3 h-3" />
+                              <span>Replay Alert</span>
+                            </button>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed mt-2">
-                      Terminated 4 idle-in-transaction connections. Active connection pool restored to normal operating headroom.
-                    </p>
-                  </div>
-                  <div className="pt-4 mt-4 border-t border-stone-200 text-xs font-sans font-semibold text-stone-500 flex items-center justify-between">
-                    <span>Cluster Headroom</span>
-                    <span className="text-emerald-700 font-bold">+84% Available</span>
-                  </div>
-                </div>
 
-                {/* Metric 2: P99 Latency */}
-                <div className="bg-[#fafafa] border border-stone-200 rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-black/30 transition-all shadow-sm">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-bold font-sans uppercase tracking-wider text-stone-500">
-                        P99 HTTP Latency
-                      </span>
-                      <span className="text-[10px] font-bold font-sans px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        Verified
-                      </span>
+                    {/* Bottom Status Ticker Bar */}
+                    <div className="bg-[#121517] px-4 py-2 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-stone-400">
+                      <div className="flex items-center gap-2">
+                        <Lock className="w-3 h-3 text-amber-400" />
+                        <span className="text-stone-300">SHA-256 HMAC:</span>
+                        <span className="text-amber-300">abcdef1234567890...</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-stone-500">TTL: 10m Guardrail</span>
+                        <span className="text-stone-500">•</span>
+                        <span className="text-emerald-400 font-bold">100% In-VPC</span>
+                      </div>
                     </div>
-                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight font-sans my-2">
-                      48ms
+
+                  </div>
+                </div>
+
+                {/* PC Monitor Realistic Metallic Stand Neck & Base */}
+                <div className="flex flex-col items-center pointer-events-none select-none">
+                  {/* Stand Neck */}
+                  <div className="w-20 sm:w-24 h-8 sm:h-10 bg-gradient-to-b from-[#2a2a2e] to-[#1a1a1c] border-x border-stone-600/40 shadow-inner" />
+                  {/* Stand Oval Base */}
+                  <div className="w-56 sm:w-72 h-3 sm:h-3.5 bg-gradient-to-r from-stone-800 via-stone-700 to-stone-800 rounded-full shadow-[0_20px_35px_rgba(0,0,0,0.9)] border-t border-stone-500/40" />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+
+          {/* ════════════════════════════════════════════════════════════
+              2. THE SMARTPHONE (Telegram / WhatsApp Mobile Workplace)
+             ════════════════════════════════════════════════════════════ */}
+          <AnimatePresence mode="popLayout">
+            {(activeTab === 'dual' || activeTab === 'telegram' || activeTab === 'whatsapp') && (
+              <motion.div
+                key="smartphone-container"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: activeTab === 'dual' ? 0.1 : 0 }}
+                className={`w-full flex justify-center ${
+                  activeTab === 'dual' ? 'lg:w-[360px] xl:w-[380px] shrink-0' : 'max-w-sm'
+                }`}
+              >
+                {/* Smartphone Realistic Titanium Frame */}
+                <div className="w-[320px] sm:w-[340px] bg-[#1a1a1c] rounded-[50px] p-3 border-[6px] border-[#2d2d30] shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_50px_rgba(42,171,238,0.18)] relative select-none">
+                  
+                  {/* Volume Buttons (Left Edge) */}
+                  <div className="absolute -left-[9px] top-28 w-[3px] h-8 bg-stone-700 rounded-l-sm" />
+                  <div className="absolute -left-[9px] top-40 w-[3px] h-10 bg-stone-700 rounded-l-sm" />
+                  
+                  {/* Power Button (Right Edge) */}
+                  <div className="absolute -right-[9px] top-32 w-[3px] h-12 bg-stone-700 rounded-r-sm" />
+
+                  {/* Inner OLED Glass Screen */}
+                  <div className="w-full h-[580px] rounded-[42px] overflow-hidden bg-[#0e1621] relative flex flex-col border border-white/5 shadow-inner">
+                    
+                    {/* iPhone Dynamic Island */}
+                    <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full z-40 flex items-center justify-between px-2.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-stone-900 border border-stone-800" />
+                      <div className="w-2 h-2 rounded-full bg-amber-500/80 animate-pulse" />
                     </div>
-                    <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed mt-2">
-                      Recovered from 8,400ms gateway timeout spikes. Health verification probes confirmed query latency stabilized.
-                    </p>
-                  </div>
-                  <div className="pt-4 mt-4 border-t border-stone-200 text-xs font-sans font-semibold text-stone-500 flex items-center justify-between">
-                    <span>SLA Compliance</span>
-                    <span className="text-emerald-700 font-bold">&lt; 100ms Target Verified</span>
-                  </div>
-                </div>
 
-                {/* Metric 3: Dropped Requests & Rollback */}
-                <div className="bg-[#fafafa] border border-stone-200 rounded-2xl p-6 sm:p-8 flex flex-col justify-between hover:border-black/30 transition-all shadow-sm">
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-bold font-sans uppercase tracking-wider text-stone-500">
-                        Dropped Requests
-                      </span>
-                      <span className="text-[10px] font-bold font-sans px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        Zero Loss
-                      </span>
+                    {/* iOS Top Status Bar */}
+                    <div className="pt-3 px-6 pb-2 flex justify-between items-center text-[10px] text-white/80 font-sans z-30 select-none">
+                      <span className="font-semibold">9:41</span>
+                      <div className="flex items-center gap-1.5">
+                        <Wifi className="w-3 h-3" />
+                        <Battery className="w-3.5 h-3.5" />
+                      </div>
                     </div>
-                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-black tracking-tight font-sans my-2">
-                      0.00%
+
+                    {/* ── Conditional App Header: Telegram or WhatsApp ── */}
+                    {activeTab === 'whatsapp' ? (
+                      // WhatsApp Green Header
+                      <div className="bg-[#1f2c34] px-4 py-2.5 flex items-center justify-between border-b border-black/40 z-20 shadow-md">
+                        <div className="flex items-center gap-2.5">
+                          <ChevronLeft className="w-5 h-5 text-[#00a884]" />
+                          <div className="w-8 h-8 rounded-full bg-[#00a884] text-white flex items-center justify-center font-bold text-xs shadow">
+                            AM
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-white font-sans">Amber SRE Alert</div>
+                            <div className="text-[10px] text-[#00a884] font-sans">online • Verified Bot</div>
+                          </div>
+                        </div>
+                        <MoreVertical className="w-4 h-4 text-stone-400" />
+                      </div>
+                    ) : (
+                      // Telegram Dark Blue Header
+                      <div className="bg-[#17212b] px-4 py-2.5 flex items-center justify-between border-b border-black/40 z-20 shadow-md">
+                        <div className="flex items-center gap-2.5">
+                          <ChevronLeft className="w-5 h-5 text-[#2AABEE]" />
+                          <div className="w-8 h-8 rounded-full bg-[#2AABEE] text-white flex items-center justify-center font-bold text-xs shadow">
+                            <Zap className="w-4 h-4 text-white fill-white" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-white font-sans flex items-center gap-1">
+                              <span>Amber SRE Bot</span>
+                              <span className="text-[9px] bg-sky-500/20 text-[#2AABEE] px-1 py-0.2 rounded font-mono font-bold">BOT</span>
+                            </div>
+                            <div className="text-[10px] text-[#2AABEE] font-sans">online</div>
+                          </div>
+                        </div>
+                        <Search className="w-4 h-4 text-stone-400" />
+                      </div>
+                    )}
+
+                    {/* Chat Stream Body */}
+                    <div className="flex-1 p-3.5 overflow-y-auto space-y-3 font-sans text-xs">
+                      
+                      {/* Date Badge */}
+                      <div className="text-center my-1">
+                        <span className="px-2.5 py-0.5 rounded-full bg-black/40 text-stone-400 text-[10px] font-medium border border-white/5">
+                          Today, 3:43 AM
+                        </span>
+                      </div>
+
+                      {/* Telegram Message Bubble */}
+                      <div className="bg-[#182533] text-white p-3.5 rounded-2xl rounded-tl-sm border border-white/5 shadow-lg space-y-2.5">
+                        
+                        {/* Alert Headline */}
+                        <div>
+                          <div className="text-amber-400 font-bold text-xs flex items-center gap-1.5">
+                            <span>🚨 [P0 - CATASTROPHIC OUTAGE]</span>
+                          </div>
+                          <div className="text-white font-bold text-sm tracking-tight mt-0.5">
+                            Postgres Pool Exhausted (98%)
+                          </div>
+                        </div>
+
+                        {/* Metadata Rows */}
+                        <div className="space-y-1 text-[11px] text-stone-300 font-mono bg-black/30 p-2.5 rounded-lg border border-white/5">
+                          <div className="flex justify-between">
+                            <span className="text-stone-400">Service:</span>
+                            <span className="text-rose-400 font-bold">billing-db</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-stone-400">Status:</span>
+                            <span className="text-amber-400 font-bold">TRIGGERED</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-stone-400">Incident:</span>
+                            <span className="text-stone-200">inc-test-123</span>
+                          </div>
+                        </div>
+
+                        {/* AI Root Cause */}
+                        <div className="border-l-2 border-amber-400 pl-2 text-[11px] text-stone-200">
+                          <strong className="text-white">🔍 AI Diagnosis:</strong> 10 hanging idle-in-transaction queries blocking Postgres pool.
+                        </div>
+
+                        {/* Proposed Action */}
+                        <div className="text-[11px] text-stone-300 pt-1">
+                          <div className="font-semibold text-white mb-0.5 flex items-center gap-1">
+                            <Zap className="w-3 h-3 text-amber-400" />
+                            <span>Proposed Mutating Action:</span>
+                          </div>
+                          <code className="text-amber-300 font-mono bg-black/40 px-1.5 py-0.5 rounded text-[10px] block">
+                            kill_db_connections(pids=[101, 102])
+                          </code>
+                        </div>
+
+                        {/* Inline Keyboard Action Buttons */}
+                        <div className="pt-2 space-y-1.5">
+                          <button
+                            type="button"
+                            onClick={handleApprove}
+                            disabled={isRemediating}
+                            className={`w-full py-2.5 px-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md ${
+                              isResolved
+                                ? 'bg-emerald-600 text-white'
+                                : 'bg-[#2AABEE] hover:bg-[#229ed9] text-white active:scale-95'
+                            }`}
+                          >
+                            {isRemediating ? (
+                              <>
+                                <Activity className="w-3.5 h-3.5 animate-spin" />
+                                <span>Verifying...</span>
+                              </>
+                            ) : isResolved ? (
+                              <>
+                                <Check className="w-3.5 h-3.5" />
+                                <span>Approved (2.4s MTTR)</span>
+                              </>
+                            ) : (
+                              <>
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                <span>1-Click Approve</span>
+                              </>
+                            )}
+                          </button>
+
+                          <div className="grid grid-cols-2 gap-1.5">
+                            <button
+                              type="button"
+                              className="py-1.5 px-2 rounded-lg bg-white/5 hover:bg-white/10 text-stone-300 text-[10px] font-semibold border border-white/5"
+                            >
+                              🔍 View Proof
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleReplay}
+                              className="py-1.5 px-2 rounded-lg bg-white/5 hover:bg-white/10 text-stone-300 text-[10px] font-semibold border border-white/5"
+                            >
+                              ✕ Reject / Reset
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Message Timestamp */}
+                        <div className="text-right text-[9px] text-stone-400 pt-0.5">
+                          3:43 AM · ✓✓
+                        </div>
+                      </div>
+
+                      {/* Follow-up Bot Confirmation Message when Resolved */}
+                      <AnimatePresence>
+                        {isResolved && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="bg-[#182533] text-white p-3 rounded-2xl rounded-tl-sm border border-emerald-500/30 space-y-1 shadow-md"
+                          >
+                            <div className="text-emerald-400 font-bold text-[11px] flex items-center gap-1.5">
+                              <Check className="w-3 h-3 text-emerald-400 font-bold" />
+                              <span>Remediation Complete (2.4s MTTR)</span>
+                            </div>
+                            <p className="text-[10px] text-stone-300 leading-relaxed">
+                              Terminated 4 idle connections. Database health probes verified: <strong className="text-white">12/12 PASSED</strong>. Headroom restored to 86%.
+                            </p>
+                            <div className="text-right text-[9px] text-stone-400">
+                              3:43:02 AM · ✓✓
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
                     </div>
-                    <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed mt-2">
-                      Zero dropped transactions. Automated rollback guardrails safely disarmed after 12 successful health verification probes.
-                    </p>
-                  </div>
-                  <div className="pt-4 mt-4 border-t border-stone-200 text-xs font-sans font-semibold text-stone-500 flex items-center justify-between">
-                    <span>Rollback Safeguard</span>
-                    <span className="text-stone-800 font-bold">Disarmed (Healthy)</span>
-                  </div>
-                </div>
-              </div>
 
-              {/* Divider & Multi-Channel Sync Status Bar */}
-              <div className="border-t border-stone-200 pt-6 mt-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                <div className="flex flex-wrap items-center gap-3">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold font-sans">
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>✓ Synced to Slack, WhatsApp, Telegram</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-xs font-sans font-medium text-stone-600">
-                    <span className="inline-flex items-center gap-1.5"><SlackLogo className="w-3.5 h-3.5" /> Slack ✓</span>
-                    <span className="inline-flex items-center gap-1.5"><WhatsAppLogo className="w-3.5 h-3.5" /> WhatsApp ✓</span>
-                    <span className="inline-flex items-center gap-1.5"><TelegramLogo className="w-3.5 h-3.5" /> Telegram ✓</span>
+                    {/* Telegram Bottom Chat Input Mockup */}
+                    <div className="bg-[#17212b] p-2.5 border-t border-black/30 flex items-center gap-2">
+                      <Paperclip className="w-4 h-4 text-stone-400" />
+                      <div className="flex-1 bg-[#242f3d] rounded-full px-3 py-1.5 text-[11px] text-stone-400 flex items-center justify-between">
+                        <span>Message...</span>
+                        <Smile className="w-3.5 h-3.5 text-stone-400" />
+                      </div>
+                      <div className="w-7 h-7 rounded-full bg-[#2AABEE] text-white flex items-center justify-center shadow">
+                        <Mic className="w-3.5 h-3.5" />
+                      </div>
+                    </div>
+
+                    {/* iOS Home Indicator Bar */}
+                    <div className="py-1 flex justify-center bg-[#17212b]">
+                      <div className="w-28 h-1 bg-white/30 rounded-full" />
+                    </div>
+
                   </div>
                 </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-                <div className="flex flex-wrap items-center gap-3 text-xs font-sans text-stone-500">
-                  <span className="inline-flex items-center gap-1 bg-stone-100 border border-stone-200 px-2.5 py-1 rounded text-[11px] font-mono text-stone-700">
-                    <Lock className="w-3 h-3 text-stone-600" />
-                    SHA-256: 7f83b165...
-                  </span>
-                  <span className="hidden sm:inline text-stone-300">·</span>
-                  <span>10m TTL Guardrail</span>
-                  <button
-                    type="button"
-                    onClick={handleReplay}
-                    className="ml-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900 hover:bg-black text-white font-sans font-bold text-xs transition-colors cursor-pointer shadow-sm hover:shadow"
-                  >
-                    <RotateCcw className="w-3 h-3" />
-                    <span>Test 1-Click Flow</span>
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            // ── Phase 2: Pending 1-Click Approval Brutalist Card (When Testing Flow) ──
-            <motion.div
-              key="pending-card"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Top Bar: Action Required + Amber Incident Engine + P0 Critical */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-stone-200">
-                <div className="flex items-center gap-3">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-amber-900 border border-amber-300 text-xs font-bold font-sans tracking-wider uppercase">
-                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-                    <span>ACTION REQUIRED</span>
-                  </div>
-                  <span className="text-stone-300 font-sans">|</span>
-                  <span className="font-sans font-bold text-stone-900 text-sm sm:text-base tracking-tight">
-                    Amber Incident Engine
-                  </span>
-                </div>
+        </div>
 
-                <div className="flex items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-50 text-rose-800 border border-rose-200 font-sans text-xs font-bold uppercase tracking-wider">
-                    P0 CRITICAL
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-stone-100 text-stone-900 border border-stone-200 font-sans text-xs font-bold uppercase tracking-wider">
-                    <Clock className="w-3 h-3 text-stone-600" />
-                    TTL: 09:48
-                  </span>
-                </div>
-              </div>
+        {/* ════════════════════════════════════════════════════════════
+            3. REAL-TIME TELEMETRY & AUDIT HUD (Below Devices)
+           ════════════════════════════════════════════════════════════ */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-12 bg-stone-900/90 border border-stone-800 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl"
+        >
+          {/* Top Bar: Cluster Health Summary + 1-Click Test Flow Reset */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+            <div className="flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-sans font-bold text-white text-sm sm:text-base tracking-tight">
+                Live Single-Tenant Telemetry Verification
+              </span>
+              <span className="text-stone-500 hidden sm:inline">|</span>
+              <span className="text-xs font-mono text-stone-400 hidden sm:inline">
+                AWS RDS Postgres 15 (us-east-1)
+              </span>
+            </div>
 
-              {/* Headline & Incident summary */}
-              <div className="mt-8 mb-6">
-                <div className="text-xs font-sans font-bold uppercase tracking-wider text-stone-500 mb-1.5">
-                  Alert Storm Ingestion & Root Cause Analysis
-                </div>
-                <h3 className="text-2xl sm:text-4xl md:text-5xl font-black text-black tracking-tight font-sans leading-tight">
-                  Database Connection Pool Exhausted (98%)
-                </h3>
-                <p className="text-stone-600 text-sm sm:text-base font-sans mt-2">
-                  Amber clustered 482 alert signals and diagnosed root cause: 4 idle-in-transaction queries blocking <code className="bg-stone-100 text-stone-800 px-2 py-0.5 rounded font-mono text-xs border border-stone-200">payment-db-prod</code>.
-                </p>
-              </div>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={handleReplay}
+                className="px-4 py-2 rounded-full bg-amber-400 hover:bg-amber-300 text-black font-sans font-bold text-xs tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-md hover:scale-105 active:scale-95"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Replay Incident Flow</span>
+              </button>
+            </div>
+          </div>
 
-              {/* Proposed Safe Remediation Command Box */}
-              <div className="bg-stone-50 border-l-4 border-amber-500 p-6 sm:p-8 rounded-r-2xl border-y border-r border-stone-200 my-8 shadow-sm">
-                <div className="text-xs font-sans font-bold uppercase tracking-wider text-stone-500 mb-2 flex items-center justify-between">
-                  <span className="flex items-center gap-2 text-stone-900 font-bold">
-                    <Zap className="w-4 h-4 text-amber-600" /> Proposed Remediation Command
-                  </span>
-                  <span className="font-mono text-xs text-stone-500">Target: AWS RDS Postgres 15</span>
-                </div>
-                <div className="bg-white border border-stone-200 rounded-xl p-4 font-mono text-sm font-bold text-stone-900 my-3">
-                  kill_db_connections(pids=[412, 415, 419, 428])
-                </div>
-                <div className="flex flex-wrap items-center justify-between text-xs font-sans text-stone-600 pt-2">
-                  <span>Cryptographic Token: <code className="font-mono text-stone-800">SHA-256: 7f83b165...</code></span>
-                  <span className="text-emerald-700 font-semibold flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5" /> Single-Tenant VPC Guardrail Confirmed
-                  </span>
-                </div>
+          {/* 3 Real Telemetry Metrics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+            
+            {/* Metric 1 */}
+            <div className="p-5 rounded-2xl bg-black/40 border border-white/5 flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">
+                  Pool Utilization
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  {isResolved ? 'Restored' : 'Saturated'}
+                </span>
               </div>
+              <div className="text-3xl sm:text-4xl font-black text-white font-sans my-1 tracking-tight">
+                {isResolved ? '98% → 14%' : '98% (Exhausted)'}
+              </div>
+              <p className="text-xs text-stone-400 leading-relaxed mt-1">
+                {isResolved 
+                  ? 'Terminated 4 idle queries. Active pool restored to normal operating headroom.'
+                  : '482 alert signals correlated. 10 idle connections blocking pool capacity.'}
+              </p>
+            </div>
 
-              {/* 1-Click Approval Action Bar */}
-              <div className="pt-2 flex flex-col sm:flex-row gap-4 items-center">
-                <button
-                  type="button"
-                  onClick={handleApprove}
-                  disabled={isRemediating}
-                  className="w-full sm:flex-1 py-4 px-8 rounded-2xl bg-black hover:bg-stone-900 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider flex items-center justify-center gap-3 transition-all duration-200 cursor-pointer shadow-xl hover:shadow-2xl hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  {isRemediating ? (
-                    <>
-                      <Activity className="w-5 h-5 animate-spin text-white" />
-                      <span>Executing in VPC & Verifying Health...</span>
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle2 className="w-5 h-5 text-white" />
-                      <span>1-Click Approve via {selectedChannel.toUpperCase()}</span>
-                    </>
-                  )}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsResolved(true)}
-                  className="w-full sm:w-auto px-6 py-4 rounded-2xl border border-stone-200 text-stone-600 hover:text-black hover:bg-stone-100 font-sans font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
-                >
-                  Skip to Remediated View
-                </button>
+            {/* Metric 2 */}
+            <div className="p-5 rounded-2xl bg-black/40 border border-white/5 flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">
+                  P99 HTTP Latency
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  {isResolved ? 'Verified' : 'Degraded'}
+                </span>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <div className="text-3xl sm:text-4xl font-black text-white font-sans my-1 tracking-tight">
+                {isResolved ? '48ms' : '8,400ms Spike'}
+              </div>
+              <p className="text-xs text-stone-400 leading-relaxed mt-1">
+                {isResolved 
+                  ? 'Recovered from gateway timeout spikes. 12 health verification probes confirmed.'
+                  : 'Upstream services experiencing gateway timeouts due to exhausted pool.'}
+              </p>
+            </div>
+
+            {/* Metric 3 */}
+            <div className="p-5 rounded-2xl bg-black/40 border border-white/5 flex flex-col justify-between">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">
+                  Recovery Time (MTTR)
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                  {isResolved ? 'Sub-3s Verified' : 'Awaiting Approval'}
+                </span>
+              </div>
+              <div className="text-3xl sm:text-4xl font-black text-white font-sans my-1 tracking-tight">
+                {isResolved ? '2.4s MTTR' : '1-Click Pending'}
+              </div>
+              <p className="text-xs text-stone-400 leading-relaxed mt-1">
+                {isResolved 
+                  ? 'Zero dropped transactions. Rollback safeguards safely disarmed.'
+                  : 'Action bound with SHA-256 HMAC payload hash and 10-minute TTL window.'}
+              </p>
+            </div>
+
+          </div>
+
+          {/* Bottom Channel Sync Proof Bar */}
+          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs font-sans text-stone-400">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-emerald-400 font-bold flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5" /> Synced in real-time:
+              </span>
+              <span className="inline-flex items-center gap-1 text-stone-300"><SlackLogo className="w-3.5 h-3.5" /> #all-himanshu</span>
+              <span className="text-stone-600">•</span>
+              <span className="inline-flex items-center gap-1 text-stone-300"><TelegramLogo className="w-3.5 h-3.5" /> @AmberSREBot</span>
+              <span className="text-stone-600">•</span>
+              <span className="inline-flex items-center gap-1 text-stone-300"><WhatsAppLogo className="w-3.5 h-3.5" /> WhatsApp SRE</span>
+            </div>
+
+            <div className="flex items-center gap-2 font-mono text-[11px] text-stone-400">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Zero Data Exfiltration • In-VPC Cluster Sovereign</span>
+            </div>
+          </div>
+
+        </motion.div>
 
       </div>
     </div>
