@@ -1,0 +1,5 @@
+# Amber SRE Autonomous Engine
+User-agent: *
+Allow: /
+
+Sitemap: https://ambersre.xyz/sitemap.xml
