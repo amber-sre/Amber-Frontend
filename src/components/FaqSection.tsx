@@ -9,7 +9,10 @@ import {
   RotateCcw, 
   Server, 
   CheckCircle2, 
-  ArrowRight 
+  ArrowRight,
+  Code2,
+  Coins,
+  ExternalLink
 } from 'lucide-react';
 
 interface FaqItem {
@@ -20,6 +23,11 @@ interface FaqItem {
   summary: string;
   answer: string[];
   keyTakeaway: string;
+  actionLink?: {
+    label: string;
+    url: string;
+    external?: boolean;
+  };
 }
 
 const FAQ_ITEMS: FaqItem[] = [
@@ -35,6 +43,37 @@ const FAQ_ITEMS: FaqItem[] = [
       'If an engineer does not explicitly approve the action, Amber takes no state-mutating action and escalates to your normal on-call paging flow.'
     ],
     keyTakeaway: 'Zero unapproved changes. Full engineer sovereignty guaranteed.'
+  },
+  {
+    id: 'opensource',
+    badge: 'OPEN ARCHITECTURE',
+    icon: Code2,
+    question: 'Is Amber open source? Can our platform & security teams audit the codebase?',
+    summary: 'Yes. Amber is open source and publicly auditable on GitHub—you can inspect every line of code.',
+    answer: [
+      'Yes. Critical production infrastructure software must never be an opaque black box. Amber’s core triage graphs, static risk allowlists, secret redaction engine, and cluster drivers are open source and publicly verifiable.',
+      'Your security, platform, and compliance teams can audit every single line of code to verify how secrets are scrubbed in memory, confirm that LLMs are physically blocked from raw shell execution, and validate that customer telemetry never leaves your VPC.',
+      'You are free to inspect the codebase, review our test suite, run local security scans, or contribute directly to the repository.'
+    ],
+    actionLink: {
+      label: 'Audit the complete codebase on GitHub',
+      url: 'https://github.com/himanshu-xyz-1/Amber',
+      external: true
+    },
+    keyTakeaway: '100% transparent and auditable on GitHub. Zero hidden telemetry or black-box logic.'
+  },
+  {
+    id: 'charges',
+    badge: 'TRANSPARENT PRICING',
+    icon: Coins,
+    question: 'Does Amber have any hidden seat fees, per-user charges, or surprise billing?',
+    summary: 'Zero per-seat fees. Unlimited team members with transparent flat-tier pricing.',
+    answer: [
+      'No. Many enterprise monitoring and observability vendors charge a punishing "seat tax" ($150–$300/user/month), forcing companies to restrict dashboard access. Amber includes unlimited user seats across all subscription tiers—invite your entire engineering organization at no extra cost.',
+      'We do not impose hidden surge fees or packet overages during high-severity outages. Each tier includes a predictable allocation of monitored microservices and Kubernetes/cloud nodes.',
+      'Node and service allocations are calculated against actively monitored services in a rolling 30-day window, ensuring temporary test clusters or resolved historical incidents never inflate your billing.'
+    ],
+    keyTakeaway: 'Predictable flat-rate pricing with unlimited team seats and zero hidden penalties.'
   },
   {
     id: 'airgap',
@@ -211,6 +250,21 @@ export function FaqSection() {
                             <p key={idx}>{paragraph}</p>
                           ))}
                         </div>
+
+                        {/* Optional Action / Audit Link */}
+                        {item.actionLink && (
+                          <div className="mt-4 pt-3 border-t border-stone-100 flex items-center">
+                            <a
+                              href={item.actionLink.url}
+                              target={item.actionLink.external ? "_blank" : undefined}
+                              rel={item.actionLink.external ? "noreferrer" : undefined}
+                              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#d97706] hover:text-black transition-colors"
+                            >
+                              <span>{item.actionLink.label}</span>
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          </div>
+                        )}
 
                         {/* Key Takeaway Callout */}
                         <div className="mt-5 p-3.5 bg-amber-50/70 border border-amber-200/70 rounded-xl flex items-center gap-3">
