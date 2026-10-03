@@ -384,7 +384,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* How It Works — Plain English & Real-Time Simulator */}
+      {/* How It Works — Incident Remediation Loop */}
       <HowItWorks />
 
       {/* Thesis Section */}

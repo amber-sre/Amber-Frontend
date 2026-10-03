@@ -7,8 +7,7 @@ import {
   CheckCircle2, 
   ArrowRight, 
   Terminal, 
-  Lock, 
-  Activity
+  Lock
 } from 'lucide-react';
 
 interface StepDetail {
@@ -19,7 +18,7 @@ interface StepDetail {
   icon: React.ElementType;
   color: string;
   description: string;
-  plainEnglish: string;
+  outcome: string;
   guarantee: string;
   snippet: {
     title: string;
@@ -36,7 +35,7 @@ const STEPS: StepDetail[] = [
     icon: Bell,
     color: '#facc15',
     description: 'When microservices fail, Prometheus, Datadog, or PagerDuty typically fire hundreds of cascading alerts. Amber receives webhooks in real time, computes deterministic alert fingerprints, and groups noise into a single correlated incident.',
-    plainEnglish: 'Instead of 50 noisy notifications flooding Slack at 3:00 AM, Amber groups the storm into one clear incident in milliseconds.',
+    outcome: 'Alert storm suppression at line-rate: cascaded alerts are unified into a single correlated incident with zero alert fatigue.',
     guarantee: 'Deduplicated sliding window. Zero dropped webhooks via Redis buffer.',
     snippet: {
       title: 'Incoming Webhook Ingestion & Fingerprinting',
@@ -57,7 +56,7 @@ const STEPS: StepDetail[] = [
     icon: Search,
     color: '#60a5fa',
     description: 'Amber uses strictly read-only diagnostics to fetch live container logs, check Postgres connection states, and assess memory usage. Diagnostic arguments are validated against real Kubernetes cluster resources — the model cannot invent fake processes or phantom pods.',
-    plainEnglish: 'Amber inspects your live cluster to see what actually crashed — strictly read-only, factual, and hallucination-free.',
+    outcome: 'Zero-hallucination telemetry inspection: read-only cluster probes isolate the exact broken microservice and offending git commit in seconds.',
     guarantee: 'Whitelisted tool arguments. Real cluster grounding with fail-safe fallback.',
     snippet: {
       title: 'Deterministic Read-Only Diagnostics',
@@ -78,7 +77,7 @@ const STEPS: StepDetail[] = [
     icon: ShieldCheck,
     color: '#fb923c',
     description: 'Amber dispatches an interactive notification to your Slack, Telegram, or WhatsApp with the diagnosed root cause and recommended remediation. All high-risk mutations require explicit human approval; actions expire automatically after 10 minutes.',
-    plainEnglish: 'Amber shows you what broke and proposes the exact fix. Nothing changes in production until an authorized engineer clicks Approve.',
+    outcome: 'Sovereign human-in-the-loop authorization: high-risk mutations require explicit cryptographic sign-off via Slack Connect before touch.',
     guarantee: 'Human-in-the-Loop Sovereign Gate. Cryptographic argument tamper-proofing.',
     snippet: {
       title: 'Slack / Telegram HITL Approval Dispatch',
@@ -99,7 +98,7 @@ const STEPS: StepDetail[] = [
     icon: CheckCircle2,
     color: '#34d399',
     description: 'Upon valid approval, Amber executes the targeted fix through compiled allowlisted drivers. It polls Kubernetes readiness probes and connection metrics to verify the cluster has stabilized, then generates an audit-ready Markdown post-mortem.',
-    plainEnglish: 'The outage is resolved in seconds, the cluster is verified healthy, and your team gets a complete post-mortem report instantly.',
+    outcome: 'Verified health convergence: automated remediation confirms cluster recovery within 45s, prevents loops, and publishes audit post-mortems.',
     guarantee: 'Auto-rollback loop prevention. SOC2/ISO27001 compliant audit trail.',
     snippet: {
       title: 'Remediation Execution & Health Convergence',
@@ -127,7 +126,7 @@ export const HowItWorks: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-sans font-bold tracking-widest text-[#d97706] uppercase mb-3">
               <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-              <span>How Amber Works — In Plain English</span>
+              <span>The Incident Remediation Loop</span>
             </div>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.0]">
               From Alert to Recovery in 4 Steps.
@@ -213,14 +212,14 @@ export const HowItWorks: React.FC = () => {
                   {activeStep.description}
                 </p>
 
-                {/* Plain English Callout Box */}
-                <div className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-[#78350f] mb-6">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#b45309] mb-1 flex items-center gap-1.5 font-sans">
-                    <Activity className="w-3.5 h-3.5" />
-                    <span>In Plain English</span>
+                {/* Operational Impact Callout Box */}
+                <div className="p-5 rounded-2xl bg-stone-100/90 border border-stone-200 text-stone-900 mb-6">
+                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#b45309] mb-1.5 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#d97706]" />
+                    <span>Operational Impact</span>
                   </div>
-                  <div className="text-sm font-semibold text-black leading-snug">
-                    "{activeStep.plainEnglish}"
+                  <div className="text-sm font-medium text-stone-900 leading-relaxed font-sans">
+                    {activeStep.outcome}
                   </div>
                 </div>
               </div>

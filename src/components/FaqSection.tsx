@@ -134,7 +134,7 @@ export function FaqSection() {
             Everything your CTO, SRE Lead, & Security Auditor need to know.
           </h2>
           <p className="text-stone-600 text-base sm:text-lg leading-relaxed">
-            Direct, plain-English answers to real architecture, security, and production questions. Zero marketing fluff.
+            Direct technical answers to real architecture, security, and production questions. Zero marketing fluff.
           </p>
         </div>
 
