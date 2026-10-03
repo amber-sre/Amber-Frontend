@@ -789,24 +789,24 @@ export default function App() {
 
         {/* Pricing Cards: Companies vs Agencies & MSPs */}
         {pricingAudience === 'companies' ? (
-          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
+          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
           
-          {/* Card 0: Community (Free Forever) */}
+          {/* Card 1: Community (Free Forever - All Observe Features Included) */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-emerald-500/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(16,185,129,0.08)]">
             <div>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-emerald-700">
-                  Self-Hosted / Local
+                  Incident Intelligence • Self-Hosted
                 </span>
                 <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
-                  FREE
+                  FREE FOREVER
                 </span>
               </div>
               <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Community
               </h3>
               <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                100% self-hosted AI SRE engine. Run locally with Ollama or BYO API key with zero telemetry egress.
+                Automated incident intelligence, alert storm correlation, and deterministic root-cause proof running 100% locally with zero write permissions.
               </p>
 
               {/* Price Display */}
@@ -820,92 +820,7 @@ export default function App() {
                   </span>
                 </div>
                 <div className="text-[11px] font-sans text-emerald-700 mt-0.5 font-bold">
-                  Free forever • 100% self-hosted compute
-                </div>
-              </div>
-
-              {/* Usage Quota Box */}
-              <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-3 mb-4 space-y-1 text-xs font-sans text-stone-700">
-                <div className="flex justify-between">
-                  <span className="text-stone-500">SERVICES:</span>
-                  <span className="text-stone-900 font-bold">Up to 3 Microservices</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">NODES:</span>
-                  <span className="text-stone-900 font-bold">Up to 5 Cloud / K8s Nodes</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">ALERTS:</span>
-                  <span className="text-[#b45309] font-bold">100 alerts / month</span>
-                </div>
-                <div className="flex justify-between pt-1 border-t border-[#e7e5e4]">
-                  <span className="text-stone-500">COMPUTE:</span>
-                  <span className="text-emerald-700 font-bold">Local Ollama / Self-Hosted</span>
-                </div>
-              </div>
-
-              {/* Features List */}
-              <ul className="space-y-2 text-xs sm:text-[13px] text-stone-700 font-sans">
-                <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Alert Storm Deduplication:</strong> Triage alert cascades in real time</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Deterministic Root-Cause:</strong> Stack trace & metric evidence proof</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Interactive Alert Channels:</strong> Instant Telegram & Slack pairing</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Air-Gapped Privacy:</strong> Zero cloud telemetry or external egress</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>Interactive terminal setup wizard & 1-line bash install</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="pt-5 mt-5 border-t border-stone-200/80">
-              <button
-                type="button"
-                onClick={navigateToCommunity}
-                className="w-full py-3 px-4 rounded-xl bg-stone-900 hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg group/btn"
-              >
-                <span>Use Community Tier for Free Forever</span>
-                <ArrowRight className="w-3.5 h-3.5 text-amber-400 group-hover/btn:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
-          
-          {/* Card 1: Observe */}
-          <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
-            <div>
-              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-1">
-                Incident Intelligence
-              </div>
-              <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
-                Observe
-              </h3>
-              <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                Automated incident intelligence, alert storm correlation, and root-cause proof without write permissions.
-              </p>
-
-              {/* Price Display */}
-              <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$999' : '$1,199'}
-                  </span>
-                  <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
-                    / month
-                  </span>
-                </div>
-                <div className="text-[11px] font-sans text-stone-500 mt-0.5">
-                  {billingCycle === 'annual' ? '$11,988 billed annually (Save $2,400)' : 'Billed monthly, cancel anytime'}
+                  Free forever • 100% self-hosted compute ($0 cloud bill)
                 </div>
               </div>
 
@@ -932,24 +847,32 @@ export default function App() {
               {/* Features List */}
               <ul className="space-y-2 text-xs sm:text-[13px] text-stone-700 font-sans">
                 <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                   <span><strong>Alert Storm Deduplication:</strong> 500 alerts into 1 incident in &lt; 80ms</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                   <span><strong>Deterministic Root-Cause:</strong> Exact file path, line number & proof</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                   <span>Memory leak, connection pool deadlock & OOM tracing</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                   <span>Automated markdown post-mortem report compilation</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                   <span>50+ Pre-built standard SRE runbooks (Postgres, K8s, Redis)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>Instant Telegram & Slack interactive on-call alert pairing</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>100% Local Self-Hosted Compute via Ollama (Zero Telemetry Egress)</span>
                 </li>
               </ul>
             </div>
@@ -957,11 +880,11 @@ export default function App() {
             <div className="pt-5 mt-5 border-t border-stone-200/80">
               <button
                 type="button"
-                onClick={() => handleSelectPlan('Observe')}
-                className="w-full py-3 px-5 rounded-xl bg-[#1c1917] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg"
+                onClick={navigateToCommunity}
+                className="w-full py-3 px-4 rounded-xl bg-stone-900 hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg group/btn"
               >
-                <span>Deploy Observe</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Use Community Tier for Free Forever</span>
+                <ArrowRight className="w-3.5 h-3.5 text-amber-400 group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>
@@ -1024,7 +947,7 @@ export default function App() {
               <ul className="space-y-2 text-xs sm:text-[13px] text-stone-800 font-sans">
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Everything in Observe tier</span>
+                  <span>Everything in Community tier</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
@@ -1701,7 +1624,7 @@ export default function App() {
                         </span>
                       </div>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        {['Observe', 'Autonomous', 'Response', 'Agency Partner'].map((plan) => {
+                        {['Autonomous', 'Response', 'Agency Partner', 'Community Edition'].map((plan) => {
                           const isSelected = selectedPlan === plan || (plan === 'Agency Partner' && selectedPlan.includes('Agency'));
                           return (
                             <button

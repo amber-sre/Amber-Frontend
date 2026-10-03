@@ -99,7 +99,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             Deploy Amber Community Edition in Under 60 Seconds.
           </h1>
           <p className="text-stone-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 5 nodes & 3 services with zero license key required.
+            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 50 nodes & 15 services with zero license key required.
           </p>
         </div>
 
@@ -134,7 +134,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Free Forever (5 Nodes · 3 Services · 100 Alerts/mo)</span>
+              <span>Free Forever (50 Nodes · 15 Services · 1,000 Alerts/mo)</span>
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -142,7 +142,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Includes interactive setup wizard</span>
+              <span>Full Incident Intelligence & 50+ Runbooks</span>
             </span>
           </div>
         </div>
@@ -211,8 +211,8 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                 <div className="bg-stone-900 text-stone-300 font-mono text-xs p-3 rounded-lg">
                   <span className="text-emerald-400">✔ COMMUNITY EDITION ACTIVATED (Free Forever)</span><br />
                   <span className="text-stone-400">  • License: Zero Key Required ($0 Free Forever)</span><br />
-                  <span className="text-stone-400">  • Quota: Up to 5 Nodes · 3 Services · 100 Alerts/month</span><br />
-                  <span className="text-stone-400">  • Execution: Read-Only Triage & Deterministic Proof</span>
+                  <span className="text-stone-400">  • Quota: Up to 50 Nodes · 15 Services · 1,000 Alerts/month</span><br />
+                  <span className="text-stone-400">  • Execution: 100% Read-Only IAM (0 Writes)</span>
                 </div>
               </div>
             </div>
@@ -308,47 +308,71 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               <thead className="bg-stone-50 border-b border-stone-200 font-mono text-xs uppercase tracking-wider text-stone-600">
                 <tr>
                   <th className="py-4 px-6">Capability</th>
-                  <th className="py-4 px-6 text-[#d97706] font-bold">Community (Free)</th>
-                  <th className="py-4 px-6 text-stone-900 font-bold">Observe ($999/mo)</th>
-                  <th className="py-4 px-6 text-stone-900 font-bold">Autonomous ($2,999/mo)</th>
+                  <th className="py-4 px-6 text-[#d97706] font-bold">Community (Free Forever)</th>
+                  <th className="py-4 px-6 text-stone-900 font-bold">Autonomous ($2,099/mo)</th>
+                  <th className="py-4 px-6 text-stone-900 font-bold">Response ($3,699/mo)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-200">
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Node Limit</td>
-                  <td className="py-3.5 px-6 text-stone-600">Up to 5 Nodes</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 50 Nodes</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 150 Nodes</td>
+                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 50 Nodes</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 200 Nodes</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Custom / Enterprise Scale</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Production Services</td>
-                  <td className="py-3.5 px-6 text-stone-600">Up to 3 Services</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 15 Services</td>
+                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 15 Services</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 35 Services</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Enterprise Fleet</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">Monthly Alerts</td>
+                  <td className="py-3.5 px-6 text-stone-700 font-semibold">1,000 alerts / month</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Unlimited Ingestion</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Unlimited Ingestion</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">AI Compute Model</td>
                   <td className="py-3.5 px-6 text-stone-600">Local Ollama / BYO Key</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Local Ollama / BYO Key</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Amber Cloud AI Gateway Included</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Local Ollama or Cloud AI</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Air-Gapped Local LLM or Cloud</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Incident Triage & Root Cause</td>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">Alert Storm Deduplication (&lt; 80ms)</td>
                   <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
                   <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
                   <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Automated Rollback & Remediation</td>
-                  <td className="py-3.5 px-6 text-stone-400">Read-Only Diagnostic</td>
-                  <td className="py-3.5 px-6 text-stone-400">Read-Only Diagnostic</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ 1-Click Governed Execution</td>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">Deterministic Root-Cause Proof</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">Memory Leak & Deadlock Tracing</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">50+ Pre-Built SRE Runbooks</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">✔ Included + 5 Custom</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">✔ White-Glove Authoring</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">Automated Remediation & Rollback</td>
+                  <td className="py-3.5 px-6 text-stone-400">Read-Only IAM (0 Writes)</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ 1-Click Governed (100/mo)</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ High-Volume (500/mo)</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Support SLA</td>
                   <td className="py-3.5 px-6 text-stone-600">GitHub Community</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Standard Slack Support</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Dedicated War-Room Escalation</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Private Slack Connect</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">&lt; 15-Min Principal SRE War Room</td>
                 </tr>
               </tbody>
             </table>
