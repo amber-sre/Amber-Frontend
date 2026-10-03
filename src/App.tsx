@@ -20,6 +20,9 @@ import { SpotlightCard } from './components/SpotlightCard';
 import { AnimatedCounter } from './components/AnimatedCounter';
 import { RemediationVideoPlayer } from './components/RemediationVideoPlayer';
 import { BlogView } from './components/BlogView';
+import { HowItWorks } from './components/HowItWorks';
+import { FaqSection } from './components/FaqSection';
+import { LegalModal, LegalTab } from './components/LegalModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,6 +82,13 @@ export default function App() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
   const [pricingAudience, setPricingAudience] = useState<'companies' | 'agencies'>('companies');
   const [selectedPlan, setSelectedPlan] = useState<string>('Autonomous');
+  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [legalTab, setLegalTab] = useState<LegalTab>('terms');
+
+  const openLegal = (tab: LegalTab) => {
+    setLegalTab(tab);
+    setLegalModalOpen(true);
+  };
 
   const [formData, setFormData] = useState({
     name: '',
@@ -286,13 +296,15 @@ export default function App() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="hidden md:flex gap-7 lg:gap-10 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold ml-6 items-center"
+          className="hidden md:flex gap-5 lg:gap-8 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold ml-6 items-center"
         >
+          <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="hover:text-[#d97706] text-black font-bold transition-colors cursor-pointer">How It Works</a>
           <a href="#pipeline" onClick={(e) => scrollToSection(e, 'pipeline')} className="hover:text-black transition-colors cursor-pointer">Services</a>
           <a href="#thesis" onClick={(e) => scrollToSection(e, 'thesis')} className="hover:text-black transition-colors cursor-pointer">Architecture</a>
           <a href="#live-engine" onClick={(e) => scrollToSection(e, 'live-engine')} className="hover:text-black transition-colors cursor-pointer">Simulator</a>
           <a href="#benchmarks" onClick={(e) => scrollToSection(e, 'benchmarks')} className="hover:text-black transition-colors cursor-pointer">Benchmarks</a>
           <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-black transition-colors cursor-pointer">Pricing</a>
+          <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="hover:text-black transition-colors cursor-pointer">FAQ</a>
           <a href="#connect" onClick={(e) => scrollToSection(e, 'connect')} className="hover:text-black transition-colors cursor-pointer">Contact</a>
           <button 
             type="button" 
@@ -335,7 +347,7 @@ export default function App() {
         >
           <div>SRE Engine</div>
           <div className="hidden sm:block">Deterministic Cloud Autonomy</div>
-          <div className="text-black font-bold">Zero-Human Latency</div>
+          <div className="text-black font-bold">Sub-Second Automated Triage</div>
         </motion.div>
 
         {/* Word 1: AMBER (Top Left) */}
@@ -363,7 +375,7 @@ export default function App() {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-[#d97809]"></span>
             </span>
             <span className="text-xs font-sans tracking-wider uppercase text-black/70 font-semibold">
-              99.999% Preserved Resilience
+              Deterministic Incident Convergence
             </span>
           </div>
 
@@ -440,6 +452,9 @@ export default function App() {
         </div>
       </div>
 
+      {/* How It Works — Plain English & Real-Time Simulator */}
+      <HowItWorks />
+
       {/* Thesis Section */}
       <section id="thesis" className="px-8 md:px-16 py-32 bg-[#ffffff] border-b border-black/5">
         <div className="flex justify-between items-center text-xs font-sans font-medium tracking-wider text-black/50 uppercase border-b border-black/10 pb-4 mb-20">
@@ -467,7 +482,7 @@ export default function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <div className="text-xs font-sans text-black font-bold tracking-wider mb-3">01 Safety Guarantee</div>
+              <div className="text-xs font-sans text-black font-bold tracking-wider mb-3">01 Safety Architecture</div>
               <h4 className="text-xl font-bold mb-3 text-[#0a0a0a]">Zero Raw Terminal Access</h4>
               <p className="text-black/60 text-sm leading-relaxed">
                 Amber strictly prohibits open-ended terminal executions. Every action is registered with static risk tiers in compile-time code.
@@ -691,7 +706,7 @@ export default function App() {
 
             <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
               <span>Static Registry</span>
-              <span className="text-emerald-400 font-bold">100% Audited</span>
+              <span className="text-emerald-400 font-bold">Cryptographically Validated</span>
             </div>
           </SpotlightCard>
 
@@ -935,7 +950,7 @@ export default function App() {
                 Autonomous
               </h3>
               <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                Deterministic automated triage, low-risk verified auto-remediation, and auto-rollbacks. Replaces 3:00 AM on-call firefighting.
+                Deterministic automated triage, low-risk verified auto-remediation, and auto-rollbacks. Automates 3:00 AM on-call triage and diagnosis.
               </p>
 
               {/* Price Display */}
@@ -1353,7 +1368,7 @@ export default function App() {
               <Cpu className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-bold text-[#0c0a09] mb-1 font-sans">Zero Model Training Guarantee</div>
+              <div className="text-sm font-bold text-[#0c0a09] mb-1 font-sans">Enterprise Privacy: Zero Training on Telemetry</div>
               <div className="text-xs text-stone-600 leading-relaxed font-normal">
                 Customer telemetry, stack traces, and runbooks never leave your perimeter and never train public AI models.
               </div>
@@ -1373,6 +1388,9 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* Frequently Asked Questions */}
+      <FaqSection />
 
       {/* CONNECT Section — Pure Luxury Obsidian Black & Crisp White */}
       <section 
@@ -1777,7 +1795,17 @@ export default function App() {
 
         {/* Bottom Signature & System Status Bar */}
         <div className="relative z-10 pt-16 mt-20 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs font-sans text-zinc-500 gap-4">
-          <div>© 2026 Amber · Deterministic Cloud Autonomy</div>
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+            <span>© 2026 Amber Technologies Inc. · All rights reserved.</span>
+            <span className="hidden sm:inline text-zinc-600">·</span>
+            <button 
+              type="button" 
+              onClick={() => openLegal('copyright')} 
+              className="text-zinc-400 hover:text-white underline cursor-pointer"
+            >
+              Copyright & IP Notices
+            </button>
+          </div>
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-zinc-300 font-medium">Remote — Built for SRE teams worldwide</span>
@@ -1814,7 +1842,17 @@ export default function App() {
               </div>
               <div className="font-medium text-black/80">Deterministic Cloud Autonomy</div>
               <div className="text-xs text-black/60 mt-1">Remote — Built for SRE teams worldwide</div>
-              <div className="text-xs text-black/40 mt-3">© 2026 Amber</div>
+              <div className="text-xs text-black/50 mt-3 flex items-center gap-2">
+                <span>© 2026 Amber Technologies Inc.</span>
+                <span>·</span>
+                <button
+                  type="button"
+                  onClick={() => openLegal('copyright')}
+                  className="text-black/70 hover:text-[#d97706] underline cursor-pointer"
+                >
+                  All Rights Reserved
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-wrap gap-6 text-xs font-sans font-semibold text-black/50 pt-12 items-center">
@@ -1822,8 +1860,9 @@ export default function App() {
               <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
               <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-black transition">TWITTER</a>
               <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">OPENAPI</a>
-              <a href="/docs/privacy-policy.md" target="_blank" rel="noreferrer" className="hover:text-black transition">PRIVACY</a>
-              <a href="/docs/terms-of-service.md" target="_blank" rel="noreferrer" className="hover:text-black transition">TERMS</a>
+              <button type="button" onClick={() => openLegal('privacy')} className="hover:text-[#d97706] transition uppercase cursor-pointer">PRIVACY</button>
+              <button type="button" onClick={() => openLegal('terms')} className="hover:text-[#d97706] transition uppercase cursor-pointer">TERMS</button>
+              <button type="button" onClick={() => openLegal('copyright')} className="hover:text-[#d97706] transition uppercase cursor-pointer">COPYRIGHT</button>
             </div>
           </div>
         </div>
@@ -1835,6 +1874,14 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Legal & Compliance Modal */}
+      <LegalModal
+        isOpen={legalModalOpen}
+        activeTab={legalTab}
+        onTabChange={setLegalTab}
+        onClose={() => setLegalModalOpen(false)}
+      />
 
     </div>
   );
