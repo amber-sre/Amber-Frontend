@@ -142,7 +142,11 @@ const FAQ_ITEMS: FaqItem[] = [
   }
 ];
 
-export function FaqSection() {
+interface FaqSectionProps {
+  onNavigateToContact?: () => void;
+}
+
+export function FaqSection({ onNavigateToContact }: FaqSectionProps = {}) {
   const [openId, setOpenId] = useState<string | null>('hitl');
 
   const toggleItem = (id: string) => {
@@ -290,13 +294,21 @@ export function FaqSection() {
               We provide tailored VPC deployment manifests, custom telemetry adapters, and white-glove runbook authoring.
             </p>
           </div>
-          <a
-            href="#connect"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0c0a09] hover:bg-[#d97706] text-white text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-sm"
+          <button
+            type="button"
+            onClick={() => {
+              if (onNavigateToContact) {
+                onNavigateToContact();
+              } else {
+                const el = document.getElementById('connect');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0c0a09] hover:bg-[#d97706] text-white text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-sm cursor-pointer"
           >
             <span>Talk to Engineering</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+          </button>
         </div>
       </div>
     </section>

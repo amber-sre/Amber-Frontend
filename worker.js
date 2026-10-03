@@ -334,7 +334,15 @@ export default {
     }
 
     // 3. Fallback to static assets with security headers
-    const assetResponse = await env.ASSETS.fetch(request);
+    let assetResponse = await env.ASSETS.fetch(request);
+    if (assetResponse.status === 404) {
+      const indexReq = new Request(new URL('/index.html', request.url), request);
+      const indexRes = await env.ASSETS.fetch(indexReq);
+      if (indexRes.ok) {
+        assetResponse = indexRes;
+      }
+    }
+
     const headers = new Headers(assetResponse.headers);
     headers.set('X-Frame-Options', 'SAMEORIGIN');
     headers.set('X-Content-Type-Options', 'nosniff');

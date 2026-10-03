@@ -37,6 +37,9 @@ export default function App() {
   const openLegal = (doc: LegalDocType) => {
     setLegalDoc(doc);
     setCurrentView('legal');
+    if (window.location.pathname !== `/${doc}`) {
+      window.history.pushState(null, '', `/${doc}`);
+    }
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -88,23 +91,51 @@ export default function App() {
     }
   };
 
-  // Auto-scroll directly to the contact form when visiting #contact or #connect, or route to #blog
+  // HTML5 History & URL route synchronization (clean URLs, never trailing /#)
   useEffect(() => {
     const handleRoute = () => {
-      const hash = window.location.hash;
-      const pathname = window.location.pathname;
-      if (hash === '#blog' || pathname === '/blog') {
+      const rawHash = window.location.hash;
+      const cleanHash = rawHash.replace(/^#\/?/, '').toLowerCase();
+      const pathname = window.location.pathname.toLowerCase();
+      const cleanPath = pathname.replace(/^\/|\/$/g, '');
+
+      // Immediately purge unsightly /# or # from the browser URL bar
+      if (window.location.href.includes('#') && (!rawHash || rawHash === '#' || rawHash === '#/')) {
+        window.history.replaceState(null, '', window.location.pathname || '/');
+      }
+
+      // Check Blog route
+      if (cleanPath === 'blog' || cleanHash === 'blog') {
         setCurrentView('blog');
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      } else {
-        setCurrentView('landing');
-        if (hash === '#contact' || hash === '#connect') {
-          setTimeout(() => {
-            smoothScrollTo('connect');
-          }, 400);
+        if (window.location.pathname !== '/blog') {
+          window.history.replaceState(null, '', '/blog');
         }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
+      // Check Legal docs routes (/privacy, /terms, /dpa, /subprocessors, /security, /copyright)
+      const legalDocs: LegalDocType[] = ['privacy', 'terms', 'dpa', 'subprocessors', 'security', 'copyright'];
+      const matchedDoc = legalDocs.find((d) => d === cleanPath || d === cleanHash);
+      if (matchedDoc) {
+        setLegalDoc(matchedDoc);
+        setCurrentView('legal');
+        if (window.location.pathname !== `/${matchedDoc}`) {
+          window.history.replaceState(null, '', `/${matchedDoc}`);
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
+      // Default: Landing view
+      setCurrentView('landing');
+      if (cleanHash === 'contact' || cleanHash === 'connect' || cleanPath === 'contact' || cleanPath === 'connect') {
+        setTimeout(() => {
+          smoothScrollTo('connect');
+        }, 400);
       }
     };
+
     handleRoute();
     window.addEventListener('hashchange', handleRoute);
     window.addEventListener('popstate', handleRoute);
@@ -115,20 +146,26 @@ export default function App() {
   }, []);
 
   const navigateToBlog = () => {
-    window.location.hash = 'blog';
+    if (window.location.pathname !== '/blog') {
+      window.history.pushState(null, '', '/blog');
+    }
     setCurrentView('blog');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateToLanding = () => {
-    window.location.hash = '';
+    if (window.location.pathname !== '/' || window.location.hash) {
+      window.history.pushState(null, '', '/');
+    }
     setCurrentView('landing');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const navigateToContactFromBlog = () => {
     setCurrentView('landing');
-    window.location.hash = 'connect';
+    if (window.location.pathname !== '/' || window.location.hash) {
+      window.history.pushState(null, '', '/');
+    }
     setTimeout(() => {
       smoothScrollTo('connect');
     }, 150);
@@ -1260,7 +1297,7 @@ export default function App() {
       </section>
 
       {/* Frequently Asked Questions */}
-      <FaqSection />
+      <FaqSection onNavigateToContact={() => smoothScrollTo('connect')} />
 
       {/* CONNECT Section — Pure Luxury Obsidian Black & Crisp White */}
       <section 

@@ -45,11 +45,18 @@ export const LegalView: React.FC<LegalViewProps> = ({
   const [copiedLink, setCopiedLink] = useState(false);
 
   useEffect(() => {
+    setActiveDoc(initialDoc);
+  }, [initialDoc]);
+
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+    if (window.location.pathname !== `/${activeDoc}`) {
+      window.history.replaceState(null, '', `/${activeDoc}`);
+    }
   }, [activeDoc]);
 
   const copyDocLink = () => {
-    navigator.clipboard.writeText(window.location.origin + '#' + activeDoc);
+    navigator.clipboard.writeText(`${window.location.origin}/${activeDoc}`);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };
