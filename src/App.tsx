@@ -399,11 +399,12 @@ export default function App() {
             </div>
           </div>
 
-          <div className="md:col-span-7 md:text-right">
-            <p className="text-black/75 text-base md:text-xl font-normal leading-relaxed max-w-xl md:ml-auto">
-              Like fossilized resin preserving ancient forms, Amber freezes incident chaos into 
-              <span className="text-black font-bold"> deterministic, cryptographic proof</span>. 
-              Autonomous triage, RAG playbooks, and verified healing for production clusters.
+          <div className="md:col-span-7 md:text-right space-y-2.5">
+            <p className="text-black/80 text-base md:text-xl font-medium leading-relaxed max-w-xl md:ml-auto">
+              When production catches fire, Amber brings the system <span className="text-[#d97809] font-bold">back to calm</span>.
+            </p>
+            <p className="text-black/65 text-sm md:text-lg font-normal leading-relaxed max-w-xl md:ml-auto">
+              Autonomous incident detection, root-cause analysis, and <span className="text-[#d97809] font-bold">verified remediation</span> — built to act <span className="text-[#d97809] font-bold">when your team can’t</span>.
             </p>
           </div>
         </motion.div>
