@@ -22,11 +22,12 @@ import { HowItWorks } from './components/HowItWorks';
 import { FaqSection } from './components/FaqSection';
 import { LegalView, LegalDocType } from './components/LegalView';
 import { PlatformCapabilities } from './components/PlatformCapabilities';
+import { CommunityView } from './components/CommunityView';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal' | 'community'>('landing');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedInfra, setSelectedInfra] = useState<string>('AWS');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
@@ -114,6 +115,16 @@ export default function App() {
         return;
       }
 
+      // Check Community route (/community)
+      if (cleanPath === 'community' || cleanHash === 'community') {
+        setCurrentView('community');
+        if (window.location.pathname !== '/community') {
+          window.history.replaceState(null, '', '/community');
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
       // Check Legal docs routes (/privacy, /terms, /dpa, /subprocessors, /security, /copyright)
       const legalDocs: LegalDocType[] = ['privacy', 'terms', 'dpa', 'subprocessors', 'security', 'copyright'];
       const matchedDoc = legalDocs.find((d) => d === cleanPath || d === cleanHash);
@@ -150,6 +161,13 @@ export default function App() {
       window.history.pushState(null, '', '/blog');
     }
     setCurrentView('blog');
+  };
+
+  const navigateToCommunity = () => {
+    if (window.location.pathname !== '/community') {
+      window.history.pushState(null, '', '/community');
+    }
+    setCurrentView('community');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -241,6 +259,15 @@ export default function App() {
     );
   }
 
+  if (currentView === 'community') {
+    return (
+      <CommunityView 
+        onBack={navigateToLanding} 
+        onNavigateToContact={navigateToContactFromBlog} 
+      />
+    );
+  }
+
   return (
     <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
       
@@ -275,6 +302,14 @@ export default function App() {
           <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-black transition-colors cursor-pointer">Pricing</a>
           <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="hover:text-black transition-colors cursor-pointer">FAQ</a>
           <a href="#connect" onClick={(e) => scrollToSection(e, 'connect')} className="hover:text-black transition-colors cursor-pointer">Contact</a>
+          <button 
+            type="button" 
+            onClick={navigateToCommunity} 
+            className="hover:text-[#d97706] text-black/85 font-bold transition-colors cursor-pointer uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <span>Community</span>
+            <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono font-bold leading-none">FREE</span>
+          </button>
           <button 
             type="button" 
             onClick={navigateToBlog} 
@@ -754,7 +789,97 @@ export default function App() {
 
         {/* Pricing Cards: Companies vs Agencies & MSPs */}
         {pricingAudience === 'companies' ? (
-          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
+          
+          {/* Card 0: Community (Free Forever) */}
+          <div className="bg-[#ffffff] border border-stone-200 hover:border-emerald-500/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(16,185,129,0.08)]">
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-emerald-700">
+                  Self-Hosted / Local
+                </span>
+                <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
+                  FREE
+                </span>
+              </div>
+              <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
+                Community
+              </h3>
+              <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
+                100% self-hosted AI SRE engine. Run locally with Ollama or BYO API key with zero telemetry egress.
+              </p>
+
+              {/* Price Display */}
+              <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
+                    $0
+                  </span>
+                  <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
+                    / month
+                  </span>
+                </div>
+                <div className="text-[11px] font-sans text-emerald-700 mt-0.5 font-bold">
+                  Free forever • 100% self-hosted compute
+                </div>
+              </div>
+
+              {/* Usage Quota Box */}
+              <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-3 mb-4 space-y-1 text-xs font-sans text-stone-700">
+                <div className="flex justify-between">
+                  <span className="text-stone-500">SERVICES:</span>
+                  <span className="text-stone-900 font-bold">Up to 3 Microservices</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-500">NODES:</span>
+                  <span className="text-stone-900 font-bold">Up to 5 Cloud / K8s Nodes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-500">ALERTS:</span>
+                  <span className="text-[#b45309] font-bold">100 alerts / month</span>
+                </div>
+                <div className="flex justify-between pt-1 border-t border-[#e7e5e4]">
+                  <span className="text-stone-500">COMPUTE:</span>
+                  <span className="text-emerald-700 font-bold">Local Ollama / Self-Hosted</span>
+                </div>
+              </div>
+
+              {/* Features List */}
+              <ul className="space-y-2 text-xs sm:text-[13px] text-stone-700 font-sans">
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span><strong>Alert Storm Deduplication:</strong> Triage alert cascades in real time</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span><strong>Deterministic Root-Cause:</strong> Stack trace & metric evidence proof</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span><strong>Interactive Alert Channels:</strong> Instant Telegram & Slack pairing</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span><strong>Air-Gapped Privacy:</strong> Zero cloud telemetry or external egress</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>Interactive terminal setup wizard & 1-line bash install</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pt-5 mt-5 border-t border-stone-200/80">
+              <button
+                type="button"
+                onClick={navigateToCommunity}
+                className="w-full py-3 px-4 rounded-xl bg-stone-900 hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg group/btn"
+              >
+                <span>Use Community Tier for Free Forever</span>
+                <ArrowRight className="w-3.5 h-3.5 text-amber-400 group-hover/btn:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
           
           {/* Card 1: Observe */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
@@ -1831,6 +1956,12 @@ export default function App() {
               Resources
             </div>
             <ul className="space-y-2.5 text-xs font-sans text-black/70">
+              <li>
+                <button type="button" onClick={navigateToCommunity} className="hover:text-[#d97706] transition cursor-pointer text-left flex items-center gap-1.5 font-semibold text-black">
+                  <span>Community Edition</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono font-bold leading-none">FREE</span>
+                </button>
+              </li>
               <li>
                 <button type="button" onClick={navigateToBlog} className="hover:text-[#d97706] transition cursor-pointer text-left">
                   Technical Blog
