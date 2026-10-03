@@ -851,14 +851,14 @@ export default function App() {
               <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$649' : '$799'}
+                    {billingCycle === 'annual' ? '$999' : '$1,199'}
                   </span>
                   <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                     / month
                   </span>
                 </div>
                 <div className="text-[11px] font-sans text-stone-500 mt-0.5">
-                  {billingCycle === 'annual' ? '$7,788 billed annually (Save $1,800)' : 'Billed monthly, cancel anytime'}
+                  {billingCycle === 'annual' ? '$11,988 billed annually (Save $2,400)' : 'Billed monthly, cancel anytime'}
                 </div>
               </div>
 
@@ -942,14 +942,14 @@ export default function App() {
               <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$1,499' : '$1,799'}
+                    {billingCycle === 'annual' ? '$2,099' : '$2,499'}
                   </span>
                   <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                     / month
                   </span>
                 </div>
                 <div className="text-[11px] font-sans text-[#b45309] mt-0.5 font-bold">
-                  {billingCycle === 'annual' ? '$17,988 billed annually (Save $3,600)' : 'Billed monthly, cancel anytime'}
+                  {billingCycle === 'annual' ? '$25,188 billed annually (Save $4,800)' : 'Billed monthly, cancel anytime'}
                 </div>
               </div>
 
@@ -1031,14 +1031,14 @@ export default function App() {
               <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$2,299' : '$2,799'}
+                    {billingCycle === 'annual' ? '$3,699' : '$4,499'}
                   </span>
                   <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                     / month
                   </span>
                 </div>
                 <div className="text-[11px] font-sans text-stone-500 mt-0.5">
-                  {billingCycle === 'annual' ? '$27,588 billed annually (Save $6,000)' : 'Billed monthly, cancel anytime'}
+                  {billingCycle === 'annual' ? '$44,388 billed annually (Save $9,600)' : 'Billed monthly, cancel anytime'}
                 </div>
               </div>
 
@@ -1149,7 +1149,7 @@ export default function App() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-stone-600 font-medium">EXTRA CLIENT WORKSPACE:</span>
-                    <span className="text-[#b45309] font-black">+$200 / mo per extra client</span>
+                    <span className="text-[#b45309] font-black">+$250 / mo per extra client</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-stone-600 font-medium">TOTAL MANAGED NODES:</span>
@@ -1199,7 +1199,7 @@ export default function App() {
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span>Agency Margin Economics:</span>
                   </div>
-                  Charge your 10 clients $1,500/mo ($15,000 total). Pay Amber $5,999/mo. Keep <strong className="text-emerald-700 font-bold">$9,000+ monthly net profit</strong> with zero human night-shift salaries.
+                  Charge your 10 clients $2,000/mo ($20,000 total). Pay Amber $5,999/mo. Keep <strong className="text-emerald-700 font-bold">$14,000+ monthly net profit</strong> with zero human night-shift salaries.
                 </div>
               </div>
 
@@ -1257,7 +1257,7 @@ export default function App() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-stone-500 font-medium">EXTRA CLIENT WORKSPACE:</span>
-                    <span className="text-emerald-700 font-bold">+$150 / mo per extra client</span>
+                    <span className="text-emerald-700 font-bold">+$200 / mo per extra client</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-stone-500 font-medium">TOTAL MANAGED NODES:</span>
