@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,11 +9,9 @@ import {
   CheckCircle2, 
   ShieldCheck, 
   Cpu, 
-  Server, 
   Copy, 
   Check, 
   Sparkles,
-  Zap,
   RotateCcw
 } from 'lucide-react';
 import { SpotlightCard } from './components/SpotlightCard';
@@ -22,72 +20,24 @@ import { RemediationVideoPlayer } from './components/RemediationVideoPlayer';
 import { BlogView } from './components/BlogView';
 import { HowItWorks } from './components/HowItWorks';
 import { FaqSection } from './components/FaqSection';
-import { LegalModal, LegalTab } from './components/LegalModal';
+import { LegalView, LegalDocType } from './components/LegalView';
+import { PlatformCapabilities } from './components/PlatformCapabilities';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 5-Stage Orchestration Pipeline Cards (Static Module Constant)
-const PIPELINE_CARDS = [
-  {
-    category: "Alert Clustering",
-    title: "Cluster Alert Storms into 1 Incident",
-    desc: "When a core service fails, monitoring tools fire hundreds of noisy alerts at once. Amber automatically groups them into one clean incident in under 80 milliseconds.",
-    metric: "< 80ms p99",
-    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
-    tag: "500 EPS Ingestion",
-    icon: Zap
-  },
-  {
-    category: "Root Cause Diagnosis",
-    title: "Pinpoint Broken Services in Seconds",
-    desc: "Inspects live container logs, CPU/memory spikes, and recent git commits to identify the exact failing microservice before your on-call team even opens a laptop.",
-    metric: "< 3s Diagnosis",
-    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
-    tag: "Deterministic Graph",
-    icon: Cpu
-  },
-  {
-    category: "Runbook Automation",
-    title: "Match Proven Internal Runbooks",
-    desc: "Scans your company wiki, Notion playbooks, and past incident post-mortems to surface the exact verified fix commands your senior engineers used previously.",
-    metric: "Verified Steps",
-    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
-    tag: "Hybrid Search",
-    icon: Server
-  },
-  {
-    category: "Human Confirmation",
-    title: "One-Click Slack Approvals",
-    desc: "Never runs unexpected commands in production. High-risk fixes require a single-click engineer confirmation in Slack with strict 10-minute expiry limits.",
-    metric: "100% Audited",
-    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
-    tag: "SHA-256 Gated",
-    icon: ShieldCheck
-  },
-  {
-    category: "Health Verification",
-    title: "Auto-Verify & Instant Rollback",
-    desc: "Applies the approved fix and watches real-time error rates. If cluster metrics do not return to normal within 10 seconds, Amber automatically reverts the changes.",
-    metric: "Auto-Rollback",
-    accent: "border-black/10 bg-white shadow-xl shadow-black/5",
-    tag: "Provable Recovery",
-    icon: RotateCcw
-  }
-];
-
 export default function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'blog'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal'>('landing');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedInfra, setSelectedInfra] = useState<string>('AWS');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
   const [pricingAudience, setPricingAudience] = useState<'companies' | 'agencies'>('companies');
   const [selectedPlan, setSelectedPlan] = useState<string>('Autonomous');
-  const [legalModalOpen, setLegalModalOpen] = useState(false);
-  const [legalTab, setLegalTab] = useState<LegalTab>('terms');
+  const [legalDoc, setLegalDoc] = useState<LegalDocType>('privacy');
 
-  const openLegal = (tab: LegalTab) => {
-    setLegalTab(tab);
-    setLegalModalOpen(true);
+  const openLegal = (doc: LegalDocType) => {
+    setLegalDoc(doc);
+    setCurrentView('legal');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const [formData, setFormData] = useState({
@@ -99,9 +49,6 @@ export default function App() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const horizontalSectionRef = useRef<HTMLDivElement>(null);
-  const horizontalTrackRef = useRef<HTMLDivElement>(null);
 
   // 1. Lenis Smooth Scroll Setup
   useEffect(() => {
@@ -129,31 +76,6 @@ export default function App() {
     return () => {
       lenis.destroy();
     };
-  }, []);
-
-  // 2. GSAP ScrollTrigger Animations (Horizontal Scroll Track)
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (horizontalSectionRef.current && horizontalTrackRef.current) {
-        const track = horizontalTrackRef.current;
-        const totalScroll = track.scrollWidth - window.innerWidth;
-
-        gsap.to(track, {
-          x: () => -totalScroll,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: horizontalSectionRef.current,
-            pin: true,
-            scrub: 1,
-            start: 'top top',
-            end: () => `+=${totalScroll + 600}`,
-            invalidateOnRefresh: true,
-          }
-        });
-      }
-    });
-
-    return () => ctx.revert();
   }, []);
 
   const smoothScrollTo = (id: string) => {
@@ -272,6 +194,16 @@ export default function App() {
     );
   }
 
+  if (currentView === 'legal') {
+    return (
+      <LegalView 
+        initialDoc={legalDoc}
+        onBack={navigateToLanding} 
+        onNavigateToContact={navigateToContactFromBlog} 
+      />
+    );
+  }
+
   return (
     <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
       
@@ -299,7 +231,7 @@ export default function App() {
           className="hidden md:flex gap-5 lg:gap-8 text-black/70 font-sans text-xs tracking-wider uppercase font-semibold ml-6 items-center"
         >
           <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="hover:text-[#d97706] text-black font-bold transition-colors cursor-pointer">How It Works</a>
-          <a href="#pipeline" onClick={(e) => scrollToSection(e, 'pipeline')} className="hover:text-black transition-colors cursor-pointer">Services</a>
+          <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-black transition-colors cursor-pointer">Platform</a>
           <a href="#thesis" onClick={(e) => scrollToSection(e, 'thesis')} className="hover:text-black transition-colors cursor-pointer">Architecture</a>
           <a href="#live-engine" onClick={(e) => scrollToSection(e, 'live-engine')} className="hover:text-black transition-colors cursor-pointer">Simulator</a>
           <a href="#benchmarks" onClick={(e) => scrollToSection(e, 'benchmarks')} className="hover:text-black transition-colors cursor-pointer">Benchmarks</a>
@@ -526,71 +458,9 @@ export default function App() {
         </div>
       </section>
 
-      {/* GSAP Horizontal Pinned Scroll Track Section */}
-      <section 
-        id="pipeline" 
-        ref={horizontalSectionRef}
-        className="h-screen bg-[#faf8f5] overflow-hidden flex flex-col justify-between py-16 border-b border-black/5"
-      >
-        <div className="px-8 md:px-16 flex justify-between items-center text-xs font-sans font-medium tracking-wider text-black/50 uppercase">
-          <div>Pipeline Architecture</div>
-          <div className="hidden sm:block">Horizontal Orchestration</div>
-          <div>5-Stage Autonomy</div>
-        </div>
-
-        {/* The Track that glides horizontally via GSAP */}
-        <div 
-          ref={horizontalTrackRef}
-          className="flex gap-10 px-8 md:px-16 items-center select-none"
-          style={{ width: 'max-content' }}
-        >
-          {PIPELINE_CARDS.map((card, idx) => {
-            const IconComp = card.icon;
-            return (
-              <div
-                key={idx}
-                className={`w-[360px] sm:w-[480px] md:w-[540px] h-[500px] rounded-3xl border ${card.accent} p-10 flex flex-col justify-between shadow-xl shadow-black/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group`}
-              >
-                <div>
-                  <div className="flex justify-between items-center pb-6 border-b border-black/5">
-                    <span className="text-xs font-sans font-bold text-black tracking-wider uppercase flex items-center gap-2">
-                      <IconComp className="w-4 h-4 text-black" />
-                      {card.category}
-                    </span>
-                    <span className="text-[11px] font-sans font-semibold bg-black/5 text-black px-3 py-1 rounded-full">
-                      {card.tag}
-                    </span>
-                  </div>
-
-                  <h3 className="text-3xl md:text-5xl font-black tracking-tight text-[#0a0a0a] mt-8 group-hover:text-black transition-colors">
-                    {card.title}
-                  </h3>
-
-                  <p className="text-black/70 text-base md:text-lg leading-relaxed mt-6 font-normal">
-                    {card.desc}
-                  </p>
-                </div>
-
-                <div className="pt-8 border-t border-black/5 flex justify-between items-center">
-                  <div>
-                    <div className="text-[11px] font-sans font-semibold text-black/40 uppercase tracking-wider">Recovery SLA</div>
-                    <div className="text-2xl font-black text-black font-mono">{card.metric}</div>
-                  </div>
-
-                  <div className="w-12 h-12 rounded-full border border-black/15 flex items-center justify-center text-black/50 group-hover:bg-black group-hover:text-white group-hover:border-transparent transition-all">
-                    <ArrowRight className="w-5 h-5 text-black group-hover:text-white" />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="px-8 md:px-16 flex items-center gap-2 text-xs font-sans font-semibold tracking-wider text-black/40 uppercase">
-          <span>Scroll Horizontally</span>
-          <ArrowRight className="w-3.5 h-3.5 animate-pulse text-[#d97809]" />
-        </div>
-      </section>
+      {/* Platform & Capabilities Section */}
+      <div id="pipeline" className="scroll-mt-24" />
+      <PlatformCapabilities />
 
       {/* Deep Midnight Obsidian Section: SLA Benchmarks */}
       <section id="benchmarks" className="px-8 md:px-16 py-32 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
@@ -1815,55 +1685,162 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="px-8 md:px-16 pt-32 pb-12 bg-[#ffffff] text-[#0a0a0a]">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 pb-24 border-b border-black/10">
-          <div className="md:col-span-8">
-            <div className="text-xs font-sans text-black tracking-wider uppercase mb-4 font-bold">
-              Production Outages?
+      <footer className="px-8 md:px-16 pt-24 pb-12 bg-[#ffffff] text-[#0a0a0a]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-black/10">
+          
+          {/* Column 1: Brand & Autonomous Purpose */}
+          <div className="md:col-span-4">
+            <div 
+              className="flex items-center gap-2.5 mb-4 cursor-pointer" 
+              onClick={(e) => scrollToSection(e as any, 'hero')}
+            >
+              <img src="/assets/amber-symbol.svg" alt="Amber" className="w-6 h-8 object-contain" />
+              <span className="font-black text-black tracking-tight text-xl">AMBER</span>
             </div>
-            <h2 className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tight leading-[0.92]">
-              Deploy Amber to Your VPC.
-            </h2>
-            <div className="mt-10">
-              <a 
-                href="mailto:amber.incident@gmail.com"
-                className="inline-flex items-center gap-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#0a0a0a] hover:text-black transition-colors"
-              >
-                amber.incident@gmail.com <ArrowUpRight className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14" />
-              </a>
-            </div>
+            <p className="text-black font-bold text-base leading-snug">
+              Autonomous Incident Remediation for production engineering teams.
+            </p>
+            <p className="text-black/50 text-xs mt-3 leading-relaxed font-sans">
+              Freezes incident chaos into deterministic cryptographic proof. Self-hosted VPC agents and cloud gateways for modern Kubernetes and cloud infrastructure.
+            </p>
           </div>
 
-          <div className="md:col-span-4 flex flex-col justify-between">
-            <div className="text-sm text-black/60 leading-relaxed font-sans">
-              <div className="flex items-center gap-2.5 mb-2">
-                <img src="/assets/amber-symbol.svg" alt="Amber" className="w-5 h-7 object-contain" />
-                <span className="font-bold text-black tracking-tight text-lg">Amber</span>
-              </div>
-              <div className="font-medium text-black/80">Deterministic Cloud Autonomy</div>
-              <div className="text-xs text-black/60 mt-1">Remote — Built for SRE teams worldwide</div>
-              <div className="text-xs text-black/50 mt-3 flex items-center gap-2">
-                <span>© 2026 Amber Technologies Inc.</span>
-                <span>·</span>
-                <button
-                  type="button"
-                  onClick={() => openLegal('copyright')}
-                  className="text-black/70 hover:text-[#d97706] underline cursor-pointer"
-                >
-                  All Rights Reserved
-                </button>
-              </div>
+          {/* Column 2: Platform Capabilities */}
+          <div className="md:col-span-3">
+            <div className="text-xs font-mono text-black font-bold uppercase tracking-wider mb-4">
+              Platform
             </div>
+            <ul className="space-y-2.5 text-xs font-sans text-black/70">
+              <li>
+                <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
+                  Incident Triage
+                </a>
+              </li>
+              <li>
+                <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
+                  AI Investigation
+                </a>
+              </li>
+              <li>
+                <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
+                  Runbook Automation
+                </a>
+              </li>
+              <li>
+                <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
+                  Verified Remediation
+                </a>
+              </li>
+              <li>
+                <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
+                  Action Control
+                </a>
+              </li>
+              <li>
+                <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
+                  Recovery Verification
+                </a>
+              </li>
+              <li>
+                <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
+                  Postmortems & Intelligence
+                </a>
+              </li>
+            </ul>
+          </div>
 
-            <div className="flex flex-wrap gap-6 text-xs font-sans font-semibold text-black/50 pt-12 items-center">
-              <button type="button" onClick={navigateToBlog} className="hover:text-black transition uppercase cursor-pointer">BLOG</button>
-              <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
-              <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-black transition">TWITTER</a>
-              <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">OPENAPI</a>
-              <button type="button" onClick={() => openLegal('privacy')} className="hover:text-[#d97706] transition uppercase cursor-pointer">PRIVACY</button>
-              <button type="button" onClick={() => openLegal('terms')} className="hover:text-[#d97706] transition uppercase cursor-pointer">TERMS</button>
-              <button type="button" onClick={() => openLegal('copyright')} className="hover:text-[#d97706] transition uppercase cursor-pointer">COPYRIGHT</button>
+          {/* Column 3: Security & Governance */}
+          <div className="md:col-span-3">
+            <div className="text-xs font-mono text-black font-bold uppercase tracking-wider mb-4">
+              Security & Legal
             </div>
+            <ul className="space-y-2.5 text-xs font-sans text-black/70">
+              <li>
+                <button type="button" onClick={() => openLegal('privacy')} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Privacy Policy
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => openLegal('terms')} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Terms of Service
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => openLegal('security')} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Security Architecture
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => openLegal('dpa')} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Data Processing Agreement (DPA)
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => openLegal('subprocessors')} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Subprocessor Directory
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => openLegal('copyright')} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Copyright & IP Notice
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Resources & Links */}
+          <div className="md:col-span-2">
+            <div className="text-xs font-mono text-black font-bold uppercase tracking-wider mb-4">
+              Resources
+            </div>
+            <ul className="space-y-2.5 text-xs font-sans text-black/70">
+              <li>
+                <button type="button" onClick={navigateToBlog} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Technical Blog
+                </button>
+              </li>
+              <li>
+                <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-[#d97706] transition">
+                  Pricing & Tiers
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">
+                  GitHub Repository
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">
+                  Engineering Twitter
+                </a>
+              </li>
+              <li>
+                <a href="#connect" onClick={(e) => scrollToSection(e, 'connect')} className="hover:text-[#d97706] transition">
+                  Contact & Support
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Bottom Legal Copyright Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-black/60">
+          <div>
+            © 2026 Amber SRE. All rights reserved.
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <button type="button" onClick={() => openLegal('privacy')} className="hover:text-black transition cursor-pointer">Privacy Policy</button>
+            <span>·</span>
+            <button type="button" onClick={() => openLegal('terms')} className="hover:text-black transition cursor-pointer">Terms of Service</button>
+            <span>·</span>
+            <button type="button" onClick={() => openLegal('security')} className="hover:text-black transition cursor-pointer">Security</button>
+            <span>·</span>
+            <button type="button" onClick={() => openLegal('dpa')} className="hover:text-black transition cursor-pointer">DPA</button>
+            <span>·</span>
+            <button type="button" onClick={() => openLegal('subprocessors')} className="hover:text-black transition cursor-pointer">Subprocessors</button>
+            <span>·</span>
+            <button type="button" onClick={() => openLegal('copyright')} className="hover:text-black transition cursor-pointer">Copyright</button>
           </div>
         </div>
 
@@ -1874,14 +1851,6 @@ export default function App() {
           </div>
         </div>
       </footer>
-
-      {/* Legal & Compliance Modal */}
-      <LegalModal
-        isOpen={legalModalOpen}
-        activeTab={legalTab}
-        onTabChange={setLegalTab}
-        onClose={() => setLegalModalOpen(false)}
-      />
 
     </div>
   );
