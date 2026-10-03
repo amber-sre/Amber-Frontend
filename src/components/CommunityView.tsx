@@ -26,7 +26,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
   const [copiedCmd, setCopiedCmd] = useState(false);
   const [copiedWebhook, setCopiedWebhook] = useState(false);
 
-  const installCommand = 'curl -fsSL https://ambersre.xyz/install.sh | bash';
+  const installCommand = 'curl -fsSL https://ambersre.xyz/community.sh | bash';
   const webhookExample = 'POST http://<your-server-ip>:8000/api/v1/alerts/webhook';
 
   const copyInstallCommand = () => {
@@ -99,7 +99,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             Deploy Amber Community Edition in Under 60 Seconds.
           </h1>
           <p className="text-stone-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 5 nodes.
+            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 5 nodes & 3 services with zero license key required.
           </p>
         </div>
 
@@ -130,7 +130,11 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
           <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-mono text-stone-400 pt-3 border-t border-white/10">
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>No credit card required</span>
+              <span>Zero License Key Required</span>
+            </span>
+            <span className="flex items-center gap-1.5 text-stone-300">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Free Forever (5 Nodes · 3 Services · 100 Alerts/mo)</span>
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -199,14 +203,16 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               </div>
               <div>
                 <h3 className="text-base font-bold text-[#0c0a09] mb-1">
-                  License & Quota Verification
+                  Automatic Community Activation (Zero License Required)
                 </h3>
                 <p className="text-sm text-stone-600 leading-relaxed mb-3">
-                  When the wizard asks for your Amber License Key, simply press <kbd className="px-2 py-0.5 bg-stone-100 border border-stone-300 rounded font-mono text-xs font-bold text-stone-800">ENTER</kbd>.
+                  The Community installer never asks for a license key. It instantly registers your team and activates the lifetime Free Community tier with dedicated resource quotas.
                 </p>
                 <div className="bg-stone-900 text-stone-300 font-mono text-xs p-3 rounded-lg">
-                  License Key [Press ENTER for Free Community]: <span className="text-[#facc15]">&lt;ENTER&gt;</span><br />
-                  <span className="text-emerald-400">✔ Activated FREE COMMUNITY EDITION (Lifetime, 5 Nodes, 3 Services)</span>
+                  <span className="text-emerald-400">✔ COMMUNITY EDITION ACTIVATED (Free Forever)</span><br />
+                  <span className="text-stone-400">  • License: Zero Key Required ($0 Free Forever)</span><br />
+                  <span className="text-stone-400">  • Quota: Up to 5 Nodes · 3 Services · 100 Alerts/month</span><br />
+                  <span className="text-stone-400">  • Execution: Read-Only Triage & Deterministic Proof</span>
                 </div>
               </div>
             </div>

@@ -131,8 +131,8 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    // 1. Direct raw bash script route for curl -fsSL https://ambersre.xyz/install.sh | bash
-    if (url.pathname === '/install.sh') {
+    // 1. Direct raw bash script route for install.sh and community.sh
+    if (url.pathname === '/install.sh' || url.pathname === '/community.sh') {
       const scriptRes = await env.ASSETS.fetch(request);
       if (scriptRes.ok) {
         const scriptText = await scriptRes.text();
