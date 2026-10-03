@@ -304,14 +304,6 @@ export default function App() {
           <a href="#connect" onClick={(e) => scrollToSection(e, 'connect')} className="hover:text-black transition-colors cursor-pointer">Contact</a>
           <button 
             type="button" 
-            onClick={navigateToCommunity} 
-            className="hover:text-[#d97706] text-black/85 font-bold transition-colors cursor-pointer uppercase tracking-wider flex items-center gap-1.5"
-          >
-            <span>Community</span>
-            <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono font-bold leading-none">FREE</span>
-          </button>
-          <button 
-            type="button" 
             onClick={navigateToBlog} 
             className="hover:text-[#d97706] text-black/85 font-bold transition-colors cursor-pointer uppercase tracking-wider flex items-center gap-1.5"
           >
@@ -371,16 +363,27 @@ export default function App() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-end my-12"
+          className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-start my-12"
         >
-          <div className="md:col-span-5 flex items-center gap-3">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d97809] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#d97809]"></span>
-            </span>
-            <span className="text-xs font-sans tracking-wider uppercase text-black/70 font-semibold">
-              Deterministic Incident Convergence
-            </span>
+          <div className="md:col-span-5 flex flex-col items-start gap-4">
+            <div className="flex items-center gap-3">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d97809] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#d97809]"></span>
+              </span>
+              <span className="text-xs font-sans tracking-wider uppercase text-black/70 font-semibold">
+                Deterministic Incident Convergence
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={navigateToCommunity}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#facc15] hover:bg-[#eab308] text-black font-sans font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#facc15]/25 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer group"
+            >
+              <span>Try Now</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
 
           <div className="md:col-span-7 md:text-right">
