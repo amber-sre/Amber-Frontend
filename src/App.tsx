@@ -12,7 +12,8 @@ import {
   Copy, 
   Check, 
   Sparkles,
-  RotateCcw
+  RotateCcw,
+  Star
 } from 'lucide-react';
 import { SpotlightCard } from './components/SpotlightCard';
 import { AnimatedCounter } from './components/AnimatedCounter';
@@ -365,7 +366,7 @@ export default function App() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-6 items-start my-12"
         >
-          <div className="md:col-span-5 flex flex-col items-start gap-4">
+          <div className="md:col-span-5 flex flex-col items-start gap-3.5">
             <div className="flex items-center gap-3">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d97809] opacity-75"></span>
@@ -376,14 +377,26 @@ export default function App() {
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={navigateToCommunity}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#facc15] hover:bg-[#eab308] text-black font-sans font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#facc15]/25 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer group"
-            >
-              <span>Try Now</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            <div className="flex flex-col items-start gap-2.5 pt-1">
+              <button
+                type="button"
+                onClick={navigateToCommunity}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#d97809] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider shadow-md shadow-[#d97809]/20 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+              >
+                <span>Try Now</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <a
+                href="https://github.com/himanshu-xyz-1/Amber"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white hover:bg-[#d97809] border-2 border-[#d97809] text-[#d97809] hover:text-white font-sans font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
+              >
+                <Star className="w-3.5 h-3.5 fill-[#d97809] group-hover:fill-white text-[#d97809] group-hover:text-white transition-colors" />
+                <span>Star us on GitHub</span>
+              </a>
+            </div>
           </div>
 
           <div className="md:col-span-7 md:text-right">
