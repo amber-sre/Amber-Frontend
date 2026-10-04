@@ -28,23 +28,24 @@ To guarantee deterministic system latency (<100ms webhook ingestion, <3s triage)
 ├─────────────────────┬──────────────────────────┬───────────────────────────────────────┤
 │ TIER / COMMITMENT   │ PRICING (USD)            │ INFRASTRUCTURE & EXECUTION LIMITS     │
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
-│ LEVEL 1: OBSERVE    │ • Monthly: $799/mo       │ • Up to 15 Production Microservices   │
-│ (Incident           │ • Annual: $649/mo        │ • Up to 50 Kubernetes / Cloud Nodes   │
-│  Intelligence)      │   (Billed $7,788/yr)     │ • 1,000 alerts / month                │
+│ COMMUNITY TIER      │ • $0 / Month             │ • Up to 15 Production Microservices   │
+│ (Self-Hosted,       │ • Free Forever           │ • Up to 50 Kubernetes / Cloud Nodes   │
+│  Air-Gapped SRE)    │   Zero License Key Req   │ • 1,000 alerts / month                │
 │                     │                          │ • Alert Storm Deduplication (< 80ms)  │
 │                     │                          │ • Deterministic RCA Proof Blocks      │
-│                     │                          │ • Read-Only IAM (Zero Writes)         │
+│                     │                          │ • Read-Only IAM Diagnostics           │
+│                     │                          │ • 50+ Built-in Runbooks & Local Ollama│
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
-│ LEVEL 2: AUTONOMOUS │ • Monthly: $1,799/mo     │ • Up to 35 Production Microservices   │
-│ (Automated Fixes)   │ • Annual: $1,499/mo      │ • Up to 200 Kubernetes / Cloud Nodes  │
-│                     │   (Billed $17,988/yr)    │ • Unlimited Alert Ingestion           │
-│                     │                          │ • 100 Included Remediations / month   │
-│                     │                          │ • Governed HITL Approvals Included    │
-│                     │                          │ • 5 Tailored Runbooks Authored        │
+│ LEVEL 1: AUTONOMOUS │ • Monthly: $2,499/mo     │ • Up to 35 Production Microservices   │
+│ (Automated Fixes)   │ • Annual: $2,099/mo      │ • Up to 200 Kubernetes / Cloud Nodes  │
+│                     │   (Billed $25,188/yr)    │ • Unlimited Alert Ingestion           │
+│                     │                          │ • 100 Included Mutating Actions / mo  │
+│                     │                          │ • Multi-Channel HITL (Slack/TG/WA)    │
+│                     │                          │ • Offline Ed25519 License Validation  │
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
-│ LEVEL 3: RESPONSE   │ • Monthly: $2,799/mo     │ • Custom / Unlimited Microservices    │
-│ (Enterprise Response│ • Annual: $2,299/mo      │ • Dedicated Single-Tenant VPC Cluster │
-│  & SRE Escalation)  │   (Billed $27,588/yr)    │ • 500 High-Volume Remediations / mo   │
+│ LEVEL 2: RESPONSE   │ • Monthly: $4,499/mo     │ • Custom / Unlimited Microservices    │
+│ (Enterprise Response│ • Annual: $3,699/mo      │ • Dedicated Single-Tenant VPC Cluster │
+│  & SRE Escalation)  │   (Billed $44,388/yr)    │ • 500 High-Volume Remediations / mo   │
 │                     │                          │ • < 15-min Incident Bridge Escalation │
 │                     │                          │ • Full White-Glove Runbook Eng        │
 │                     │                          │ • Strictly Limited to 5 Design Orgs   │

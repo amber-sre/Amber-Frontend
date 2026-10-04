@@ -497,7 +497,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             </p>
 
             <p className="text-stone-700 leading-relaxed">
-              Because Amber runs on your own compute infrastructure and does not incur costs storing petabytes of telemetry in multi-tenant data centers, our platform overhead is minimal. We reflect that architecture in our business model: flat, predictable infrastructure tiers starting at <strong>$799/month</strong> with <strong>unlimited user seats</strong>.
+              Because Amber runs on your own compute infrastructure and does not incur costs storing petabytes of telemetry in multi-tenant data centers, our platform overhead is minimal. We reflect that architecture in our business model: a <strong>Free Forever Community Edition</strong> for self-hosted teams, and flat, predictable commercial tiers with <strong>unlimited user seats</strong>.
             </p>
 
             {/* Clean Editorial Callout CTA */}

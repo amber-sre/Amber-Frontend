@@ -111,4 +111,4 @@ The application will be compiled into `dist/` and deployed to the Cloudflare glo
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+Proprietary and Confidential. Copyright (c) 2026 Amber Technologies Inc. All Rights Reserved. See [LICENSE](LICENSE) for details.
