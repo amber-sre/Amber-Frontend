@@ -24,11 +24,15 @@ import { FaqSection } from './components/FaqSection';
 import { LegalView, LegalDocType } from './components/LegalView';
 import { PlatformCapabilities } from './components/PlatformCapabilities';
 import { CommunityView } from './components/CommunityView';
+import { PageTransition } from './components/PageTransition';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal' | 'community'>('landing');
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [isSplitting, setIsSplitting] = useState<boolean>(false);
+
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [selectedInfra, setSelectedInfra] = useState<string>('AWS');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
@@ -36,13 +40,33 @@ export default function App() {
   const [selectedPlan, setSelectedPlan] = useState<string>('Autonomous');
   const [legalDoc, setLegalDoc] = useState<LegalDocType>('privacy');
 
+  const transitionTo = (action: () => void) => {
+    setIsTransitioning(true);
+    setIsSplitting(false);
+    setTimeout(() => {
+      action();
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      setIsSplitting(true);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setIsSplitting(false);
+      }, 700);
+    }, 280);
+  };
+
   const openLegal = (doc: LegalDocType) => {
-    setLegalDoc(doc);
-    setCurrentView('legal');
-    if (window.location.pathname !== `/${doc}`) {
-      window.history.pushState(null, '', `/${doc}`);
-    }
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (currentView === 'legal' && legalDoc === doc) return;
+    transitionTo(() => {
+      setLegalDoc(doc);
+      setCurrentView('legal');
+      if (window.location.pathname !== `/${doc}`) {
+        window.history.pushState(null, '', `/${doc}`);
+      }
+    });
   };
 
   const [formData, setFormData] = useState({
@@ -158,36 +182,45 @@ export default function App() {
   }, []);
 
   const navigateToBlog = () => {
-    if (window.location.pathname !== '/blog') {
-      window.history.pushState(null, '', '/blog');
-    }
-    setCurrentView('blog');
+    if (currentView === 'blog') return;
+    transitionTo(() => {
+      if (window.location.pathname !== '/blog') {
+        window.history.pushState(null, '', '/blog');
+      }
+      setCurrentView('blog');
+    });
   };
 
   const navigateToCommunity = () => {
-    if (window.location.pathname !== '/community') {
-      window.history.pushState(null, '', '/community');
-    }
-    setCurrentView('community');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (currentView === 'community') return;
+    transitionTo(() => {
+      if (window.location.pathname !== '/community') {
+        window.history.pushState(null, '', '/community');
+      }
+      setCurrentView('community');
+    });
   };
 
   const navigateToLanding = () => {
-    if (window.location.pathname !== '/' || window.location.hash) {
-      window.history.pushState(null, '', '/');
-    }
-    setCurrentView('landing');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (currentView === 'landing') return;
+    transitionTo(() => {
+      if (window.location.pathname !== '/' || window.location.hash) {
+        window.history.pushState(null, '', '/');
+      }
+      setCurrentView('landing');
+    });
   };
 
   const navigateToContactFromBlog = () => {
-    setCurrentView('landing');
-    if (window.location.pathname !== '/' || window.location.hash) {
-      window.history.pushState(null, '', '/');
-    }
-    setTimeout(() => {
-      smoothScrollTo('connect');
-    }, 150);
+    transitionTo(() => {
+      setCurrentView('landing');
+      if (window.location.pathname !== '/' || window.location.hash) {
+        window.history.pushState(null, '', '/');
+      }
+      setTimeout(() => {
+        smoothScrollTo('connect');
+      }, 50);
+    });
   };
 
   const copyToClipboard = (text: string, field: string) => {
@@ -241,36 +274,34 @@ export default function App() {
     smoothScrollTo('connect');
   };
 
-  if (currentView === 'blog') {
-    return (
-      <BlogView 
-        onBack={navigateToLanding} 
-        onNavigateToContact={navigateToContactFromBlog} 
-      />
-    );
-  }
-
-  if (currentView === 'legal') {
-    return (
-      <LegalView 
-        initialDoc={legalDoc}
-        onBack={navigateToLanding} 
-        onNavigateToContact={navigateToContactFromBlog} 
-      />
-    );
-  }
-
-  if (currentView === 'community') {
-    return (
-      <CommunityView 
-        onBack={navigateToLanding} 
-        onNavigateToContact={navigateToContactFromBlog} 
-      />
-    );
-  }
-
   return (
-    <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
+    <>
+      <PageTransition isActive={isTransitioning} isSplitting={isSplitting} />
+
+      {currentView === 'blog' && (
+        <BlogView 
+          onBack={navigateToLanding} 
+          onNavigateToContact={navigateToContactFromBlog} 
+        />
+      )}
+
+      {currentView === 'legal' && (
+        <LegalView 
+          initialDoc={legalDoc}
+          onBack={navigateToLanding} 
+          onNavigateToContact={navigateToContactFromBlog} 
+        />
+      )}
+
+      {currentView === 'community' && (
+        <CommunityView 
+          onBack={navigateToLanding} 
+          onNavigateToContact={navigateToContactFromBlog} 
+        />
+      )}
+
+      {currentView === 'landing' && (
+        <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
       
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-16 py-6 z-50 bg-white/90 backdrop-blur-md border-b border-black/5">
@@ -1960,6 +1991,8 @@ export default function App() {
         </div>
       </footer>
 
-    </div>
+        </div>
+      )}
+    </>
   );
 }
