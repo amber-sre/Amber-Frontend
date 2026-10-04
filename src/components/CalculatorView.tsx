@@ -3,13 +3,7 @@ import {
   ArrowRight, 
   ArrowLeft, 
   Check, 
-  Sparkles, 
-  Server, 
-  Cpu, 
-  Zap, 
-  ShieldCheck, 
-  Lock, 
-  HelpCircle
+  Sparkles
 } from 'lucide-react';
 
 interface CalculatorViewProps {
@@ -33,7 +27,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
   const debounceTimerRef = useRef<any>(null);
 
   // Secure Server-side Quote Fetcher
-  // Calculation formula, margins and multipliers execute strictly on Cloudflare Workers edge (/api/calculate-quote)
+  // Calculation formula, volume discounts and margins execute strictly on Cloudflare Workers edge (/api/calculate-quote)
   const fetchQuoteFromServer = async (
     n: number,
     s: number,
@@ -47,9 +41,9 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nodes: n,
-          services: s,
-          mutatingFixes: f,
+          nodes: Math.max(1, n || 1),
+          services: Math.max(1, s || 1),
+          mutatingFixes: Math.max(10, f || 10),
           dedicatedSla: sla,
           billingCycle: cycle,
         }),
@@ -82,19 +76,24 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
 
   const handleApplyQuote = () => {
     const note = `[Calculated Custom Plan Specification]
-• Monitored Nodes: ${nodes} Nodes
-• Active Services: ${services} Microservices
-• Mutating Actions: ${mutatingFixes} actions/mo
+• Monitored Nodes: ${nodes.toLocaleString()} Nodes
+• Active Services: ${services.toLocaleString()} Microservices
+• Mutating Actions: ${mutatingFixes.toLocaleString()} actions/mo
 • Dedicated SRE SLA: ${dedicatedSla ? 'Yes (< 15-min SLA)' : 'Standard'}
 • Quoted Monthly Rate: $${monthlyPrice.toLocaleString()}/month (${billingCycle === 'annual' ? 'Annual commitment' : 'Monthly'})`;
     onNavigateToContact(note);
   };
 
+  // Dynamic slider upper limits so sliders gracefully scale if user types higher values
+  const sliderMaxNodes = Math.max(1000, nodes > 1000 ? Math.ceil(nodes * 1.25) : 1000);
+  const sliderMaxServices = Math.max(200, services > 200 ? Math.ceil(services * 1.25) : 200);
+  const sliderMaxFixes = Math.max(1000, mutatingFixes > 1000 ? Math.ceil(mutatingFixes * 1.25) : 1000);
+
   return (
     <div className="min-h-screen bg-[#faf8f5] text-[#0c0a09] font-sans selection:bg-[#d97706] selection:text-white pb-24">
       
       {/* Top Professional Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-6 sm:px-12 py-4.5 flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-6 sm:px-12 py-4 flex items-center justify-between">
         <button
           type="button"
           onClick={onBack}
@@ -135,7 +134,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
         
         {/* Header Section */}
         <div className="max-w-3xl mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300/80 text-amber-900 text-[11px] font-bold uppercase tracking-wider mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#d97706]" />
             <span>Algorithmic Infrastructure Quoting</span>
           </div>
@@ -146,11 +145,11 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
           </h1>
 
           <p className="mt-3.5 text-stone-600 text-sm sm:text-base leading-relaxed">
-            Zero per-seat taxes. Zero unpredictable LLM token surprises. Configure your cluster’s nodes, microservices, and autonomous remediation quotas with guaranteed in-VPC privacy.
+            Zero per-seat taxes. Zero unpredictable LLM token surprises. Type your exact infrastructure dimensions or drag the sliders to model custom deployment economics.
           </p>
         </div>
 
-        {/* 2-Column Split: Sliders vs Dynamic Quote Card */}
+        {/* 2-Column Split: Inputs vs Dynamic Quote Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Clean White Controls (7 Cols) */}
@@ -158,103 +157,196 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
             
             {/* Control 1: Monitored Nodes */}
             <div className="bg-white border border-stone-200/90 rounded-2xl p-6 shadow-sm hover:border-amber-400/50 transition-colors">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-[#d97706]">
-                    <Server className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-stone-900">Monitored Cloud &amp; K8s Nodes</h3>
-                    <p className="text-xs text-stone-500">Total VM instances, EC2 hosts, and Kubernetes worker nodes</p>
-                  </div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#d97706] block mb-0.5">
+                    01 // COMPUTE INFRASTRUCTURE
+                  </span>
+                  <h3 className="text-base font-bold text-stone-900 tracking-tight">Monitored Cloud &amp; K8s Nodes</h3>
+                  <p className="text-xs text-stone-500 mt-0.5">Total VM instances, EC2 hosts, and Kubernetes worker nodes</p>
                 </div>
-                <span className="font-mono text-sm font-bold px-3 py-1 rounded-lg bg-stone-100 text-stone-900 border border-stone-200">
-                  {nodes} Nodes
-                </span>
+                
+                {/* Direct Number Input */}
+                <div className="flex items-center self-start sm:self-auto bg-stone-50 hover:bg-stone-100/80 focus-within:bg-white border border-stone-300 focus-within:border-stone-900 rounded-xl px-3 py-1.5 transition-all shadow-inner">
+                  <input
+                    type="number"
+                    min={1}
+                    max={100000}
+                    value={nodes === 0 ? '' : nodes}
+                    onChange={(e) => {
+                      const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
+                      setNodes(isNaN(val) ? 0 : Math.max(0, val));
+                    }}
+                    className="w-20 sm:w-24 text-right font-mono font-bold text-stone-900 bg-transparent outline-none text-base"
+                    placeholder="120"
+                  />
+                  <span className="text-xs font-mono font-semibold text-stone-500 ml-1.5 select-none">Nodes</span>
+                </div>
               </div>
 
               <input
                 type="range"
-                min={50}
-                max={1000}
-                step={10}
+                min={1}
+                max={sliderMaxNodes}
+                step={nodes > 1000 ? 50 : 10}
                 value={nodes}
                 onChange={(e) => setNodes(Number(e.target.value))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-[11px] font-mono text-stone-500 mt-2">
-                <span>50 Nodes (Community Floor)</span>
-                <span>500 Nodes</span>
-                <span>1,000+ Nodes</span>
+                <span>1 Node</span>
+                <span>{nodes > 1000 ? `${nodes.toLocaleString()} (Custom)` : '500 Nodes'}</span>
+                <span>{sliderMaxNodes.toLocaleString()}+ Nodes</span>
+              </div>
+
+              {/* Quick Presets */}
+              <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-stone-100">
+                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mr-1">Scale Presets:</span>
+                {[50, 120, 250, 500, 1000, 2500, 5000].map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setNodes(preset)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition-all cursor-pointer ${
+                      nodes === preset
+                        ? 'bg-stone-900 text-white shadow-sm'
+                        : 'bg-stone-100 hover:bg-stone-200/80 text-stone-700'
+                    }`}
+                  >
+                    {preset >= 1000 ? `${preset.toLocaleString()} Nodes` : `${preset} Nodes`}
+                  </button>
+                ))}
               </div>
             </div>
 
             {/* Control 2: Active Microservices */}
             <div className="bg-white border border-stone-200/90 rounded-2xl p-6 shadow-sm hover:border-amber-400/50 transition-colors">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-[#d97706]">
-                    <Cpu className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-stone-900">Active Production Microservices</h3>
-                    <p className="text-xs text-stone-500">Distinct services with dedicated telemetry &amp; runbook mapping</p>
-                  </div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#d97706] block mb-0.5">
+                    02 // SERVICE TOPOLOGY
+                  </span>
+                  <h3 className="text-base font-bold text-stone-900 tracking-tight">Active Production Microservices</h3>
+                  <p className="text-xs text-stone-500 mt-0.5">Distinct services with dedicated telemetry &amp; runbook mapping</p>
                 </div>
-                <span className="font-mono text-sm font-bold px-3 py-1 rounded-lg bg-stone-100 text-stone-900 border border-stone-200">
-                  {services} Services
-                </span>
+                
+                {/* Direct Number Input */}
+                <div className="flex items-center self-start sm:self-auto bg-stone-50 hover:bg-stone-100/80 focus-within:bg-white border border-stone-300 focus-within:border-stone-900 rounded-xl px-3 py-1.5 transition-all shadow-inner">
+                  <input
+                    type="number"
+                    min={1}
+                    max={10000}
+                    value={services === 0 ? '' : services}
+                    onChange={(e) => {
+                      const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
+                      setServices(isNaN(val) ? 0 : Math.max(0, val));
+                    }}
+                    className="w-20 sm:w-24 text-right font-mono font-bold text-stone-900 bg-transparent outline-none text-base"
+                    placeholder="30"
+                  />
+                  <span className="text-xs font-mono font-semibold text-stone-500 ml-1.5 select-none">Services</span>
+                </div>
               </div>
 
               <input
                 type="range"
-                min={15}
-                max={200}
-                step={5}
+                min={1}
+                max={sliderMaxServices}
+                step={services > 200 ? 10 : 5}
                 value={services}
                 onChange={(e) => setServices(Number(e.target.value))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-[11px] font-mono text-stone-500 mt-2">
-                <span>15 Services</span>
-                <span>100 Services</span>
-                <span>200+ Services</span>
+                <span>1 Service</span>
+                <span>{services > 200 ? `${services.toLocaleString()} (Custom)` : '100 Services'}</span>
+                <span>{sliderMaxServices.toLocaleString()}+ Services</span>
+              </div>
+
+              {/* Quick Presets */}
+              <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-stone-100">
+                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mr-1">Scale Presets:</span>
+                {[15, 30, 75, 150, 300, 500].map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setServices(preset)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition-all cursor-pointer ${
+                      services === preset
+                        ? 'bg-stone-900 text-white shadow-sm'
+                        : 'bg-stone-100 hover:bg-stone-200/80 text-stone-700'
+                    }`}
+                  >
+                    {preset} Services
+                  </button>
+                ))}
               </div>
             </div>
 
             {/* Control 3: Mutating Remediations */}
             <div className="bg-white border border-stone-200/90 rounded-2xl p-6 shadow-sm hover:border-amber-400/50 transition-colors">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-[#d97706]">
-                    <Zap className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-stone-900">Monthly Mutating Actions</h3>
-                    <p className="text-xs text-stone-500">Autonomous pod restarts, connection drains &amp; rollbacks</p>
-                  </div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#d97706] block mb-0.5">
+                    03 // AUTONOMOUS REMEDIATIONS
+                  </span>
+                  <h3 className="text-base font-bold text-stone-900 tracking-tight">Monthly Mutating Actions</h3>
+                  <p className="text-xs text-stone-500 mt-0.5">Autonomous pod restarts, connection drains, state heals &amp; rollbacks</p>
                 </div>
-                <span className="font-mono text-sm font-bold px-3 py-1 rounded-lg bg-stone-100 text-stone-900 border border-stone-200">
-                  {mutatingFixes} Fixes / mo
-                </span>
+                
+                {/* Direct Number Input */}
+                <div className="flex items-center self-start sm:self-auto bg-stone-50 hover:bg-stone-100/80 focus-within:bg-white border border-stone-300 focus-within:border-stone-900 rounded-xl px-3 py-1.5 transition-all shadow-inner">
+                  <input
+                    type="number"
+                    min={10}
+                    max={100000}
+                    value={mutatingFixes === 0 ? '' : mutatingFixes}
+                    onChange={(e) => {
+                      const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
+                      setMutatingFixes(isNaN(val) ? 0 : Math.max(0, val));
+                    }}
+                    className="w-20 sm:w-24 text-right font-mono font-bold text-stone-900 bg-transparent outline-none text-base"
+                    placeholder="100"
+                  />
+                  <span className="text-xs font-mono font-semibold text-stone-500 ml-1.5 select-none">Fixes / mo</span>
+                </div>
               </div>
 
               <input
                 type="range"
-                min={100}
-                max={1000}
-                step={50}
+                min={10}
+                max={sliderMaxFixes}
+                step={mutatingFixes > 1000 ? 50 : 25}
                 value={mutatingFixes}
                 onChange={(e) => setMutatingFixes(Number(e.target.value))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-[11px] font-mono text-stone-500 mt-2">
-                <span>100 Fixes (Included Base)</span>
-                <span>500 Fixes</span>
-                <span>1,000+ Fixes</span>
+                <span>10 Fixes</span>
+                <span>{mutatingFixes > 1000 ? `${mutatingFixes.toLocaleString()} (Custom)` : '500 Fixes'}</span>
+                <span>{sliderMaxFixes.toLocaleString()}+ Fixes</span>
+              </div>
+
+              {/* Quick Presets */}
+              <div className="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-stone-100">
+                <span className="text-[10px] font-mono text-stone-400 uppercase tracking-wider mr-1">Volume Presets:</span>
+                {[100, 250, 500, 1000, 2500, 5000].map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setMutatingFixes(preset)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold transition-all cursor-pointer ${
+                      mutatingFixes === preset
+                        ? 'bg-stone-900 text-white shadow-sm'
+                        : 'bg-stone-100 hover:bg-stone-200/80 text-stone-700'
+                    }`}
+                  >
+                    {preset.toLocaleString()} Fixes
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -267,31 +359,33 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                   : 'bg-white border-stone-200/90 hover:border-stone-300'
               }`}
             >
-              <div className="flex items-start gap-3">
-                <div className={`mt-0.5 w-5 h-5 rounded flex items-center justify-center border transition-colors ${
+              <div className="flex items-start gap-3.5">
+                <div className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center border transition-colors shrink-0 ${
                   dedicatedSla ? 'bg-[#d97706] border-[#d97706] text-white' : 'border-stone-300 bg-white'
                 }`}>
                   {dedicatedSla && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="text-sm font-bold text-stone-900">Dedicated Incident Bridge SLA (&lt; 15-min Response)</span>
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-900 uppercase">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900 uppercase">
                       Recommended for P0
                     </span>
                   </div>
-                  <p className="text-xs text-stone-500 mt-0.5">
-                    An Amber Principal SRE directly joins your private incident war room if autonomous healing halts.
+                  <p className="text-xs text-stone-500 mt-1">
+                    An Amber Principal SRE directly joins your private incident war room if autonomous remediation halts.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Privacy Guarantee Note */}
-            <div className="p-4 rounded-xl bg-stone-100/80 border border-stone-200 flex items-start gap-3 text-xs text-stone-600">
-              <Lock className="w-4 h-4 text-stone-500 shrink-0 mt-0.5" />
+            {/* Privacy Guarantee Note without Lucide AI slop */}
+            <div className="p-4 rounded-xl bg-stone-100/80 border border-stone-200 flex items-start gap-2.5 text-xs text-stone-600">
+              <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-stone-200 text-stone-800 uppercase tracking-wider shrink-0 mt-0.5">
+                IN-VPC AIR-GAPPED
+              </span>
               <div>
-                <strong className="text-stone-900">Air-Gapped In-VPC Guarantee:</strong> Your telemetry never leaves your cloud. Amber operates as a single-tenant software appliance on customer infrastructure with offline Ed25519 verification.
+                <strong className="text-stone-900">Zero Telemetry Egress:</strong> Amber operates as a single-tenant software appliance on customer infrastructure with offline Ed25519 signature verification.
               </div>
             </div>
 
@@ -304,7 +398,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
               {/* Badge & Cycle Toggle */}
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#d97706]">
-                  Computed Infrastructure Quote
+                  Computed Dynamic Quote
                 </span>
                 
                 {/* Billing Cycle Pill */}
@@ -361,15 +455,15 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
               <div className="space-y-2.5 text-xs text-stone-700 mb-6">
                 <div className="flex justify-between py-1 border-b border-stone-100">
                   <span className="text-stone-500">Monitored Nodes:</span>
-                  <span className="font-bold text-stone-900">{nodes} Cloud / K8s Nodes</span>
+                  <span className="font-bold text-stone-900">{nodes.toLocaleString()} Cloud / K8s Nodes</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-stone-100">
                   <span className="text-stone-500">Microservice Quota:</span>
-                  <span className="font-bold text-stone-900">{services} Active Services</span>
+                  <span className="font-bold text-stone-900">{services.toLocaleString()} Active Services</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-stone-100">
                   <span className="text-stone-500">Autonomous Actions:</span>
-                  <span className="font-bold text-[#d97706]">{mutatingFixes} Verified Fixes / mo</span>
+                  <span className="font-bold text-[#d97706]">{mutatingFixes.toLocaleString()} Verified Fixes / mo</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-stone-100">
                   <span className="text-stone-500">Incident Escalation:</span>
@@ -406,34 +500,34 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
 
         </div>
 
-        {/* Bottom Feature Confidence Grid */}
+        {/* Bottom Feature Confidence Grid without Lucide AI-slop icon boxes */}
         <div className="mt-16 pt-12 border-t border-stone-200 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-sm">
-            <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-[#d97706] mb-3">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-            <h4 className="text-sm font-bold text-stone-900 mb-1">Deterministic Safe Execution</h4>
-            <p className="text-xs text-stone-600 leading-relaxed">
+          <div className="p-6 rounded-2xl bg-white border border-stone-200/90 shadow-sm hover:border-amber-400/50 transition-colors">
+            <span className="text-[10px] font-mono font-bold text-[#d97706] uppercase tracking-wider block mb-2">
+              01 // CRYPTOGRAPHIC SAFETY
+            </span>
+            <h4 className="text-sm font-bold text-stone-900 mb-1.5">Deterministic Safe Execution</h4>
+            <p className="text-xs text-stone-600 leading-relaxed font-normal">
               Every remediation action requires cryptographic SHA-256 parameter binding and strict static allowlist verification.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-sm">
-            <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-[#d97706] mb-3">
-              <Lock className="w-4 h-4" />
-            </div>
-            <h4 className="text-sm font-bold text-stone-900 mb-1">Zero Training on Telemetry</h4>
-            <p className="text-xs text-stone-600 leading-relaxed">
+          <div className="p-6 rounded-2xl bg-white border border-stone-200/90 shadow-sm hover:border-amber-400/50 transition-colors">
+            <span className="text-[10px] font-mono font-bold text-[#d97706] uppercase tracking-wider block mb-2">
+              02 // LOCAL RUNTIME
+            </span>
+            <h4 className="text-sm font-bold text-stone-900 mb-1.5">Zero Training on Telemetry</h4>
+            <p className="text-xs text-stone-600 leading-relaxed font-normal">
               Run offline via local Ollama compute. Customer error traces and configurations never train public AI models.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-white border border-stone-200/90 shadow-sm">
-            <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-[#d97706] mb-3">
-              <HelpCircle className="w-4 h-4" />
-            </div>
-            <h4 className="text-sm font-bold text-stone-900 mb-1">Custom Runbook Engineering</h4>
-            <p className="text-xs text-stone-600 leading-relaxed">
+          <div className="p-6 rounded-2xl bg-white border border-stone-200/90 shadow-sm hover:border-amber-400/50 transition-colors">
+            <span className="text-[10px] font-mono font-bold text-[#d97706] uppercase tracking-wider block mb-2">
+              03 // ONBOARDING CALIBRATION
+            </span>
+            <h4 className="text-sm font-bold text-stone-900 mb-1.5">Custom Runbook Engineering</h4>
+            <p className="text-xs text-stone-600 leading-relaxed font-normal">
               Our engineering team works with your SREs to author and validate custom runbooks for your proprietary services.
             </p>
           </div>

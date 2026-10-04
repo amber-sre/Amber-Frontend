@@ -171,26 +171,49 @@ export default {
         const body = await request.json().catch(() => ({}));
         let { nodes = 100, services = 25, mutatingFixes = 100, dedicatedSla = false, billingCycle = 'annual' } = body || {};
 
-        // Sanitize & enforce boundaries
-        nodes = Math.max(50, Math.min(2500, Number(nodes) || 100));
-        services = Math.max(15, Math.min(500, Number(services) || 25));
-        mutatingFixes = Math.max(100, Math.min(3000, Number(mutatingFixes) || 100));
+        // Sanitize & enforce boundaries (Supports hyper-scale up to 100k nodes)
+        nodes = Math.max(1, Math.min(100000, Number(nodes) || 100));
+        services = Math.max(1, Math.min(10000, Number(services) || 25));
+        mutatingFixes = Math.max(10, Math.min(100000, Number(mutatingFixes) || 100));
         dedicatedSla = Boolean(dedicatedSla);
 
-        // Core Algorithm (Secret server-side weights)
+        // Core Algorithm (Secret server-side weights with volume tier scaling)
         const BASE_FEE = 999;
-        const NODE_UNIT_RATE = 8;
-        const SERVICE_UNIT_RATE = 15;
         
-        // Mutating action tiers: First 100 included; extra at $250 per 100 block
+        // Tiered Node Pricing: $8 for first 500, $6 for next 1,500, $4 above 2,000
+        let nodeCost = 0;
+        if (nodes <= 500) {
+          nodeCost = nodes * 8;
+        } else if (nodes <= 2000) {
+          nodeCost = (500 * 8) + ((nodes - 500) * 6);
+        } else {
+          nodeCost = (500 * 8) + (1500 * 6) + ((nodes - 2000) * 4);
+        }
+
+        // Tiered Microservice Pricing: $15 for first 50, $12 for next 150, $8 above 200
+        let serviceCost = 0;
+        if (services <= 50) {
+          serviceCost = services * 15;
+        } else if (services <= 200) {
+          serviceCost = (50 * 15) + ((services - 50) * 12);
+        } else {
+          serviceCost = (50 * 15) + (150 * 12) + ((services - 200) * 8);
+        }
+        
+        // Mutating action tiers: First 100 included; next up to 1,000 at $250/100-pack; beyond 1,000 at $150/100-pack
         const extraFixes = Math.max(0, mutatingFixes - 100);
-        const actionPacksCost = Math.ceil(extraFixes / 100) * 250;
+        let actionPacksCost = 0;
+        if (extraFixes > 0) {
+          const standardPacks = Math.min(9, Math.ceil(extraFixes / 100));
+          const enterprisePacks = Math.max(0, Math.ceil((extraFixes - 900) / 100));
+          actionPacksCost = (standardPacks * 250) + (enterprisePacks * 150);
+        }
         
         // Dedicated SRE bridge (<15m SLA)
         const slaCost = dedicatedSla ? 999 : 0;
 
         // Raw monthly total
-        const rawMonthly = BASE_FEE + (nodes * NODE_UNIT_RATE) + (services * SERVICE_UNIT_RATE) + actionPacksCost + slaCost;
+        const rawMonthly = BASE_FEE + nodeCost + serviceCost + actionPacksCost + slaCost;
 
         // Minimum floor cap ($1,299/mo)
         const monthlyBaseRate = Math.max(1299, Math.round(rawMonthly));
