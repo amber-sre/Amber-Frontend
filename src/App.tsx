@@ -25,12 +25,12 @@ import { LegalView, LegalDocType } from './components/LegalView';
 import { PlatformCapabilities } from './components/PlatformCapabilities';
 import { CommunityView } from './components/CommunityView';
 import { PageTransition } from './components/PageTransition';
-import { CustomPlanCalculator } from './components/CustomPlanCalculator';
+import { CalculatorView } from './components/CalculatorView';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal' | 'community'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal' | 'community' | 'calculator'>('landing');
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [isSplitting, setIsSplitting] = useState<boolean>(false);
 
@@ -151,6 +151,16 @@ export default function App() {
         return;
       }
 
+      // Check Custom Calculator route (/calculator)
+      if (cleanPath === 'calculator' || cleanHash === 'calculator') {
+        setCurrentView('calculator');
+        if (window.location.pathname !== '/calculator') {
+          window.history.replaceState(null, '', '/calculator');
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
       // Check Legal docs routes (/privacy, /terms, /dpa, /subprocessors, /security, /copyright)
       const legalDocs: LegalDocType[] = ['privacy', 'terms', 'dpa', 'subprocessors', 'security', 'copyright'];
       const matchedDoc = legalDocs.find((d) => d === cleanPath || d === cleanHash);
@@ -181,6 +191,16 @@ export default function App() {
       window.removeEventListener('popstate', handleRoute);
     };
   }, []);
+
+  const navigateToCalculator = () => {
+    if (currentView === 'calculator') return;
+    transitionTo(() => {
+      if (window.location.pathname !== '/calculator') {
+        window.history.pushState(null, '', '/calculator');
+      }
+      setCurrentView('calculator');
+    });
+  };
 
   const navigateToBlog = () => {
     if (currentView === 'blog') return;
@@ -275,31 +295,6 @@ export default function App() {
     smoothScrollTo('connect');
   };
 
-  const handleSelectCustomQuote = (quoteData: {
-    monthlyPrice: number;
-    nodes: number;
-    services: number;
-    mutatingFixes: number;
-    dedicatedSla: boolean;
-    billingCycle: 'monthly' | 'annual';
-  }) => {
-    const planLabel = `Custom Tier ($${quoteData.monthlyPrice.toLocaleString()}/mo)`;
-    setSelectedPlan(planLabel);
-    setSelectedInfra('Custom');
-    const scaleStr = `${quoteData.nodes} Nodes / ${quoteData.services} Services`;
-    setFormData((prev) => ({
-      ...prev,
-      clusterScale: scaleStr,
-      message: `[Calculated Custom Plan Specification]
-• Monitored Nodes: ${quoteData.nodes} Nodes
-• Active Services: ${quoteData.services} Microservices
-• Mutating Actions: ${quoteData.mutatingFixes} actions/mo
-• Dedicated SRE SLA: ${quoteData.dedicatedSla ? 'Yes (< 15-min SLA)' : 'Standard'}
-• Dynamic Quoted Rate: $${quoteData.monthlyPrice.toLocaleString()}/month (${quoteData.billingCycle === 'annual' ? 'Annual commitment' : 'Monthly'})`,
-    }));
-    smoothScrollTo('connect');
-  };
-
   return (
     <>
       <PageTransition isActive={isTransitioning} isSplitting={isSplitting} />
@@ -323,6 +318,27 @@ export default function App() {
         <CommunityView 
           onBack={navigateToLanding} 
           onNavigateToContact={navigateToContactFromBlog} 
+        />
+      )}
+
+      {currentView === 'calculator' && (
+        <CalculatorView 
+          onBack={navigateToLanding} 
+          onNavigateToContact={(quoteNote) => {
+            navigateToLanding();
+            if (quoteNote) {
+              setFormData((prev) => ({
+                ...prev,
+                message: quoteNote,
+                clusterScale: 'Custom Enterprise Cluster',
+              }));
+              setSelectedPlan('Custom Enterprise Plan');
+              setSelectedInfra('Custom');
+            }
+            setTimeout(() => {
+              smoothScrollTo('connect');
+            }, 300);
+          }} 
         />
       )}
 
@@ -1378,11 +1394,45 @@ export default function App() {
           </div>
         )}
 
-        {/* Enterprise Custom Plan Bridge Ribbon */}
-        <CustomPlanCalculator 
-          billingCycle={billingCycle} 
-          onSelectQuote={handleSelectCustomQuote} 
-        />
+        {/* Dedicated Enterprise Custom Plan Banner */}
+        <div className="relative z-10 max-w-7xl mx-auto mt-8">
+          <div className="bg-white border border-stone-200 hover:border-amber-400/60 rounded-3xl p-6 sm:p-8 shadow-sm transition-all duration-300 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300/60">
+                  <Sparkles className="w-3.5 h-3.5 text-[#d97706]" />
+                  Custom Topology Calculator
+                </span>
+                <span className="text-xs text-stone-500 hidden sm:inline">• Multi-Cluster &amp; High-Volume Infrastructure</span>
+              </div>
+              <h4 className="text-xl sm:text-2xl font-black text-[#0c0a09] tracking-tight">
+                Need a Custom Infrastructure Scope?
+              </h4>
+              <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+                Model transparent pricing for your exact Kubernetes worker nodes, production microservices, and auto-remediation quotas on our dedicated calculator.
+              </p>
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero per-seat taxes</span>
+                <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero LLM token overages</span>
+                <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">100% In-VPC Single-Tenant</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-2 w-full lg:w-auto shrink-0">
+              <button
+                type="button"
+                onClick={navigateToCalculator}
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-stone-900 hover:bg-black text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer group"
+              >
+                <span>Open Custom Calculator</span>
+                <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <span className="text-[11px] text-stone-400 text-center lg:text-right">
+                Instant server-calculated dynamic quote
+              </span>
+            </div>
+          </div>
+        </div>
 
         {/* Enterprise Safety & Policy Confidence Row */}
         <div className="relative z-10 max-w-7xl mx-auto mt-16 pt-12 border-t border-stone-200/80 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
@@ -1974,6 +2024,11 @@ export default function App() {
                 <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-[#d97706] transition">
                   Pricing & Tiers
                 </a>
+              </li>
+              <li>
+                <button type="button" onClick={navigateToCalculator} className="hover:text-[#d97706] transition cursor-pointer text-left">
+                  Quote Calculator
+                </button>
               </li>
               <li>
                 <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">
