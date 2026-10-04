@@ -451,9 +451,9 @@ export default function App() {
         <div className="animate-marquee whitespace-nowrap text-2xl md:text-3xl font-extrabold uppercase tracking-tight flex items-center text-white">
           <span className="mx-6">Autonomous SRE Healing</span>
           <span className="text-[#facc15] mx-4">✦</span>
-          <span className="mx-6">500 Alerts / Sec Sustained</span>
+          <span className="mx-6">High-Throughput Redis Event Stream</span>
           <span className="text-[#facc15] mx-4">✱</span>
-          <span className="mx-6">Zero-Hallucination Policy</span>
+          <span className="mx-6">Deterministic Guardrails & Allowlist</span>
           <span className="text-[#facc15] mx-4">✦</span>
           <span className="mx-6">10-Minute Cryptographic TTL</span>
           <span className="text-[#facc15] mx-4">✱</span>
@@ -462,9 +462,9 @@ export default function App() {
           {/* Loop duplicate */}
           <span className="mx-6">Autonomous SRE Healing</span>
           <span className="text-[#facc15] mx-4">✦</span>
-          <span className="mx-6">500 Alerts / Sec Sustained</span>
+          <span className="mx-6">High-Throughput Redis Event Stream</span>
           <span className="text-[#facc15] mx-4">✱</span>
-          <span className="mx-6">Zero-Hallucination Policy</span>
+          <span className="mx-6">Deterministic Guardrails & Allowlist</span>
           <span className="text-[#facc15] mx-4">✦</span>
           <span className="mx-6">10-Minute Cryptographic TTL</span>
           <span className="text-[#facc15] mx-4">✱</span>
@@ -551,16 +551,16 @@ export default function App() {
       <div id="pipeline" className="scroll-mt-24" />
       <PlatformCapabilities />
 
-      {/* Deep Midnight Obsidian Section: SLA Benchmarks */}
+      {/* Deep Midnight Obsidian Section: Production Performance Benchmarks */}
       <section id="benchmarks" className="px-8 md:px-16 py-32 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
         
         <div className="flex justify-between items-center text-xs font-sans font-semibold tracking-wider text-[#facc15] uppercase border-b border-white/10 pb-5 mb-16 relative z-10">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#facc15] animate-ping" />
-            <span className="text-white">Production Performance & SLAs</span>
+            <span className="text-white">Production Performance Benchmarks</span>
           </div>
-          <div className="hidden sm:block text-zinc-400 font-mono text-[11px]">Measured on High-Traffic Clusters</div>
-          <div className="text-[#facc15] font-bold drop-shadow-[0_0_12px_rgba(250,204,21,0.6)]">Zero Data Loss</div>
+          <div className="hidden sm:block text-zinc-400 font-mono text-[11px]">Stress-Tested on Synthetic & Live Ingestion Streams</div>
+          <div className="text-[#facc15] font-bold drop-shadow-[0_0_12px_rgba(250,204,21,0.6)]">Zero Dropped Webhooks</div>
         </div>
 
         {/* 4 Interactive Spotlight Cards with Clean High-Contrast Numbers */}
@@ -595,7 +595,7 @@ export default function App() {
               </div>
 
               <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans">
-                Alerts processed per second without dropping a single webhook during major cloud outages.
+                Benchmarked at 500+ alerts/sec under synthetic stress tests using Redis Streams without dropping webhooks.
               </div>
             </div>
 
@@ -629,12 +629,12 @@ export default function App() {
               </div>
 
               <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans">
-                Identifies failing microservices, error logs, and severity in under 3 seconds so engineers aren't paged for noise.
+                Identifies failing microservices, error logs, and severity in under 3 seconds using fast local/cloud LLM inference and structured output.
               </div>
             </div>
 
             <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
-              <span>Zero Hallucinations</span>
+              <span>Deterministic Guardrails</span>
               <span className="text-[#facc15] font-bold">P0 - P4 Mesh</span>
             </div>
           </SpotlightCard>
@@ -700,13 +700,13 @@ export default function App() {
               </div>
 
               <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans">
-                Average time from initial alert arrival to automated diagnosis, approved fix, and healthy cluster state.
+                Average benchmarked time in automated test suites from alert ingestion to triage, simulated human approval, and verified rollback.
               </div>
             </div>
 
             <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
               <span>Health Verified</span>
-              <span className="text-[#facc15] font-bold">&lt; 10s SLA</span>
+              <span className="text-[#facc15] font-bold">&lt; 10s Target Recovery</span>
             </div>
           </SpotlightCard>
 
@@ -1328,7 +1328,7 @@ export default function App() {
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-bold text-[#0c0a09] mb-1 font-sans">Zero-Hallucination Safe Execution</div>
+              <div className="text-sm font-bold text-[#0c0a09] mb-1 font-sans">Deterministic Safe Execution</div>
               <div className="text-xs text-stone-600 leading-relaxed font-normal">
                 Compiled code allowlist. If confidence score is below 85%, Amber halts immediately without state mutation.
               </div>

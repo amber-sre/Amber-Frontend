@@ -63,7 +63,7 @@ const CAPABILITIES: Capability[] = [
     mechanism: 'Amber executes parallel read-only diagnostic probes across live logs, container metrics, Kubernetes events (OOMKilled, CrashLoopBackOff), and recent git commits to establish the exact failure root cause.',
     result: 'Identifies the failing dependency, offending commit, or saturated database pool in under 3 seconds.',
     technicalProof: {
-      label: 'Zero-Hallucination Telemetry Adapter',
+      label: 'Deterministic Telemetry Adapter',
       detail: 'Read-only cluster inspection with bounded 500-line log windows and in-memory secret scrubbing.',
       codeSnippet: `DIAGNOSIS: Postgres pool saturation (99/100 connections).\nROOT_CAUSE: Commit 7f83b16 leaked unclosed sessions in worker-pool-d.\nCONFIDENCE: 98.4% (Verified via pg_stat_activity & git log)`
     }
@@ -112,7 +112,7 @@ const CAPABILITIES: Capability[] = [
     color: '#fbbf24',
     problem: 'Autonomous systems often operate as un-audited black boxes, violating enterprise security policies and compliance requirements.',
     mechanism: 'State-mutating actions generate a 10-minute HMAC-SHA256 signed approval token bound to the exact tool name and argument hash. Dispatches an interactive card to Slack or Web Console requiring authenticated engineer approval.',
-    result: 'Zero unapproved changes. Tamper-evident cryptographic audit logs for SOC 2 and ISO 27001.',
+    result: 'Zero unapproved changes. Tamper-evident cryptographic audit logs designed for SOC 2 & ISO 27001 readiness.',
     technicalProof: {
       label: 'HMAC-SHA256 Token Binding',
       detail: 'Token = HMAC_SHA256(SecretKey, ActionName + Hash(Args) + ExpiryTimestamp). Single-use token consumed in Redis.',

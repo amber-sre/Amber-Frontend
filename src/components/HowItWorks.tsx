@@ -99,11 +99,11 @@ const STEPS: StepDetail[] = [
     color: '#34d399',
     description: 'Upon valid approval, Amber executes the targeted fix through compiled allowlisted drivers. It polls Kubernetes readiness probes and connection metrics to verify the cluster has stabilized, then generates an audit-ready Markdown post-mortem.',
     outcome: 'Verified health convergence: automated remediation confirms cluster recovery within 45s, prevents loops, and publishes audit post-mortems.',
-    guarantee: 'Auto-rollback loop prevention. SOC2/ISO27001 compliant audit trail.',
+    guarantee: 'Auto-rollback loop prevention. Tamper-evident, audit-ready cryptographic trail.',
     snippet: {
       title: 'Remediation Execution & Health Convergence',
       lines: [
-        { text: '→ Approver verified: Lead SRE (rahul@swiggy.com via API Key)' },
+        { text: '→ Approver verified: Lead SRE (sre-lead@internal.infra via API Key)' },
         { text: '  Executing kill_db_connections on target database...' },
         { text: '  Terminated backend PIDs [412, 415, 418] successfully', success: true },
         { text: '  Active connections dropped: 98/100 → 12/100 (Health OK)', success: true },
