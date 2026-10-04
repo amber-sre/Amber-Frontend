@@ -104,13 +104,20 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
           <span>Back to Platform</span>
         </button>
 
-        <div className="flex items-center gap-2.5 cursor-pointer" onClick={onBack}>
-          <div className="w-8 h-8 rounded-lg bg-[#d97706] flex items-center justify-center text-white font-black text-sm shadow-sm">
-            A
-          </div>
+        <div 
+          className="flex items-center gap-2.5 cursor-pointer group" 
+          onClick={onBack}
+        >
+          <img 
+            src="/assets/amber-symbol.svg" 
+            alt="Amber Symbol" 
+            className="w-7 h-9 object-contain drop-shadow-[0_2px_8px_rgba(217,119,6,0.3)] group-hover:scale-105 transition-transform duration-200" 
+          />
           <span className="font-black text-lg text-[#0c0a09] tracking-tight">AMBER</span>
           <span className="text-stone-300">|</span>
-          <span className="text-xs font-semibold uppercase tracking-wider text-stone-500">Calculator</span>
+          <span className="text-[10px] font-sans font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-stone-100 text-stone-600 border border-stone-200/80">
+            Calculator
+          </span>
         </div>
 
         <button
