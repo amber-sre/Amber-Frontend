@@ -275,7 +275,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Incident Audit Logs &amp; State</td>
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Local Only</td>
-                    <td className="p-3.5 sm:p-4 text-stone-600">Stored strictly in customer-owned PostgreSQL within the VPC</td>
+                    <td className="p-3.5 sm:p-4 text-stone-600">Stored strictly in customer-owned database (embedded SQLite / VPC PostgreSQL)</td>
                   </tr>
                   <tr className="hover:bg-stone-50/50">
                     <td className="p-3.5 sm:p-4 font-semibold text-stone-900">Notification Payloads</td>
