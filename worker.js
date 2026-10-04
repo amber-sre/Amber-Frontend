@@ -146,7 +146,91 @@ export default {
       }
     }
 
-    // 2. Contact Intake API (/api/contact)
+    // 2. Custom Pricing Calculation Engine (/api/calculate-quote)
+    // Server-side only: Formula, multipliers, and margins are strictly hidden from client bundle/devtools.
+    if (url.pathname === '/api/calculate-quote' || url.pathname === '/api/calculate-quote/') {
+      if (request.method === 'OPTIONS') {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type'
+          }
+        });
+      }
+
+      if (request.method !== 'POST') {
+        return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+          status: 405,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      try {
+        const body = await request.json().catch(() => ({}));
+        let { nodes = 100, services = 25, mutatingFixes = 100, dedicatedSla = false, billingCycle = 'annual' } = body || {};
+
+        // Sanitize & enforce boundaries
+        nodes = Math.max(50, Math.min(2500, Number(nodes) || 100));
+        services = Math.max(15, Math.min(500, Number(services) || 25));
+        mutatingFixes = Math.max(100, Math.min(3000, Number(mutatingFixes) || 100));
+        dedicatedSla = Boolean(dedicatedSla);
+
+        // Core Algorithm (Secret server-side weights)
+        const BASE_FEE = 999;
+        const NODE_UNIT_RATE = 8;
+        const SERVICE_UNIT_RATE = 15;
+        
+        // Mutating action tiers: First 100 included; extra at $250 per 100 block
+        const extraFixes = Math.max(0, mutatingFixes - 100);
+        const actionPacksCost = Math.ceil(extraFixes / 100) * 250;
+        
+        // Dedicated SRE bridge (<15m SLA)
+        const slaCost = dedicatedSla ? 999 : 0;
+
+        // Raw monthly total
+        const rawMonthly = BASE_FEE + (nodes * NODE_UNIT_RATE) + (services * SERVICE_UNIT_RATE) + actionPacksCost + slaCost;
+
+        // Minimum floor cap ($1,299/mo)
+        const monthlyBaseRate = Math.max(1299, Math.round(rawMonthly));
+
+        // Annual commitment: ~18% discount
+        const annualDiscountMonthly = Math.round(monthlyBaseRate * 0.82);
+        const finalMonthlyPrice = billingCycle === 'annual' ? annualDiscountMonthly : monthlyBaseRate;
+        const annualTotal = annualDiscountMonthly * 12;
+        const annualSavings = (monthlyBaseRate - annualDiscountMonthly) * 12;
+
+        return new Response(JSON.stringify({
+          success: true,
+          monthlyPrice: finalMonthlyPrice,
+          monthlyBaseRate,
+          annualDiscountMonthly,
+          annualTotal,
+          annualSavings,
+          billingCycle,
+          quotas: {
+            nodes,
+            services,
+            mutatingFixes,
+            dedicatedSla
+          }
+        }), {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+          }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: 'Calculation failed' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+    }
+
+    // 3. Contact Intake API (/api/contact)
     if (url.pathname === '/api/contact' || url.pathname === '/api/contact/') {
       if (request.method === 'OPTIONS') {
         return new Response(null, {

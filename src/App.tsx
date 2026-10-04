@@ -25,6 +25,7 @@ import { LegalView, LegalDocType } from './components/LegalView';
 import { PlatformCapabilities } from './components/PlatformCapabilities';
 import { CommunityView } from './components/CommunityView';
 import { PageTransition } from './components/PageTransition';
+import { CustomPlanCalculator } from './components/CustomPlanCalculator';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -271,6 +272,31 @@ export default function App() {
 
   const handleSelectPlan = (planName: string) => {
     setSelectedPlan(planName);
+    smoothScrollTo('connect');
+  };
+
+  const handleSelectCustomQuote = (quoteData: {
+    monthlyPrice: number;
+    nodes: number;
+    services: number;
+    mutatingFixes: number;
+    dedicatedSla: boolean;
+    billingCycle: 'monthly' | 'annual';
+  }) => {
+    const planLabel = `Custom Tier ($${quoteData.monthlyPrice.toLocaleString()}/mo)`;
+    setSelectedPlan(planLabel);
+    setSelectedInfra('Custom');
+    const scaleStr = `${quoteData.nodes} Nodes / ${quoteData.services} Services`;
+    setFormData((prev) => ({
+      ...prev,
+      clusterScale: scaleStr,
+      message: `[Calculated Custom Plan Specification]
+• Monitored Nodes: ${quoteData.nodes} Nodes
+• Active Services: ${quoteData.services} Microservices
+• Mutating Actions: ${quoteData.mutatingFixes} actions/mo
+• Dedicated SRE SLA: ${quoteData.dedicatedSla ? 'Yes (< 15-min SLA)' : 'Standard'}
+• Dynamic Quoted Rate: $${quoteData.monthlyPrice.toLocaleString()}/month (${quoteData.billingCycle === 'annual' ? 'Annual commitment' : 'Monthly'})`,
+    }));
     smoothScrollTo('connect');
   };
 
@@ -1351,6 +1377,12 @@ export default function App() {
 
           </div>
         )}
+
+        {/* Enterprise Custom Plan Bridge Ribbon */}
+        <CustomPlanCalculator 
+          billingCycle={billingCycle} 
+          onSelectQuote={handleSelectCustomQuote} 
+        />
 
         {/* Enterprise Safety & Policy Confidence Row */}
         <div className="relative z-10 max-w-7xl mx-auto mt-16 pt-12 border-t border-stone-200/80 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
