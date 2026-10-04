@@ -1,7 +1,7 @@
 # Amber — Autonomous Incident Remediation & SRE Engine (Frontend)
 
 <div align="center">
-  <img src="assets/hero-section.png" alt="Amber Hero Interface" width="100%" />
+  <img src="public/assets/hero-section.png" alt="Amber Hero Interface" width="100%" />
 </div>
 
 <p align="center">
@@ -37,7 +37,7 @@ Amber eliminates hallucination risk by enforcing static compiled tool allowlists
 ## Architecture Thesis & Visualizations
 
 <div align="center">
-  <img src="assets/architecture-thesis.png" alt="Amber Architecture Thesis" width="100%" />
+  <img src="public/assets/architecture-thesis.png" alt="Amber Architecture Thesis" width="100%" />
 </div>
 
 - **Zero Raw Terminal Access:** Amber prohibits unconstrained shell execution. Every action is registered with static risk levels compiled into code.

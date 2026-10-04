@@ -11,6 +11,26 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+// Helper: Restrict and validate CORS origins
+function getCorsHeaders(request) {
+  const origin = request.headers.get('Origin');
+  const allowedOrigins = [
+    'https://ambersre.xyz',
+    'https://www.ambersre.xyz',
+    'https://amber-frontend.pages.dev',
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:5173'
+  ];
+  const allowOrigin = origin && allowedOrigins.includes(origin) ? origin : 'https://ambersre.xyz';
+  return {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Vary': 'Origin'
+  };
+}
+
 // Minimal RFC 821/2821 SMTP client over direct TLS socket
 async function sendGmailViaSocket(options) {
   const { user, pass, to, replyTo, subject, text, html } = options;
@@ -149,21 +169,18 @@ export default {
     // 2. Custom Pricing Calculation Engine (/api/calculate-quote)
     // Server-side only: Formula, multipliers, and margins are strictly hidden from client bundle/devtools.
     if (url.pathname === '/api/calculate-quote' || url.pathname === '/api/calculate-quote/') {
+      const corsHeaders = getCorsHeaders(request);
       if (request.method === 'OPTIONS') {
         return new Response(null, {
           status: 204,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type'
-          }
+          headers: corsHeaders
         });
       }
 
       if (request.method !== 'POST') {
         return new Response(JSON.stringify({ error: 'Method not allowed' }), {
           status: 405,
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
 
@@ -242,34 +259,39 @@ export default {
           status: 200,
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            ...corsHeaders
           }
         });
       } catch (err) {
         return new Response(JSON.stringify({ error: 'Calculation failed' }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
 
     // 3. Contact Intake API (/api/contact)
     if (url.pathname === '/api/contact' || url.pathname === '/api/contact/') {
+      const corsHeaders = getCorsHeaders(request);
       if (request.method === 'OPTIONS') {
         return new Response(null, {
           status: 204,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type'
-          }
+          headers: corsHeaders
         });
       }
 
       if (request.method !== 'POST') {
         return new Response(JSON.stringify({ error: 'Method not allowed' }), {
           status: 405,
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+
+      const contentLength = parseInt(request.headers.get('content-length') || '0', 10);
+      if (contentLength > 65536) {
+        return new Response(JSON.stringify({ error: 'Payload too large' }), {
+          status: 413,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
 
@@ -277,37 +299,46 @@ export default {
         const body = await request.json().catch(() => ({}));
         const { name, email, phone, selectedPlan, selectedInfra, clusterScale, message } = body || {};
 
-        if (!email || typeof email !== 'string' || !email.includes('@')) {
+        const cleanEmail = typeof email === 'string' ? email.trim().slice(0, 120) : '';
+        if (!cleanEmail || !cleanEmail.includes('@') || cleanEmail.includes('\r') || cleanEmail.includes('\n')) {
           return new Response(JSON.stringify({ error: 'A valid work email is required' }), {
             status: 400,
             headers: {
               'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*'
+              ...corsHeaders
             }
           });
         }
 
-        const gmailUser = env.GMAIL_USER || 'amber.incident@gmail.com';
-        const gmailPass = env.GMAIL_APP_PASSWORD || 'wrbdpvqxtuvadiit';
-        const tgBotToken = env.TELEGRAM_BOT_TOKEN || '8927729248:AAEcTTtjQY0ZOgK93ChuZ5K-KOO5iud5izI';
-        const tgChatId = env.TELEGRAM_CHAT_ID || '6740343041';
+        const cleanName = typeof name === 'string' ? name.trim().slice(0, 100) : '';
+        const cleanPhone = typeof phone === 'string' ? phone.trim().slice(0, 50) : '';
+        const cleanPlan = typeof selectedPlan === 'string' ? selectedPlan.trim().slice(0, 60) : 'General Inquiry';
+        const cleanInfra = typeof selectedInfra === 'string' ? selectedInfra.trim().slice(0, 60) : 'AWS';
+        const cleanScale = typeof clusterScale === 'string' ? clusterScale.trim().slice(0, 60) : 'Not specified';
+        const cleanMessage = typeof message === 'string' ? message.trim().slice(0, 4000) : '';
 
-        const subject = `🚨 New Amber Lead: ${name ? `${name} · ` : ''}${email} (${selectedPlan || 'Inquiry'})`;
+        // Strict environment secrets — no plaintext fallback keys committed
+        const gmailUser = env.GMAIL_USER || 'amber.incident@gmail.com';
+        const gmailPass = env.GMAIL_APP_PASSWORD;
+        const tgBotToken = env.TELEGRAM_BOT_TOKEN;
+        const tgChatId = env.TELEGRAM_CHAT_ID;
+
+        const subject = `🚨 New Amber Lead: ${cleanName ? `${cleanName} · ` : ''}${cleanEmail} (${cleanPlan})`;
 
         const plainText = [
           'New Amber Lead Received',
           '===============================================',
-          `Name:           ${name || 'Not provided'}`,
-          `Work Email:     ${email}`,
-          `Phone:          ${phone || 'Not provided'}`,
-          `Selected Tier:  ${selectedPlan || 'General Inquiry'}`,
-          `Infrastructure: ${selectedInfra || 'AWS'} (${clusterScale || 'Not specified'})`,
+          `Name:           ${cleanName || 'Not provided'}`,
+          `Work Email:     ${cleanEmail}`,
+          `Phone:          ${cleanPhone || 'Not provided'}`,
+          `Selected Tier:  ${cleanPlan}`,
+          `Infrastructure: ${cleanInfra} (${cleanScale})`,
           '',
           'Message:',
           '-----------------------------------------------',
-          message || 'No additional message provided.',
+          cleanMessage || 'No additional message provided.',
           '===============================================',
-          `Hit 'Reply' to respond directly to ${email}.`
+          `Hit 'Reply' to respond directly to ${cleanEmail}.`
         ].join('\n');
 
         const htmlBody = `
@@ -337,41 +368,41 @@ export default {
           <body>
             <div class="card">
               <div class="header">
-                <div class="badge">${escapeHtml(selectedPlan || 'Lead')}</div>
+                <div class="badge">${escapeHtml(cleanPlan)}</div>
                 <h1 class="title">New Client Inquiry Received</h1>
               </div>
               <div class="content">
                 <table>
                   <tr>
                     <td class="label">Name</td>
-                    <td class="value">${escapeHtml(name || 'Not provided')}</td>
+                    <td class="value">${escapeHtml(cleanName || 'Not provided')}</td>
                   </tr>
                   <tr>
                     <td class="label">Work Email</td>
-                    <td class="value"><a href="mailto:${escapeHtml(email)}" style="color:#d97706;text-decoration:none;">${escapeHtml(email)}</a></td>
+                    <td class="value"><a href="mailto:${escapeHtml(cleanEmail)}" style="color:#d97706;text-decoration:none;">${escapeHtml(cleanEmail)}</a></td>
                   </tr>
                   <tr>
                     <td class="label">Phone / WhatsApp</td>
-                    <td class="value">${phone ? `<a href="tel:${escapeHtml(phone)}" style="color:#1c1917;text-decoration:none;">${escapeHtml(phone)}</a>` : 'Not provided'}</td>
+                    <td class="value">${cleanPhone ? `<a href="tel:${escapeHtml(cleanPhone)}" style="color:#1c1917;text-decoration:none;">${escapeHtml(cleanPhone)}</a>` : 'Not provided'}</td>
                   </tr>
                   <tr>
                     <td class="label">Selected Tier</td>
-                    <td class="value accent">${escapeHtml(selectedPlan || 'General')}</td>
+                    <td class="value accent">${escapeHtml(cleanPlan)}</td>
                   </tr>
                   <tr>
                     <td class="label">Infrastructure</td>
-                    <td class="value">${escapeHtml(selectedInfra || 'AWS')} ${clusterScale ? `(${escapeHtml(clusterScale)})` : ''}</td>
+                    <td class="value">${escapeHtml(cleanInfra)} (${escapeHtml(cleanScale)})</td>
                   </tr>
                 </table>
-                ${message ? `
+                ${cleanMessage ? `
                   <div class="message-box">
                     <div class="message-title">Message / Architecture Notes</div>
-                    <p class="message-text">${escapeHtml(message)}</p>
+                    <p class="message-text">${escapeHtml(cleanMessage)}</p>
                   </div>
                 ` : ''}
               </div>
               <div class="footer">
-                Click <strong>Reply</strong> to respond directly to <strong>${escapeHtml(email)}</strong>.
+                Click <strong>Reply</strong> to respond directly to <strong>${escapeHtml(cleanEmail)}</strong>.
               </div>
             </div>
           </body>
@@ -380,41 +411,49 @@ export default {
 
         // 1. Dispatch Email to Gmail
         let emailSent = false;
-        try {
-          await sendGmailViaSocket({
-            user: gmailUser,
-            pass: gmailPass,
-            to: gmailUser,
-            replyTo: email,
-            subject,
-            text: plainText,
-            html: htmlBody
-          });
-          emailSent = true;
-        } catch (emailErr) {
-          console.error('[Worker Email Error]:', emailErr);
+        if (gmailPass) {
+          try {
+            await sendGmailViaSocket({
+              user: gmailUser,
+              pass: gmailPass,
+              to: gmailUser,
+              replyTo: cleanEmail,
+              subject,
+              text: plainText,
+              html: htmlBody
+            });
+            emailSent = true;
+          } catch (emailErr) {
+            console.error('[Worker Email Error]:', emailErr);
+          }
+        } else {
+          console.warn('[Worker] GMAIL_APP_PASSWORD secret is not configured in worker environment.');
         }
 
         // 2. Dispatch Instant Push Notification to Telegram Bot
-        try {
-          await fetch(`https://api.telegram.org/bot${tgBotToken}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: tgChatId,
-              text: `🚨 <b>New Amber Lead Received!</b>\n\n` +
-                    `👤 <b>Name:</b> ${escapeHtml(name || 'N/A')}\n` +
-                    `📧 <b>Email:</b> ${escapeHtml(email)}\n` +
-                    `📞 <b>Phone:</b> ${escapeHtml(phone || 'N/A')}\n` +
-                    `📦 <b>Tier:</b> ${escapeHtml(selectedPlan || 'Inquiry')}\n` +
-                    `☁️ <b>Infra:</b> ${escapeHtml(selectedInfra || 'AWS')} (${escapeHtml(clusterScale || 'Not specified')})\n\n` +
-                    `📝 <b>Message:</b>\n${escapeHtml(message || 'None')}\n\n` +
-                    `⚡ <i>Dispatched from ambersre.xyz</i>`,
-              parse_mode: 'HTML'
-            })
-          });
-        } catch (tgErr) {
-          console.error('[Worker Telegram Error]:', tgErr);
+        if (tgBotToken && tgChatId) {
+          try {
+            await fetch(`https://api.telegram.org/bot${tgBotToken}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: tgChatId,
+                text: `🚨 <b>New Amber Lead Received!</b>\n\n` +
+                      `👤 <b>Name:</b> ${escapeHtml(cleanName || 'N/A')}\n` +
+                      `📧 <b>Email:</b> ${escapeHtml(cleanEmail)}\n` +
+                      `📞 <b>Phone:</b> ${escapeHtml(cleanPhone || 'N/A')}\n` +
+                      `📦 <b>Tier:</b> ${escapeHtml(cleanPlan)}\n` +
+                      `☁️ <b>Infra:</b> ${escapeHtml(cleanInfra)} (${escapeHtml(cleanScale)})\n\n` +
+                      `📝 <b>Message:</b>\n${escapeHtml(cleanMessage || 'None')}\n\n` +
+                      `⚡ <i>Dispatched from ambersre.xyz</i>`,
+                parse_mode: 'HTML'
+              })
+            });
+          } catch (tgErr) {
+            console.error('[Worker Telegram Error]:', tgErr);
+          }
+        } else {
+          console.warn('[Worker] Telegram bot secrets not configured in worker environment.');
         }
 
         return new Response(JSON.stringify({
@@ -425,7 +464,7 @@ export default {
           status: 200,
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            ...corsHeaders
           }
         });
       } catch (err) {
@@ -434,7 +473,7 @@ export default {
           status: 500,
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
+            ...corsHeaders
           }
         });
       }
@@ -454,6 +493,8 @@ export default {
     headers.set('X-Frame-Options', 'SAMEORIGIN');
     headers.set('X-Content-Type-Options', 'nosniff');
     headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 
     return new Response(assetResponse.body, {
       status: assetResponse.status,

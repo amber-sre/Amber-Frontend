@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import nodemailer from 'nodemailer';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -24,7 +23,6 @@ export default defineConfig(({ mode }) => {
               try {
                 const data = JSON.parse(body || '{}');
                 const gmailUser = env.GMAIL_USER || 'amber.incident@gmail.com';
-                const gmailPass = env.GMAIL_APP_PASSWORD;
 
                 if (!data.email) {
                   res.statusCode = 400;
@@ -33,35 +31,13 @@ export default defineConfig(({ mode }) => {
                   return;
                 }
 
-                if (!gmailPass) {
-                  console.log('\n[Amber Contact Dev] GMAIL_APP_PASSWORD is not set in .env.');
-                  console.log('[Amber Contact Dev] Simulating lead delivery to:', gmailUser);
-                  console.log('[Lead Payload]:', JSON.stringify(data, null, 2));
-                  res.setHeader('Content-Type', 'application/json');
-                  res.statusCode = 200;
-                  res.end(JSON.stringify({ success: true, simulated: true }));
-                  return;
-                }
-
-                const transporter = nodemailer.createTransport({
-                  service: 'gmail',
-                  auth: {
-                    user: gmailUser,
-                    pass: gmailPass,
-                  },
-                });
-
-                await transporter.sendMail({
-                  from: `"Amber Intake" <${gmailUser}>`,
-                  to: gmailUser,
-                  replyTo: data.email,
-                  subject: `🚨 New Amber Lead: ${data.name ? `${data.name} · ` : ''}${data.email} (${data.selectedPlan || 'Inquiry'})`,
-                  text: `New Lead: ${data.name || 'Anonymous'}\nEmail: ${data.email}\nPhone: ${data.phone || 'N/A'}\nPlan: ${data.selectedPlan}\nInfra: ${data.selectedInfra} (${data.clusterScale || 'N/A'})\n\nMessage:\n${data.message || 'N/A'}\n\n(Hit Reply to respond directly to ${data.email})`,
-                });
-
+                console.log('\n[Amber Contact Dev] Lead received in local dev mode:');
+                console.log('[Lead Payload]:', JSON.stringify(data, null, 2));
+                console.log('[Simulated Recipient]:', gmailUser);
                 res.setHeader('Content-Type', 'application/json');
                 res.statusCode = 200;
-                res.end(JSON.stringify({ success: true, message: 'Lead dispatched' }));
+                res.end(JSON.stringify({ success: true, simulated: true, message: 'Lead received in local dev mode' }));
+                return;
               } catch (err: any) {
                 console.error('[Amber Contact Error]:', err);
                 res.statusCode = 500;
