@@ -53,10 +53,6 @@ export const RemediationVideoPlayer: React.FC = () => {
       {/* ── Section Header Row: Title & Modern Workspace Selector ── */}
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-10 border-b border-white/10 pb-8">
         <div>
-          <div className="text-[11px] font-mono tracking-wider text-[#facc15] uppercase font-bold mb-2 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>// LIVE INCIDENT REMEDIATION CONSOLE</span>
-          </div>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white font-sans">
             Experience Amber In Action.
           </h2>

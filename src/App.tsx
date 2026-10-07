@@ -797,10 +797,6 @@ export default function App() {
 
         {/* Top Eyebrow & Editorial Header */}
         <div className="relative z-10 max-w-4xl mx-auto text-center mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-[#fde68a] bg-[#fef3c7] text-[#92400e] text-[11px] font-mono font-bold tracking-wider uppercase mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-pulse" />
-            // TRANSPARENT SRE PRICING
-          </div>
           <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-[#0c0a09] leading-[1.05] mb-6">
             Predictable Economics for <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d97706] via-[#b45309] to-[#92400e]">Mission-Critical Autonomy.</span>
@@ -1340,13 +1336,6 @@ export default function App() {
         <div className="relative z-10 max-w-7xl mx-auto mt-8">
           <div className="bg-white border border-stone-200 hover:border-amber-400/60 rounded-3xl p-6 sm:p-8 shadow-sm transition-all duration-300 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="space-y-2 max-w-2xl">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-300/60">
-                  <Sparkles className="w-3.5 h-3.5 text-[#d97706]" />
-                  // CUSTOM TOPOLOGY CALCULATOR
-                </span>
-                <span className="text-xs text-stone-500 hidden sm:inline">• Multi-Cluster &amp; High-Volume Infrastructure</span>
-              </div>
               <h4 className="text-xl sm:text-2xl font-black text-[#0c0a09] tracking-tight">
                 Need a Custom Infrastructure Scope?
               </h4>

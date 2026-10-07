@@ -10,7 +10,6 @@ import {
   HardDrive, 
   Send, 
   MessageSquare, 
-  Zap, 
   Server, 
   Layers, 
   GitFork, 
@@ -91,10 +90,6 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
         
         {/* Hero Header */}
         <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#fef3c7] border border-[#fde68a] text-[#b45309] font-mono text-xs font-bold uppercase tracking-wider mb-4">
-            <Zap className="w-3.5 h-3.5" />
-            <span>OPEN SOURCE &amp; AIR-GAPPED</span>
-          </div>
           <h1 className="text-3xl sm:text-5xl font-black text-[#0c0a09] tracking-tight leading-tight mb-4">
             Deploy Amber Community Edition in Under 60 Seconds.
           </h1>

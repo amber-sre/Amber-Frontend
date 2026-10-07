@@ -198,7 +198,7 @@ export const HowItWorks: React.FC = () => {
             {/* Left Column: Plain English Explanation */}
             <div className="lg:col-span-6 bg-[#fafafa] border border-black/10 rounded-3xl p-8 sm:p-10 flex flex-col justify-between shadow-sm">
               <div>
-                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-black/5 text-black/70 text-xs font-mono font-bold mb-6 border border-black/5">
+                <div className="text-xs font-mono font-bold text-black/60 mb-6 flex items-center gap-2">
                   <span>STEP 0{activeStepIndex + 1} OF 04</span>
                   <span>•</span>
                   <span>{activeStep.title.toUpperCase()}</span>

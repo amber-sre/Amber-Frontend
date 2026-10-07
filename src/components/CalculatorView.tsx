@@ -101,11 +101,6 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
         
         {/* Header Section */}
         <div className="max-w-3xl mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-100 border border-amber-300/80 text-amber-900 text-xs font-mono font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#d97706]" />
-            <span>// ALGORITHMIC INFRASTRUCTURE QUOTING</span>
-          </div>
-
           <h1 className="text-3xl sm:text-5xl font-sans font-black text-[#0c0a09] tracking-tight leading-tight">
             Transparent Pricing. <br />
             <span className="text-[#d97706]">Modeled for Your Exact Scale.</span>
