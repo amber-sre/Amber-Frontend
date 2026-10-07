@@ -118,6 +118,19 @@ export default function App() {
     }
   };
 
+  // Helper to dynamically update on-page SEO meta tags per route
+  const updatePageSEO = (title: string, description: string, canonicalPath: string) => {
+    document.title = title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', description);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', description);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `https://ambersre.xyz${canonicalPath}`);
+  };
+
   // HTML5 History & URL route synchronization (clean URLs, never trailing /#)
   useEffect(() => {
     const handleRoute = () => {
@@ -134,6 +147,11 @@ export default function App() {
       // Check Blog route
       if (cleanPath === 'blog' || cleanHash === 'blog') {
         setCurrentView('blog');
+        updatePageSEO(
+          'Amber Engineering Blog — Deterministic Incident Remediation & SRE Architecture',
+          'Technical deep dives into autonomous incident remediation, deterministic guardrails, and cryptographic human-in-the-loop approvals.',
+          '/blog'
+        );
         if (window.location.pathname !== '/blog') {
           window.history.replaceState(null, '', '/blog');
         }
@@ -144,6 +162,11 @@ export default function App() {
       // Check Community route (/community)
       if (cleanPath === 'community' || cleanHash === 'community') {
         setCurrentView('community');
+        updatePageSEO(
+          'Amber Community Edition — Free Self-Hosted In-VPC SRE Engine (15 Nodes)',
+          'Deploy the source-available Amber Community Edition inside your VPC. Free forever up to 15 nodes and 20 services with zero license key required.',
+          '/community'
+        );
         if (window.location.pathname !== '/community') {
           window.history.replaceState(null, '', '/community');
         }
@@ -154,6 +177,11 @@ export default function App() {
       // Check Custom Calculator route (/calculator)
       if (cleanPath === 'calculator' || cleanHash === 'calculator') {
         setCurrentView('calculator');
+        updatePageSEO(
+          'Amber ROI & Infrastructure Downtime Calculator — Autonomous SRE Savings',
+          'Calculate engineering hours saved and MTTR reduction with autonomous incident remediation.',
+          '/calculator'
+        );
         if (window.location.pathname !== '/calculator') {
           window.history.replaceState(null, '', '/calculator');
         }
@@ -167,6 +195,11 @@ export default function App() {
       if (matchedDoc) {
         setLegalDoc(matchedDoc);
         setCurrentView('legal');
+        updatePageSEO(
+          `Amber ${matchedDoc.toUpperCase()} — Security, SLA & Compliance Documentation`,
+          'Official compliance, zero-egress data boundary, and terms of service for the Amber SRE platform.',
+          `/${matchedDoc}`
+        );
         if (window.location.pathname !== `/${matchedDoc}`) {
           window.history.replaceState(null, '', `/${matchedDoc}`);
         }
@@ -176,6 +209,11 @@ export default function App() {
 
       // Default: Landing view
       setCurrentView('landing');
+      updatePageSEO(
+        'Amber — Autonomous Incident Remediation & SRE Engine',
+        'Amber is an autonomous SRE remediation engine that triages alerts in <3s, runs bounded diagnostics, and executes cryptographically signed HITL fixes inside your VPC.',
+        '/'
+      );
       if (cleanHash === 'contact' || cleanHash === 'connect' || cleanPath === 'contact' || cleanPath === 'connect') {
         setTimeout(() => {
           smoothScrollTo('connect');

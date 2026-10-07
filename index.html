@@ -49,6 +49,77 @@
     }
     </script>
 
+    <!-- Schema.org Organization JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Amber Technologies Inc.",
+      "url": "https://ambersre.xyz",
+      "logo": "https://ambersre.xyz/assets/amber-symbol.png",
+      "sameAs": [
+        "https://github.com/himanshu-xyz-1/Amber",
+        "https://twitter.com/himanshu1xy"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "team@ambersre.xyz",
+        "contactType": "Customer Support",
+        "availableLanguage": ["English"]
+      }
+    }
+    </script>
+
+    <!-- Schema.org FAQPage JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does Amber ever execute changes in production without our permission?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. State-mutating actions strictly require human approval via Slack, Telegram, WhatsApp, or the web console. High-risk actions generate cryptographically signed approval cards with dry-run outputs and 10-minute expiry tokens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Amber open source? Can our platform & security teams audit the codebase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The core Amber SRE engine is source-available on GitHub under BSL 1.1. The Community Edition is 100% free forever for up to 15 nodes and 20 services with zero license key required. All backend code can be audited by security and compliance teams."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Amber run completely offline in our air-gapped VPC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Amber deploys as a standalone container stack with zero external network dependencies. When AIR_GAPPED=true is enabled, all external cloud LLM gateways are severed, connecting exclusively to your internal Ollama, vLLM, or private models."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What prevents AI models from hallucinating or inventing commands?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LLMs never receive raw terminal shell access. Amber uses a strict dual-plane architecture where the LLM only selects from an immutable, compile-time allowlist of tools. Every tool argument is validated against live cluster telemetry before execution."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a proposed fix fails or worsens the incident?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every remediation is immediately followed by automated verification probes. If error rates do not normalize, Amber automatically triggers an instant rollback to the previous known good state and enforces anti-loop circuit breakers."
+          }
+        }
+      ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
