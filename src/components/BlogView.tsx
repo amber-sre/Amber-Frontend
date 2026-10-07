@@ -533,7 +533,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             <button type="button" onClick={onBack} className="hover:text-black transition">PLATFORM OVERVIEW</button>
             <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
             <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-black transition">TWITTER</a>
-            <a href="mailto:amber.incident@gmail.com" className="hover:text-black transition">SUPPORT</a>
+            <a href="mailto:team@ambersre.xyz" className="hover:text-black transition">SUPPORT</a>
           </div>
         </div>
 

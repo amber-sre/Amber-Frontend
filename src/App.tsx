@@ -279,7 +279,7 @@ export default function App() {
       setFormSubmitted(true);
     } catch (err: any) {
       console.error('Contact form submission error:', err);
-      setFormError(err.message || 'Unable to submit directly. Please email amber.incident@gmail.com or message us on WhatsApp.');
+      setFormError(err.message || 'Unable to submit directly. Please email team@ambersre.xyz or message us on WhatsApp.');
     } finally {
       setIsSubmitting(false);
     }
@@ -1488,7 +1488,7 @@ export default function App() {
 
               {/* Email */}
               <div 
-                onClick={() => copyToClipboard('amber.incident@gmail.com', 'email')}
+                onClick={() => copyToClipboard('team@ambersre.xyz', 'email')}
                 className="group flex justify-between items-baseline cursor-pointer pt-6 border-t border-white/10"
               >
                 <div>
@@ -1496,7 +1496,7 @@ export default function App() {
                     Direct Email
                   </div>
                   <div className="text-lg text-zinc-100 group-hover:text-white font-medium transition-colors flex items-center gap-2">
-                    amber.incident@gmail.com <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    team@ambersre.xyz <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
                 <div className="text-xs text-zinc-500 group-hover:text-white flex items-center gap-1.5 transition-colors">
@@ -1766,7 +1766,7 @@ export default function App() {
                         <div className="font-semibold text-white">{formError}</div>
                         <div className="flex flex-wrap gap-4 pt-1">
                           <a 
-                            href="mailto:amber.incident@gmail.com" 
+                            href="mailto:team@ambersre.xyz" 
                             className="text-[#facc15] font-bold underline hover:text-white"
                           >
                             Email Directly →

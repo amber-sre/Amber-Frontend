@@ -157,10 +157,10 @@ export const LegalView: React.FC<LegalViewProps> = ({
               <div>Entity: <strong>Amber Technologies Inc.</strong></div>
               <div className="pt-2">
                 <a 
-                  href="mailto:legal@ambersre.xyz" 
+                  href="mailto:team@ambersre.xyz" 
                   className="text-[#d97706] hover:underline flex items-center gap-1 font-bold"
                 >
-                  <span>legal@ambersre.xyz</span>
+                  <span>team@ambersre.xyz</span>
                 </a>
               </div>
             </div>
@@ -318,7 +318,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
                   <li><strong>Right to Object or Restrict Processing:</strong> You may object to the processing of your data or request restriction under applicable privacy statutes.</li>
                 </ul>
                 <p className="pt-2">
-                  To exercise any of these rights, contact our Data Protection Officer at <a href="mailto:privacy@ambersre.xyz" className="text-[#d97706] font-bold underline">privacy@ambersre.xyz</a>.
+                  To exercise any of these rights, contact our Data Protection Officer at <a href="mailto:team@ambersre.xyz" className="text-[#d97706] font-bold underline">team@ambersre.xyz</a>.
                 </p>
               </section>
             </article>
@@ -458,7 +458,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
                   <div className="text-xs text-stone-500 mt-0.5">We execute standard DPAs and SCC addendums with all enterprise customers.</div>
                 </div>
                 <a
-                  href="mailto:legal@ambersre.xyz?subject=Counter-signed%20DPA%20Request"
+                  href="mailto:team@ambersre.xyz?subject=Counter-signed%20DPA%20Request"
                   className="px-4 py-2 bg-black hover:bg-[#d97706] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition"
                 >
                   Request Countersigned DPA
@@ -677,7 +677,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
                 </p>
                 <div className="p-4 bg-stone-50 border border-stone-200 rounded-xl font-mono text-xs space-y-1">
                   <div><strong>Designated Agent:</strong> Amber Legal Operations</div>
-                  <div><strong>Email:</strong> legal@ambersre.xyz / privacy@ambersre.xyz</div>
+                  <div><strong>Email:</strong> team@ambersre.xyz</div>
                   <div><strong>Entity:</strong> Amber Technologies Inc.</div>
                 </div>
               </section>
