@@ -154,7 +154,7 @@ export const HowItWorks: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center justify-between w-full">
-                  <span className={`text-[11px] font-mono tracking-wider font-bold ${isActive ? 'text-[#facc15]' : 'text-black/40'}`}>
+                  <span className={`text-[11px] font-sans tracking-wider font-bold ${isActive ? 'text-[#facc15]' : 'text-black/40'}`}>
                     {step.badge}
                   </span>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
@@ -198,7 +198,7 @@ export const HowItWorks: React.FC = () => {
             {/* Left Column: Plain English Explanation */}
             <div className="lg:col-span-6 bg-[#fafafa] border border-black/10 rounded-3xl p-8 sm:p-10 flex flex-col justify-between shadow-sm">
               <div>
-                <div className="text-xs font-mono font-bold text-black/60 mb-6 flex items-center gap-2">
+                <div className="text-xs font-sans font-bold text-black/60 mb-6 flex items-center gap-2">
                   <span>STEP 0{activeStepIndex + 1} OF 04</span>
                   <span>•</span>
                   <span>{activeStep.title.toUpperCase()}</span>
@@ -214,7 +214,7 @@ export const HowItWorks: React.FC = () => {
 
                 {/* Operational Impact Callout Box */}
                 <div className="p-5 rounded-2xl bg-stone-100/90 border border-stone-200 text-stone-900 mb-6">
-                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#b45309] mb-1.5 flex items-center gap-2">
+                  <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#b45309] mb-1.5 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                     <span>Operational Impact</span>
                   </div>

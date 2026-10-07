@@ -71,13 +71,13 @@ export const LegalView: React.FC<LegalViewProps> = ({
             <button
               type="button"
               onClick={onBack}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-black/70 hover:text-black p-2 hover:bg-stone-100 rounded-lg transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-wider text-black/70 hover:text-black p-2 hover:bg-stone-100 rounded-lg transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Amber Platform</span>
             </button>
             <span className="hidden sm:inline text-stone-300">|</span>
-            <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-stone-500">
+            <div className="hidden sm:flex items-center gap-2 text-xs font-sans text-stone-500 font-medium">
               <span>Amber SRE</span>
               <span>/</span>
               <span className="text-black font-semibold">Legal, Privacy & Compliance</span>
@@ -88,7 +88,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
             <button
               type="button"
               onClick={copyDocLink}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 hover:border-black/30 text-xs font-mono font-medium text-stone-700 hover:text-black transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 hover:border-black/30 text-xs font-sans font-semibold text-stone-700 hover:text-black transition cursor-pointer"
             >
               {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedLink ? 'Link Copied' : 'Share Link'}</span>
@@ -111,7 +111,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
         <aside className="lg:col-span-3">
           <div className="sticky top-24 space-y-6">
             <div className="p-4 bg-stone-50 border border-stone-200/80 rounded-2xl">
-              <div className="text-[11px] font-mono uppercase tracking-widest text-[#d97706] font-bold mb-1">
+              <div className="text-[11px] font-sans uppercase tracking-widest text-[#d97706] font-bold mb-1">
                 Governance Portal
               </div>
               <h2 className="text-sm font-bold text-[#0c0a09]">Enterprise Compliance</h2>
@@ -139,7 +139,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
                       <Icon className={`w-4 h-4 ${isActive ? 'text-[#facc15]' : 'text-stone-400'}`} />
                       <span>{item.label}</span>
                     </div>
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${
+                    <span className={`text-[10px] font-sans font-bold px-2 py-0.5 rounded ${
                       isActive 
                         ? 'bg-white/20 text-white' 
                         : 'bg-stone-100 text-stone-600'
@@ -151,7 +151,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
               })}
             </nav>
 
-            <div className="pt-6 border-t border-stone-200 text-xs font-mono text-stone-500 space-y-2">
+            <div className="pt-6 border-t border-stone-200 text-xs font-sans text-stone-500 space-y-2">
               <div>Version: <strong>2026.2.0</strong></div>
               <div>Effective: <strong>Oct 1, 2026</strong></div>
               <div>Entity: <strong>Amber Technologies Inc.</strong></div>
@@ -688,7 +688,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
       </div>
 
       {/* Clean Footer Bar */}
-      <footer className="border-t border-stone-200 mt-20 py-8 bg-stone-50 text-xs font-mono text-stone-500 text-center">
+      <footer className="border-t border-stone-200 mt-20 py-8 bg-stone-50 text-xs font-sans text-stone-500 text-center font-medium">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>© 2026 Amber SRE. All rights reserved.</div>
           <div className="flex items-center gap-4">

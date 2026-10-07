@@ -81,7 +81,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
           />
           <span className="font-sans font-black text-lg text-[#0c0a09] tracking-tight">AMBER</span>
           <span className="text-stone-300">|</span>
-          <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-stone-100 text-stone-600 border border-stone-200/80">
+          <span className="text-[10px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-stone-100 text-stone-600 border border-stone-200/80">
             CALCULATOR
           </span>
         </div>

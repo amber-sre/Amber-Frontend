@@ -41,9 +41,6 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             className="w-7 h-9 object-contain drop-shadow-[0_2px_8px_rgba(217,119,6,0.3)] group-hover:scale-105 transition-transform duration-200" 
           />
           <span className="tracking-tight text-lg font-black text-[#0a0a0a]">AMBER</span>
-          <span className="text-[10px] font-sans font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-stone-100 text-stone-600 border border-stone-200/80 ml-1">
-            Technical Architecture
-          </span>
         </div>
 
         <div className="flex items-center gap-4 sm:gap-6">
@@ -86,7 +83,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
             <span>Back to Home</span>
           </button>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-medium tracking-wider text-stone-500 uppercase mb-4">
+          <div className="flex flex-wrap items-center gap-3 text-xs font-sans font-semibold tracking-wider text-stone-500 uppercase mb-4">
             <span className="flex items-center gap-1.5 text-stone-600">
               <Clock className="w-3.5 h-3.5 text-[#d97706]" />
               7 Min Read
@@ -543,7 +540,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
         {/* Faded Footer Watermark */}
         <div className="overflow-hidden select-none pt-8 max-w-6xl mx-auto flex justify-between items-center text-xs font-sans text-stone-400">
           <div>© 2026 Amber Technologies Inc. All rights reserved.</div>
-          <div className="text-[10px] font-mono tracking-wider uppercase text-stone-400">
+          <div className="text-[10px] font-sans font-semibold tracking-wider uppercase text-stone-400">
             ED25519 · SHA-256 · HITL GOVERNED
           </div>
         </div>

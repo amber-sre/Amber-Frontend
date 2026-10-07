@@ -160,7 +160,7 @@ export function FaqSection({ onNavigateToContact }: FaqSectionProps = {}) {
 
       <div className="relative z-10 max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="flex justify-between items-center text-xs font-mono font-medium tracking-wider text-black/50 uppercase border-b border-black/10 pb-4 mb-16">
+        <div className="flex justify-between items-center text-xs font-sans font-bold tracking-wider text-black/50 uppercase border-b border-black/10 pb-4 mb-16">
           <div className="flex items-center gap-2">
             <HelpCircle className="w-3.5 h-3.5 text-[#d97706]" />
             <span className="font-semibold text-black/80">Frequently Answered Questions</span>
@@ -210,11 +210,6 @@ export function FaqSection({ onNavigateToContact }: FaqSectionProps = {}) {
                       <Icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#d97706] bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
-                          {item.badge}
-                        </span>
-                      </div>
                       <h3 className="text-base sm:text-lg font-bold text-[#0c0a09] leading-snug">
                         {item.question}
                       </h3>
@@ -259,7 +254,7 @@ export function FaqSection({ onNavigateToContact }: FaqSectionProps = {}) {
                               href={item.actionLink.url}
                               target={item.actionLink.external ? "_blank" : undefined}
                               rel={item.actionLink.external ? "noreferrer" : undefined}
-                              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#d97706] hover:text-black transition-colors"
+                              className="inline-flex items-center gap-2 text-xs font-sans font-bold text-[#d97706] hover:text-black transition-colors"
                             >
                               <span>{item.actionLink.label}</span>
                               <ExternalLink className="w-3.5 h-3.5" />
@@ -270,7 +265,7 @@ export function FaqSection({ onNavigateToContact }: FaqSectionProps = {}) {
                         {/* Key Takeaway Callout */}
                         <div className="mt-5 p-3.5 bg-amber-50/70 border border-amber-200/70 rounded-xl flex items-center gap-3">
                           <CheckCircle2 className="w-4 h-4 text-[#d97706] shrink-0" />
-                          <span className="text-xs font-mono font-medium text-amber-950">
+                          <span className="text-xs font-sans font-medium text-amber-950">
                             <strong>Key Guarantee:</strong> {item.keyTakeaway}
                           </span>
                         </div>

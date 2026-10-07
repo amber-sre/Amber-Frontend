@@ -50,13 +50,13 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             <button
               type="button"
               onClick={onBack}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-black/70 hover:text-black p-2 hover:bg-stone-100 rounded-lg transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-wider text-black/70 hover:text-black p-2 hover:bg-stone-100 rounded-lg transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Amber Platform</span>
             </button>
             <span className="hidden sm:inline text-stone-300">|</span>
-            <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-stone-500">
+            <div className="hidden sm:flex items-center gap-2 text-xs font-sans text-stone-500 font-medium">
               <span>Amber SRE</span>
               <span>/</span>
               <span className="text-black font-semibold">Community Edition Quickstart</span>
@@ -68,7 +68,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               href="https://github.com/himanshu-xyz-1/Amber"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 hover:border-black/30 text-xs font-mono font-medium text-stone-700 hover:text-black transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 hover:border-black/30 text-xs font-sans font-semibold text-stone-700 hover:text-black transition cursor-pointer"
             >
               <GitFork className="w-3.5 h-3.5" />
               <span>GitHub Repo</span>
@@ -100,7 +100,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
 
         {/* Master 1-Line Install Box */}
         <div className="mb-14 bg-[#0c0a09] rounded-2xl p-6 sm:p-8 text-white shadow-xl border border-stone-800">
-          <div className="flex items-center justify-between mb-3 text-xs font-mono text-stone-400">
+          <div className="flex items-center justify-between mb-3 text-xs font-sans font-medium text-stone-400">
             <div className="flex items-center gap-2">
               <Terminal className="w-4 h-4 text-[#d97706]" />
               <span className="font-bold text-stone-300">Run in your Linux, EC2, or Kubernetes worker node terminal:</span>
@@ -122,7 +122,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             </button>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-mono text-stone-400 pt-3 border-t border-white/10">
+          <div className="mt-4 flex flex-wrap items-center gap-4 text-xs font-sans text-stone-400 pt-3 border-t border-white/10 font-medium">
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               <span>Zero License Key Required</span>
@@ -193,7 +193,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             
             {/* Step 1 */}
             <div className="flex gap-4 p-6 bg-white border border-stone-200 rounded-2xl shadow-sm">
-              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-mono text-sm font-bold flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-sans text-sm font-bold flex items-center justify-center shrink-0">
                 1
               </div>
               <div>
@@ -214,7 +214,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
 
             {/* Step 2 */}
             <div className="flex gap-4 p-6 bg-white border border-stone-200 rounded-2xl shadow-sm">
-              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-mono text-sm font-bold flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-sans text-sm font-bold flex items-center justify-center shrink-0">
                 2
               </div>
               <div>
@@ -232,7 +232,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
 
             {/* Step 3 */}
             <div className="flex gap-4 p-6 bg-white border border-stone-200 rounded-2xl shadow-sm">
-              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-mono text-sm font-bold flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-sans text-sm font-bold flex items-center justify-center shrink-0">
                 3
               </div>
               <div>
@@ -267,7 +267,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
 
             {/* Step 4 */}
             <div className="flex gap-4 p-6 bg-white border border-stone-200 rounded-2xl shadow-sm">
-              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-mono text-sm font-bold flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-full bg-stone-900 text-white font-sans text-sm font-bold flex items-center justify-center shrink-0">
                 4
               </div>
               <div>
@@ -300,7 +300,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
           </h2>
           <div className="overflow-x-auto border border-stone-200 rounded-2xl">
             <table className="w-full text-left text-xs sm:text-sm font-sans">
-              <thead className="bg-stone-50 border-b border-stone-200 font-mono text-xs uppercase tracking-wider text-stone-600">
+              <thead className="bg-stone-50 border-b border-stone-200 font-sans text-xs uppercase tracking-wider text-stone-600 font-bold">
                 <tr>
                   <th className="py-4 px-6">Capability</th>
                   <th className="py-4 px-6 text-[#d97706] font-bold">Community (Free Forever)</th>

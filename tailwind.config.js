@@ -39,8 +39,8 @@ export default {
         },
       },
       fontFamily: {
-        mono: ['Space Mono', 'JetBrains Mono', 'monospace'],
-        sans: ['Inter', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
     },
   },

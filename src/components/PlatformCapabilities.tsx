@@ -260,7 +260,7 @@ export function PlatformCapabilities() {
                 {/* Header Badge */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-stone-100">
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono font-bold text-stone-900 tracking-wider">
+                    <span className="text-xs font-sans font-bold text-stone-900 tracking-wider">
                       CAPABILITY 0{activeCap.number}
                     </span>
                     <span className="text-xs font-sans font-semibold text-stone-500 uppercase tracking-wider">

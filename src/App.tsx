@@ -632,7 +632,7 @@ export default function App() {
             <span className="w-2.5 h-2.5 rounded-full bg-[#facc15] animate-ping" />
             <span className="text-white">Production Performance Benchmarks</span>
           </div>
-          <div className="hidden sm:block text-zinc-400 font-mono text-[11px]">Stress-Tested on Synthetic & Live Ingestion Streams</div>
+          <div className="hidden sm:block text-zinc-400 font-sans font-medium text-[11px]">Stress-Tested on Synthetic & Live Ingestion Streams</div>
           <div className="text-[#facc15] font-bold drop-shadow-[0_0_12px_rgba(250,204,21,0.6)]">Zero Dropped Webhooks</div>
         </div>
 
@@ -646,12 +646,12 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Throughput Capacity
                 </span>
-                <span className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+                <span className="flex items-center gap-1.5 text-[10px] font-sans font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
                 </span>
               </div>
 
-              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-baseline font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-baseline font-sans text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                 <AnimatedCounter target={500} suffix="+" duration={1.8} liveJitter={true} jitterRange={18} />
               </div>
 
@@ -672,7 +672,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+            <div className="text-xs font-sans font-medium text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
               <span>Redis Stream Buffer</span>
               <span className="text-[#facc15] font-bold">0.00% Loss</span>
             </div>
@@ -685,12 +685,12 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Incident Triage
                 </span>
-                <span className="text-[10px] font-mono text-zinc-200 bg-white/10 border border-white/20 px-2 py-0.5 rounded-md">
+                <span className="text-[10px] font-sans font-bold text-zinc-200 bg-white/10 border border-white/20 px-2 py-0.5 rounded-md">
                   LANGGRAPH
                 </span>
               </div>
 
-              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 font-sans text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                 <AnimatedCounter target={2.8} prefix="<" suffix="s" decimals={1} duration={1.4} />
               </div>
 
@@ -706,7 +706,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+            <div className="text-xs font-sans font-medium text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
               <span>Deterministic Guardrails</span>
               <span className="text-[#facc15] font-bold">P0 - P4 Mesh</span>
             </div>
@@ -719,12 +719,12 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Blocked Commands
                 </span>
-                <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+                <span className="flex items-center gap-1 text-[10px] font-sans font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
                   <ShieldCheck className="w-3 h-3 text-emerald-400" /> STRICT
                 </span>
               </div>
 
-              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-center gap-3 font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-center gap-3 font-sans text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                 <span>0</span>
                 <span className="text-xs font-sans text-emerald-400 font-bold px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30">
                   Allowlist Only
@@ -736,7 +736,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+            <div className="text-xs font-sans font-medium text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
               <span>Static Registry</span>
               <span className="text-emerald-400 font-bold">Cryptographically Validated</span>
             </div>
@@ -749,12 +749,12 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Recovery Time
                 </span>
-                <span className="text-[10px] font-mono text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 rounded-md">
+                <span className="text-[10px] font-sans font-bold text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 rounded-md">
                   AUTO-ROLLBACK
                 </span>
               </div>
 
-              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 font-mono text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 font-sans text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                 <AnimatedCounter target={8.4} suffix="s" decimals={1} duration={1.6} />
               </div>
 
@@ -777,7 +777,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="text-xs font-mono text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
+            <div className="text-xs font-sans font-medium text-zinc-500 pt-4 border-t border-white/5 flex justify-between">
               <span>Health Verified</span>
               <span className="text-[#facc15] font-bold">&lt; 10s Target Recovery</span>
             </div>
@@ -830,7 +830,7 @@ export default function App() {
                 }`}
               >
                 <span>For Agencies &amp; MSPs</span>
-                <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
+                <span className={`text-[9px] font-sans font-bold uppercase px-1.5 py-0.5 rounded ${
                   pricingAudience === 'agencies' ? 'bg-black/20 text-white' : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
                 }`}>
                   White-Label
@@ -861,7 +861,7 @@ export default function App() {
                 }`}
               >
                 <span>Annual Commitment</span>
-                <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
+                <span className={`text-[9px] font-sans font-bold uppercase px-1.5 py-0.5 rounded ${
                   billingCycle === 'annual'
                     ? 'bg-black/20 text-white'
                     : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
@@ -881,10 +881,10 @@ export default function App() {
           <div className="bg-[#ffffff] border border-stone-200 hover:border-emerald-500/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(16,185,129,0.08)]">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700">
-                  // INCIDENT INTELLIGENCE
+                <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-emerald-700">
+                  Incident Intelligence
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
+                <span className="text-[10px] font-sans px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
                   FREE FOREVER
                 </span>
               </div>
@@ -971,14 +971,14 @@ export default function App() {
           {/* Card 2: Autonomous (Most Popular) */}
           <div className="bg-[#ffffff] border-2 border-[#d97706] ring-4 ring-[#d97706]/15 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative shadow-[0_25px_50px_-12px_rgba(217,119,6,0.22)] scale-[1.01] hover:-translate-y-1.5">
             {/* Top Popular Floating Badge */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#d97706] text-white font-mono font-bold text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#d97706] text-white font-sans font-bold text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
               <Sparkles className="w-3 h-3 fill-white" />
               MOST POPULAR
             </div>
 
             <div>
-              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
-                <span>// AUTONOMOUS REMEDIATION</span>
+              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
+                <span>Autonomous Remediation</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Autonomous
@@ -1059,8 +1059,8 @@ export default function App() {
           {/* Card 3: Response */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
             <div>
-              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-stone-500 mb-2">
-                // ENTERPRISE INCIDENT ESCALATION
+              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-2">
+                Enterprise Incident Escalation
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Response
@@ -1146,14 +1146,14 @@ export default function App() {
             {/* Card 1: Agency Partner (Option A - Main Requested Plan) */}
             <div className="bg-[#ffffff] border-2 border-[#d97706] ring-4 ring-[#d97706]/15 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative shadow-[0_25px_50px_-12px_rgba(217,119,6,0.22)] scale-[1.01] hover:-translate-y-1.5">
               {/* Top Floating Badge */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#d97706] text-white font-mono font-bold text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#d97706] text-white font-sans font-bold text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
                 <Sparkles className="w-3 h-3 fill-white" />
                 MOST POPULAR
               </div>
 
               <div>
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
-                  <span>// WHITE-LABEL MSP • 10 WORKSPACES</span>
+                <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
+                  <span>White-Label MSP • 10 Workspaces</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Partner
@@ -1239,14 +1239,14 @@ export default function App() {
             {/* Card 2: Agency Scale (Unlimited Enterprise) */}
             <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
               {/* Top Floating Badge */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#1c1917] text-white font-mono font-bold text-[9px] uppercase tracking-widest shadow-md flex items-center gap-1.5 border border-stone-700">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#1c1917] text-white font-sans font-bold text-[9px] uppercase tracking-widest shadow-md flex items-center gap-1.5 border border-stone-700">
                 <ShieldCheck className="w-3 h-3 text-[#d97706]" />
                 ENTERPRISE DEDICATED
               </div>
 
               <div>
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-stone-500 mb-2">
-                  // WHITE-LABEL ENTERPRISE • 25+ WORKSPACES
+                <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-2">
+                  White-Label Enterprise • 25+ Workspaces
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Scale
@@ -1343,9 +1343,9 @@ export default function App() {
                 Model transparent pricing for your exact Kubernetes worker nodes, production microservices, and auto-remediation quotas on our dedicated calculator.
               </p>
               <div className="flex flex-wrap items-center gap-2 pt-1">
-                <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero per-seat taxes</span>
-                <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero LLM token overages</span>
-                <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">100% In-VPC Single-Tenant</span>
+                <span className="text-[11px] font-sans font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero per-seat taxes</span>
+                <span className="text-[11px] font-sans font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero LLM token overages</span>
+                <span className="text-[11px] font-sans font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">100% In-VPC Single-Tenant</span>
               </div>
             </div>
 
@@ -1680,7 +1680,7 @@ export default function App() {
                         <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-300">
                           Selected Tier
                         </label>
-                        <span className="text-[11px] font-mono text-[#facc15]">
+                        <span className="text-[11px] font-sans font-semibold text-[#facc15]">
                           {billingCycle === 'annual' ? 'Annual Plan (Save ~18%)' : 'Monthly Plan'}
                         </span>
                       </div>
@@ -1853,7 +1853,7 @@ export default function App() {
 
           {/* Column 2: Platform Capabilities */}
           <div className="md:col-span-3">
-            <div className="text-xs font-mono text-black font-bold uppercase tracking-wider mb-4">
+            <div className="text-xs font-sans text-black font-bold uppercase tracking-wider mb-4">
               Platform
             </div>
             <ul className="space-y-2.5 text-xs font-sans text-black/70">
@@ -1897,7 +1897,7 @@ export default function App() {
 
           {/* Column 3: Security & Governance */}
           <div className="md:col-span-3">
-            <div className="text-xs font-mono text-black font-bold uppercase tracking-wider mb-4">
+            <div className="text-xs font-sans text-black font-bold uppercase tracking-wider mb-4">
               Security & Legal
             </div>
             <ul className="space-y-2.5 text-xs font-sans text-black/70">
@@ -1936,14 +1936,14 @@ export default function App() {
 
           {/* Column 4: Resources & Links */}
           <div className="md:col-span-2">
-            <div className="text-xs font-mono text-black font-bold uppercase tracking-wider mb-4">
+            <div className="text-xs font-sans text-black font-bold uppercase tracking-wider mb-4">
               Resources
             </div>
             <ul className="space-y-2.5 text-xs font-sans text-black/70">
               <li>
                 <button type="button" onClick={navigateToCommunity} className="hover:text-[#d97706] transition cursor-pointer text-left flex items-center gap-1.5 font-semibold text-black">
                   <span>Community Edition</span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono font-bold leading-none">FREE</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-sans font-bold leading-none">FREE</span>
                 </button>
               </li>
               <li>
@@ -1982,7 +1982,7 @@ export default function App() {
         </div>
 
         {/* Bottom Legal Copyright Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-black/60">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-stone-500 font-medium">
           <div>
             © 2026 Amber SRE. All rights reserved.
           </div>
@@ -2001,9 +2001,9 @@ export default function App() {
           </div>
         </div>
 
-        {/* Massive Amber Stamp Cutting Edge */}
-        <div className="overflow-hidden select-none pt-12">
-          <div className="text-[23vw] font-black tracking-[-0.08em] leading-none text-black/5 hover:text-black/10 transition-colors uppercase -mb-16">
+        {/* Massive Amber Stamp Watermark */}
+        <div className="overflow-hidden select-none pt-12 flex justify-center">
+          <div className="text-[19vw] font-black tracking-[0.06em] leading-none text-black/5 hover:text-black/10 transition-colors uppercase -mb-6 select-none pointer-events-none">
             AMBER
           </div>
         </div>
