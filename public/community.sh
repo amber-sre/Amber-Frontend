@@ -100,9 +100,9 @@ fi
 echo ""
 info "Launching Community Onboarding Wizard..."
 if [ -e /dev/tty ]; then
-    "$VENV_PY" scripts/setup_wizard.py --community < /dev/tty
+    "$VENV_PY" scripts/setup_community.py < /dev/tty
 else
-    "$VENV_PY" scripts/setup_wizard.py --community
+    "$VENV_PY" scripts/setup_community.py
 fi
 
 # ──────────────────────────────────────────────────────────────────────
@@ -123,6 +123,13 @@ fi
 echo ""
 echo -e "${GREEN}${BOLD}======================================================================${NC}"
 echo -e "${GREEN}${BOLD}  ✔ AMBER COMMUNITY EDITION IS READY!${NC}"
+echo -e ""
+echo -e "  📡 Ingestion Webhook Endpoints (Add to your Monitoring Tools):"
+echo -e "    • Prometheus:  ${CYAN}http://localhost:8000/api/v1/webhooks/prometheus${NC}"
+echo -e "    • Datadog:     ${CYAN}http://localhost:8000/api/v1/webhooks/datadog${NC}"
+echo -e "    • Grafana:     ${CYAN}http://localhost:8000/api/v1/webhooks/grafana${NC}"
+echo -e "    • PagerDuty:   ${CYAN}http://localhost:8000/api/v1/webhooks/pagerduty${NC}"
+echo -e ""
 echo -e "  To manage your engine anytime, use the CLI:"
 echo -e "    ${BOLD}cd ~/.amber && ./amber status${NC}"
 echo -e "    ${BOLD}cd ~/.amber && ./amber test-alert${NC} (verifies phone push alerts)"
