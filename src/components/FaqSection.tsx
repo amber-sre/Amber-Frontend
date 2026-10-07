@@ -51,7 +51,7 @@ const FAQ_ITEMS: FaqItem[] = [
     question: 'Is Amber open source? Can our platform & security teams audit the codebase?',
     summary: 'The backend engine is source-available under BSL 1.1 with a free Community Edition. The Amber Console is proprietary.',
     answer: [
-      'The core Amber SRE engine is source-available on GitHub under the Business Source License 1.1 (BSL 1.1). The Community Edition is 100% free forever for up to 50 nodes and 15 services with zero license key required.',
+      'The core Amber SRE engine is source-available on GitHub under the Business Source License 1.1 (BSL 1.1). The Community Edition is 100% free forever for up to 15 nodes and 5 services with zero license key required.',
       'Your security, platform, and compliance teams can audit every single line of backend code to verify how secrets are scrubbed in memory, confirm that LLMs are physically blocked from raw shell execution, and validate that customer telemetry never leaves your VPC.',
       'Commercial use beyond Community thresholds (or automated state-mutating remediation) requires an active commercial license. The Amber Web Console / Frontend is proprietary (All Rights Reserved).'
     ],
@@ -60,7 +60,7 @@ const FAQ_ITEMS: FaqItem[] = [
       url: 'https://github.com/himanshu-xyz-1/Amber',
       external: true
     },
-    keyTakeaway: 'Source-available engine auditable on GitHub. Free Community Edition up to 50 nodes & 15 services.'
+    keyTakeaway: 'Source-available engine auditable on GitHub. Free Community Edition up to 15 nodes & 5 services.'
   },
   {
     id: 'charges',
@@ -134,7 +134,7 @@ const FAQ_ITEMS: FaqItem[] = [
     question: 'How is Amber licensed, and how do node and service limits work?',
     summary: 'Free Community tier forever; flat commercial tiers with offline cryptographic validation.',
     answer: [
-      'Amber offers a Free Forever Community Edition (up to 15 production microservices and 50 nodes, zero license key required). For automated mutating remediation and scale, commercial licenses are tiered based on monitored active microservices (35 for Autonomous, enterprise scale for Response) and cluster nodes (200 or custom).',
+      'Amber offers a Free Forever Community Edition (up to 5 production microservices and 15 nodes, zero license key required). For automated mutating remediation and scale, commercial licenses are tiered based on monitored active microservices (35 for Autonomous, enterprise scale for Response) and cluster nodes (100 or 500+).',
       'Limits are evaluated against actively monitored services in a rolling 30-day window, ensuring historical resolved incidents never lock your license.',
       'Commercial license keys are cryptographically signed using Ed25519 and verified offline by the engine—your deployment does not depend on an external licensing server to stay online.'
     ],
