@@ -87,8 +87,8 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
           </button>
 
           <div className="flex flex-wrap items-center gap-3 text-xs font-sans font-semibold tracking-wider text-stone-500 uppercase mb-4">
-            <span className="px-3 py-1 rounded-full bg-[#fef3c7] text-[#92400e] border border-[#fde68a] font-bold">
-              Systems Architecture &amp; Security
+            <span className="px-2.5 py-1 rounded-md bg-[#fef3c7] text-[#92400e] border border-[#fde68a] font-mono text-[11px] font-bold tracking-wider">
+              // SYSTEMS ARCHITECTURE &amp; SECURITY
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5 text-stone-600">

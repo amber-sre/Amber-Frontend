@@ -176,7 +176,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
           {activeDoc === 'privacy' && (
             <article className="space-y-8 max-w-4xl text-stone-800 leading-relaxed text-sm">
               <header className="border-b border-stone-200 pb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
                   <Lock className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Public Privacy Specification</span>
                 </div>
@@ -334,7 +334,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
           {activeDoc === 'terms' && (
             <article className="space-y-8 max-w-4xl text-stone-800 leading-relaxed text-sm">
               <header className="border-b border-stone-200 pb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200 text-amber-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
                   <FileText className="w-3.5 h-3.5 text-[#d97706]" />
                   <span>Master Services Agreement (MSA)</span>
                 </div>
@@ -410,7 +410,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
           {activeDoc === 'dpa' && (
             <article className="space-y-8 max-w-4xl text-stone-800 leading-relaxed text-sm">
               <header className="border-b border-stone-200 pb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-blue-50 border border-blue-200 text-blue-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
                   <FileCheck className="w-3.5 h-3.5 text-blue-600" />
                   <span>Enterprise B2B Agreement</span>
                 </div>
@@ -485,7 +485,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
           {activeDoc === 'subprocessors' && (
             <article className="space-y-8 max-w-4xl text-stone-800 leading-relaxed text-sm">
               <header className="border-b border-stone-200 pb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-purple-50 border border-purple-200 text-purple-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
                   <Users className="w-3.5 h-3.5 text-purple-600" />
                   <span>Subprocessor Transparency</span>
                 </div>
@@ -556,7 +556,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
           {activeDoc === 'security' && (
             <article className="space-y-8 max-w-4xl text-stone-800 leading-relaxed text-sm">
               <header className="border-b border-stone-200 pb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-900 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Technical Controls & Architecture</span>
                 </div>
@@ -624,7 +624,7 @@ export const LegalView: React.FC<LegalViewProps> = ({
           {activeDoc === 'copyright' && (
             <article className="space-y-8 max-w-4xl text-stone-800 leading-relaxed text-sm">
               <header className="border-b border-stone-200 pb-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-800 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200 text-stone-800 font-mono text-[11px] font-bold uppercase tracking-wider mb-4">
                   <Copyright className="w-3.5 h-3.5 text-black" />
                   <span>Intellectual Property Specification</span>
                 </div>

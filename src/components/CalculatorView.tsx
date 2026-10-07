@@ -81,8 +81,8 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
           />
           <span className="font-sans font-black text-lg text-[#0c0a09] tracking-tight">AMBER</span>
           <span className="text-stone-300">|</span>
-          <span className="text-[10px] font-sans font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-600 border border-stone-200/80">
-            Calculator
+          <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-stone-100 text-stone-600 border border-stone-200/80">
+            CALCULATOR
           </span>
         </div>
 
@@ -101,9 +101,9 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
         
         {/* Header Section */}
         <div className="max-w-3xl mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300/80 text-amber-900 text-xs font-sans font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-amber-100 border border-amber-300/80 text-amber-900 text-xs font-mono font-bold uppercase tracking-wider mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#d97706]" />
-            <span>Algorithmic Infrastructure Quoting</span>
+            <span>// ALGORITHMIC INFRASTRUCTURE QUOTING</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-sans font-black text-[#0c0a09] tracking-tight leading-tight">

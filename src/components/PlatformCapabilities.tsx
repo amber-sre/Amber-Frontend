@@ -152,8 +152,8 @@ export function PlatformCapabilities() {
 
         {/* Title & Introduction */}
         <div className="max-w-4xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#fef3c7] border border-[#fde68a] text-[#b45309] font-sans text-xs font-bold uppercase tracking-wider mb-4">
-            <span>Enterprise Platform</span>
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#fef3c7] border border-[#fde68a] text-[#b45309] font-mono text-xs font-bold uppercase tracking-wider mb-4">
+            <span>// ENTERPRISE PLATFORM</span>
           </div>
           <h2 className="text-4xl sm:text-6xl font-sans font-black text-[#0c0a09] tracking-tight leading-[1.05] mb-6">
             Autonomous incident remediation built for production engineering teams.
@@ -263,8 +263,8 @@ export function PlatformCapabilities() {
                 {/* Header Badge */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-stone-100">
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-sans font-bold px-3 py-1 rounded-full bg-[#fef3c7] text-[#b45309] border border-[#fde68a]">
-                      CAPABILITY {activeCap.number}
+                    <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-md bg-[#fef3c7] text-[#b45309] border border-[#fde68a]">
+                      CAPABILITY 0{activeCap.number}
                     </span>
                     <span className="text-xs font-sans font-semibold text-stone-500 uppercase tracking-wider">
                       {activeCap.badge}

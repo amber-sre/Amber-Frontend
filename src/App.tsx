@@ -646,7 +646,7 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Throughput Capacity
                 </span>
-                <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                <span className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
                 </span>
               </div>
@@ -685,8 +685,8 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Incident Triage
                 </span>
-                <span className="text-[11px] font-mono text-zinc-200 bg-white/10 border border-white/20 px-2 py-0.5 rounded-full">
-                  LangGraph
+                <span className="text-[10px] font-mono text-zinc-200 bg-white/10 border border-white/20 px-2 py-0.5 rounded-md">
+                  LANGGRAPH
                 </span>
               </div>
 
@@ -719,8 +719,8 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Blocked Commands
                 </span>
-                <span className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
-                  <ShieldCheck className="w-3 h-3 text-emerald-400" /> Strict
+                <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+                  <ShieldCheck className="w-3 h-3 text-emerald-400" /> STRICT
                 </span>
               </div>
 
@@ -749,8 +749,8 @@ export default function App() {
                 <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
                   Recovery Time
                 </span>
-                <span className="text-[11px] font-mono text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2.5 py-0.5 rounded-full">
-                  Auto-Rollback
+                <span className="text-[10px] font-mono text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 rounded-md">
+                  AUTO-ROLLBACK
                 </span>
               </div>
 
@@ -797,9 +797,9 @@ export default function App() {
 
         {/* Top Eyebrow & Editorial Header */}
         <div className="relative z-10 max-w-4xl mx-auto text-center mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#fde68a] bg-[#fef3c7] text-[#92400e] text-xs font-sans font-bold tracking-wider uppercase mb-4 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-            Transparent Pricing
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md border border-[#fde68a] bg-[#fef3c7] text-[#92400e] text-[11px] font-mono font-bold tracking-wider uppercase mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-pulse" />
+            // TRANSPARENT SRE PRICING
           </div>
           <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-[#0c0a09] leading-[1.05] mb-6">
             Predictable Economics for <br className="hidden sm:block" />
@@ -811,12 +811,12 @@ export default function App() {
 
           {/* Dual Stacked Controls: Audience Segment (Top) + Billing Cycle (Bottom) */}
           <div className="mt-10 flex flex-col items-center justify-center gap-3.5">
-            {/* Top Pill: Audience Segment */}
-            <div className="inline-flex items-center p-1.5 rounded-full bg-stone-200/90 border border-stone-300/90 backdrop-blur-xl shadow-inner">
+            {/* Top Control: Audience Segment */}
+            <div className="inline-flex items-center p-1 rounded-xl bg-stone-200/90 border border-stone-300/90 backdrop-blur-xl shadow-inner">
               <button
                 type="button"
                 onClick={() => setPricingAudience('companies')}
-                className={`px-6 py-2.5 rounded-full text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                className={`px-5 py-2 rounded-lg text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                   pricingAudience === 'companies'
                     ? 'bg-[#1c1917] text-white shadow-md'
                     : 'text-stone-600 hover:text-stone-900'
@@ -827,14 +827,14 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setPricingAudience('agencies')}
-                className={`px-6 py-2.5 rounded-full text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                className={`px-5 py-2 rounded-lg text-xs font-sans font-bold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                   pricingAudience === 'agencies'
                     ? 'bg-[#d97706] text-white shadow-md shadow-[#d97706]/30'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
-                <span>For Agencies & MSPs</span>
-                <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
+                <span>For Agencies &amp; MSPs</span>
+                <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
                   pricingAudience === 'agencies' ? 'bg-black/20 text-white' : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
                 }`}>
                   White-Label
@@ -842,12 +842,12 @@ export default function App() {
               </button>
             </div>
 
-            {/* Bottom Pill: Monthly vs Annual Billing Toggle */}
-            <div className="inline-flex items-center p-1.5 rounded-full bg-stone-200/70 border border-stone-300/80 backdrop-blur-xl shadow-inner">
+            {/* Bottom Control: Monthly vs Annual Billing Toggle */}
+            <div className="inline-flex items-center p-1 rounded-xl bg-stone-200/70 border border-stone-300/80 backdrop-blur-xl shadow-inner">
               <button
                 type="button"
                 onClick={() => setBillingCycle('monthly')}
-                className={`px-6 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                className={`px-5 py-2 rounded-lg text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                   billingCycle === 'monthly'
                     ? 'bg-white text-stone-900 shadow-md font-bold'
                     : 'text-stone-600 hover:text-stone-900'
@@ -858,14 +858,14 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setBillingCycle('annual')}
-                className={`px-6 py-2.5 rounded-full text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                className={`px-5 py-2 rounded-lg text-xs font-sans font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                   billingCycle === 'annual'
                     ? 'bg-[#d97706] text-white shadow-md shadow-[#d97706]/30 font-bold'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 <span>Annual Commitment</span>
-                <span className={`text-[10px] uppercase font-sans font-bold px-2 py-0.5 rounded-full ${
+                <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded ${
                   billingCycle === 'annual'
                     ? 'bg-black/20 text-white'
                     : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
@@ -881,22 +881,22 @@ export default function App() {
         {pricingAudience === 'companies' ? (
           <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
           
-          {/* Card 1: Community (Free Forever - All Observe Features Included) */}
+          {/* Card 1: Community (Free Forever) */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-emerald-500/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(16,185,129,0.08)]">
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-emerald-700">
-                  Incident Intelligence • Self-Hosted
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700">
+                  // INCIDENT INTELLIGENCE
                 </span>
-                <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
                   FREE FOREVER
                 </span>
               </div>
-              <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Community
               </h3>
               <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                Automated incident intelligence, alert storm correlation, and deterministic root-cause proof running 100% locally with zero write permissions.
+                For individual engineers &amp; single clusters wanting automated on-call triage and deterministic root-cause analysis with zero data egress.
               </p>
 
               {/* Price Display */}
@@ -914,55 +914,48 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Usage Quota Box */}
-              <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-3 mb-4 space-y-1 text-xs font-sans text-stone-700">
-                <div className="flex justify-between">
-                  <span className="text-stone-500">SERVICES:</span>
-                  <span className="text-stone-900 font-bold">Up to 20 Production Services</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">NODES:</span>
-                  <span className="text-stone-900 font-bold">Up to 15 Cloud / K8s Nodes</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">ALERTS:</span>
-                  <span className="text-[#b45309] font-bold">1,000 alerts / month</span>
-                </div>
-                <div className="flex justify-between pt-1 border-t border-[#e7e5e4]">
-                  <span className="text-stone-500">PERMISSIONS:</span>
-                  <span className="text-emerald-700 font-bold">100% Read-Only IAM (0 Writes)</span>
-                </div>
+              {/* Clean Capacity Highlight */}
+              <div className="py-2.5 px-3.5 rounded-xl bg-stone-100/90 border border-stone-200/90 text-xs font-sans text-stone-700 flex items-center justify-between mb-5">
+                <span className="font-bold text-stone-900">Up to 15 Nodes</span>
+                <span className="text-stone-300">•</span>
+                <span className="font-bold text-stone-900">20 Microservices</span>
+                <span className="text-stone-300">•</span>
+                <span className="text-emerald-700 font-bold">100% Read-Only IAM</span>
               </div>
 
               {/* Features List */}
-              <ul className="space-y-2 text-xs sm:text-[13px] text-stone-700 font-sans">
+              <ul className="space-y-2.5 text-xs sm:text-[13px] text-stone-700 font-sans">
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Alert Storm Deduplication:</strong> 500 alerts into 1 incident in &lt; 80ms</span>
+                  <span><strong>15 Nodes &amp; 20 Services:</strong> Ingest up to 1,000 alerts/mo</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Deterministic Root-Cause:</strong> Exact file path, line number & proof</span>
+                  <span><strong>Alert Storm Deduplication:</strong> 500 alerts grouped into 1 incident in &lt; 80ms</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>Memory leak, connection pool deadlock & OOM tracing</span>
+                  <span><strong>Deterministic Root Cause:</strong> Exact file path, line number &amp; diagnostic proof</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>Automated markdown post-mortem report compilation</span>
+                  <span><strong>100% Read-Only Safety:</strong> Zero write access, zero mutate risk</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>50+ Pre-built standard SRE runbooks (Postgres, K8s, Redis)</span>
+                  <span><strong>Memory &amp; Pool Tracing:</strong> Deadlock, OOM &amp; connection leak detection</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>Instant Telegram & Slack interactive on-call alert pairing</span>
+                  <span><strong>Self-Hosted via Ollama:</strong> 100% local compute, zero telemetry leaves VPC</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>100% Local Self-Hosted Compute via Ollama (Zero Telemetry Egress)</span>
+                  <span><strong>50+ Standard SRE Runbooks</strong> for Postgres, Kubernetes, Redis</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span><strong>Slack Alert Routing:</strong> Automated markdown post-mortem reports</span>
                 </li>
               </ul>
             </div>
@@ -982,20 +975,20 @@ export default function App() {
           {/* Card 2: Autonomous (Most Popular) */}
           <div className="bg-[#ffffff] border-2 border-[#d97706] ring-4 ring-[#d97706]/15 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative shadow-[0_25px_50px_-12px_rgba(217,119,6,0.22)] scale-[1.01] hover:-translate-y-1.5">
             {/* Top Popular Floating Badge */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-[#d97706] text-white font-sans font-black text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#d97706] text-white font-mono font-bold text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
               <Sparkles className="w-3 h-3 fill-white" />
-              Most Popular
+              MOST POPULAR
             </div>
 
             <div>
-              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-1 flex items-center gap-2">
-                <span>Autonomous Remediation</span>
+              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
+                <span>// AUTONOMOUS REMEDIATION</span>
               </div>
-              <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Autonomous
               </h3>
               <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                Deterministic automated triage, low-risk verified auto-remediation, and auto-rollbacks. Automates 3:00 AM on-call triage and diagnosis.
+                For fast-growing engineering teams needing automated 3:00 AM on-call triage, verified low-risk auto-remediations, and instant rollbacks.
               </p>
 
               {/* Price Display */}
@@ -1013,51 +1006,44 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Usage Quota Box */}
-              <div className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-3 mb-4 space-y-1 text-xs font-sans text-amber-950">
-                <div className="flex justify-between">
-                  <span className="text-stone-600">SERVICES:</span>
-                  <span className="text-stone-950 font-bold">Up to 35 Microservices</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">NODES:</span>
-                  <span className="text-stone-950 font-bold">Up to 100 Cloud / K8s Nodes</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-600">ALERTS:</span>
-                  <span className="text-stone-950 font-bold">Unlimited Ingestion</span>
-                </div>
-                <div className="flex justify-between pt-1 border-t border-[#fde68a]">
-                  <span className="text-stone-600">INCLUDED ACTIONS:</span>
-                  <span className="text-[#b45309] font-black">100 Verified Actions / mo</span>
-                </div>
+              {/* Clean Capacity Highlight */}
+              <div className="py-2.5 px-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs font-sans text-amber-950 flex items-center justify-between mb-5">
+                <span className="font-bold text-stone-900">Up to 100 Nodes</span>
+                <span className="text-amber-500/40">•</span>
+                <span className="font-bold text-stone-900">35 Services</span>
+                <span className="text-amber-500/40">•</span>
+                <span className="text-[#b45309] font-bold">100 Auto-Actions / mo</span>
               </div>
 
               {/* Features List */}
-              <ul className="space-y-2 text-xs sm:text-[13px] text-stone-800 font-sans">
+              <ul className="space-y-2.5 text-xs sm:text-[13px] text-stone-800 font-sans">
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Everything in Community tier</span>
+                  <span><strong>Everything in Community</strong> with unlimited alert ingestion</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Autonomous low-risk remediation (pod restart, connection drain)</span>
+                  <span><strong>100 Verified Autonomous Remediations / mo</strong> (pod restart, connection drain, cache flush)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Governed HITL with SHA-256 cryptographic payload binding</span>
+                  <span><strong>1-Click Human-in-the-Loop Approvals</strong> via interactive Slack &amp; Telegram cards</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Automated post-fix health verification & instant rollback</span>
+                  <span><strong>Cryptographic Safety Guardrails:</strong> SHA-256 HMAC payload binding &amp; 10m TTL window</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>5 Custom microservice runbooks authored & calibrated by Amber</span>
+                  <span><strong>Automated Post-Fix Health Probes:</strong> 12 automated checks &amp; instant rollback</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>1-Click interactive Slack Connect approval cards</span>
+                  <span><strong>5 Custom Microservice Runbooks</strong> authored &amp; tuned by Amber for your stack</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
+                  <span><strong>Slack &amp; Telegram Multi-Channel Pairing:</strong> Zero app switching required</span>
                 </li>
               </ul>
             </div>
@@ -1077,14 +1063,14 @@ export default function App() {
           {/* Card 3: Response */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
             <div>
-              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-1">
-                Enterprise Response
+              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-stone-500 mb-2">
+                // ENTERPRISE INCIDENT ESCALATION
               </div>
-              <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Response
               </h3>
               <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                High-volume autonomous remediation backed by dedicated incident bridge escalation. If Amber halts, a Principal SRE joins your war room.
+                High-volume autonomous remediation backed by a dedicated Principal SRE joining your live incident war room.
               </p>
 
               {/* Price Display */}
@@ -1102,51 +1088,44 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Usage Quota Box */}
-              <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-3 mb-4 space-y-1 text-xs font-sans text-stone-700">
-                <div className="flex justify-between">
-                  <span className="text-stone-500">SERVICES & NODES:</span>
-                  <span className="text-stone-900 font-bold">Custom / Enterprise Scale</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">TOPOLOGY:</span>
-                  <span className="text-[#b45309] font-bold">Single-Tenant VPC Cluster</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-500">INCLUDED ACTIONS:</span>
-                  <span className="text-emerald-700 font-bold">500 High-Volume Actions / mo</span>
-                </div>
-                <div className="flex justify-between pt-1 border-t border-[#e7e5e4]">
-                  <span className="text-stone-500">INCIDENT BRIDGE SLA:</span>
-                  <span className="text-[#0c0a09] font-bold">&lt; 15-min SLA (Principal SRE)</span>
-                </div>
+              {/* Clean Capacity Highlight */}
+              <div className="py-2.5 px-3.5 rounded-xl bg-stone-100/90 border border-stone-200/90 text-xs font-sans text-stone-700 flex items-center justify-between mb-5">
+                <span className="font-bold text-stone-900">Up to 500 Nodes</span>
+                <span className="text-stone-300">•</span>
+                <span className="font-bold text-stone-900">Enterprise Scale</span>
+                <span className="text-stone-300">•</span>
+                <span className="text-stone-900 font-bold">&lt; 15-min SRE SLA</span>
               </div>
 
               {/* Features List */}
-              <ul className="space-y-2 text-xs sm:text-[13px] text-stone-700 font-sans">
+              <ul className="space-y-2.5 text-xs sm:text-[13px] text-stone-700 font-sans">
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Everything in Autonomous tier</span>
+                  <span><strong>Everything in Autonomous tier</strong></span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span><strong>Amber Principal SRE on Direct Incident Bridge (&lt; 15-min SLA)</strong></span>
+                  <span><strong>Principal SRE on Incident Bridge:</strong> Direct engineer joins war room (&lt; 15-min SLA)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>500 High-volume automated remediations included monthly</span>
+                  <span><strong>500 High-Volume Automated Remediations</strong> included monthly</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Air-gapped local LLM runtime option (Zero external egress)</span>
+                  <span><strong>Air-Gapped Local LLM Runtime Option:</strong> Zero external API egress</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>White-glove custom runbook engineering & staging dry-runs</span>
+                  <span><strong>White-Glove Custom Runbook Engineering:</strong> Staging dry-runs calibrated with your team</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span>Dedicated private Slack Connect & emergency escalation channel</span>
+                  <span><strong>Dedicated Private Slack Connect &amp; Emergency Escalation Channel</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
+                  <span><strong>Single-Tenant VPC Deployment:</strong> Strict SOC 2 &amp; HIPAA data sovereignty</span>
                 </li>
               </ul>
             </div>
@@ -1168,22 +1147,23 @@ export default function App() {
           <div className="relative z-10 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
             
             {/* Card 1: Agency Partner (Option A - Main Requested Plan) */}
+            {/* Card 1: Agency Partner (Option A - Main Requested Plan) */}
             <div className="bg-[#ffffff] border-2 border-[#d97706] ring-4 ring-[#d97706]/15 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative shadow-[0_25px_50px_-12px_rgba(217,119,6,0.22)] scale-[1.01] hover:-translate-y-1.5">
               {/* Top Floating Badge */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-[#d97706] text-white font-sans font-black text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#d97706] text-white font-mono font-bold text-[9px] uppercase tracking-widest shadow-md shadow-[#d97706]/30 flex items-center gap-1.5">
                 <Sparkles className="w-3 h-3 fill-white" />
-                Most Popular
+                MOST POPULAR
               </div>
 
               <div>
-                <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-1 flex items-center gap-2">
-                  <span>White-Label MSP • 10 Workspaces</span>
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
+                  <span>// WHITE-LABEL MSP • 10 WORKSPACES</span>
                 </div>
-                <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
+                <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Partner
                 </h3>
                 <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                  Deliver automated 24/7 AI-SRE under your agency brand & domain. Eliminate overnight on-call shifts across your entire client portfolio.
+                  Deliver automated 24/7 AI-SRE under your agency brand &amp; custom domain. Eliminate overnight on-call shifts across your client portfolio.
                 </p>
 
                 {/* Price Display */}
@@ -1201,55 +1181,40 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Usage Quota Box */}
-                <div className="bg-[#fffbeb] border border-[#fde68a] rounded-2xl p-3 mb-4 space-y-1.5 text-xs font-sans text-amber-950">
-                  <div className="flex justify-between items-center">
-                    <span className="text-stone-600 font-medium">INCLUDED WORKSPACES:</span>
-                    <span className="text-stone-950 font-black">10 Client Workspaces Included</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-stone-600 font-medium">EXTRA CLIENT WORKSPACE:</span>
-                    <span className="text-[#b45309] font-black">+$250 / mo per extra client</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-stone-600 font-medium">TOTAL MANAGED NODES:</span>
-                    <span className="text-stone-950 font-bold">Up to 500 Cloud / K8s Nodes</span>
-                  </div>
-                  <div className="flex justify-between items-center pt-1 border-t border-[#fde68a]">
-                    <span className="text-stone-600 font-medium">BRANDING RIGHTS:</span>
-                    <span className="text-emerald-700 font-black">100% White-Label (Custom Domain & Logo)</span>
-                  </div>
+                {/* Clean Capacity Highlight */}
+                <div className="py-2.5 px-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs font-sans text-amber-950 flex items-center justify-between mb-5">
+                  <span className="font-bold text-stone-900">10 Client Workspaces</span>
+                  <span className="text-amber-500/40">•</span>
+                  <span className="font-bold text-stone-900">500 Nodes</span>
+                  <span className="text-amber-500/40">•</span>
+                  <span className="text-[#b45309] font-bold">100% White-Label</span>
                 </div>
 
                 {/* Features List */}
-                <ul className="space-y-2 text-xs sm:text-[13px] text-stone-800 font-sans">
+                <ul className="space-y-2.5 text-xs sm:text-[13px] text-stone-800 font-sans">
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>10 Isolated Client Workspaces:</strong> Zero cross-client alert mixing or credential leakage</span>
+                    <span><strong>10 Isolated Client Workspaces:</strong> Zero cross-client alert mixing or data leakage</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Custom CNAME & Branding:</strong> Your agency domain (<code>ops.youragency.com</code>) & logo</span>
+                    <span><strong>Custom CNAME &amp; White-Labeling:</strong> Your domain (<code>ops.youragency.com</code>) &amp; logo</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Custom Bot Tokens:</strong> Branded Slack App & Telegram Bot (<code>@YourAgencyOpsBot</code>)</span>
+                    <span><strong>Branded Bot Tokens:</strong> Custom Slack App &amp; Telegram Bot (<code>@YourAgencyOpsBot</code>)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>1-Click Multi-Channel HITL Approvals</strong> across all your client clusters</span>
+                    <span><strong>500 Automated Remediations / mo</strong> across all client clusters</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>500 Included Automated Remediations / mo</strong> (pod restarts, DB pool drains, auto-rollbacks)</span>
+                    <span><strong>Sub-License Key Generator:</strong> Provision client license keys from your master portal</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Client Sub-License Key Generator:</strong> Provision client keys from your master portal</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Priority War Room Escalation:</strong> &lt; 15-min SLA direct with Amber Principal SRE</span>
+                    <span><strong>Priority SRE War Room Bridge:</strong> &lt; 15-min SLA direct with Amber Principal SRE</span>
                   </li>
                 </ul>
 
@@ -1259,7 +1224,7 @@ export default function App() {
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span>Agency Margin Economics:</span>
                   </div>
-                  Charge your 10 clients $2,000/mo ($20,000 total). Pay Amber $5,999/mo. Keep <strong className="text-emerald-700 font-bold">$14,000+ monthly net profit</strong> with zero human night-shift salaries.
+                  Charge 10 clients $2,000/mo ($20,000 total). Pay Amber $5,999/mo. Keep <strong className="text-emerald-700 font-bold">$14,000+ monthly net margin</strong> with zero night shifts.
                 </div>
               </div>
 
@@ -1278,16 +1243,16 @@ export default function App() {
             {/* Card 2: Agency Scale (Unlimited Enterprise) */}
             <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
               {/* Top Floating Badge */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-[#1c1917] text-white font-sans font-black text-[9px] uppercase tracking-widest shadow-md flex items-center gap-1.5 border border-stone-700">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#1c1917] text-white font-mono font-bold text-[9px] uppercase tracking-widest shadow-md flex items-center gap-1.5 border border-stone-700">
                 <ShieldCheck className="w-3 h-3 text-[#d97706]" />
-                Enterprise Dedicated
+                ENTERPRISE DEDICATED
               </div>
 
               <div>
-                <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-1">
-                  White-Label Enterprise • 25+ Workspaces
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-stone-500 mb-2">
+                  // WHITE-LABEL ENTERPRISE • 25+ WORKSPACES
                 </div>
-                <h3 className="text-2xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
+                <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Scale
                 </h3>
                 <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
@@ -1309,63 +1274,40 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Usage Quota Box */}
-                <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-3 mb-4 space-y-1.5 text-xs font-sans text-stone-700">
-                  <div className="flex justify-between items-center">
-                    <span className="text-stone-500 font-medium">INCLUDED WORKSPACES:</span>
-                    <span className="text-stone-900 font-bold">25 Client Workspaces Included</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-stone-500 font-medium">EXTRA CLIENT WORKSPACE:</span>
-                    <span className="text-emerald-700 font-bold">+$200 / mo per extra client</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-stone-500 font-medium">TOTAL MANAGED NODES:</span>
-                    <span className="text-stone-900 font-bold">Up to 2,000 Total Nodes</span>
-                  </div>
-                  <div className="flex justify-between items-center pt-1 border-t border-[#e7e5e4]">
-                    <span className="text-stone-500 font-medium">BRANDING & TOPOLOGY:</span>
-                    <span className="text-emerald-700 font-black">100% White-Label + Air-Gapped VPC</span>
-                  </div>
+                {/* Clean Capacity Highlight */}
+                <div className="py-2.5 px-3.5 rounded-xl bg-stone-100/90 border border-stone-200/90 text-xs font-sans text-stone-700 flex items-center justify-between mb-5">
+                  <span className="font-bold text-stone-900">25 Client Workspaces</span>
+                  <span className="text-stone-300">•</span>
+                  <span className="font-bold text-stone-900">2,000 Nodes</span>
+                  <span className="text-stone-300">•</span>
+                  <span className="text-stone-900 font-bold">Air-Gapped VPC</span>
                 </div>
 
                 {/* Features List */}
-                <ul className="space-y-2 text-xs sm:text-[13px] text-stone-700 font-sans">
+                <ul className="space-y-2.5 text-xs sm:text-[13px] text-stone-700 font-sans">
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Everything in Agency Partner tier</strong> (100% White-Label, Custom CNAME & Sub-License Portal)</span>
+                    <span><strong>Everything in Agency Partner tier</strong> (White-Label, Custom CNAME &amp; Portal)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Air-Gapped Private LLM Runtime:</strong> Deployed in your cloud (Zero data egress)</span>
+                    <span><strong>Air-Gapped Private LLM Runtime:</strong> Deployed in your VPC (Zero external telemetry)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Unlimited Verified Automated Remediations</strong> across all 25+ client clusters</span>
+                    <span><strong>Unlimited Verified Automated Remediations</strong> across all client clusters</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Custom Runbook Engineering:</strong> Amber SRE team authors bespoke runbooks for clients</span>
+                    <span><strong>Custom Runbook Engineering:</strong> Amber SRE team authors bespoke client runbooks</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Enterprise Multi-Tenant SSO & RBAC:</strong> SAML/Okta with per-client engineer permissions</span>
+                    <span><strong>Enterprise Multi-Tenant SSO &amp; RBAC:</strong> SAML/Okta with per-client engineer permissions</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Automated Client Reliability Reports:</strong> White-labeled monthly uptime & MTTR PDF summaries</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Custom Telemetry Connectors:</strong> Direct integration with proprietary APMs & syslog</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Dedicated Solutions Architect:</strong> Direct Slack war room with &lt; 15-min SLA</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>White-Glove Staging Dry-Run & Onboarding:</strong> Hand-held rollout with zero downtime</span>
+                    <span><strong>White-Labeled PDF Uptime Reports:</strong> Monthly reliability &amp; MTTR summaries for clients</span>
                   </li>
                 </ul>
 
@@ -1375,7 +1317,7 @@ export default function App() {
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span>Enterprise MSP Margin Economics:</span>
                   </div>
-                  Managing 25 clients at $2,000/mo = $50,000/mo billings. Amber cost: $9,999/mo. Keep <strong className="text-emerald-700 font-bold">$40,000+ monthly net profit</strong> ($480k ARR margin).
+                  Managing 25 clients at $2,000/mo = $50,000/mo billings. Amber cost: $9,999/mo. Keep <strong className="text-emerald-700 font-bold">$40,000+ monthly net margin</strong> ($480k ARR margin).
                 </div>
               </div>
 
@@ -1399,9 +1341,9 @@ export default function App() {
           <div className="bg-white border border-stone-200 hover:border-amber-400/60 rounded-3xl p-6 sm:p-8 shadow-sm transition-all duration-300 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="space-y-2 max-w-2xl">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300/60">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-300/60">
                   <Sparkles className="w-3.5 h-3.5 text-[#d97706]" />
-                  Custom Topology Calculator
+                  // CUSTOM TOPOLOGY CALCULATOR
                 </span>
                 <span className="text-xs text-stone-500 hidden sm:inline">• Multi-Cluster &amp; High-Volume Infrastructure</span>
               </div>
