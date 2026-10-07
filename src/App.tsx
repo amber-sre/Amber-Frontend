@@ -918,7 +918,7 @@ export default function App() {
               <div className="bg-[#f5f5f4] border border-[#e7e5e4] rounded-2xl p-3 mb-4 space-y-1 text-xs font-sans text-stone-700">
                 <div className="flex justify-between">
                   <span className="text-stone-500">SERVICES:</span>
-                  <span className="text-stone-900 font-bold">Up to 5 Production Services</span>
+                  <span className="text-stone-900 font-bold">Up to 20 Production Services</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-stone-500">NODES:</span>

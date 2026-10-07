@@ -8,7 +8,7 @@
 # Features:
 #   • 100% Self-Hosted & Free Forever ($0 Cloud Cost)
 #   • Zero License Key Required
-#   • Pre-configured for 15 Nodes, 5 Services, 1,000 Alerts/mo
+#   • Pre-configured for 15 Nodes, 20 Services, 1,000 Alerts/mo
 #   • Full Incident Intelligence, Root-Cause Proof & 50+ Runbooks
 #   • Local Ollama AI Setup & On-Call Alert Pairing
 # ==============================================================================
@@ -26,7 +26,7 @@ error() { echo -e "${RED}[Amber ERROR]${NC} $*"; exit 1; }
 echo ""
 echo -e "${CYAN}${BOLD}======================================================================${NC}"
 echo -e "${CYAN}${BOLD}  ⚡ AMBER SRE — FREE COMMUNITY EDITION INSTALLER${NC}"
-echo -e "  100% Self-Hosted • Up to 15 Nodes • 5 Services • 1,000 Alerts/mo"
+echo -e "  100% Self-Hosted • Up to 15 Nodes • 20 Services • 1,000 Alerts/mo"
 echo -e "${CYAN}${BOLD}======================================================================${NC}"
 echo ""
 

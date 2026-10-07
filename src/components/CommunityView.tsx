@@ -99,7 +99,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             Deploy Amber Community Edition in Under 60 Seconds.
           </h1>
           <p className="text-stone-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 15 nodes & 5 services with zero license key required.
+            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 15 nodes & 20 services with zero license key required.
           </p>
         </div>
 
@@ -134,7 +134,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Free Forever (15 nodes · 5 services · 1,000 Alerts/mo)</span>
+              <span>Free Forever (15 nodes · 20 services · 1,000 Alerts/mo)</span>
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -211,7 +211,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                 <div className="bg-stone-900 text-stone-300 font-mono text-xs p-3 rounded-lg">
                   <span className="text-emerald-400">✔ COMMUNITY EDITION ACTIVATED (Free Forever)</span><br />
                   <span className="text-stone-400">  • License: Zero Key Required ($0 Free Forever)</span><br />
-                  <span className="text-stone-400">  • Quota: Up to 15 nodes · 5 services · 1,000 Alerts/month</span><br />
+                  <span className="text-stone-400">  • Quota: Up to 15 nodes · 20 services · 1,000 Alerts/month</span><br />
                   <span className="text-stone-400">  • Execution: 100% Read-Only IAM (0 Writes)</span>
                 </div>
               </div>
@@ -322,8 +322,8 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Production Services</td>
-                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 5 services</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 35 Services</td>
+                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 20 services</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 320 services</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Enterprise Fleet</td>
                 </tr>
                 <tr>
