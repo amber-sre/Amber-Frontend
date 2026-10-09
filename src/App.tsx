@@ -499,7 +499,7 @@ export default function App() {
               </button>
 
               <a
-                href="https://github.com/himanshu-xyz-1/Amber"
+                href="https://github.com/himanshu-xyz-1/Amber-Backend"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white hover:bg-[#d97809] border-2 border-[#d97809] text-[#d97809] hover:text-white font-sans font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
@@ -1565,7 +1565,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-5 text-sm text-zinc-300">
                   <a 
-                    href="https://github.com/himanshu-xyz-1/Amber" 
+                    href="https://github.com/himanshu-xyz-1/Amber-Backend" 
                     target="_blank" 
                     rel="noreferrer" 
                     className="hover:text-white transition-colors"
@@ -1583,7 +1583,7 @@ export default function App() {
                   </a>
                   <span className="text-zinc-600">·</span>
                   <a 
-                    href="https://github.com/himanshu-xyz-1/Amber" 
+                    href="https://github.com/himanshu-xyz-1/Amber-Backend" 
                     target="_blank" 
                     rel="noreferrer" 
                     className="hover:text-white transition-colors"
@@ -2000,7 +2000,7 @@ export default function App() {
                 </button>
               </li>
               <li>
-                <a href="https://github.com/himanshu-xyz-1/Amber" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">
+                <a href="https://github.com/himanshu-xyz-1/Amber-Backend" target="_blank" rel="noreferrer" className="hover:text-[#d97706] transition">
                   GitHub Repository
                 </a>
               </li>

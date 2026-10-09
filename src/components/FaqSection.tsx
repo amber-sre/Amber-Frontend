@@ -57,7 +57,7 @@ const FAQ_ITEMS: FaqItem[] = [
     ],
     actionLink: {
       label: 'Audit the backend engine on GitHub',
-      url: 'https://github.com/himanshu-xyz-1/Amber',
+      url: 'https://github.com/himanshu-xyz-1/Amber-Backend',
       external: true
     },
     keyTakeaway: 'Source-available engine auditable on GitHub. Free Community Edition up to 15 nodes & 20 services.'

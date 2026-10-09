@@ -65,7 +65,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
 
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com/himanshu-xyz-1/Amber"
+              href="https://github.com/himanshu-xyz-1/Amber-Backend"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-black/10 hover:border-black/30 text-xs font-sans font-semibold text-stone-700 hover:text-black transition cursor-pointer"
