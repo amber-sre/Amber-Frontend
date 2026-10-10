@@ -298,7 +298,7 @@ export function FaqSection({ onNavigateToContact }: FaqSectionProps = {}) {
             }}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0c0a09] hover:bg-[#d97706] text-white text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-sm cursor-pointer"
           >
-            <span>Talk to Engineering</span>
+            <span>Talk to Engineering Team</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
