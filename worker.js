@@ -362,7 +362,7 @@ export default {
                     <td class="value"><a href="mailto:${escapeHtml(cleanEmail)}" style="color:#d97706;text-decoration:none;">${escapeHtml(cleanEmail)}</a></td>
                   </tr>
                   <tr>
-                    <td class="label">Phone / WhatsApp</td>
+                    <td class="label">Phone</td>
                     <td class="value">${cleanPhone ? `<a href="tel:${escapeHtml(cleanPhone)}" style="color:#1c1917;text-decoration:none;">${escapeHtml(cleanPhone)}</a>` : 'Not provided'}</td>
                   </tr>
                   <tr>

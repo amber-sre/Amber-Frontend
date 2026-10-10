@@ -174,7 +174,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
                          │
                          │ Sanitized incident metadata only
                          ▼
-                Slack / Telegram / WhatsApp`}
+                Slack / Telegram`}
               </pre>
             </div>
 

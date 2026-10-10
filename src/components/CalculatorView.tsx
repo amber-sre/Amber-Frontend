@@ -791,7 +791,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
 
                         <div>
                           <label className="block text-[11px] font-sans font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                            Phone / WhatsApp
+                            Phone
                           </label>
                           <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">

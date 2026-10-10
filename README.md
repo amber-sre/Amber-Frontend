@@ -62,7 +62,7 @@ The front-facing dashboard includes a real-time SRE incident simulator comparing
 The site is optimized for global search engine indexing and social media link unfurling:
 - **Canonical URL:** `https://ambersre.xyz/`
 - **Schema.org Structured Data:** `SoftwareApplication` JSON-LD for rich Google search results.
-- **OpenGraph & Twitter Cards:** Full rich card previews for WhatsApp, LinkedIn, Twitter/X, and Slack.
+- **OpenGraph & Twitter Cards:** Full rich card previews for , LinkedIn, Twitter/X, and Slack.
 - **Crawlers:** Live `robots.txt` and `sitemap.xml` deployed directly to Cloudflare edge.
 
 ---

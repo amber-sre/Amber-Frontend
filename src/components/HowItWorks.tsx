@@ -76,7 +76,7 @@ const STEPS: StepDetail[] = [
     oneLiner: 'Proposes targeted fix with 10-minute cryptographic SHA-256 tokens.',
     icon: ShieldCheck,
     color: '#fb923c',
-    description: 'Amber dispatches an interactive notification to your Slack, Telegram, or WhatsApp with the diagnosed root cause and recommended remediation. All high-risk mutations require explicit human approval; actions expire automatically after 10 minutes.',
+    description: 'Amber dispatches an interactive notification to your Slack, Telegram with the diagnosed root cause and recommended remediation. All high-risk mutations require explicit human approval; actions expire automatically after 10 minutes.',
     outcome: 'Sovereign human-in-the-loop authorization: high-risk mutations require explicit cryptographic sign-off via Slack Connect before touch.',
     guarantee: 'Human-in-the-Loop Sovereign Gate. Cryptographic argument tamper-proofing.',
     snippet: {

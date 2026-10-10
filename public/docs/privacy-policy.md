@@ -111,5 +111,5 @@ Upon customer written request or organization de-provisioning:
 
 For privacy inquiries, data subject access requests (DSAR), or Data Processing Addendum (DPA) execution:
 - **Privacy & Security Intake**: `amber.incident@gmail.com`
-- **WhatsApp Support**: `+91 96254 04565`
+- ** Support**: `+91 96254 04565`
 - **Physical Address**: Amber SRE Technologies Inc., 548 Market St, Suite 48210, San Francisco, CA 94104, USA.

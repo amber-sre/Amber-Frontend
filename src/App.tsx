@@ -317,7 +317,7 @@ export default function App() {
       setFormSubmitted(true);
     } catch (err: any) {
       console.error('Contact form submission error:', err);
-      setFormError(err.message || 'Unable to submit directly. Please email team@ambersre.xyz or message us on WhatsApp.');
+      setFormError(err.message || 'Unable to submit directly. Please email team@ambersre.xyz.');
     } finally {
       setIsSubmitting(false);
     }
@@ -1642,7 +1642,6 @@ export default function App() {
                       rel="noopener noreferrer"
                       className="text-white font-medium underline underline-offset-4 hover:text-[#facc15] ml-1.5 transition-colors"
                     >
-                      WhatsApp us at +91 96254 04565 &rarr;
                     </a>
                   </div>
 
@@ -1815,7 +1814,6 @@ export default function App() {
                             rel="noopener noreferrer" 
                             className="text-emerald-400 font-bold underline hover:text-white"
                           >
-                            WhatsApp Us (+91 96254 04565) →
                           </a>
                         </div>
                       </div>

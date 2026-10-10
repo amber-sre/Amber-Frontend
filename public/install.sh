@@ -118,7 +118,7 @@ ln -sf "${AMBER_DIR}/amber" "${HOME}/.local/bin/amber" 2>/dev/null || true
 # ──────────────────────────────────────────────────────────────────────
 if command -v docker &>/dev/null; then
     info "Launching cluster containers via Docker Compose..."
-    docker compose up -d 2>/dev/null || true
+    docker compose up -d </dev/null || true
 fi
 
 echo ""

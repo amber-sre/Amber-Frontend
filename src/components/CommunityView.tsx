@@ -237,7 +237,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               </div>
               <div>
                 <h3 className="text-base font-bold text-[#0c0a09] mb-1">
-                  On-Call Pairing (Telegram, Slack, WhatsApp)
+                  On-Call Pairing (Telegram, Slack)
                 </h3>
                 <p className="text-sm text-stone-600 leading-relaxed mb-3">
                   Connect your incident communication channels right from the terminal:
