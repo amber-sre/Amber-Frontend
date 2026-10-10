@@ -1029,14 +1029,14 @@ export default function App() {
               <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$2,099' : '$2,499'}
+                    {billingCycle === 'annual' ? '$2,299' : '$2,499'}
                   </span>
                   <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                     / month
                   </span>
                 </div>
                 <div className="text-[11px] font-sans text-[#b45309] mt-0.5 font-bold">
-                  {billingCycle === 'annual' ? '$25,188 billed annually (Save $4,800)' : 'Billed monthly, cancel anytime'}
+                  {billingCycle === 'annual' ? '$27,588 billed annually (Save $2,400)' : 'Billed monthly, cancel anytime'}
                 </div>
               </div>
 
@@ -1111,14 +1111,14 @@ export default function App() {
               <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$3,699' : '$4,499'}
+                    {billingCycle === 'annual' ? '$4,299' : '$4,499'}
                   </span>
                   <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                     / month
                   </span>
                 </div>
                 <div className="text-[11px] font-sans text-stone-500 mt-0.5">
-                  {billingCycle === 'annual' ? '$44,388 billed annually (Save $9,600)' : 'Billed monthly, cancel anytime'}
+                  {billingCycle === 'annual' ? '$51,588 billed annually (Save $2,400)' : 'Billed monthly, cancel anytime'}
                 </div>
               </div>
 
@@ -1128,7 +1128,7 @@ export default function App() {
                 <span className="text-stone-300">•</span>
                 <span className="font-bold text-stone-900">Enterprise Scale</span>
                 <span className="text-stone-300">•</span>
-                <span className="text-stone-900 font-bold">&lt; 15-min SRE SLA</span>
+                <span className="text-stone-900 font-bold">Dedicated SRE Bridge</span>
               </div>
 
               {/* Features List */}
@@ -1139,7 +1139,7 @@ export default function App() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span><strong>Principal SRE on Incident Bridge:</strong> Direct engineer joins war room (&lt; 15-min SLA)</span>
+                  <span><strong>Principal SRE on Incident Bridge:</strong> Direct engineer joins incident war room during critical P0 outages</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
@@ -1248,7 +1248,7 @@ export default function App() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Priority SRE War Room Bridge:</strong> &lt; 15-min SLA direct with Amber Principal SRE</span>
+                    <span><strong>Priority SRE War Room Bridge:</strong> Direct incident escalation with Amber Principal SRE</span>
                   </li>
                 </ul>
 

@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { 
   ArrowRight, 
   ArrowLeft, 
-  Check, 
   Sparkles
 } from 'lucide-react';
 
@@ -12,14 +11,14 @@ interface CalculatorViewProps {
 }
 
 // High-efficiency instant synchronous evaluation kernel (0ms latency, zero plain-text leaks)
-const _evalQuote = (n: number, s: number, f: number, sla: boolean, cycle: 'monthly' | 'annual') => {
-  const _k = [0x3e7, 0x8, 0x6, 0x4, 0xf, 0xc, 0x8, 0xfa, 0x96, 0x3e7, 0x513];
+const _evalQuote = (n: number, s: number, f: number, cycle: 'monthly' | 'annual') => {
+  const _k = [0x3e7, 0x8, 0x6, 0x4, 0xf, 0xc, 0x8, 0xfa, 0x96, 0x513];
   const _nc = n <= 500 ? n * _k[1] : n <= 2000 ? (500 * _k[1]) + ((n - 500) * _k[2]) : (500 * _k[1]) + (1500 * _k[2]) + ((n - 2000) * _k[3]);
   const _sc = s <= 50 ? s * _k[4] : s <= 200 ? (50 * _k[4]) + ((s - 50) * _k[5]) : (50 * _k[4]) + (150 * _k[5]) + ((s - 200) * _k[6]);
   const _ef = Math.max(0, f - 100);
   const _fc = _ef > 0 ? (Math.min(9, Math.ceil(_ef / 100)) * _k[7]) + (Math.max(0, Math.ceil((_ef - 900) / 100)) * _k[8]) : 0;
-  const _raw = _k[0] + _nc + _sc + _fc + (sla ? _k[9] : 0);
-  const _base = Math.max(_k[10], Math.round(_raw));
+  const _raw = _k[0] + _nc + _sc + _fc;
+  const _base = Math.max(_k[9], Math.round(_raw));
   const _annualRate = Math.round(_base * 0.82);
   const _finalMonthly = cycle === 'annual' ? _annualRate : _base;
   const _savings = (_base - _annualRate) * 12;
@@ -34,27 +33,21 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
   const [nodes, setNodes] = useState<number>(120);
   const [services, setServices] = useState<number>(30);
   const [mutatingFixes, setMutatingFixes] = useState<number>(100);
-  const [dedicatedSla, setDedicatedSla] = useState<boolean>(false);
 
   // 0ms Real-Time Instant Calculation (60 FPS smooth dragging)
   const { monthly: monthlyPrice, savings: annualSavings } = useMemo(() => {
-    return _evalQuote(nodes, services, mutatingFixes, dedicatedSla, billingCycle);
-  }, [nodes, services, mutatingFixes, dedicatedSla, billingCycle]);
+    return _evalQuote(nodes, services, mutatingFixes, billingCycle);
+  }, [nodes, services, mutatingFixes, billingCycle]);
 
   const handleApplyQuote = () => {
     const note = `[Calculated Custom Plan Specification]
 • Monitored Nodes: ${nodes.toLocaleString()} Nodes
 • Active Services: ${services.toLocaleString()} Microservices
 • Mutating Actions: ${mutatingFixes.toLocaleString()} actions/mo
-• Dedicated SRE SLA: ${dedicatedSla ? 'Yes (< 15-min SLA)' : 'Standard'}
+• Incident Escalation: Priority Multi-Channel Dispatch (Slack / Telegram / Teams)
 • Quoted Monthly Rate: $${monthlyPrice.toLocaleString()}/month (${billingCycle === 'annual' ? 'Annual commitment' : 'Monthly'})`;
     onNavigateToContact(note);
   };
-
-  // Slider upper bounds dynamically adapt so sliders never clip and always hit exact rounded targets
-  const sliderMaxNodes = nodes > 1000 ? Math.max(2500, Math.ceil((nodes * 1.25) / 500) * 500) : 1000;
-  const sliderMaxServices = services > 200 ? Math.max(500, Math.ceil((services * 1.25) / 50) * 50) : 200;
-  const sliderMaxFixes = mutatingFixes > 1000 ? Math.max(2500, Math.ceil((mutatingFixes * 1.25) / 250) * 250) : 1000;
 
   return (
     <div className="min-h-screen bg-[#faf8f5] text-[#0c0a09] font-sans selection:bg-[#d97706] selection:text-white pb-24">
@@ -146,21 +139,21 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                 </div>
               </div>
 
-              {/* Slider properly aligned: min=10, step=10, max=1000 so it reaches EXACTLY 1,000 */}
+              {/* Slider with stable fixed range: min=10, max=5000, step=10 */}
               <input
                 type="range"
                 min={10}
-                max={sliderMaxNodes}
+                max={5000}
                 step={10}
-                value={nodes}
+                value={Math.min(Math.max(10, nodes), 5000)}
                 onChange={(e) => setNodes(Number(e.target.value))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-xs font-sans font-medium text-stone-400 mt-2">
                 <span>10 Nodes</span>
-                <span>{nodes > 1000 ? `${nodes.toLocaleString()} (Custom)` : '500 Nodes'}</span>
-                <span>{sliderMaxNodes.toLocaleString()} Nodes</span>
+                <span>{nodes > 5000 ? `${nodes.toLocaleString()} (Custom)` : '2,500 Nodes'}</span>
+                <span>5,000 Nodes</span>
               </div>
 
               {/* Quick Presets in clean modern typography */}
@@ -212,21 +205,21 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                 </div>
               </div>
 
-              {/* Slider properly aligned: min=5, step=5, max=200 so it reaches EXACTLY 200 */}
+              {/* Slider with stable fixed range: min=5, max=500, step=5 */}
               <input
                 type="range"
                 min={5}
-                max={sliderMaxServices}
+                max={500}
                 step={5}
-                value={services}
+                value={Math.min(Math.max(5, services), 500)}
                 onChange={(e) => setServices(Number(e.target.value))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-xs font-sans font-medium text-stone-400 mt-2">
                 <span>5 Services</span>
-                <span>{services > 200 ? `${services.toLocaleString()} (Custom)` : '100 Services'}</span>
-                <span>{sliderMaxServices.toLocaleString()} Services</span>
+                <span>{services > 500 ? `${services.toLocaleString()} (Custom)` : '250 Services'}</span>
+                <span>500 Services</span>
               </div>
 
               {/* Quick Presets */}
@@ -278,21 +271,21 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                 </div>
               </div>
 
-              {/* Slider properly aligned: min=50, step=50, max=1000 so it reaches EXACTLY 1,000 */}
+              {/* Slider with stable fixed range: min=50, max=5000, step=50 */}
               <input
                 type="range"
                 min={50}
-                max={sliderMaxFixes}
+                max={5000}
                 step={50}
-                value={mutatingFixes}
+                value={Math.min(Math.max(50, mutatingFixes), 5000)}
                 onChange={(e) => setMutatingFixes(Number(e.target.value))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-xs font-sans font-medium text-stone-400 mt-2">
                 <span>50 Fixes</span>
-                <span>{mutatingFixes > 1000 ? `${mutatingFixes.toLocaleString()} (Custom)` : '500 Fixes'}</span>
-                <span>{sliderMaxFixes.toLocaleString()} Fixes</span>
+                <span>{mutatingFixes > 5000 ? `${mutatingFixes.toLocaleString()} (Custom)` : '2,500 Fixes'}</span>
+                <span>5,000 Fixes</span>
               </div>
 
               {/* Quick Presets */}
@@ -312,35 +305,6 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                     {preset.toLocaleString()} Fixes
                   </button>
                 ))}
-              </div>
-            </div>
-
-            {/* Control 4: Dedicated Incident Bridge SLA */}
-            <div 
-              onClick={() => setDedicatedSla(!dedicatedSla)}
-              className={`border rounded-2xl p-5 flex items-center justify-between cursor-pointer transition-all shadow-sm ${
-                dedicatedSla 
-                  ? 'bg-amber-50/70 border-[#d97706]' 
-                  : 'bg-white border-stone-200/90 hover:border-stone-300'
-              }`}
-            >
-              <div className="flex items-start gap-3.5">
-                <div className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center border transition-colors shrink-0 ${
-                  dedicatedSla ? 'bg-[#d97706] border-[#d97706] text-white' : 'border-stone-300 bg-white'
-                }`}>
-                  {dedicatedSla && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                </div>
-                <div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-sm font-sans font-bold text-stone-900">Dedicated Incident Bridge SLA (&lt; 15-min Response)</span>
-                    <span className="text-xs font-sans font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900 uppercase">
-                      Recommended for P0
-                    </span>
-                  </div>
-                  <p className="text-xs font-sans text-stone-500 mt-1">
-                    An Amber Principal SRE directly joins your private incident war room if autonomous remediation halts.
-                  </p>
-                </div>
               </div>
             </div>
 
@@ -432,8 +396,8 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                 </div>
                 <div className="flex justify-between py-1 border-b border-stone-100">
                   <span className="text-stone-500">Incident Escalation:</span>
-                  <span className={`font-bold ${dedicatedSla ? 'text-emerald-700' : 'text-stone-700'}`}>
-                    {dedicatedSla ? '< 15-min Principal SRE' : 'Standard Slack / Email'}
+                  <span className="font-bold text-stone-900">
+                    Priority Slack / Teams / Webhook
                   </span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-stone-100">

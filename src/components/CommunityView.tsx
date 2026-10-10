@@ -304,8 +304,8 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                 <tr>
                   <th className="py-4 px-6">Capability</th>
                   <th className="py-4 px-6 text-[#d97706] font-bold">Community (Free Forever)</th>
-                  <th className="py-4 px-6 text-stone-900 font-bold">Autonomous ($2,099/mo)</th>
-                  <th className="py-4 px-6 text-stone-900 font-bold">Response ($3,699/mo)</th>
+                  <th className="py-4 px-6 text-stone-900 font-bold">Autonomous ($2,299/mo)</th>
+                  <th className="py-4 px-6 text-stone-900 font-bold">Response ($4,299/mo)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-200">
@@ -367,7 +367,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                   <td className="py-3.5 px-6 font-medium text-stone-800">Support SLA</td>
                   <td className="py-3.5 px-6 text-stone-600">GitHub Community</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Private Slack Connect</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">&lt; 15-Min Principal SRE War Room</td>
+                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Priority SRE War Room Bridge</td>
                 </tr>
               </tbody>
             </table>
