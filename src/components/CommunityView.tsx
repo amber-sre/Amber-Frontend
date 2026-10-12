@@ -94,7 +94,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             Deploy Amber Community Edition in Under 60 Seconds.
           </h1>
           <p className="text-stone-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 15 nodes & 20 services with zero license key required.
+            Autonomous incident investigation, alert storm deduplication, and deterministic root-cause proof running 100% locally in your own VPC or workstation. Free forever for up to 3 nodes & 5 services with zero license key required.
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Free Forever (15 nodes · 20 services · 1,000 Alerts/mo)</span>
+              <span>Free Forever (3 nodes · 5 services · 1,000 Alerts/mo)</span>
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -137,7 +137,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             </span>
             <span className="flex items-center gap-1.5 text-stone-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Full Incident Intelligence & 50+ Runbooks</span>
+              <span>Sovereign Auto-Healing & 24/7 Sentinel</span>
             </span>
           </div>
         </div>
@@ -174,10 +174,10 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             <div className="bg-white p-4 rounded-xl border border-stone-200">
               <div className="font-bold text-[#0c0a09] mb-1 flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-stone-500" />
-                <span>Network & Ingress</span>
+                <span>Sentinel In-VPC Probing</span>
               </div>
               <p className="text-stone-600 leading-relaxed">
-                Port 8000 accessible to your Prometheus, Datadog, or Grafana cluster for webhook ingestion.
+                Zero external webhooks required. Sentinel natively monitors local K8s nodes, Docker containers, DB pools, and HTTP endpoints 24/7.
               </p>
             </div>
           </div>
@@ -198,16 +198,16 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               </div>
               <div>
                 <h3 className="text-base font-bold text-[#0c0a09] mb-1">
-                  Automatic Community Activation (Zero License Required)
+                  Animated CLI Boot & Dependency Verification
                 </h3>
                 <p className="text-sm text-stone-600 leading-relaxed mb-3">
-                  The Community installer never asks for a license key. It instantly registers your team and activates the lifetime Free Community tier with dedicated resource quotas.
+                  Run <code className="font-mono text-stone-800 bg-stone-100 px-1.5 py-0.5 rounded">amber community setup</code> (or the one-line curl installer). Amber boots with an ASCII terminal splash, automatically verifies and installs prerequisites (Docker, Python 3.10+, Git, Ollama) with live progress indicators, registers your team credentials, and activates the Free Lifetime Community Tier.
                 </p>
                 <div className="bg-stone-900 text-stone-300 font-mono text-xs p-3 rounded-lg">
                   <span className="text-emerald-400">✔ COMMUNITY EDITION ACTIVATED (Free Forever)</span><br />
                   <span className="text-stone-400">  • License: Zero Key Required ($0 Free Forever)</span><br />
-                  <span className="text-stone-400">  • Quota: Up to 15 nodes · 20 services · 1,000 Alerts/month</span><br />
-                  <span className="text-stone-400">  • Execution: 100% Read-Only IAM (0 Writes)</span>
+                  <span className="text-stone-400">  • Quota: Up to 3 nodes · 5 services · 1,000 Alerts/month</span><br />
+                  <span className="text-stone-400">  • Execution: Sovereign Auto-Healing &amp; In-VPC Sentinel (100% In-VPC)</span>
                 </div>
               </div>
             </div>
@@ -219,13 +219,13 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               </div>
               <div>
                 <h3 className="text-base font-bold text-[#0c0a09] mb-1">
-                  Local AI Compute Engine (Ollama)
+                  Interactive AI Model Selector &amp; GitHub Star Hook
                 </h3>
                 <p className="text-sm text-stone-600 leading-relaxed mb-3">
-                  The installer automatically inspects your RAM & GPU and recommends the ideal local model for deterministic triage (<code className="text-stone-800 font-bold">qwen2.5-coder:7b</code>, <code className="text-stone-800 font-bold">qwen2.5-coder:14b</code>, or <code className="text-stone-800 font-bold">qwen2.5-coder:32b</code>).
+                  Use arrow keys to select your local reasoning engine (<code className="text-stone-800 font-bold">qwen2.5-coder:7b</code>, <code className="text-stone-800 font-bold">deepseek-r1:8b</code>, or <code className="text-stone-800 font-bold">llama3.2:3b</code>). Amber pulls the model with a live progress bar while inviting engineers to star the backend on GitHub.
                 </p>
                 <p className="text-xs text-stone-500">
-                  Prefer Cloud AI? You can also skip local Ollama and enter your own OpenAI, Anthropic, or Gemini API key. Amber never charges an inference markup.
+                  Prefer Cloud AI? You can also skip local Ollama and bring your own OpenAI, Anthropic, or Gemini API key with zero inference markup.
                 </p>
               </div>
             </div>
@@ -237,10 +237,10 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               </div>
               <div>
                 <h3 className="text-base font-bold text-[#0c0a09] mb-1">
-                  On-Call Pairing (Telegram, Slack)
+                  24/7 Sovereign Sentinel &amp; On-Call Pairing
                 </h3>
                 <p className="text-sm text-stone-600 leading-relaxed mb-3">
-                  Connect your incident communication channels right from the terminal:
+                  Sentinel initiates continuous in-VPC health surveillance and pairs with your preferred on-call channels right from the terminal:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-sans">
                   <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
@@ -249,7 +249,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                       <span>Telegram On-Call Push</span>
                     </div>
                     <p className="text-stone-600">
-                      Open Telegram → Search <strong>@ambersre_alert_bot</strong> → Send <code>/start</code>. Paste your unique Receiver ID. Amber sends an instant pairing handshake to verify your phone!
+                      Open Telegram → Search <strong>@ambersre_alert_bot</strong> → Send <code>/start</code>. Paste your Receiver ID for an instant cryptographic handshake verification!
                     </p>
                   </div>
                   <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
@@ -258,7 +258,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                       <span>Slack Webhook Broadcast</span>
                     </div>
                     <p className="text-stone-600">
-                      Create an Incoming Webhook for your incident channel (e.g. <code>#prod-alerts</code>) and paste the URL. Amber sends a test alert card to confirm connectivity.
+                      Paste your Incoming Webhook URL (e.g. <code>#prod-alerts</code>). Amber sends a verification alert card to validate connectivity.
                     </p>
                   </div>
                 </div>
@@ -272,17 +272,18 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               </div>
               <div>
                 <h3 className="text-base font-bold text-[#0c0a09] mb-1">
-                  Connect Your Monitoring Ingress (Webhook)
+                  Sovereign In-VPC Monitoring &amp; 3-Node Enforcement
                 </h3>
                 <p className="text-sm text-stone-600 leading-relaxed mb-3">
-                  Once setup completes, Amber exposes a high-throughput webhook endpoint. Add this endpoint to your Datadog Monitors, Prometheus Alertmanager, or Grafana:
+                  Zero external webhooks required. Sentinel auto-discovers your local Kubernetes cluster or Docker hosts and auto-heals up to 3 managed nodes. If your VPC contains more than 3 nodes, Amber securely manages the first 3 nodes and surfaces a seamless upgrade prompt to keep your cluster compliant.
                 </p>
                 <div className="flex items-center justify-between gap-3 bg-stone-100 border border-stone-300 p-3 rounded-lg font-mono text-xs text-stone-800">
+                  <span className="text-stone-700">Optional Webhook Ingress (Legacy Prometheus/Datadog):</span>
                   <code>{webhookExample}</code>
                   <button
                     type="button"
                     onClick={copyWebhookExample}
-                    className="text-stone-600 hover:text-black font-sans font-bold cursor-pointer"
+                    className="text-stone-600 hover:text-black font-sans font-bold cursor-pointer shrink-0"
                   >
                     {copiedWebhook ? 'Copied!' : 'Copy'}
                   </button>
@@ -311,13 +312,13 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
               <tbody className="divide-y divide-stone-200">
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Node Limit</td>
-                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 15 nodes</td>
+                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 3 nodes</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 100 Nodes</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Custom / Enterprise Scale</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Production Services</td>
-                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 20 services</td>
+                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 5 services</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 320 services</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Enterprise Fleet</td>
                 </tr>
@@ -332,6 +333,12 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                   <td className="py-3.5 px-6 text-stone-600">Local Ollama / BYO Key</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Local Ollama or Cloud AI</td>
                   <td className="py-3.5 px-6 text-stone-900 font-semibold">Air-Gapped Local LLM or Cloud</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">Sentinel 24/7 Heartbeat</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included (Zero-Webhook)</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Alert Storm Deduplication (&lt; 80ms)</td>
@@ -359,9 +366,15 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Automated Remediation & Rollback</td>
-                  <td className="py-3.5 px-6 text-stone-400">Read-Only IAM (0 Writes)</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Sovereign Auto-Healing (3 Nodes)</td>
                   <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ 1-Click Governed (100/mo)</td>
                   <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ High-Volume (500/mo)</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-6 font-medium text-stone-800">Smart Log Pruning (~95% Saved)</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included (amber log-pruner)</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Enterprise Automated</td>
+                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Multi-VPC Policy Engine</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-6 font-medium text-stone-800">Support SLA</td>

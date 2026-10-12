@@ -99,19 +99,19 @@ fi
 # Step 5: Launch Enterprise Setup Wizard (License & Verification)
 # ──────────────────────────────────────────────────────────────────────
 echo ""
-info "Launching Enterprise Onboarding Wizard..."
+info "Launching Commercial Setup Wizard..."
 if [ -e /dev/tty ]; then
-    "$VENV_PY" scripts/setup_enterprise.py < /dev/tty
+    "$VENV_PY" -m scripts.setup_wizards commercial < /dev/tty
 else
-    "$VENV_PY" scripts/setup_enterprise.py
+    "$VENV_PY" -m scripts.setup_wizards commercial
 fi
 
 # ──────────────────────────────────────────────────────────────────────
 # Step 6: Make CLI wrapper available
 # ──────────────────────────────────────────────────────────────────────
-chmod +x amber
+chmod +x amber 2>/dev/null || true
 mkdir -p "${HOME}/.local/bin"
-ln -sf "${AMBER_DIR}/amber" "${HOME}/.local/bin/amber" 2>/dev/null || true
+ln -sf "${AMBER_DIR}/scripts/amber" "${HOME}/.local/bin/amber" 2>/dev/null || true
 
 # ──────────────────────────────────────────────────────────────────────
 # Step 7: Launch Background Containers
@@ -123,10 +123,14 @@ fi
 
 echo ""
 echo -e "${GREEN}${BOLD}======================================================================${NC}"
-echo -e "${GREEN}${BOLD}  ✔ AMBER ENTERPRISE ENGINE IS RUNNING!${NC}"
+echo -e "${GREEN}${BOLD}  ✔ AMBER COMMERCIAL ENGINE IS READY!${NC}"
+echo -e ""
+echo -e "  🛡️ Sovereign Sentinel Daemon: ACTIVE (24x7 Multi-Cluster Surveillance)"
+echo -e "  ⚡ High-Volume Autonomous Remediation & Smart Log Pruning Enabled"
 echo -e ""
 echo -e "  To manage your engine anytime, use the CLI:"
-echo -e "    ${BOLD}cd ~/.amber && ./amber status${NC}"
-echo -e "    ${BOLD}cd ~/.amber && ./amber test-alert${NC} (verifies phone push alerts)"
+echo -e "    ${BOLD}amber status${NC}"
+echo -e "    ${BOLD}amber commercial setup${NC}"
+echo -e "    ${BOLD}amber log-pruner status${NC}"
 echo -e "${GREEN}${BOLD}======================================================================${NC}"
 echo ""

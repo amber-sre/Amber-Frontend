@@ -163,8 +163,8 @@ export default function App() {
       if (cleanPath === 'community' || cleanHash === 'community') {
         setCurrentView('community');
         updatePageSEO(
-          'Amber Community Edition — Free Self-Hosted In-VPC SRE Engine (15 Nodes)',
-          'Deploy the source-available Amber Community Edition inside your VPC. Free forever up to 15 nodes and 20 services with zero license key required.',
+          'Amber Community Edition — Free Self-Hosted In-VPC SRE Engine (3 Nodes)',
+          'Deploy the source-available Amber Community Edition inside your VPC. Free forever up to 3 nodes and 5 services with zero license key required.',
           '/community'
         );
         if (window.location.pathname !== '/community') {
@@ -950,18 +950,18 @@ export default function App() {
 
               {/* Clean Capacity Highlight */}
               <div className="py-2.5 px-3.5 rounded-xl bg-stone-100/90 border border-stone-200/90 text-xs font-sans text-stone-700 flex items-center justify-between mb-5">
-                <span className="font-bold text-stone-900">Up to 15 Nodes</span>
+                <span className="font-bold text-stone-900">Up to 3 Nodes</span>
                 <span className="text-stone-300">•</span>
-                <span className="font-bold text-stone-900">20 Microservices</span>
+                <span className="font-bold text-stone-900">5 Microservices</span>
                 <span className="text-stone-300">•</span>
-                <span className="text-emerald-700 font-bold">100% Read-Only IAM</span>
+                <span className="text-emerald-700 font-bold">Sovereign Auto-Healing</span>
               </div>
 
               {/* Features List */}
               <ul className="space-y-2.5 text-xs sm:text-[13px] text-stone-700 font-sans">
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>15 Nodes &amp; 20 Services:</strong> Ingest up to 1,000 alerts/mo</span>
+                  <span><strong>3 Nodes &amp; 5 Services:</strong> Ingest up to 1,000 alerts/mo</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
@@ -973,11 +973,11 @@ export default function App() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>100% Read-Only Safety:</strong> Zero write access, zero mutate risk</span>
+                  <span><strong>Sovereign Auto-Healing:</strong> Safe autonomous remediation on 3 managed nodes</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Memory &amp; Pool Tracing:</strong> Deadlock, OOM &amp; connection leak detection</span>
+                  <span><strong>Sentinel 24/7 Daemon:</strong> Zero-webhook in-VPC Kubernetes &amp; Docker health probes</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
@@ -989,7 +989,7 @@ export default function App() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Slack Alert Routing:</strong> Automated markdown post-mortem reports</span>
+                  <span><strong>Telegram &amp; Slack Alert Routing:</strong> Automated markdown post-mortem reports</span>
                 </li>
               </ul>
             </div>
