@@ -12,7 +12,8 @@ import {
   ArrowRight,
   Code2,
   Coins,
-  ExternalLink
+  ExternalLink,
+  FileText
 } from 'lucide-react';
 
 interface FaqItem {
@@ -139,6 +140,19 @@ const FAQ_ITEMS: FaqItem[] = [
       'Commercial license keys are cryptographically signed using Ed25519 and verified offline by the engine—your deployment does not depend on an external licensing server to stay online.'
     ],
     keyTakeaway: 'Free Community tier forever; flat commercial tiers with offline Ed25519 validation.'
+  },
+  {
+    id: 'executive_digests',
+    badge: 'EXECUTIVE AUDITS & COMPLIANCE',
+    icon: FileText,
+    question: 'How do Amber’s Automated Executive Reliability Digests work, and how are timezones handled?',
+    summary: 'Amber delivers 5 board-ready incident audits a month (4 weekly + 1 grand monthly) straight to Slack and Telegram at 9:00 AM auto-detected local time.',
+    answer: [
+      'Every Monday at 9:00 AM local time, Amber compiles a comprehensive Weekly SRE Digest covering all production anomalies from the preceding 7 days. On the 1st of each month, it dispatches the Grand Monthly Master Board/CTO Audit.',
+      'Each report details the full incident chronology (exact timestamp, affected microservice, business blast radius), the immediate automated fix applied, the permanent developer code/schema fix, and proactive future disaster prevention ("What could happen next if root causes remain unpatched").',
+      'Timezones are auto-detected directly from your host machine (/etc/localtime or system tz), eliminating manual cron config. All reports are rendered in-VPC into SOC-2 compliant PDFs and dispatched via Slack and Telegram bot with zero telemetry egress.'
+    ],
+    keyTakeaway: '5 automated monthly audits, host timezone auto-detection, and executive-ready disaster forecasting.'
   }
 ];
 

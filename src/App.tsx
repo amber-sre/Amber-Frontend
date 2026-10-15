@@ -26,6 +26,7 @@ import { PlatformCapabilities } from './components/PlatformCapabilities';
 import { CommunityView } from './components/CommunityView';
 import { PageTransition } from './components/PageTransition';
 import { CalculatorView } from './components/CalculatorView';
+import { ExecutiveAuditShowcase } from './components/ExecutiveAuditShowcase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -411,6 +412,7 @@ export default function App() {
           <a href="#thesis" onClick={(e) => scrollToSection(e, 'thesis')} className="hover:text-black transition-colors cursor-pointer">Architecture</a>
           <a href="#live-engine" onClick={(e) => scrollToSection(e, 'live-engine')} className="hover:text-black transition-colors cursor-pointer">Simulator</a>
           <a href="#benchmarks" onClick={(e) => scrollToSection(e, 'benchmarks')} className="hover:text-black transition-colors cursor-pointer">Benchmarks</a>
+          <a href="#executive-audits" onClick={(e) => scrollToSection(e, 'executive-audits')} className="hover:text-black transition-colors cursor-pointer">Audits</a>
           <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-black transition-colors cursor-pointer">Pricing</a>
           <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="hover:text-black transition-colors cursor-pointer">FAQ</a>
           <a href="#connect" onClick={(e) => scrollToSection(e, 'connect')} className="hover:text-black transition-colors cursor-pointer">Contact</a>
@@ -823,6 +825,9 @@ export default function App() {
 
         </div>
       </section>
+
+      {/* Executive Reliability Engine & Incident Audits Section */}
+      <ExecutiveAuditShowcase />
 
       {/* PRICING Section — Light Warm Amber Canvas & Editorial Typography */}
       <section 
@@ -1926,6 +1931,11 @@ export default function App() {
               <li>
                 <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-[#d97706] transition">
                   Postmortems & Intelligence
+                </a>
+              </li>
+              <li>
+                <a href="#executive-audits" onClick={(e) => scrollToSection(e, 'executive-audits')} className="hover:text-[#d97706] transition">
+                  Executive Audits & Digests
                 </a>
               </li>
             </ul>

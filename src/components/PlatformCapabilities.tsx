@@ -126,6 +126,21 @@ const CAPABILITIES: Capability[] = [
       detail: 'Generates structured JSON and Markdown postmortems with full telemetry artifacts attached.',
       codeSnippet: `POST_MORTEM: /docs/postmortems/2026-10-04-inc-5021.md\nTIMELINE: 03:14:02 Alert -> 03:14:04 Triage -> 03:14:07 Approver OK -> 03:14:10 Health Converged\nEXPORT: Synced to Jira #REL-891`
     }
+  },
+  {
+    id: 'digests',
+    number: '08',
+    badge: 'BOARDROOM & COMPLIANCE',
+    title: 'Automated Executive Reliability Digests',
+    tagline: 'Deliver 5 board-ready incident audits every month directly to Slack and Telegram.',
+    problem: 'CTOs and VPs of Engineering are left blind to compounding architectural risks, while on-call engineers waste 20+ hours every month manually assembling incident decks and SOC-2 audit logs.',
+    mechanism: 'Amber runs an automated reporting engine generating 4 weekly SRE digests (every Monday at 9:00 AM auto-detected local time) and 1 Grand Monthly Master Board Audit. Each report details exact incident chronology, business blast radius, immediate automated fixes, permanent developer code/schema fixes, and proactive future disaster prevention.',
+    result: 'Transforms chaotic 2 AM outage logs into boardroom-ready ROI metrics, proving MTTR reductions and cutting SOC-2 Type II audit prep from 3 weeks to zero seconds.',
+    technicalProof: {
+      label: 'Air-Gapped Cron & Local Timezone Detection',
+      detail: 'Zero telemetry egress. Host /etc/localtime detection with multi-channel Slack/Telegram dispatch and cryptographic audit signatures.',
+      codeSnippet: `SCHEDULE: Cron("0 9 * * 1", tz=auto_detect_system_tz()) # Every Monday 9:00 AM\nDELIVERY: Slack(#prod-alerts) + Telegram(@ambersre_alert_bot)\nSECTIONS: [Incident Chronology, Immediate Fix, Permanent Code Fix, Disaster Risk]\nSOC2_STATUS: Cryptographically signed PDF export generated (0 bytes cloud egress)`
+    }
   }
 ];
 
@@ -261,7 +276,7 @@ export function PlatformCapabilities() {
                 <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-stone-100">
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-sans font-bold text-stone-900 tracking-wider">
-                      CAPABILITY 0{activeCap.number}
+                      CAPABILITY {activeCap.number}
                     </span>
                     <span className="text-xs font-sans font-semibold text-stone-500 uppercase tracking-wider">
                       {activeCap.badge}
