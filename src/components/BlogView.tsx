@@ -368,7 +368,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
                       </p>
                     </div>
                     <a
-                      href="https://github.com/himanshu-xyz-1/Amber-Backend"
+                      href="https://github.com/amber-sre/Amber-Backend"
                       target="_blank"
                       rel="noreferrer"
                       className="shrink-0 inline-flex items-center gap-2 bg-[#1c1917] hover:bg-black text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all"
@@ -567,7 +567,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ onBack, onNavigateToContact 
 
           <div className="flex flex-wrap gap-6 text-xs font-sans font-semibold text-black/60">
             <button type="button" onClick={onBack} className="hover:text-black transition">PLATFORM OVERVIEW</button>
-            <a href="https://github.com/himanshu-xyz-1/Amber-Backend" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
+            <a href="https://github.com/amber-sre/Amber-Backend" target="_blank" rel="noreferrer" className="hover:text-black transition">GITHUB</a>
             <a href="https://twitter.com/himanshu1xy" target="_blank" rel="noreferrer" className="hover:text-black transition">TWITTER</a>
             <a href="mailto:team@ambersre.xyz" className="hover:text-black transition">SUPPORT</a>
           </div>
