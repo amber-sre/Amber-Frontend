@@ -517,7 +517,7 @@ export default function App() {
               When production catches fire, Amber brings the system <span className="text-[#d97809] font-bold">back to calm</span>.
             </p>
             <p className="text-black/65 text-sm md:text-lg font-normal leading-relaxed max-w-xl md:ml-auto">
-              Autonomous incident detection, root-cause analysis, and <span className="text-[#d97809] font-bold">verified remediation</span> — built to act <span className="text-[#d97809] font-bold">when your team can’t</span>.
+              Autonomous incident detection, causal diagnosis, and <span className="text-[#d97809] font-bold">verified remediation</span>. Protect your engineering team from 3:00 AM alert burnout and stop revenue loss from preventable downtime.
             </p>
           </div>
         </motion.div>
@@ -978,7 +978,7 @@ export default function App() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Sovereign Auto-Healing:</strong> Safe autonomous remediation on 3 managed nodes</span>
+                  <span><strong>1-Click Guardrail Approvals:</strong> 10 verified HITL auto-actions/mo with HMAC-SHA256 tokens</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
@@ -990,11 +990,15 @@ export default function App() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>50+ Standard SRE Runbooks</strong> for Postgres, Kubernetes, Redis</span>
+                  <span><strong>50+ Day-1 Production Playbooks:</strong> Built-in for Postgres, Kubernetes, Redis, Ingress</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span><strong>Telegram &amp; Slack Alert Routing:</strong> Automated markdown post-mortem reports</span>
+                  <span><strong>Telegram &amp; Slack Alert Routing:</strong> Automated incident markdown post-mortems</span>
+                </li>
+                <li className="flex items-start gap-2 text-stone-500">
+                  <span className="w-3.5 h-3.5 flex items-center justify-center font-bold text-xs text-stone-400 shrink-0 mt-0.5">🔒</span>
+                  <span className="text-[11px]"><strong>Executive Risk Audits &amp; Disaster Simulator:</strong> Reserved for Autonomous &amp; Response tiers</span>
                 </li>
               </ul>
             </div>
@@ -1133,7 +1137,7 @@ export default function App() {
                 <span className="text-stone-300">•</span>
                 <span className="font-bold text-stone-900">Enterprise Scale</span>
                 <span className="text-stone-300">•</span>
-                <span className="text-stone-900 font-bold">Dedicated SRE Bridge</span>
+                <span className="text-stone-900 font-bold">Priority SRE Escalation</span>
               </div>
 
               {/* Features List */}
@@ -1144,7 +1148,7 @@ export default function App() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                  <span><strong>Principal SRE on Incident Bridge:</strong> Direct engineer joins incident war room during critical P0 outages</span>
+                  <span><strong>Priority Incident Bridge Escalation:</strong> Dedicated forward-deployed SRE support &amp; priority bridge during critical P0 outages</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />

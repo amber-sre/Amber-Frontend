@@ -66,9 +66,11 @@ export function ExecutiveAuditShowcase() {
         {/* Section Editorial Title & Subtitle */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16">
           <div className="lg:col-span-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[#facc15] text-xs font-mono font-medium mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[#facc15] text-xs font-mono font-medium mb-4 flex-wrap">
               <Sparkles className="w-3.5 h-3.5 text-[#facc15]" />
               <span>FROM 2:00 AM WAR ROOM TO MONDAY MORNING BOARDROOM</span>
+              <span className="text-zinc-500 hidden sm:inline">•</span>
+              <span className="text-white font-bold bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 rounded text-[10px]">AUTONOMOUS &amp; ENTERPRISE TIERS</span>
             </div>
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08]">
               Automated Executive Digests &amp; <br className="hidden sm:block" />
@@ -79,8 +81,8 @@ export function ExecutiveAuditShowcase() {
           </div>
           <div className="lg:col-span-4">
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-sans">
-              Stop burning 20+ senior engineering hours each month drafting incident postmortems and executive updates. 
-              Amber auto-generates 5 board-ready audits every month, calculating business impact and forecasting future cascading risks before they strike.
+              Stop burning expensive senior engineering hours each month drafting incident postmortems. 
+              Amber translates complex infrastructure telemetry into executive business ROI—quantifying revenue protected and predicting compound failure risks before peak traffic events.
             </p>
           </div>
         </div>

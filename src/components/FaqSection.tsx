@@ -13,7 +13,9 @@ import {
   Code2,
   Coins,
   ExternalLink,
-  FileText
+  FileText,
+  Clock,
+  BookOpen
 } from 'lucide-react';
 
 interface FaqItem {
@@ -153,6 +155,32 @@ const FAQ_ITEMS: FaqItem[] = [
       'Timezones are auto-detected directly from your host machine (/etc/localtime or system tz), eliminating manual cron config. All reports are rendered in-VPC into SOC-2 compliant PDFs and dispatched via Slack and Telegram bot with zero telemetry egress.'
     ],
     keyTakeaway: '5 automated monthly audits, host timezone auto-detection, and executive-ready disaster forecasting.'
+  },
+  {
+    id: 'approval_escalation',
+    badge: '3:00 AM ESCALATION POLICY',
+    icon: Clock,
+    question: 'What happens at 3:00 AM if an engineer sleeps through the 10-minute approval window?',
+    summary: 'Amber triggers hierarchical on-call escalation while maintaining cluster safety with zero unapproved changes.',
+    answer: [
+      'If the primary on-call engineer does not respond within 8 minutes, Amber automatically escalates with emergency notifications to the secondary engineer and team lead via Telegram emergency alerts and PagerDuty/Opsgenie phone call webhooks.',
+      'If the 10-minute HMAC token fully expires without human sign-off, Amber strictly halts any state-mutating changes. We never execute unapproved commands against production infrastructure, preventing unintended state corruption.',
+      'Simultaneously, Amber compiles a comprehensive diagnostic dossier (exact root cause, timeline, log snippets, and proposed remediation commands), allowing the responding engineer to resolve the outage with zero ramp-up time.'
+    ],
+    keyTakeaway: 'Hierarchical on-call escalation + safe default-deny fallback preserves system stability.'
+  },
+  {
+    id: 'cold_start_playbooks',
+    badge: 'DAY-1 READY RUNBOOKS',
+    icon: BookOpen,
+    question: 'What if our internal engineering documentation or wikis are messy and outdated?',
+    summary: 'Amber ships with 50+ Day-1 Production Playbooks pre-loaded for PostgreSQL, Kubernetes, Redis, and Ingress.',
+    answer: [
+      'Most engineering teams have messy, scattered, or non-existent runbook documentation. Amber does not require pristine company wikis to deliver immediate value.',
+      'The engine comes pre-loaded with over 50 battle-tested Day-1 Playbooks covering the most common production failure modes: PostgreSQL connection pool exhaustion, hanging queries, deadlocks, Kubernetes OOMKilled pods, CrashLoopBackOff, replica desyncs, and 502/504 gateway storms.',
+      'Teams can connect their internal Notion or GitHub repositories to expand coverage over time, but Day-1 remediations work immediately upon deployment.'
+    ],
+    keyTakeaway: '50+ pre-calibrated production runbooks provide immediate protection from day one.'
   }
 ];
 
