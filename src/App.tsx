@@ -1387,7 +1387,7 @@ export default function App() {
                 Need a Custom Infrastructure Scope?
               </h4>
               <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
-                Model transparent pricing for your exact Kubernetes worker nodes, production microservices, and auto-remediation quotas on our dedicated calculator.
+                From seed-stage startups (4+ nodes) to hyperscale fleets. Model transparent pricing for your exact Kubernetes worker nodes, engineering team scale, and auto-remediation quotas on our dedicated calculator.
               </p>
               <div className="flex flex-wrap items-center gap-2 pt-1">
                 <span className="text-[11px] font-sans font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero per-seat taxes</span>
