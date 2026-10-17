@@ -137,7 +137,7 @@ const FAQ_ITEMS: FaqItem[] = [
     question: 'How is Amber licensed, and how do node and service limits work?',
     summary: 'Free Community tier forever; flat commercial tiers with offline cryptographic validation.',
     answer: [
-      'Amber offers four transparent tiers designed for every operational stage: Community ($0 Free Forever, up to 3 nodes & 5 microservices for read-only triage), Growth / Startup ($499/mo or $4,999/yr, up to 30 nodes, 15 microservices, 50 automated actions/mo), Autonomous ($1,799/mo or $17,990/yr, up to 100 nodes, 35 microservices, 100 auto-actions/mo + Executive CTO Audits), and Response / Enterprise ($3,499/mo or $34,990/yr, up to 500+ nodes, unlimited services, air-gapped local runtime, white-glove custom runbooks & dedicated SRE escalation).',
+      'Amber offers four transparent tiers designed for every operational stage: Community ($0 Free Forever, up to 3 nodes & 5 microservices for read-only triage), Growth / Startup ($499/mo or $4,999/yr [$416/mo], up to 30 nodes, 15 microservices, 50 automated actions/mo), Autonomous ($1,799/mo or $20,388/yr [$1,699/mo], up to 100 nodes, 35 microservices, 100 auto-actions/mo + Executive CTO Audits), and Response / Enterprise ($3,499/mo or $40,788/yr [$3,399/mo], up to 500+ nodes, unlimited services, air-gapped local runtime, white-glove custom runbooks & dedicated SRE escalation).',
       'Limits are evaluated against actively monitored nodes and services in your VPC, ensuring historical resolved incidents never lock your license.',
       'Commercial license keys are cryptographically signed using Ed25519 and verified offline by the engine—your deployment does not depend on an external licensing server to stay online.'
     ],

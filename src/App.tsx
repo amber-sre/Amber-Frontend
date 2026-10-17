@@ -909,7 +909,7 @@ export default function App() {
                     ? 'bg-black/20 text-white'
                     : 'bg-[#fef3c7] text-[#92400e] border border-[#fde68a]'
                 }`}>
-                  Save ~18%
+                  Save Up to $1,200/yr
                 </span>
               </button>
             </div>
@@ -1109,14 +1109,14 @@ export default function App() {
               <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$1,499' : '$1,799'}
+                    {billingCycle === 'annual' ? '$1,699' : '$1,799'}
                   </span>
                   <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                     / month
                   </span>
                 </div>
                 <div className="text-[11px] font-sans text-[#b45309] mt-0.5 font-bold">
-                  {billingCycle === 'annual' ? '$17,990 billed annually (Save $3,598)' : 'Billed monthly, cancel anytime'}
+                  {billingCycle === 'annual' ? '$20,388 billed annually (Save $1,200)' : 'Billed monthly, cancel anytime'}
                 </div>
               </div>
 
@@ -1187,14 +1187,14 @@ export default function App() {
               <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                    {billingCycle === 'annual' ? '$2,916' : '$3,499'}
+                    {billingCycle === 'annual' ? '$3,399' : '$3,499'}
                   </span>
                   <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                     / month
                   </span>
                 </div>
-                <div className="text-[11px] font-sans text-stone-500 mt-0.5">
-                  {billingCycle === 'annual' ? '$34,990 billed annually (Save $6,998)' : 'Billed monthly, cancel anytime'}
+                <div className="text-[11px] font-sans text-stone-500 mt-0.5 font-bold">
+                  {billingCycle === 'annual' ? '$40,788 billed annually (Save $1,200)' : 'Billed monthly, cancel anytime'}
                 </div>
               </div>
 
@@ -1280,14 +1280,14 @@ export default function App() {
                 <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                      {billingCycle === 'annual' ? '$4,999' : '$5,999'}
+                      {billingCycle === 'annual' ? '$5,899' : '$5,999'}
                     </span>
                     <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                       / month
                     </span>
                   </div>
                   <div className="text-[11px] font-sans text-[#b45309] mt-0.5 font-bold">
-                    {billingCycle === 'annual' ? '$59,988 billed annually (Save $12,000)' : 'Billed monthly, cancel anytime'}
+                    {billingCycle === 'annual' ? '$70,788 billed annually (Save $1,200)' : 'Billed monthly, cancel anytime'}
                   </div>
                 </div>
 

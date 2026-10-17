@@ -63,11 +63,11 @@ const _evalQuote = (n: number, s: number, f: number, cycle: 'monthly' | 'annual'
     baseMonthly = Math.round(3499 + addOn);
   }
 
-  // Annual discount (~17% / 2 months free):
-  // Growth ($499 -> $416 saves $989/yr)
-  // Autonomous ($1,799 -> $1,499 saves $3,598/yr)
-  // Response ($3,499 -> $2,916 saves $6,998/yr)
-  const discount = Math.round(baseMonthly * (2 / 12));
+  // Annual discount ($50–$100/mo off):
+  // Growth ($499 -> $416 saves $989/yr, ~$83/mo)
+  // Autonomous ($1,799 -> $1,699 saves $1,200/yr, $100/mo)
+  // Response ($3,499 -> $3,399 saves $1,200/yr, $100/mo)
+  const discount = baseMonthly <= 600 ? 83 : 100;
   const finalMonthly = cycle === 'annual' ? (baseMonthly - discount) : baseMonthly;
   const savings = discount * 12;
 

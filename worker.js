@@ -214,8 +214,8 @@ export default {
           monthlyBaseRate = Math.round(3499 + addOn);
         }
 
-        // Annual discount: 2 months free (~17% discount)
-        const discount = Math.round(monthlyBaseRate * (2 / 12));
+        // Annual discount ($50–$100/mo off)
+        const discount = monthlyBaseRate <= 600 ? 83 : 100;
 
         const annualDiscountMonthly = monthlyBaseRate - discount;
         const finalMonthlyPrice = billingCycle === 'annual' ? annualDiscountMonthly : monthlyBaseRate;
