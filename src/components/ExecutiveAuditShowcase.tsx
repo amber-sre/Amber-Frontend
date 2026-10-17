@@ -138,12 +138,12 @@ export function ExecutiveAuditShowcase() {
           </div>
         </div>
 
-        {/* 4 Value Pillars (Warm Faded Amber Glass Cards) */}
+        {/* 4 Value Pillars (Solid Espresso Amber Matte Cards) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           
-          <SpotlightCard className="bg-gradient-to-b from-amber-950/30 via-[#181108]/90 to-[#100b05] border border-amber-500/25 hover:border-amber-400/60 p-6 flex flex-col justify-between shadow-lg hover:shadow-amber-500/10 transition-all duration-300">
+          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#24170c] border border-amber-500/40 flex items-center justify-center text-amber-400 mb-4">
                 <Calendar className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Weekly &amp; Monthly Cadence</h4>
@@ -151,15 +151,15 @@ export function ExecutiveAuditShowcase() {
                 Automated digests dispatched every Monday at 9:00 AM local time, plus an end-of-month executive stability review.
               </p>
             </div>
-            <div className="text-xs text-amber-200/50 pt-3 mt-4 border-t border-amber-500/15 flex items-center justify-between">
+            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
               <span>Cadence</span>
               <span className="text-amber-200 font-medium">Scheduled</span>
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-gradient-to-b from-amber-950/30 via-[#181108]/90 to-[#100b05] border border-amber-500/25 hover:border-amber-400/60 p-6 flex flex-col justify-between shadow-lg hover:shadow-amber-500/10 transition-all duration-300">
+          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#0e1d14] border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-4">
                 <Globe className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Host Timezone Detection</h4>
@@ -167,15 +167,15 @@ export function ExecutiveAuditShowcase() {
                 Detects host timezone directly. Reports arrive right at the start of your engineering team&apos;s working week without manual cron setup.
               </p>
             </div>
-            <div className="text-xs text-amber-200/50 pt-3 mt-4 border-t border-amber-500/15 flex items-center justify-between">
+            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
               <span>Timing</span>
               <span className="text-emerald-400 font-medium">Auto-Synced</span>
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-gradient-to-b from-amber-950/30 via-[#181108]/90 to-[#100b05] border border-amber-500/25 hover:border-amber-400/60 p-6 flex flex-col justify-between shadow-lg hover:shadow-amber-500/10 transition-all duration-300">
+          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#0f1929] border border-blue-500/40 flex items-center justify-center text-blue-400 mb-4">
                 <GitPullRequest className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Permanent Code Fixes</h4>
@@ -183,15 +183,15 @@ export function ExecutiveAuditShowcase() {
                 Correlates recurring telemetry hotspots and drafts actionable GitHub pull requests to eliminate architectural debt at the root.
               </p>
             </div>
-            <div className="text-xs text-amber-200/50 pt-3 mt-4 border-t border-amber-500/15 flex items-center justify-between">
+            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
               <span>Outcome</span>
               <span className="text-blue-400 font-medium">Automated PRs</span>
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-gradient-to-b from-amber-950/30 via-[#181108]/90 to-[#100b05] border border-amber-500/25 hover:border-amber-400/60 p-6 flex flex-col justify-between shadow-lg hover:shadow-amber-500/10 transition-all duration-300">
+          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#1e1329] border border-purple-500/40 flex items-center justify-center text-purple-400 mb-4">
                 <Send className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Direct Channel Delivery</h4>
@@ -199,7 +199,7 @@ export function ExecutiveAuditShowcase() {
                 Delivered straight to Slack, Telegram, or email with cryptographically verified PDF attachments ready for compliance reviews.
               </p>
             </div>
-            <div className="text-xs text-amber-200/50 pt-3 mt-4 border-t border-amber-500/15 flex items-center justify-between">
+            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
               <span>Format</span>
               <span className="text-purple-400 font-medium">Slack · Telegram · PDF</span>
             </div>
@@ -207,14 +207,14 @@ export function ExecutiveAuditShowcase() {
 
         </div>
 
-        {/* ── Interactive Report Showcase (Amber Faded Glass) ── */}
-        <div className="bg-gradient-to-b from-[#1c140a]/95 via-[#130d06]/95 to-[#0b0804] border border-amber-500/30 rounded-3xl shadow-[0_20px_70px_rgba(217,119,6,0.18)] overflow-hidden backdrop-blur-2xl">
+        {/* ── Interactive Report Showcase (Solid Espresso Amber Matte) ── */}
+        <div className="bg-[#120d06] border border-amber-500/40 rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.7)] overflow-hidden">
           
           {/* Top Bar with Tabs and Meta Controls */}
-          <div className="bg-gradient-to-r from-amber-950/50 via-amber-900/20 to-transparent border-b border-amber-500/20 px-6 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-[#181108] border-b border-amber-500/30 px-6 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
             
             {/* View Selector Tabs */}
-            <div className="flex items-center gap-1.5 bg-[#140e07] p-1 rounded-xl border border-amber-500/30 shadow-inner">
+            <div className="flex items-center gap-1.5 bg-[#0e0a05] p-1 rounded-xl border border-amber-500/35">
               <button
                 type="button"
                 onClick={() => setActiveTab('weekly')}
@@ -268,7 +268,7 @@ export function ExecutiveAuditShowcase() {
                 type="button"
                 onClick={handleDownload}
                 disabled={isDownloading}
-                className="flex items-center gap-2 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-white border border-amber-500/30 px-3.5 py-1.5 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer shadow-sm"
+                className="flex items-center gap-2 bg-[#22160b] hover:bg-[#2b1c0e] text-white border border-amber-500/40 px-3.5 py-1.5 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer shadow-sm"
               >
                 {isDownloading ? (
                   <>
@@ -305,14 +305,14 @@ export function ExecutiveAuditShowcase() {
                   transition={{ duration: 0.2 }}
                   className="space-y-6"
                 >
-                  {/* Overview Card (Faded Amber Surface) */}
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-950/40 via-[#1c140a]/60 to-[#120d06] border border-amber-500/25 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+                  {/* Overview Card (Solid Espresso Amber Surface) */}
+                  <div className="p-6 rounded-2xl bg-[#1a1209] border border-amber-500/40 flex flex-wrap items-center justify-between gap-4 shadow-lg">
                     <div>
                       <div className="flex items-center gap-2 text-xs font-sans text-amber-400 uppercase tracking-wider mb-1 font-bold">
                         <Clock className="w-3.5 h-3.5" />
                         <span>Weekly Reliability Digest · Week 41</span>
                         <span className="text-amber-500/40">|</span>
-                        <span className="text-amber-200/70 font-normal">Monday 09:00 AM Local</span>
+                        <span className="text-amber-200/80 font-normal">Monday 09:00 AM Local</span>
                       </div>
                       <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                         Production Fleet Reliability Summary
@@ -325,12 +325,12 @@ export function ExecutiveAuditShowcase() {
 
                     <div className="flex items-center gap-4">
                       <div className="text-right">
-                        <div className="text-xs text-amber-300/70 uppercase font-bold">Median MTTR</div>
+                        <div className="text-xs text-amber-300 uppercase font-bold">Median MTTR</div>
                         <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-sans">8.4s</div>
                       </div>
-                      <div className="w-px h-8 bg-amber-500/20" />
+                      <div className="w-px h-8 bg-amber-500/30" />
                       <div className="text-right">
-                        <div className="text-xs text-amber-300/70 uppercase font-bold">Resolved Autonomously</div>
+                        <div className="text-xs text-amber-300 uppercase font-bold">Resolved Autonomously</div>
                         <div className="text-2xl sm:text-3xl font-black text-white font-sans">14 / 14</div>
                       </div>
                     </div>
@@ -338,7 +338,7 @@ export function ExecutiveAuditShowcase() {
 
                   {/* ── Interactive Incident Selector (Click to Inspect) ── */}
                   <div>
-                    <div className="text-xs font-sans font-bold uppercase tracking-wider text-amber-300/70 mb-3 px-1">
+                    <div className="text-xs font-sans font-bold uppercase tracking-wider text-amber-300/80 mb-3 px-1">
                       Select Incident to Inspect Resolution &amp; PR:
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -352,8 +352,8 @@ export function ExecutiveAuditShowcase() {
                             onClick={() => setSelectedIncidentIndex(iIdx)}
                             className={`p-3.5 rounded-xl text-left border transition-all duration-200 cursor-pointer ${
                               isIncSelected
-                                ? 'bg-gradient-to-r from-amber-950/60 to-[#1e150c]/80 border-amber-400 text-white shadow-md scale-[1.01]'
-                                : 'bg-[#18120a]/40 hover:bg-[#1a140c]/70 border-amber-500/20 text-amber-200/70'
+                                ? 'bg-[#24170c] border-amber-400 text-white shadow-md scale-[1.01] ring-1 ring-amber-400/30'
+                                : 'bg-[#150f08] hover:bg-[#1c140a] border-amber-500/30 text-amber-200/80 hover:border-amber-500/50'
                             }`}
                           >
                             <div className="flex items-center justify-between text-xs mb-1">
@@ -370,19 +370,19 @@ export function ExecutiveAuditShowcase() {
                   </div>
 
                   {/* Incident Resolution Breakdown Detail Card */}
-                  <div className="border border-amber-500/25 rounded-2xl bg-gradient-to-br from-amber-950/30 via-[#181109]/70 to-[#100b05] overflow-hidden shadow-xl">
-                    <div className="p-5 bg-gradient-to-r from-amber-950/40 via-transparent to-transparent border-b border-amber-500/20 flex flex-wrap items-center justify-between gap-3">
+                  <div className="border border-amber-500/40 rounded-2xl bg-[#181108] overflow-hidden shadow-lg">
+                    <div className="p-5 bg-[#1f150b] border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-3">
                       <div>
                         <div className="text-sm font-bold text-white flex items-center gap-2">
-                          <span className="text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/25 font-mono">P1</span>
+                          <span className="text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono">P1</span>
                           <span>{selectedIncident.title} ({selectedIncident.id})</span>
                         </div>
-                        <div className="text-xs text-amber-200/70 mt-1">
+                        <div className="text-xs text-amber-200/80 mt-1">
                           Service: <span className="text-white font-medium">{selectedIncident.service}</span> · Trigger: {selectedIncident.trigger}
                         </div>
                       </div>
 
-                      <span className="text-xs text-emerald-300 bg-emerald-500/15 px-3 py-1 rounded-full border border-emerald-500/30 font-bold flex items-center gap-1.5 shadow-sm">
+                      <span className="text-xs text-emerald-300 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/40 font-bold flex items-center gap-1.5 shadow-sm">
                         <CheckCircle2 className="w-3.5 h-3.5" /> Resolved in {selectedIncident.mttr}
                       </span>
                     </div>
@@ -391,14 +391,14 @@ export function ExecutiveAuditShowcase() {
                     <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                       
                       {/* Left: Immediate Action */}
-                      <div className="p-4 rounded-xl bg-black/40 border border-amber-500/15 space-y-2">
+                      <div className="p-4 rounded-xl bg-[#0e0a05] border border-amber-500/30 space-y-2">
                         <div className="text-xs font-bold text-amber-300 uppercase tracking-wider">
                           1. Immediate Automated Self-Healing
                         </div>
-                        <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
+                        <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
                           {selectedIncident.immediateAction}
                         </p>
-                        <div className="text-xs text-amber-200/70 space-y-1 pt-1 font-mono">
+                        <div className="text-xs text-amber-200/80 space-y-1 pt-1 font-mono">
                           {selectedIncident.immediatePoints.map((pt, pIdx) => (
                             <div key={pIdx} className="text-emerald-400">✓ {pt}</div>
                           ))}
@@ -406,11 +406,11 @@ export function ExecutiveAuditShowcase() {
                       </div>
 
                       {/* Right: Permanent PR */}
-                      <div className="p-4 rounded-xl bg-black/40 border border-amber-500/15 space-y-2">
+                      <div className="p-4 rounded-xl bg-[#0e0a05] border border-amber-500/30 space-y-2">
                         <div className="text-xs font-bold text-blue-300 uppercase tracking-wider">
                           2. Permanent Root Cause Fix
                         </div>
-                        <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
+                        <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
                           {selectedIncident.prDetail}
                         </p>
                         <div className="text-xs text-blue-300 space-y-1 pt-1 font-mono">
@@ -421,11 +421,11 @@ export function ExecutiveAuditShowcase() {
                     </div>
 
                     {/* Preventative Recommendation */}
-                    <div className="m-6 mt-0 p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 space-y-1.5">
+                    <div className="m-6 mt-0 p-4 rounded-xl bg-[#22160b] border border-amber-500/40 space-y-1.5">
                       <div className="text-xs font-bold text-amber-300 uppercase tracking-wider">
                         Preventative Architecture Recommendation
                       </div>
-                      <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
+                      <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
                         {selectedIncident.recommendation}
                       </p>
                     </div>
@@ -444,7 +444,7 @@ export function ExecutiveAuditShowcase() {
                   transition={{ duration: 0.2 }}
                   className="space-y-6"
                 >
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-950/40 via-[#1c140a]/60 to-[#120d06] border border-amber-500/25 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+                  <div className="p-6 rounded-2xl bg-[#1a1209] border border-amber-500/40 flex flex-wrap items-center justify-between gap-4 shadow-lg">
                     <div>
                       <div className="text-xs font-sans text-amber-400 uppercase tracking-wider mb-1 font-bold">
                         Monthly Infrastructure Review
@@ -458,44 +458,44 @@ export function ExecutiveAuditShowcase() {
                     </div>
 
                     <div className="text-right">
-                      <div className="text-xs text-amber-300/70 uppercase font-bold">SLO Attainment</div>
+                      <div className="text-xs text-amber-300 uppercase font-bold">SLO Attainment</div>
                       <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-sans">99.994%</div>
                     </div>
                   </div>
 
-                  {/* 3 Metrics Cards (Warm Faded Amber) */}
+                  {/* 3 Metrics Cards (Solid Espresso Amber Matte) */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div className="p-5 rounded-2xl bg-gradient-to-b from-amber-950/30 to-[#160f08]/80 border border-amber-500/20 hover:border-amber-400/40 transition-all shadow-md">
-                      <div className="text-xs text-amber-300/70 uppercase mb-1 font-bold">Downtime Prevented</div>
+                    <div className="p-5 rounded-2xl bg-[#181108] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#1f150b] transition-all shadow-md">
+                      <div className="text-xs text-amber-300 uppercase mb-1 font-bold">Downtime Prevented</div>
                       <div className="text-3xl font-black text-emerald-400 mb-1 font-sans">11.4 Hours</div>
-                      <p className="text-xs text-amber-100/60 leading-relaxed font-sans">
+                      <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
                         Automated rollbacks and connection drains resolved issues before cascading service failures occurred.
                       </p>
                     </div>
 
-                    <div className="p-5 rounded-2xl bg-gradient-to-b from-amber-950/30 to-[#160f08]/80 border border-amber-500/20 hover:border-amber-400/40 transition-all shadow-md">
-                      <div className="text-xs text-amber-300/70 uppercase mb-1 font-bold">Hotspots Resolved</div>
+                    <div className="p-5 rounded-2xl bg-[#181108] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#1f150b] transition-all shadow-md">
+                      <div className="text-xs text-amber-300 uppercase mb-1 font-bold">Hotspots Resolved</div>
                       <div className="text-3xl font-black text-amber-300 mb-1 font-sans">28 PRs</div>
-                      <p className="text-xs text-amber-100/60 leading-relaxed font-sans">
+                      <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
                         28 memory leaks and unindexed queries permanently resolved via developer pull requests.
                       </p>
                     </div>
 
-                    <div className="p-5 rounded-2xl bg-gradient-to-b from-amber-950/30 to-[#160f08]/80 border border-amber-500/20 hover:border-amber-400/40 transition-all shadow-md">
-                      <div className="text-xs text-amber-300/70 uppercase mb-1 font-bold">Post-Mortem Overhead</div>
+                    <div className="p-5 rounded-2xl bg-[#181108] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#1f150b] transition-all shadow-md">
+                      <div className="text-xs text-amber-300 uppercase mb-1 font-bold">Post-Mortem Overhead</div>
                       <div className="text-3xl font-black text-blue-400 mb-1 font-sans">0 Hours</div>
-                      <p className="text-xs text-amber-100/60 leading-relaxed font-sans">
+                      <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
                         Reports exported directly with cryptographically verified SHA-256 approval chains and immutable logs.
                       </p>
                     </div>
                   </div>
 
                   {/* Executive Narrative */}
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-950/30 via-[#181109]/70 to-[#100b05] border border-amber-500/25 space-y-2">
+                  <div className="p-6 rounded-2xl bg-[#181108] border border-amber-500/35 space-y-2">
                     <div className="text-xs font-bold text-white uppercase tracking-wider">
                       Fleet Executive Summary
                     </div>
-                    <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
+                    <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
                       Over the past 30 days, 4,812 alerts across Kubernetes and database layers were correlated into 23 distinct incidents. 19 were resolved autonomously within static guardrails, and 4 with single-click on-call Slack approval. Zero manual emergency escalations were required.
                     </p>
                   </div>
@@ -513,8 +513,8 @@ export function ExecutiveAuditShowcase() {
                   className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start"
                 >
                   {/* Slack Preview */}
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-950/35 via-[#181109]/70 to-[#100b05] border border-amber-500/25 space-y-4 shadow-xl">
-                    <div className="flex items-center justify-between pb-3 border-b border-amber-500/20 text-xs text-amber-200/60 font-sans">
+                  <div className="p-6 rounded-2xl bg-[#181108] border border-amber-500/35 space-y-4 shadow-lg">
+                    <div className="flex items-center justify-between pb-3 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-white">#prod-reliability</span>
                         <span className="text-amber-500/40">·</span>
@@ -523,11 +523,11 @@ export function ExecutiveAuditShowcase() {
                       <span className="text-emerald-400 text-[11px] font-bold">Delivered 09:00 AM</span>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-black/40 border-l-4 border-l-amber-400 border border-amber-500/20 space-y-2 text-xs">
+                    <div className="p-5 rounded-xl bg-[#0e0a05] border-l-4 border-l-amber-400 border border-amber-500/30 space-y-2 text-xs">
                       <div className="font-bold text-white">
                         Weekly Reliability Digest (Week 41)
                       </div>
-                      <p className="text-amber-100/80 text-xs leading-relaxed font-sans">
+                      <p className="text-amber-100/90 text-xs leading-relaxed font-sans">
                         Weekly summary for <strong>prod-aws-us-east-1</strong>: 0 uncontained outages. 3 incidents mitigated with average MTTR of 8.4 seconds.
                       </p>
                       <div className="pt-2">
@@ -543,8 +543,8 @@ export function ExecutiveAuditShowcase() {
                   </div>
 
                   {/* Telegram Preview */}
-                  <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-950/35 via-[#181109]/70 to-[#100b05] border border-amber-500/25 space-y-4 shadow-xl">
-                    <div className="flex items-center justify-between pb-3 border-b border-amber-500/20 text-xs text-amber-200/60 font-sans">
+                  <div className="p-6 rounded-2xl bg-[#181108] border border-amber-500/35 space-y-4 shadow-lg">
+                    <div className="flex items-center justify-between pb-3 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-white">@AmberSREBot</span>
                         <span className="text-amber-500/40">·</span>
@@ -553,15 +553,15 @@ export function ExecutiveAuditShowcase() {
                       <span className="text-blue-400 text-[11px] font-bold">Delivered 09:00 AM</span>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-black/40 border border-amber-500/20 space-y-3 text-xs">
+                    <div className="p-5 rounded-xl bg-[#0e0a05] border border-amber-500/30 space-y-3 text-xs">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-white flex items-center gap-1.5">
                           <Bot className="w-4 h-4 text-blue-400" />
                           <span>Amber Executive Digest</span>
                         </span>
-                        <span className="text-amber-300/60 font-mono text-[11px]">9:00 AM</span>
+                        <span className="text-amber-300 font-mono text-[11px]">9:00 AM</span>
                       </div>
-                      <div className="text-amber-100/80 text-xs space-y-1 font-sans">
+                      <div className="text-amber-100/90 text-xs space-y-1 font-sans">
                         <div><strong>Cluster:</strong> prod-aws-us-east-1</div>
                         <div><strong>SLA Attainment:</strong> 99.994%</div>
                         <div><strong>Action:</strong> PR #482 ready for review before peak window.</div>
@@ -590,7 +590,7 @@ export function ExecutiveAuditShowcase() {
           </div>
 
           {/* Footer Bar */}
-          <div className="bg-gradient-to-r from-amber-950/60 via-[#140e07]/60 to-transparent border-t border-amber-500/20 px-6 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4 text-xs text-amber-200/60">
+          <div className="bg-[#181108] border-t border-amber-500/30 px-6 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4 text-xs text-amber-200/70">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               <span>Cryptographically signed with Ed25519 · Zero telemetry leaves customer VPC</span>

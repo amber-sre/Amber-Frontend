@@ -233,18 +233,18 @@ export const HowItWorks: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Clean Telemetry & Action Inspector (Warm Amber Glass) */}
-            <div className="lg:col-span-6 bg-gradient-to-b from-[#1c140a]/95 via-[#130d06]/95 to-[#0b0804] text-white rounded-3xl p-7 sm:p-9 border border-amber-500/30 flex flex-col justify-between shadow-2xl shadow-amber-950/30 relative overflow-hidden font-sans">
+            {/* Right Column: Clean Telemetry & Action Inspector (Solid Espresso Amber Matte) */}
+            <div className="lg:col-span-6 bg-[#140e07] text-white rounded-3xl p-7 sm:p-9 border border-amber-500/40 flex flex-col justify-between shadow-2xl shadow-black/60 relative overflow-hidden font-sans">
               <div>
                 {/* Header Bar */}
-                <div className="flex items-center justify-between pb-4 mb-5 border-b border-amber-500/20 text-xs">
+                <div className="flex items-center justify-between pb-4 mb-5 border-b border-amber-500/30 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
                     <span className="text-amber-200/80 font-bold uppercase tracking-wider text-[11px]">
                       Lifecycle Telemetry Inspector
                     </span>
                   </div>
-                  <span className="text-amber-300/60 font-mono text-[11px]">
+                  <span className="text-amber-300 font-mono text-[11px]">
                     Step {activeStepIndex + 1} of {STEPS.length}
                   </span>
                 </div>
@@ -253,23 +253,23 @@ export const HowItWorks: React.FC = () => {
                   {activeStep.snippet.title}
                 </div>
 
-                {/* Structured Event Rows (Faded Amber Glass Cards) */}
+                {/* Structured Event Rows (Solid Espresso Amber Matte Cards) */}
                 <div className="space-y-2.5 py-1">
                   {activeStep.snippet.lines.map((line, lIdx) => (
                     <div 
                       key={lIdx}
                       className={`p-3.5 rounded-xl border text-xs leading-relaxed transition-all duration-200 hover:scale-[1.01] ${
                         line.success 
-                          ? 'bg-gradient-to-r from-emerald-950/40 to-[#121c15]/60 border-emerald-500/35 text-emerald-300 font-medium' :
+                          ? 'bg-[#0f1d13] border-emerald-500/45 text-emerald-300 font-medium' :
                         line.error 
-                          ? 'bg-gradient-to-r from-rose-950/40 to-[#1f1012]/60 border-rose-500/35 text-rose-300 font-medium' :
+                          ? 'bg-[#220f12] border-rose-500/45 text-rose-300 font-medium' :
                         line.highlight 
-                          ? 'bg-gradient-to-r from-amber-900/40 to-amber-950/50 border-amber-400/40 text-amber-200 font-medium' :
-                          'bg-gradient-to-r from-amber-950/20 to-[#181109]/50 border-amber-500/15 text-amber-100/80 hover:border-amber-400/30'
+                          ? 'bg-[#24170c] border-amber-400/50 text-amber-200 font-medium' :
+                          'bg-[#1a1209] border-amber-500/30 text-amber-100/90 hover:border-amber-400/50 hover:bg-[#20150b]'
                       }`}
                     >
                       <div className="flex items-start gap-2.5">
-                        <span className="font-mono text-amber-400/60 text-[10px] shrink-0 mt-0.5 select-none font-bold">
+                        <span className="font-mono text-amber-400/70 text-[10px] shrink-0 mt-0.5 select-none font-bold">
                           {String(lIdx + 1).padStart(2, '0')}
                         </span>
                         <span className="font-mono text-[11px] sm:text-xs break-all">
@@ -282,7 +282,7 @@ export const HowItWorks: React.FC = () => {
               </div>
 
               {/* Bottom Navigation */}
-              <div className="pt-6 mt-6 border-t border-amber-500/20 flex items-center justify-between text-xs text-amber-200/50">
+              <div className="pt-6 mt-6 border-t border-amber-500/30 flex items-center justify-between text-xs text-amber-200/60">
                 <span>In-VPC Deterministic Pipeline</span>
                 <button
                   type="button"

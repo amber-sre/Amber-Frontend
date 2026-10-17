@@ -144,14 +144,14 @@ export const RemediationVideoPlayer: React.FC = () => {
         </div>
 
         {/* Channel Switcher */}
-        <div className="inline-flex items-center p-1 rounded-xl bg-[#1c140a]/90 border border-amber-500/30 shadow-lg backdrop-blur-md">
+        <div className="inline-flex items-center p-1 rounded-xl bg-[#160f08] border border-amber-500/40 shadow-lg">
           <button
             type="button"
             onClick={() => setActiveTab('all')}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-sans tracking-wide transition-all cursor-pointer ${
               activeTab === 'all'
                 ? 'bg-[#d97706] text-white font-bold shadow-md shadow-amber-500/20'
-                : 'text-amber-200/60 hover:text-white font-medium'
+                : 'text-amber-200/70 hover:text-white font-medium'
             }`}
           >
             Overview
@@ -163,7 +163,7 @@ export const RemediationVideoPlayer: React.FC = () => {
             className={`px-3.5 py-1.5 rounded-lg text-xs font-sans tracking-wide transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'slack'
                 ? 'bg-white text-black font-bold shadow-md'
-                : 'text-amber-200/60 hover:text-white font-medium'
+                : 'text-amber-200/70 hover:text-white font-medium'
             }`}
           >
             <SlackLogo className="w-3.5 h-3.5" />
@@ -176,7 +176,7 @@ export const RemediationVideoPlayer: React.FC = () => {
             className={`px-3.5 py-1.5 rounded-lg text-xs font-sans tracking-wide transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'telegram'
                 ? 'bg-white text-black font-bold shadow-md'
-                : 'text-amber-200/60 hover:text-white font-medium'
+                : 'text-amber-200/70 hover:text-white font-medium'
             }`}
           >
             <TelegramLogo className="w-3.5 h-3.5" />
@@ -199,19 +199,19 @@ export const RemediationVideoPlayer: React.FC = () => {
               onClick={() => setSelectedScenarioIndex(idx)}
               className={`p-4 rounded-2xl text-left border transition-all duration-300 flex items-center justify-between cursor-pointer group ${
                 isSelected
-                  ? 'bg-gradient-to-r from-amber-950/70 via-amber-900/40 to-amber-950/60 border-amber-400 text-white shadow-lg shadow-amber-500/10 scale-[1.01]'
-                  : 'bg-[#18120a]/60 hover:bg-[#1e160d]/80 border-amber-500/20 text-amber-100/70 hover:border-amber-500/40'
+                  ? 'bg-[#22160a] border-amber-400 text-white shadow-md shadow-black/40 scale-[1.01] ring-1 ring-amber-400/30'
+                  : 'bg-[#140e07] hover:bg-[#1b1209] border-amber-500/30 text-amber-100/80 hover:border-amber-500/50'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                  isSelected ? 'bg-amber-400 text-black shadow-md' : 'bg-amber-950/40 text-amber-300 border border-amber-500/20'
+                  isSelected ? 'bg-amber-400 text-black shadow-md font-bold' : 'bg-[#0d0905] text-amber-300 border border-amber-500/30'
                 }`}>
                   <Icon className="w-4 h-4" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono font-bold text-amber-300/80 uppercase">
+                    <span className="text-[10px] font-mono font-bold text-amber-300 uppercase">
                       {sc.id}
                     </span>
                     <span className={`w-1.5 h-1.5 rounded-full ${isScResolved ? 'bg-emerald-400' : 'bg-rose-400 animate-pulse'}`} />
@@ -221,42 +221,39 @@ export const RemediationVideoPlayer: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? 'text-amber-400 translate-x-0.5' : 'text-amber-500/30'}`} />
+              <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? 'text-amber-400 translate-x-0.5' : 'text-amber-500/40'}`} />
             </button>
           );
         })}
       </div>
 
-      {/* ── Main Amber Faded Glass Canvas ── */}
+      {/* ── Main Solid Deep Amber Canvas ── */}
       <div className="w-full relative select-none">
-        {/* Subtle Ambient Amber Glow */}
-        <div className="absolute -top-12 left-1/3 w-96 h-96 bg-amber-500/15 rounded-full blur-[140px] pointer-events-none" />
-
-        <div className="w-full bg-gradient-to-b from-[#1a130a]/95 via-[#120d06]/95 to-[#0b0804] border border-amber-500/30 rounded-3xl shadow-[0_20px_70px_rgba(217,119,6,0.18)] overflow-hidden backdrop-blur-2xl">
+        <div className="w-full bg-[#120d06] border border-amber-500/40 rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.7)] overflow-hidden">
           
           {/* Top Metadata Header */}
-          <div className="bg-gradient-to-r from-amber-950/50 via-amber-900/20 to-transparent px-6 sm:px-8 py-4 border-b border-amber-500/20 flex flex-wrap items-center justify-between gap-3 text-xs font-sans">
+          <div className="bg-[#181108] px-6 sm:px-8 py-4 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-3 text-xs font-sans">
             <div className="flex items-center gap-3">
               <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${
                 isResolved
                   ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
-                  : 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
+                  : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
               }`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${isResolved ? 'bg-emerald-400' : 'bg-rose-400 animate-pulse'}`} />
                 {isResolved ? 'INCIDENT RESOLVED' : 'ACTIVE INCIDENT'}
               </span>
-              <span className="text-amber-500/40">·</span>
+              <span className="text-amber-500/50">·</span>
               <span className="text-white font-bold">{scenario.id}</span>
-              <span className="text-amber-500/40">·</span>
-              <span className="text-amber-200/80 font-medium">{scenario.topology}</span>
+              <span className="text-amber-500/50">·</span>
+              <span className="text-amber-200 font-medium">{scenario.topology}</span>
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-amber-200/70">
+            <div className="flex items-center gap-3 text-xs text-amber-200/80">
               <span className="inline-flex items-center gap-1.5">
                 <Lock className="w-3.5 h-3.5 text-amber-400" />
                 <span>SHA-256 HMAC Bound</span>
               </span>
-              <span className="text-amber-500/40">·</span>
+              <span className="text-amber-500/50">·</span>
               <span className="text-emerald-400 font-semibold">0 External Egress</span>
             </div>
           </div>
@@ -267,35 +264,35 @@ export const RemediationVideoPlayer: React.FC = () => {
             {/* Left Column: On-Call Incident Notification */}
             <div className={`${activeTab === 'all' ? 'lg:col-span-6' : 'lg:col-span-12'} flex flex-col justify-between`}>
               <div>
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-amber-500/20 text-xs text-amber-200/60 font-sans">
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
                   <div className="flex items-center gap-2">
                     {activeTab === 'telegram' ? (
                       <>
                         <TelegramLogo className="w-3.5 h-3.5" />
                         <span className="text-white font-bold">@AmberSREBot</span>
-                        <span className="text-amber-500/40">·</span>
+                        <span className="text-amber-500/50">·</span>
                         <span>Telegram Dispatch</span>
                       </>
                     ) : (
                       <>
                         <SlackLogo className="w-3.5 h-3.5" />
                         <span className="text-white font-bold">#prod-oncall</span>
-                        <span className="text-amber-500/40">·</span>
+                        <span className="text-amber-500/50">·</span>
                         <span>Slack Incident Channel</span>
                       </>
                     )}
                   </div>
-                  <span className="text-[11px] text-amber-300/50 font-mono">03:43 AM UTC</span>
+                  <span className="text-[11px] text-amber-300 font-mono">03:43 AM UTC</span>
                 </div>
 
-                {/* Faded Amber Incident Card */}
-                <div className="bg-gradient-to-br from-amber-950/40 via-[#1c140a]/70 to-[#120d06] border border-amber-500/25 rounded-2xl p-6 space-y-4 shadow-xl">
+                {/* Solid Espresso Amber Incident Card */}
+                <div className="bg-[#1a1209] border border-amber-500/40 rounded-2xl p-6 space-y-4 shadow-lg">
                   <div>
                     <div className="text-xs font-semibold text-rose-400 flex items-center gap-1.5 mb-1.5">
                       <span className="w-2 h-2 rounded-full bg-rose-500" />
                       <span>Severity P1</span>
-                      <span className="text-amber-500/30">·</span>
-                      <span className="text-amber-200/70">Automated Triage</span>
+                      <span className="text-amber-500/40">·</span>
+                      <span className="text-amber-200/80">Automated Triage</span>
                     </div>
                     <h4 className="text-white font-black text-xl tracking-tight leading-snug">
                       {scenario.title}
@@ -303,39 +300,39 @@ export const RemediationVideoPlayer: React.FC = () => {
                   </div>
 
                   {/* Metadata Specs Grid */}
-                  <div className="grid grid-cols-3 gap-2 bg-black/40 p-3.5 rounded-xl border border-amber-500/15 text-xs font-sans">
+                  <div className="grid grid-cols-3 gap-2 bg-[#0d0905] p-3.5 rounded-xl border border-amber-500/30 text-xs font-sans">
                     <div>
-                      <div className="text-amber-300/60 text-[10px] uppercase font-bold">Service</div>
+                      <div className="text-amber-300/80 text-[10px] uppercase font-bold">Service</div>
                       <div className="text-white font-bold mt-0.5">{scenario.service}</div>
                     </div>
                     <div>
-                      <div className="text-amber-300/60 text-[10px] uppercase font-bold">Status</div>
+                      <div className="text-amber-300/80 text-[10px] uppercase font-bold">Status</div>
                       <div className={isResolved ? "text-emerald-400 font-bold mt-0.5" : "text-amber-300 font-bold mt-0.5"}>
                         {isResolved ? "Normal" : "Saturated"}
                       </div>
                     </div>
                     <div>
-                      <div className="text-amber-300/60 text-[10px] uppercase font-bold">Cluster</div>
-                      <div className="text-amber-100/90 mt-0.5 font-medium truncate">{scenario.topology}</div>
+                      <div className="text-amber-300/80 text-[10px] uppercase font-bold">Cluster</div>
+                      <div className="text-amber-100 mt-0.5 font-medium truncate">{scenario.topology}</div>
                     </div>
                   </div>
 
                   {/* Diagnosed Root Cause */}
-                  <div className="bg-amber-950/30 border border-amber-500/20 p-4 rounded-xl text-xs text-amber-100/90 space-y-1">
+                  <div className="bg-[#22160b] border border-amber-500/35 p-4 rounded-xl text-xs text-amber-100 space-y-1">
                     <div className="font-bold text-amber-300 flex items-center gap-1.5">
                       <span>Diagnosed Root Cause:</span>
                     </div>
-                    <p className="text-amber-100/80 leading-relaxed font-sans">
+                    <p className="text-amber-100/90 leading-relaxed font-sans">
                       {scenario.rootCause}
                     </p>
                   </div>
 
                   {/* Proposed Remediation Runbook */}
                   <div className="space-y-1.5 text-xs">
-                    <div className="text-amber-200/70 font-semibold">
+                    <div className="text-amber-200/80 font-semibold">
                       Allowlisted Remediation Runbook:
                     </div>
-                    <div className="bg-black/60 px-3.5 py-2.5 rounded-xl border border-amber-500/20 font-mono text-amber-300 text-xs overflow-x-auto">
+                    <div className="bg-[#0a0703] px-3.5 py-2.5 rounded-xl border border-amber-500/35 font-mono text-amber-300 text-xs overflow-x-auto">
                       {scenario.runbook}
                     </div>
                   </div>
@@ -373,7 +370,7 @@ export const RemediationVideoPlayer: React.FC = () => {
                           <button
                             type="button"
                             onClick={handleReplay}
-                            className="w-full sm:w-auto px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-amber-200/70 hover:text-white font-sans text-xs border border-amber-500/20 cursor-pointer transition-colors"
+                            className="w-full sm:w-auto px-4 py-3 rounded-xl bg-[#160f08] hover:bg-[#20150b] text-amber-200/80 hover:text-white font-sans text-xs border border-amber-500/30 cursor-pointer transition-colors"
                           >
                             Dismiss
                           </button>
@@ -384,7 +381,7 @@ export const RemediationVideoPlayer: React.FC = () => {
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0 }}
-                          className="p-4 rounded-xl bg-gradient-to-r from-emerald-950/40 to-[#121c15] border border-emerald-500/40 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md"
+                          className="p-4 rounded-xl bg-[#0e1811] border border-emerald-500/50 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md"
                         >
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0">
@@ -416,7 +413,7 @@ export const RemediationVideoPlayer: React.FC = () => {
               </div>
 
               {/* Status Note */}
-              <div className="pt-4 flex items-center justify-between text-xs text-amber-200/50">
+              <div className="pt-4 flex items-center justify-between text-xs text-amber-200/60">
                 <span className="flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Payload authorization TTL: 10m</span>
@@ -428,12 +425,12 @@ export const RemediationVideoPlayer: React.FC = () => {
             {/* Right Column: Interactive Lifecycle Stepper */}
             <div className={`${activeTab === 'all' ? 'lg:col-span-6' : 'lg:col-span-12'} flex flex-col justify-between`}>
               <div>
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-amber-500/20 text-xs text-amber-200/60 font-sans">
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
                   <div className="flex items-center gap-2">
                     <Layers className="w-3.5 h-3.5 text-amber-400" />
                     <span className="text-white font-bold">Execution Lifecycle</span>
                   </div>
-                  <span className="text-xs text-amber-300/60 font-mono">In-VPC Autonomous Kernel</span>
+                  <span className="text-xs text-amber-300 font-mono">In-VPC Autonomous Kernel</span>
                 </div>
 
                 {/* 4 Clickable Step Cards */}
@@ -475,15 +472,15 @@ export const RemediationVideoPlayer: React.FC = () => {
                         onClick={() => setActiveStepTab(idx)}
                         className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer ${
                           isStepActive
-                            ? 'bg-gradient-to-r from-amber-950/60 to-[#1e150c]/80 border-amber-400/80 shadow-md ring-1 ring-amber-400/20'
-                            : 'bg-[#18120a]/40 hover:bg-[#1a140c]/70 border-amber-500/20'
+                            ? 'bg-[#22160a] border-amber-400 text-white shadow-md ring-1 ring-amber-400/30'
+                            : 'bg-[#160f08] hover:bg-[#1c130a] border-amber-500/25 hover:border-amber-500/40'
                         }`}
                       >
                         <div className="flex items-start gap-3">
                           <div className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${
                             isStepFinished
                               ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                              : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                              : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
                           }`}>
                             {isStepFinished ? '✓' : s.step}
                           </div>
@@ -492,11 +489,11 @@ export const RemediationVideoPlayer: React.FC = () => {
                               <span className={`font-bold ${isStepActive ? 'text-amber-200' : 'text-white'}`}>
                                 {s.title}
                               </span>
-                              <span className="font-mono text-[10px] text-amber-300/50">
+                              <span className="font-mono text-[10px] text-amber-300/70">
                                 {s.time}
                               </span>
                             </div>
-                            <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
+                            <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
                               {s.desc}
                             </p>
                           </div>
@@ -508,7 +505,7 @@ export const RemediationVideoPlayer: React.FC = () => {
               </div>
 
               {/* Status Note */}
-              <div className="pt-4 flex items-center justify-between text-xs text-amber-200/50">
+              <div className="pt-4 flex items-center justify-between text-xs text-amber-200/60">
                 <span className="flex items-center gap-1.5">
                   <Server className="w-3.5 h-3.5 text-amber-400" />
                   <span>In-VPC Single Tenant</span>
@@ -519,42 +516,42 @@ export const RemediationVideoPlayer: React.FC = () => {
 
           </div>
 
-          {/* Bottom Telemetry Verification Row (Warm Amber Faded Cards) */}
-          <div className="bg-gradient-to-t from-amber-950/50 via-[#140e07]/60 to-transparent border-t border-amber-500/20 px-6 sm:px-8 py-6">
+          {/* Bottom Telemetry Verification Row (Solid Espresso Amber Matte) */}
+          <div className="bg-[#150f08] border-t border-amber-500/30 px-6 sm:px-8 py-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               
-              <div className="p-5 rounded-2xl bg-gradient-to-b from-amber-950/30 to-[#160f08]/80 border border-amber-500/20 hover:border-amber-400/40 transition-all shadow-md">
-                <div className="text-xs font-sans text-amber-300/70 uppercase tracking-wider mb-1 font-bold">
+              <div className="p-5 rounded-2xl bg-[#1c140a] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#22160c] transition-all shadow-md">
+                <div className="text-xs font-sans text-amber-300 uppercase tracking-wider mb-1 font-bold">
                   {scenario.metric1.label}
                 </div>
                 <div className="text-2xl sm:text-3xl font-black text-white font-sans tracking-tight">
                   {isResolved ? scenario.metric1.resolved : scenario.metric1.initial}
                 </div>
-                <p className="text-xs text-amber-100/60 mt-1">
+                <p className="text-xs text-amber-100/70 mt-1">
                   {scenario.metric1.note}
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-gradient-to-b from-amber-950/30 to-[#160f08]/80 border border-amber-500/20 hover:border-amber-400/40 transition-all shadow-md">
-                <div className="text-xs font-sans text-amber-300/70 uppercase tracking-wider mb-1 font-bold">
+              <div className="p-5 rounded-2xl bg-[#1c140a] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#22160c] transition-all shadow-md">
+                <div className="text-xs font-sans text-amber-300 uppercase tracking-wider mb-1 font-bold">
                   {scenario.metric2.label}
                 </div>
                 <div className="text-2xl sm:text-3xl font-black text-white font-sans tracking-tight">
                   {isResolved ? scenario.metric2.resolved : scenario.metric2.initial}
                 </div>
-                <p className="text-xs text-amber-100/60 mt-1">
+                <p className="text-xs text-amber-100/70 mt-1">
                   {scenario.metric2.note}
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-gradient-to-b from-amber-950/30 to-[#160f08]/80 border border-amber-500/20 hover:border-amber-400/40 transition-all shadow-md">
-                <div className="text-xs font-sans text-amber-300/70 uppercase tracking-wider mb-1 font-bold">
+              <div className="p-5 rounded-2xl bg-[#1c140a] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#22160c] transition-all shadow-md">
+                <div className="text-xs font-sans text-amber-300 uppercase tracking-wider mb-1 font-bold">
                   {scenario.metric3.label}
                 </div>
                 <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-sans tracking-tight">
                   {isResolved ? scenario.metric3.resolved : scenario.metric3.initial}
                 </div>
-                <p className="text-xs text-amber-100/60 mt-1">
+                <p className="text-xs text-amber-100/70 mt-1">
                   {scenario.metric3.note}
                 </p>
               </div>
