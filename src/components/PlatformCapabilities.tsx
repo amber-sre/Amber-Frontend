@@ -325,11 +325,11 @@ export function PlatformCapabilities() {
                 {/* Technical Proof Code Box */}
                 <div className="mt-8 pt-8 border-t border-stone-200">
                   <div className="text-xs font-sans text-stone-600 uppercase tracking-wider font-bold mb-2.5 flex items-center justify-between">
-                    <span>Technical Proof: {activeCap.technicalProof.label}</span>
-                    <span className="text-[10px] font-sans font-semibold text-stone-400">Deterministic Guardrail</span>
+                    <span>Execution Policy: {activeCap.technicalProof.label}</span>
+                    <span className="text-xs font-sans font-medium text-stone-400">Deterministic Guardrail</span>
                   </div>
-                  <div className="p-4 bg-[#09090b] text-white rounded-2xl font-mono text-xs overflow-x-auto leading-relaxed border border-white/10">
-                    <pre className="text-emerald-400 whitespace-pre-wrap">{activeCap.technicalProof.codeSnippet}</pre>
+                  <div className="p-4 bg-[#111114] text-stone-200 rounded-2xl font-mono text-xs overflow-x-auto leading-relaxed border border-stone-800 shadow-inner">
+                    <pre className="text-amber-200/90 whitespace-pre-wrap font-mono">{activeCap.technicalProof.codeSnippet}</pre>
                   </div>
                 </div>
 

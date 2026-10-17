@@ -5,9 +5,8 @@ import {
   Search, 
   ShieldCheck, 
   CheckCircle2, 
-  ArrowRight, 
-  Terminal, 
-  Lock
+  ArrowRight,
+  Lock 
 } from 'lucide-react';
 
 interface StepDetail {
@@ -234,51 +233,61 @@ export const HowItWorks: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Live Terminal / Telemetry Console */}
-            <div className="lg:col-span-6 bg-[#0c0c0c] text-white rounded-3xl p-7 sm:p-9 border border-white/10 flex flex-col justify-between shadow-2xl relative overflow-hidden font-mono">
-              {/* Window Bar */}
+            {/* Right Column: Clean Telemetry & Action Inspector */}
+            <div className="lg:col-span-6 bg-[#0c0c0e] text-white rounded-3xl p-7 sm:p-9 border border-white/10 flex flex-col justify-between shadow-2xl relative overflow-hidden font-sans">
               <div>
-                <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10 text-xs text-zinc-400">
+                {/* Header Bar */}
+                <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10 text-xs">
                   <div className="flex items-center gap-2">
-                    <div className="flex gap-1.5">
-                      <span className="w-3 h-3 rounded-full bg-[#ef4444]/80" />
-                      <span className="w-3 h-3 rounded-full bg-[#facc15]/80" />
-                      <span className="w-3 h-3 rounded-full bg-[#22c55e]/80" />
-                    </div>
-                    <span className="text-zinc-500 ml-2">amber-runtime :: {activeStep.id}.log</span>
+                    <span className="w-2 h-2 rounded-full bg-[#d97706]" />
+                    <span className="text-zinc-300 font-semibold uppercase tracking-wider text-[11px]">
+                      Lifecycle Telemetry Inspector
+                    </span>
                   </div>
+                  <span className="text-zinc-500 font-mono text-[11px]">
+                    Step {activeStepIndex + 1} of {STEPS.length}
+                  </span>
                 </div>
 
-                <div className="text-xs font-semibold text-zinc-400 mb-3 flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-[#facc15]" />
-                  <span>{activeStep.snippet.title}</span>
+                <div className="text-sm font-bold text-white mb-4">
+                  {activeStep.snippet.title}
                 </div>
 
-                {/* Log Lines */}
-                <div className="space-y-2 text-xs leading-relaxed py-2">
+                {/* Structured Event Rows */}
+                <div className="space-y-2 py-1">
                   {activeStep.snippet.lines.map((line, lIdx) => (
                     <div 
                       key={lIdx}
-                      className={`font-mono ${
-                        line.highlight ? 'text-[#facc15] font-bold' :
-                        line.error ? 'text-rose-400 font-semibold' :
-                        line.success ? 'text-emerald-400 font-bold' :
-                        'text-zinc-300'
+                      className={`p-3 rounded-xl border text-xs leading-relaxed transition-colors ${
+                        line.success 
+                          ? 'bg-emerald-950/20 border-emerald-500/30 text-emerald-300 font-medium' :
+                        line.error 
+                          ? 'bg-rose-950/20 border-rose-500/30 text-rose-300 font-medium' :
+                        line.highlight 
+                          ? 'bg-amber-500/10 border-amber-500/25 text-amber-200 font-medium' :
+                          'bg-white/[0.02] border-white/5 text-zinc-300'
                       }`}
                     >
-                      {line.text}
+                      <div className="flex items-start gap-2.5">
+                        <span className="font-mono text-zinc-500 text-[10px] shrink-0 mt-0.5 select-none">
+                          {String(lIdx + 1).padStart(2, '0')}
+                        </span>
+                        <span className="font-mono text-[11px] sm:text-xs break-all">
+                          {line.text}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Bottom Interactive Prompt */}
+              {/* Bottom Navigation */}
               <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-xs text-zinc-500">
-                <span>Deterministic SRE Engine v2.0</span>
+                <span>In-VPC Deterministic Pipeline</span>
                 <button
                   type="button"
                   onClick={() => setActiveStepIndex((activeStepIndex + 1) % STEPS.length)}
-                  className="text-white hover:text-[#facc15] transition-colors flex items-center gap-1 font-sans font-bold cursor-pointer"
+                  className="text-white hover:text-amber-400 transition-colors flex items-center gap-1 font-bold cursor-pointer"
                 >
                   <span>Next Step</span>
                   <ArrowRight className="w-3.5 h-3.5" />
