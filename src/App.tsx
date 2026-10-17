@@ -923,12 +923,12 @@ export default function App() {
           {/* Card 1: Community (Free Forever) */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-emerald-500/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(16,185,129,0.08)]">
             <div>
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-2 min-h-[22px]">
                 <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-emerald-700">
                   Incident Intelligence
                 </span>
                 <span className="text-[10px] font-sans px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
-                  FREE FOREVER
+                  FREE
                 </span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
@@ -1006,19 +1006,16 @@ export default function App() {
           {/* Card 2: Growth / Startup */}
           <div className="bg-[#ffffff] border border-amber-500/30 hover:border-[#d97706] rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.10)]">
             <div>
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-2 min-h-[22px]">
                 <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-amber-700">
-                  Instant Startup Hook
-                </span>
-                <span className="text-[10px] font-sans px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 font-bold border border-amber-200">
-                  FOUNDER CARD SWIPE
+                  Automated Self-Healing
                 </span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Growth
               </h3>
               <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[48px]">
-                The instant card-swipe tier for fast-moving startups that have outgrown the free tier and need automated self-healing.
+                For fast-moving engineering teams that have outgrown the free tier and need automated triage and self-healing.
               </p>
 
               {/* Price Display */}
@@ -1095,7 +1092,7 @@ export default function App() {
             </div>
 
             <div>
-              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
+              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2 min-h-[22px]">
                 <span>Autonomous Fleet</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
@@ -1173,8 +1170,8 @@ export default function App() {
           {/* Card 4: Response */}
           <div className="bg-[#ffffff] border border-stone-200 hover:border-[#d97706]/40 rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative group hover:-translate-y-1.5 shadow-[0_20px_40px_-15px_rgba(217,119,6,0.08)]">
             <div>
-              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-2">
-                Enterprise Incident Escalation
+              <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-2 min-h-[22px] flex items-center">
+                <span>Enterprise Escalation</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                 Response

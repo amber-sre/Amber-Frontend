@@ -298,41 +298,25 @@ export function PlatformCapabilities() {
                   </p>
                 </div>
 
-                {/* 3-Column Breakdown: Problem → Mechanism → Result */}
-                <div className="space-y-5">
-                  
+                {/* 3-Part Breakdown */}
+                <div className="space-y-3.5">
                   {/* Problem */}
                   <div className="p-5 rounded-2xl bg-stone-50 border border-stone-200/80">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800 uppercase tracking-wider">
-                        THE PRODUCTION PROBLEM
-                      </span>
-                    </div>
                     <p className="text-sm font-sans text-stone-700 leading-relaxed">
                       {activeCap.problem}
                     </p>
                   </div>
 
                   {/* Mechanism */}
-                  <div className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200/80">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900 uppercase tracking-wider">
-                        ENGINEERING MECHANISM
-                      </span>
-                    </div>
-                    <p className="text-sm font-sans text-amber-950 leading-relaxed font-normal">
+                  <div className="p-5 rounded-2xl bg-amber-50/40 border border-amber-200/60">
+                    <p className="text-sm font-sans text-amber-950/90 leading-relaxed font-normal">
                       {activeCap.mechanism}
                     </p>
                   </div>
 
                   {/* Result */}
-                  <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200/80">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 uppercase tracking-wider">
-                        OPERATIONAL RESULT
-                      </span>
-                    </div>
-                    <p className="text-sm font-sans text-emerald-950 leading-relaxed font-semibold">
+                  <div className="p-5 rounded-2xl bg-emerald-50/40 border border-emerald-200/60">
+                    <p className="text-sm font-sans text-emerald-950/90 leading-relaxed font-medium">
                       {activeCap.result}
                     </p>
                   </div>
