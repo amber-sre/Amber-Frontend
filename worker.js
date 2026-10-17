@@ -476,6 +476,15 @@ export default {
     headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
     headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 
+    const contentType = headers.get('content-type') || '';
+    if (contentType.includes('text/html') || url.pathname === '/' || url.pathname === '/index.html' || !url.pathname.includes('.')) {
+      headers.set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+      headers.set('Pragma', 'no-cache');
+      headers.set('Expires', '0');
+    } else if (url.pathname.startsWith('/assets/')) {
+      headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+
     return new Response(assetResponse.body, {
       status: assetResponse.status,
       statusText: assetResponse.statusText,

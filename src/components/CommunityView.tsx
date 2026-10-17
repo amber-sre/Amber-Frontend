@@ -303,84 +303,104 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
             <table className="w-full text-left text-xs sm:text-sm font-sans">
               <thead className="bg-stone-50 border-b border-stone-200 font-sans text-xs uppercase tracking-wider text-stone-600 font-bold">
                 <tr>
-                  <th className="py-4 px-6">Capability</th>
-                  <th className="py-4 px-6 text-[#d97706] font-bold">Community (Free Forever)</th>
-                  <th className="py-4 px-6 text-stone-900 font-bold">Autonomous ($2,299/mo)</th>
-                  <th className="py-4 px-6 text-stone-900 font-bold">Response ($4,299/mo)</th>
+                  <th className="py-4 px-5">Capability</th>
+                  <th className="py-4 px-5 text-[#d97706] font-bold">Community (Free)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Growth ($499/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Autonomous ($1,799/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Response ($3,499/mo)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-200">
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Node Limit</td>
-                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 3 nodes</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 100 Nodes</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Custom / Enterprise Scale</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Node Limit</td>
+                  <td className="py-3.5 px-5 text-emerald-700 font-bold">Up to 3 nodes</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 30 nodes</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 100 nodes</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 500+ nodes</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Production Services</td>
-                  <td className="py-3.5 px-6 text-emerald-700 font-bold">Up to 5 services</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Up to 320 services</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Enterprise Fleet</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Production Services</td>
+                  <td className="py-3.5 px-5 text-emerald-700 font-bold">Up to 5 services</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 15 services</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 35 services</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Enterprise Fleet</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Monthly Alerts</td>
-                  <td className="py-3.5 px-6 text-stone-700 font-semibold">1,000 alerts / month</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Unlimited Ingestion</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Unlimited Ingestion</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Monthly Alerts</td>
+                  <td className="py-3.5 px-5 text-stone-700 font-semibold">1,000 alerts / mo</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Unlimited Ingestion</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Unlimited Ingestion</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Unlimited Ingestion</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">AI Compute Model</td>
-                  <td className="py-3.5 px-6 text-stone-600">Local Ollama / BYO Key</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Local Ollama or Cloud AI</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Air-Gapped Local LLM or Cloud</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">AI Compute Model</td>
+                  <td className="py-3.5 px-5 text-stone-600">Local Ollama / BYO Key</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Local Ollama or Cloud AI</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Local Ollama or Cloud AI</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Air-Gapped Local LLM or Cloud</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Sentinel 24/7 Heartbeat</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included (Zero-Webhook)</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Sentinel 24/7 Heartbeat</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included (Zero-Webhook)</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Alert Storm Deduplication (&lt; 80ms)</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Alert Storm Deduplication (&lt; 80ms)</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Deterministic Root-Cause Proof</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Deterministic Root-Cause Proof</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Memory Leak & Deadlock Tracing</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Memory Leak & Deadlock Tracing</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">50+ Pre-Built SRE Runbooks</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">✔ Included + 5 Custom</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">✔ White-Glove Authoring</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Pre-Built SRE Runbooks</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">50+ Pre-Built</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">50+ Pre-Built</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">50+ Pre-Built + 5 Custom</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">✔ White-Glove Authoring</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Automated Remediation & Rollback</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Sovereign Auto-Healing (3 Nodes)</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ 1-Click Governed (100/mo)</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ High-Volume (500/mo)</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Automated Remediation &amp; Rollback</td>
+                  <td className="py-3.5 px-5 text-stone-500 font-medium">Read-Only Triage &amp; Proof</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 50 Auto-Actions / mo</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 100 Auto-Actions / mo</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 500 High-Volume / mo</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Smart Log Pruning (~95% Saved)</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Included (amber log-pruner)</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Enterprise Automated</td>
-                  <td className="py-3.5 px-6 text-emerald-600 font-bold">✔ Multi-VPC Policy Engine</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Executive CTO Audits</td>
+                  <td className="py-3.5 px-5 text-stone-400">—</td>
+                  <td className="py-3.5 px-5 text-stone-400">—</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 5 Monthly Board Audits</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Unlimited Enterprise Audits</td>
                 </tr>
                 <tr>
-                  <td className="py-3.5 px-6 font-medium text-stone-800">Support SLA</td>
-                  <td className="py-3.5 px-6 text-stone-600">GitHub Community</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Private Slack Connect</td>
-                  <td className="py-3.5 px-6 text-stone-900 font-semibold">Priority SRE War Room Bridge</td>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Smart Log Pruning (~95% Saved)</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included (amber log-pruner)</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Enterprise Automated</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Multi-VPC Policy Engine</td>
+                </tr>
+                <tr>
+                  <td className="py-3.5 px-5 font-medium text-stone-800">Support SLA</td>
+                  <td className="py-3.5 px-5 text-stone-600">GitHub Community</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Discord &amp; Email Support</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Private Discord SLA Bridge</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Dedicated Slack Connect &amp; P0 Bridge</td>
                 </tr>
               </tbody>
             </table>
