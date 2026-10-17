@@ -247,9 +247,6 @@ export const HowItWorks: React.FC = () => {
                     </div>
                     <span className="text-zinc-500 ml-2">amber-runtime :: {activeStep.id}.log</span>
                   </div>
-                  <span className="text-[11px] text-[#facc15] bg-[#facc15]/10 px-2 py-0.5 rounded border border-[#facc15]/20 font-sans font-bold">
-                    VERIFIED LOOP
-                  </span>
                 </div>
 
                 <div className="text-xs font-semibold text-zinc-400 mb-3 flex items-center gap-2">

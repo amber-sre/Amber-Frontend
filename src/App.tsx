@@ -682,12 +682,9 @@ export default function App() {
           {/* Card 1: 500+ Throughput */}
           <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
             <div>
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+              <div className="mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-zinc-400 uppercase">
                   Throughput Capacity
-                </span>
-                <span className="flex items-center gap-1.5 text-[10px] font-sans font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> LIVE
                 </span>
               </div>
 
@@ -721,12 +718,9 @@ export default function App() {
           {/* Card 2: <3s Incident Triage */}
           <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
             <div>
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+              <div className="mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-zinc-400 uppercase">
                   Incident Triage
-                </span>
-                <span className="text-[10px] font-sans font-bold text-zinc-200 bg-white/10 border border-white/20 px-2 py-0.5 rounded-md">
-                  LANGGRAPH
                 </span>
               </div>
 
@@ -755,23 +749,22 @@ export default function App() {
           {/* Card 3: 0 Blocked Commands */}
           <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
             <div>
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+              <div className="mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-zinc-400 uppercase">
                   Blocked Commands
                 </span>
-                <span className="flex items-center gap-1 text-[10px] font-sans font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
-                  <ShieldCheck className="w-3 h-3 text-emerald-400" /> STRICT
-                </span>
               </div>
 
-              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-center gap-3 font-sans text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
+              <div className="text-6xl md:text-7xl font-black tracking-tight mb-4 flex items-baseline font-sans text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                 <span>0</span>
-                <span className="text-xs font-sans text-emerald-400 font-bold px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30">
-                  Allowlist Only
-                </span>
               </div>
 
-              <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans mt-7">
+              {/* Minimalist status bar */}
+              <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden flex mb-4">
+                <div className="bg-emerald-400 w-full" />
+              </div>
+
+              <div className="text-sm text-zinc-300 leading-relaxed font-normal font-sans">
                 Zero unvetted terminal or raw database commands. Every remediation tool is strictly allowlisted in static compile-time code.
               </div>
             </div>
@@ -785,12 +778,9 @@ export default function App() {
           {/* Card 4: 8.4s Recovery Time */}
           <SpotlightCard className="bg-[#0b0b0b] border border-white/10 p-8 sm:p-10 flex flex-col justify-between h-[360px] shadow-2xl shadow-black/80">
             <div>
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-xs font-sans font-bold tracking-wider text-white uppercase">
+              <div className="mb-5">
+                <span className="text-xs font-sans font-bold tracking-wider text-zinc-400 uppercase">
                   Recovery Time
-                </span>
-                <span className="text-[10px] font-sans font-bold text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 rounded-md">
-                  AUTO-ROLLBACK
                 </span>
               </div>
 
@@ -926,9 +916,6 @@ export default function App() {
               <div className="flex items-center justify-between mb-2 min-h-[22px]">
                 <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-emerald-700">
                   Incident Intelligence
-                </span>
-                <span className="text-[10px] font-sans px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold border border-emerald-200">
-                  FREE
                 </span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
@@ -1453,10 +1440,10 @@ export default function App() {
               <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
                 From seed-stage startups (4+ nodes) to hyperscale fleets. Model transparent pricing for your exact Kubernetes worker nodes, engineering team scale, and auto-remediation quotas on our dedicated calculator.
               </p>
-              <div className="flex flex-wrap items-center gap-2 pt-1">
-                <span className="text-[11px] font-sans font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero per-seat taxes</span>
-                <span className="text-[11px] font-sans font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">Zero LLM token overages</span>
-                <span className="text-[11px] font-sans font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">100% In-VPC Single-Tenant</span>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1 text-xs text-stone-600 font-sans">
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Zero per-seat taxes</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Zero LLM token overages</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> 100% In-VPC Single-Tenant</span>
               </div>
             </div>
 

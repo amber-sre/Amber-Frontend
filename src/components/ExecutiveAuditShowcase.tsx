@@ -8,7 +8,6 @@ import {
   Download, 
   Send, 
   Bot, 
-  Sparkles, 
   TrendingUp, 
   Terminal, 
   Lock, 
@@ -66,12 +65,6 @@ export function ExecutiveAuditShowcase() {
         {/* Section Editorial Title & Subtitle */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16">
           <div className="lg:col-span-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[#facc15] text-xs font-mono font-medium mb-4 flex-wrap">
-              <Sparkles className="w-3.5 h-3.5 text-[#facc15]" />
-              <span>FROM 2:00 AM WAR ROOM TO MONDAY MORNING BOARDROOM</span>
-              <span className="text-zinc-500 hidden sm:inline">•</span>
-              <span className="text-white font-bold bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 rounded text-[10px]">AUTONOMOUS &amp; ENTERPRISE TIERS</span>
-            </div>
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08]">
               Automated Executive Digests &amp; <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#facc15] via-[#fbbf24] to-[#d97706]">
@@ -375,9 +368,8 @@ export function ExecutiveAuditShowcase() {
                           <AlertTriangle className="w-4 h-4" />
                         </div>
                         <div className="space-y-2">
-                          <div className="text-xs font-mono font-bold text-[#facc15] uppercase tracking-wider flex items-center gap-2">
-                            <span>Proactive Disaster Prevention · "What Could Happen Next" Simulation</span>
-                            <span className="text-[10px] bg-amber-500/20 text-[#facc15] px-2 py-0.5 rounded-full font-sans font-bold">High Catastrophic Risk</span>
+                          <div className="text-xs font-mono font-bold text-[#facc15] uppercase tracking-wider">
+                            Proactive Disaster Prevention · "What Could Happen Next" Simulation
                           </div>
                           <p className="text-xs text-zinc-200 leading-relaxed">
                             <strong className="text-[#facc15]">Catastrophe Risk Forecast:</strong> If PR #482 is not deployed before the upcoming peak traffic window (12x surge), 
