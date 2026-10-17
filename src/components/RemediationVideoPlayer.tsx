@@ -12,7 +12,8 @@ import {
   ChevronRight,
   Database,
   Globe,
-  HardDrive
+  HardDrive,
+  Zap
 } from 'lucide-react';
 
 // Official Brand SVGs
@@ -43,7 +44,8 @@ interface IncidentScenario {
   service: string;
   topology: string;
   rootCause: string;
-  runbook: string;
+  actionTitle: string;
+  actionDetail: string;
   resolutionDetail: string;
   metric1: { label: string; initial: string; resolved: string; note: string };
   metric2: { label: string; initial: string; resolved: string; note: string };
@@ -59,26 +61,28 @@ const SCENARIOS: IncidentScenario[] = [
     title: 'PostgreSQL Connection Pool Saturated (98%)',
     service: 'billing-db',
     topology: 'RDS Postgres 15 (us-east-1)',
-    rootCause: '10 idle-in-transaction connections holding slots on billing-db, blocking inbound queries.',
-    runbook: "drain_idle_connections(service='billing-db', max_idle=300s)",
-    resolutionDetail: '4 idle connections terminated. Pool utilization returned to 14%.',
-    metric1: { label: 'Pool Utilization', initial: '98% Saturation', resolved: '98% → 14%', note: 'Terminated 4 idle connections. Headroom restored.' },
-    metric2: { label: 'P99 Latency', initial: '8,400ms Spike', resolved: '48ms', note: '12 health checks confirmed nominal latency.' },
-    metric3: { label: 'Recovery Time', initial: 'Awaiting Action', resolved: '2.4s MTTR', note: 'Zero dropped transactions. Health confirmed.' }
+    rootCause: '10 idle-in-transaction connections holding client slots on billing-db.',
+    actionTitle: 'Drain & Terminate Idle Connection Handles',
+    actionDetail: 'Safely terminate idle handles with zero impact on active transactions.',
+    resolutionDetail: 'Terminated 4 idle connections. Headroom restored to 86%.',
+    metric1: { label: 'Pool Saturation', initial: '98% (Saturated)', resolved: '98% → 14%', note: 'Terminated 4 idle connections. Headroom restored.' },
+    metric2: { label: 'P99 Latency', initial: '8,400ms Spike', resolved: '48ms', note: '12 automated health probes confirmed recovery.' },
+    metric3: { label: 'Recovery Time', initial: 'Awaiting Action', resolved: '2.4s MTTR', note: 'Zero customer transactions lost or dropped.' }
   },
   {
     id: 'INC-9845',
     name: 'Ingress 504 Timeout Surge',
     category: 'Kubernetes Ingress',
     icon: Globe,
-    title: 'Ingress Gateway HTTP 504 Timeout Spike',
+    title: 'Ingress Gateway HTTP 504 Timeout Surge',
     service: 'checkout-ingress',
     topology: 'EKS Cluster 1.29 (us-east-1)',
-    rootCause: 'Pod replica starvation under sudden surge; worker saturation causing 504 timeouts.',
-    runbook: "scale_deployment_and_drain(deployment='checkout-api', replicas=32)",
-    resolutionDetail: 'Scaled checkout-api to 32 replicas. Ingress 504 rate dropped to 0.00%.',
-    metric1: { label: 'HTTP 504 Error Rate', initial: '14.2% Failures', resolved: '14.2% → 0.00%', note: 'Traffic successfully absorbed across 32 warm pods.' },
-    metric2: { label: 'Pod Replicas', initial: '8 / 8 (Maxed)', resolved: '32 Replicas', note: 'HPA headroom scaled to absorb peak load.' },
+    rootCause: 'Pod replica starvation under sudden traffic surge; gateway queue saturated.',
+    actionTitle: 'Horizontal Pod Burst Scaling (32 Pods)',
+    actionDetail: 'Preemptively scale checkout-api across secondary AZs with zero drop.',
+    resolutionDetail: 'Scaled to 32 warm replicas. Gateway 504 rate dropped to 0.00%.',
+    metric1: { label: 'HTTP 504 Rate', initial: '14.2% Failures', resolved: '14.2% → 0.00%', note: 'Traffic fully absorbed across warm pods.' },
+    metric2: { label: 'Pod Replicas', initial: '8 / 8 (Maxed)', resolved: '32 Replicas', note: 'Autoscaling headroom scaled for peak load.' },
     metric3: { label: 'Recovery Time', initial: 'Awaiting Action', resolved: '3.8s MTTR', note: 'Zero gateway dropped sessions.' }
   },
   {
@@ -89,10 +93,11 @@ const SCENARIOS: IncidentScenario[] = [
     title: 'Redis Cluster Memory Eviction Storm',
     service: 'session-cache-redis',
     topology: 'ElastiCache 7.2 (us-east-1)',
-    rootCause: 'Unbounded session keys without TTL causing maxmemory evictions on active user tokens.',
-    runbook: "flush_expired_session_keys(cluster='redis-cache', prefix='sess:tmp:*')",
-    resolutionDetail: 'Evicted 480k orphaned keys. Memory usage dropped from 96% to 38%.',
-    metric1: { label: 'Memory Allocation', initial: '96% (Near OOM)', resolved: '96% → 38%', note: 'Orphaned temporary session keys pruned.' },
+    rootCause: 'Unbounded session keys without TTL causing evictions on active customer tokens.',
+    actionTitle: 'Prune Orphaned Guest Session Keys',
+    actionDetail: 'Safely flush expired guest tokens without touching active auth sessions.',
+    resolutionDetail: 'Evicted 480k expired keys. Memory usage dropped from 96% to 38%.',
+    metric1: { label: 'Memory Usage', initial: '96% (Near OOM)', resolved: '96% → 38%', note: 'Orphaned guest session keys pruned.' },
     metric2: { label: 'Cache Hit Ratio', initial: '41% (Degraded)', resolved: '99.4%', note: 'Eviction storm halted and cache warmed.' },
     metric3: { label: 'Recovery Time', initial: 'Awaiting Action', resolved: '1.9s MTTR', note: 'Memory pressure safely contained.' }
   }
@@ -118,7 +123,7 @@ export const RemediationVideoPlayer: React.FC = () => {
       setIsRemediating(false);
       setResolvedState(prev => ({ ...prev, [scenario.id]: true }));
       setActiveStepTab(3);
-    }, 700);
+    }, 600);
   };
 
   const handleReplay = () => {
@@ -129,29 +134,29 @@ export const RemediationVideoPlayer: React.FC = () => {
   return (
     <div className="w-full text-left">
       {/* Section Header Row */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-10 border-b border-amber-500/20 pb-8">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-10 border-b border-amber-500/30 pb-8">
         <div>
-          <div className="flex items-center gap-2 text-xs font-sans font-bold tracking-widest text-[#d97706] uppercase mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
+          <div className="flex items-center gap-2 text-xs font-sans font-extrabold tracking-widest text-amber-400 uppercase mb-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-md shadow-amber-400/50" />
             <span>Interactive Incident Response</span>
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white font-sans leading-[1.08]">
             Experience Amber In Action.
           </h2>
-          <p className="text-amber-100/70 text-sm sm:text-base mt-2 max-w-2xl font-sans">
-            See how Amber correlates alert storms, isolates root causes, and requests sovereign human sign-off before executing allowlisted runbooks.
+          <p className="text-amber-100/80 text-sm sm:text-base mt-2 max-w-2xl font-sans">
+            See how Amber correlates alert storms, isolates root causes, and requests single-click human sign-off before executing sovereign runbooks.
           </p>
         </div>
 
         {/* Channel Switcher */}
-        <div className="inline-flex items-center p-1 rounded-xl bg-[#160f08] border border-amber-500/40 shadow-lg">
+        <div className="inline-flex items-center p-1.5 rounded-2xl bg-[#2a1705] border-2 border-amber-500/50 shadow-xl">
           <button
             type="button"
             onClick={() => setActiveTab('all')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-sans tracking-wide transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-xl text-xs font-sans tracking-wide transition-all cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-[#d97706] text-white font-bold shadow-md shadow-amber-500/20'
-                : 'text-amber-200/70 hover:text-white font-medium'
+                ? 'bg-amber-400 text-black font-black shadow-md shadow-amber-400/40'
+                : 'text-amber-200/80 hover:text-white font-semibold'
             }`}
           >
             Overview
@@ -160,10 +165,10 @@ export const RemediationVideoPlayer: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('slack')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-sans tracking-wide transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-2 rounded-xl text-xs font-sans tracking-wide transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'slack'
-                ? 'bg-white text-black font-bold shadow-md'
-                : 'text-amber-200/70 hover:text-white font-medium'
+                ? 'bg-white text-black font-black shadow-md'
+                : 'text-amber-200/80 hover:text-white font-semibold'
             }`}
           >
             <SlackLogo className="w-3.5 h-3.5" />
@@ -173,10 +178,10 @@ export const RemediationVideoPlayer: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('telegram')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-sans tracking-wide transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-2 rounded-xl text-xs font-sans tracking-wide transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'telegram'
-                ? 'bg-white text-black font-bold shadow-md'
-                : 'text-amber-200/70 hover:text-white font-medium'
+                ? 'bg-white text-black font-black shadow-md'
+                : 'text-amber-200/80 hover:text-white font-semibold'
             }`}
           >
             <TelegramLogo className="w-3.5 h-3.5" />
@@ -185,8 +190,8 @@ export const RemediationVideoPlayer: React.FC = () => {
         </div>
       </div>
 
-      {/* ── Interactive Scenario Selector (3 Real-World Incidents) ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+      {/* ── Scenario Selector (3 Solid Rich Amber Cards) ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         {SCENARIOS.map((sc, idx) => {
           const Icon = sc.icon;
           const isSelected = selectedScenarioIndex === idx;
@@ -197,147 +202,155 @@ export const RemediationVideoPlayer: React.FC = () => {
               type="button"
               key={sc.id}
               onClick={() => setSelectedScenarioIndex(idx)}
-              className={`p-4 rounded-2xl text-left border transition-all duration-300 flex items-center justify-between cursor-pointer group ${
+              className={`p-5 rounded-2xl text-left border-2 transition-all duration-300 flex items-center justify-between cursor-pointer group shadow-xl ${
                 isSelected
-                  ? 'bg-[#22160a] border-amber-400 text-white shadow-md shadow-black/40 scale-[1.01] ring-1 ring-amber-400/30'
-                  : 'bg-[#140e07] hover:bg-[#1b1209] border-amber-500/30 text-amber-100/80 hover:border-amber-500/50'
+                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 border-amber-300 text-black shadow-amber-500/30 scale-[1.02] ring-2 ring-amber-300/60'
+                  : 'bg-[#221303] hover:bg-[#2d1805] border-amber-500/40 text-amber-100 hover:border-amber-400'
               }`}
             >
-              <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                  isSelected ? 'bg-amber-400 text-black shadow-md font-bold' : 'bg-[#0d0905] text-amber-300 border border-amber-500/30'
+              <div className="flex items-center gap-3.5">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                  isSelected ? 'bg-black text-amber-400 font-bold shadow-md' : 'bg-[#382006] text-amber-300 border border-amber-500/40'
                 }`}>
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono font-bold text-amber-300 uppercase">
+                    <span className={`text-[11px] font-mono font-black uppercase ${isSelected ? 'text-black/80' : 'text-amber-300'}`}>
                       {sc.id}
                     </span>
-                    <span className={`w-1.5 h-1.5 rounded-full ${isScResolved ? 'bg-emerald-400' : 'bg-rose-400 animate-pulse'}`} />
+                    <span className={`w-2 h-2 rounded-full ${isScResolved ? 'bg-emerald-600' : 'bg-rose-500 animate-pulse'}`} />
                   </div>
-                  <div className="text-xs font-bold text-white tracking-tight">
+                  <div className={`text-sm font-black tracking-tight ${isSelected ? 'text-black' : 'text-white'}`}>
                     {sc.name}
                   </div>
                 </div>
               </div>
-              <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? 'text-amber-400 translate-x-0.5' : 'text-amber-500/40'}`} />
+              <ChevronRight className={`w-5 h-5 transition-transform ${isSelected ? 'text-black translate-x-1 font-bold' : 'text-amber-400/60'}`} />
             </button>
           );
         })}
       </div>
 
-      {/* ── Main Solid Deep Amber Canvas ── */}
+      {/* ── Main Genuinely Amber Showcase Canvas ── */}
       <div className="w-full relative select-none">
-        <div className="w-full bg-[#120d06] border border-amber-500/40 rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.7)] overflow-hidden">
+        {/* Warm Amber Radiant Glow Behind the Card */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-amber-600/30 via-amber-500/20 to-amber-700/30 rounded-[32px] blur-xl opacity-75 pointer-events-none" />
+
+        <div className="relative w-full bg-gradient-to-b from-[#2b1704] via-[#1f1103] to-[#140a02] border-2 border-amber-500/60 rounded-3xl shadow-[0_20px_80px_rgba(245,158,11,0.22)] overflow-hidden">
           
-          {/* Top Metadata Header */}
-          <div className="bg-[#181108] px-6 sm:px-8 py-4 border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-3 text-xs font-sans">
+          {/* Top Amber Status Header */}
+          <div className="bg-[#381e05] px-6 sm:px-8 py-4.5 border-b-2 border-amber-500/40 flex flex-wrap items-center justify-between gap-4 text-xs font-sans">
             <div className="flex items-center gap-3">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${
+              <span className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide shadow-md ${
                 isResolved
-                  ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
-                  : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                  ? 'bg-emerald-500 text-black border border-emerald-400'
+                  : 'bg-rose-500 text-white border border-rose-400 animate-pulse'
               }`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${isResolved ? 'bg-emerald-400' : 'bg-rose-400 animate-pulse'}`} />
+                <span className={`w-2 h-2 rounded-full ${isResolved ? 'bg-black' : 'bg-white'}`} />
                 {isResolved ? 'INCIDENT RESOLVED' : 'ACTIVE INCIDENT'}
               </span>
-              <span className="text-amber-500/50">·</span>
-              <span className="text-white font-bold">{scenario.id}</span>
-              <span className="text-amber-500/50">·</span>
-              <span className="text-amber-200 font-medium">{scenario.topology}</span>
+              <span className="text-amber-400 font-bold">·</span>
+              <span className="text-white font-extrabold text-sm">{scenario.id}</span>
+              <span className="text-amber-400 font-bold">·</span>
+              <span className="text-amber-200 font-semibold">{scenario.topology}</span>
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-amber-200/80">
-              <span className="inline-flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-amber-400" />
+            <div className="flex items-center gap-4 text-xs text-amber-200">
+              <span className="inline-flex items-center gap-1.5 font-bold">
+                <Lock className="w-4 h-4 text-amber-400" />
                 <span>SHA-256 HMAC Bound</span>
               </span>
-              <span className="text-amber-500/50">·</span>
-              <span className="text-emerald-400 font-semibold">0 External Egress</span>
+              <span className="text-amber-500">·</span>
+              <span className="text-emerald-400 font-bold">0 External Egress</span>
             </div>
           </div>
 
           {/* Interactive Split Body */}
           <div className="p-6 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            {/* Left Column: On-Call Incident Notification */}
+            {/* Left Column: On-Call Notification Card (Warm Rich Amber Surface) */}
             <div className={`${activeTab === 'all' ? 'lg:col-span-6' : 'lg:col-span-12'} flex flex-col justify-between`}>
               <div>
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-amber-500/30 text-xs text-amber-200 font-sans">
+                  <div className="flex items-center gap-2 font-bold">
                     {activeTab === 'telegram' ? (
                       <>
-                        <TelegramLogo className="w-3.5 h-3.5" />
-                        <span className="text-white font-bold">@AmberSREBot</span>
-                        <span className="text-amber-500/50">·</span>
-                        <span>Telegram Dispatch</span>
+                        <TelegramLogo className="w-4 h-4" />
+                        <span className="text-white font-black">@AmberSREBot</span>
+                        <span className="text-amber-400">·</span>
+                        <span>Telegram Channel</span>
                       </>
                     ) : (
                       <>
-                        <SlackLogo className="w-3.5 h-3.5" />
-                        <span className="text-white font-bold">#prod-oncall</span>
-                        <span className="text-amber-500/50">·</span>
-                        <span>Slack Incident Channel</span>
+                        <SlackLogo className="w-4 h-4" />
+                        <span className="text-white font-black">#prod-oncall</span>
+                        <span className="text-amber-400">·</span>
+                        <span>Slack Alerts</span>
                       </>
                     )}
                   </div>
-                  <span className="text-[11px] text-amber-300 font-mono">03:43 AM UTC</span>
+                  <span className="text-xs text-amber-300 font-mono font-bold">03:43 AM UTC</span>
                 </div>
 
-                {/* Solid Espresso Amber Incident Card */}
-                <div className="bg-[#1a1209] border border-amber-500/40 rounded-2xl p-6 space-y-4 shadow-lg">
+                {/* Solid Rich Amber Alert Card */}
+                <div className="bg-[#241303] border-2 border-amber-500/50 rounded-2xl p-6 sm:p-7 space-y-5 shadow-2xl">
                   <div>
-                    <div className="text-xs font-semibold text-rose-400 flex items-center gap-1.5 mb-1.5">
-                      <span className="w-2 h-2 rounded-full bg-rose-500" />
-                      <span>Severity P1</span>
-                      <span className="text-amber-500/40">·</span>
-                      <span className="text-amber-200/80">Automated Triage</span>
+                    <div className="text-xs font-black text-rose-400 flex items-center gap-2 mb-2 uppercase tracking-wider">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-sm" />
+                      <span>Severity P1 Outage</span>
+                      <span className="text-amber-500">·</span>
+                      <span className="text-amber-200">Automated Triage</span>
                     </div>
-                    <h4 className="text-white font-black text-xl tracking-tight leading-snug">
+                    <h4 className="text-white font-black text-2xl tracking-tight leading-snug">
                       {scenario.title}
                     </h4>
                   </div>
 
-                  {/* Metadata Specs Grid */}
-                  <div className="grid grid-cols-3 gap-2 bg-[#0d0905] p-3.5 rounded-xl border border-amber-500/30 text-xs font-sans">
+                  {/* Clean Metadata Overview Grid */}
+                  <div className="grid grid-cols-3 gap-3 bg-[#180d02] p-4 rounded-xl border border-amber-500/40 text-xs font-sans">
                     <div>
-                      <div className="text-amber-300/80 text-[10px] uppercase font-bold">Service</div>
-                      <div className="text-white font-bold mt-0.5">{scenario.service}</div>
+                      <div className="text-amber-400 text-[10px] uppercase font-black">Target Service</div>
+                      <div className="text-white font-extrabold text-sm mt-0.5">{scenario.service}</div>
                     </div>
                     <div>
-                      <div className="text-amber-300/80 text-[10px] uppercase font-bold">Status</div>
-                      <div className={isResolved ? "text-emerald-400 font-bold mt-0.5" : "text-amber-300 font-bold mt-0.5"}>
-                        {isResolved ? "Normal" : "Saturated"}
+                      <div className="text-amber-400 text-[10px] uppercase font-black">Current Status</div>
+                      <div className={isResolved ? "text-emerald-400 font-extrabold text-sm mt-0.5" : "text-amber-300 font-extrabold text-sm mt-0.5"}>
+                        {isResolved ? "Normal (14%)" : "Saturated (98%)"}
                       </div>
                     </div>
                     <div>
-                      <div className="text-amber-300/80 text-[10px] uppercase font-bold">Cluster</div>
-                      <div className="text-amber-100 mt-0.5 font-medium truncate">{scenario.topology}</div>
+                      <div className="text-amber-400 text-[10px] uppercase font-black">Infrastructure</div>
+                      <div className="text-amber-100 mt-0.5 font-bold truncate">{scenario.topology}</div>
                     </div>
                   </div>
 
-                  {/* Diagnosed Root Cause */}
-                  <div className="bg-[#22160b] border border-amber-500/35 p-4 rounded-xl text-xs text-amber-100 space-y-1">
-                    <div className="font-bold text-amber-300 flex items-center gap-1.5">
-                      <span>Diagnosed Root Cause:</span>
+                  {/* Diagnosed Root Cause (Clean Card, Zero AI Slop) */}
+                  <div className="bg-[#382006] border border-amber-400/50 p-4 rounded-xl text-xs space-y-1.5 shadow-md">
+                    <div className="font-black text-amber-300 flex items-center gap-2 text-xs uppercase tracking-wider">
+                      <Zap className="w-4 h-4 text-amber-400" />
+                      <span>Diagnosed Root Cause</span>
                     </div>
-                    <p className="text-amber-100/90 leading-relaxed font-sans">
+                    <p className="text-amber-50 leading-relaxed font-sans font-medium text-sm">
                       {scenario.rootCause}
                     </p>
                   </div>
 
-                  {/* Proposed Remediation Runbook */}
-                  <div className="space-y-1.5 text-xs">
-                    <div className="text-amber-200/80 font-semibold">
-                      Allowlisted Remediation Runbook:
+                  {/* Proposed Sovereign Remediation Action (Clean Action Card, NO Terminal CLI) */}
+                  <div className="bg-[#1a0e03] border border-amber-500/40 p-4 rounded-xl space-y-1.5">
+                    <div className="text-amber-400 text-[11px] font-black uppercase tracking-wider flex items-center justify-between">
+                      <span>Allowlisted Sovereign Runbook</span>
+                      <span className="text-emerald-400 font-mono font-bold text-[10px]">Guardrail Approved</span>
                     </div>
-                    <div className="bg-[#0a0703] px-3.5 py-2.5 rounded-xl border border-amber-500/35 font-mono text-amber-300 text-xs overflow-x-auto">
-                      {scenario.runbook}
+                    <div className="text-white font-bold text-sm">
+                      {scenario.actionTitle}
                     </div>
+                    <p className="text-xs text-amber-200/80 font-sans">
+                      {scenario.actionDetail}
+                    </p>
                   </div>
 
-                  {/* Interactive Button Group */}
+                  {/* Interactive Approval / Replay Button Group */}
                   <div className="pt-2">
                     <AnimatePresence mode="wait">
                       {!isResolved ? (
@@ -346,23 +359,23 @@ export const RemediationVideoPlayer: React.FC = () => {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="flex flex-col sm:flex-row items-center gap-2.5"
+                          className="flex flex-col sm:flex-row items-center gap-3"
                         >
                           <button
                             type="button"
                             onClick={handleApprove}
                             disabled={isRemediating}
-                            className="w-full sm:flex-1 py-3 px-5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-emerald-600/30 active:scale-[0.99]"
+                            className="w-full sm:flex-1 py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-black font-sans font-black text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-xl shadow-emerald-500/30 active:scale-[0.99]"
                           >
                             {isRemediating ? (
                               <>
-                                <Activity className="w-3.5 h-3.5 animate-spin" />
-                                <span>Applying Runbook...</span>
+                                <Activity className="w-4 h-4 animate-spin text-black" />
+                                <span>Applying Sovereign Runbook...</span>
                               </>
                             ) : (
                               <>
-                                <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-                                <span>Approve Remediation</span>
+                                <CheckCircle2 className="w-4 h-4 text-black font-bold" />
+                                <span>Approve Remediation (1-Click)</span>
                               </>
                             )}
                           </button>
@@ -370,7 +383,7 @@ export const RemediationVideoPlayer: React.FC = () => {
                           <button
                             type="button"
                             onClick={handleReplay}
-                            className="w-full sm:w-auto px-4 py-3 rounded-xl bg-[#160f08] hover:bg-[#20150b] text-amber-200/80 hover:text-white font-sans text-xs border border-amber-500/30 cursor-pointer transition-colors"
+                            className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-[#2e1905] hover:bg-[#3d2107] text-amber-200 hover:text-white font-sans text-xs font-bold border border-amber-500/40 cursor-pointer transition-colors"
                           >
                             Dismiss
                           </button>
@@ -381,17 +394,17 @@ export const RemediationVideoPlayer: React.FC = () => {
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0 }}
-                          className="p-4 rounded-xl bg-[#0e1811] border border-emerald-500/50 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md"
+                          className="p-4 rounded-xl bg-[#122e1b] border-2 border-emerald-400/80 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0">
-                              <Check className="w-4 h-4 font-bold" />
+                            <div className="w-9 h-9 rounded-xl bg-emerald-500 text-black flex items-center justify-center font-black shrink-0 shadow-md">
+                              <Check className="w-5 h-5 stroke-[3]" />
                             </div>
                             <div>
-                              <div className="text-xs font-bold text-emerald-400">
-                                Remediation Applied in {scenario.metric3.resolved}
+                              <div className="text-xs font-black text-emerald-300 uppercase tracking-wide">
+                                Remediation Verified in {scenario.metric3.resolved}
                               </div>
-                              <div className="text-xs text-zinc-300 mt-0.5">
+                              <div className="text-xs text-zinc-200 mt-0.5 font-medium">
                                 {scenario.resolutionDetail}
                               </div>
                             </div>
@@ -400,9 +413,9 @@ export const RemediationVideoPlayer: React.FC = () => {
                           <button
                             type="button"
                             onClick={handleReplay}
-                            className="self-end sm:self-auto px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-zinc-200 text-xs font-sans font-bold flex items-center gap-1.5 transition-colors cursor-pointer border border-white/15"
+                            className="self-end sm:self-auto px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-sans font-black flex items-center gap-1.5 transition-colors cursor-pointer border border-white/20 shadow-sm"
                           >
-                            <RotateCcw className="w-3 h-3" />
+                            <RotateCcw className="w-3.5 h-3.5" />
                             <span>Replay Incident</span>
                           </button>
                         </motion.div>
@@ -413,54 +426,54 @@ export const RemediationVideoPlayer: React.FC = () => {
               </div>
 
               {/* Status Note */}
-              <div className="pt-4 flex items-center justify-between text-xs text-amber-200/60">
-                <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Payload authorization TTL: 10m</span>
+              <div className="pt-4 flex items-center justify-between text-xs text-amber-200 font-semibold">
+                <span className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <span>HMAC Authorization Signature: Active (TTL 10m)</span>
                 </span>
-                <span>Audit Ref: #{scenario.id.toLowerCase()}</span>
+                <span>Ref: #{scenario.id.toLowerCase()}</span>
               </div>
             </div>
 
-            {/* Right Column: Interactive Lifecycle Stepper */}
+            {/* Right Column: Execution Lifecycle Timeline (Clean Visual Progress, NOT a Terminal) */}
             <div className={`${activeTab === 'all' ? 'lg:col-span-6' : 'lg:col-span-12'} flex flex-col justify-between`}>
               <div>
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
+                <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-amber-500/30 text-xs text-amber-200 font-sans">
                   <div className="flex items-center gap-2">
-                    <Layers className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="text-white font-bold">Execution Lifecycle</span>
+                    <Layers className="w-4 h-4 text-amber-400" />
+                    <span className="text-white font-black text-sm">Automated Recovery Pipeline</span>
                   </div>
-                  <span className="text-xs text-amber-300 font-mono">In-VPC Autonomous Kernel</span>
+                  <span className="text-xs text-amber-300 font-bold uppercase tracking-wider">In-VPC Autonomous Kernel</span>
                 </div>
 
-                {/* 4 Clickable Step Cards */}
-                <div className="space-y-3">
+                {/* 4 Clean Visual Stage Cards */}
+                <div className="space-y-3.5">
                   {[
                     {
                       step: 1,
-                      title: 'Alert Deduplication',
-                      time: '03:43:01.042',
-                      desc: 'Correlated 482 Prometheus & Datadog signals into 1 unified incident context.'
+                      stage: 'Signal Ingestion & Deduplication',
+                      badge: 'Automated · 42ms',
+                      desc: 'Correlated 482 Prometheus & Datadog telemetry alerts into 1 unified incident context.'
                     },
                     {
                       step: 2,
-                      title: 'Read-Only Cluster Diagnosis',
-                      time: '03:43:01.198',
-                      desc: `Read-only telemetry probe isolated root cause: ${scenario.rootCause}`
+                      stage: 'Deterministic Root Cause Isolation',
+                      badge: 'Read-Only Probe',
+                      desc: `Non-invasive cluster inspection isolated exact fault: ${scenario.rootCause}`
                     },
                     {
                       step: 3,
-                      title: 'Cryptographic Authorization',
-                      time: '03:43:01.482',
-                      desc: `Generated SHA-256 HMAC payload binding for ${scenario.runbook} (TTL: 10m).`
+                      stage: 'Cryptographic Authorization Gate',
+                      badge: 'SHA-256 HMAC Bound',
+                      desc: `Prepared sovereign allowlisted runbook with single-click sign-off in Slack or Telegram.`
                     },
                     {
                       step: 4,
-                      title: isResolved ? 'Executed & Verified' : 'Awaiting Human Authorization',
-                      time: isResolved ? '03:43:02.412' : 'Pending Gate',
+                      stage: isResolved ? 'Executed & Health Verified' : 'Awaiting Sovereign Sign-Off',
+                      badge: isResolved ? 'Verified in 2.4s' : 'Human Gate',
                       desc: isResolved 
-                        ? `Runbook completed successfully. 12 health verification probes confirmed metrics converged.`
-                        : 'Action paused awaiting single-click human sign-off in Slack or Telegram.'
+                        ? 'Runbook executed inside VPC perimeter. 12 automated health checks verified nominal latency.'
+                        : 'Action safely paused. Single-click human approval required before applying changes.'
                     }
                   ].map((s, idx) => {
                     const isStepActive = activeStepTab === idx;
@@ -470,30 +483,30 @@ export const RemediationVideoPlayer: React.FC = () => {
                       <div
                         key={idx}
                         onClick={() => setActiveStepTab(idx)}
-                        className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer ${
+                        className={`p-4.5 rounded-2xl border-2 transition-all duration-200 cursor-pointer shadow-lg ${
                           isStepActive
-                            ? 'bg-[#22160a] border-amber-400 text-white shadow-md ring-1 ring-amber-400/30'
-                            : 'bg-[#160f08] hover:bg-[#1c130a] border-amber-500/25 hover:border-amber-500/40'
+                            ? 'bg-[#3d2207] border-amber-400 text-white ring-2 ring-amber-400/30 scale-[1.01]'
+                            : 'bg-[#1e1003] hover:bg-[#291605] border-amber-500/35 hover:border-amber-400'
                         }`}
                       >
-                        <div className="flex items-start gap-3">
-                          <div className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${
+                        <div className="flex items-start gap-3.5">
+                          <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black shrink-0 mt-0.5 shadow-md ${
                             isStepFinished
-                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                              : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+                              ? 'bg-emerald-500 text-black'
+                              : 'bg-amber-400 text-black'
                           }`}>
                             {isStepFinished ? '✓' : s.step}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between text-xs mb-1">
-                              <span className={`font-bold ${isStepActive ? 'text-amber-200' : 'text-white'}`}>
-                                {s.title}
+                            <div className="flex items-center justify-between text-xs mb-1.5">
+                              <span className={`font-black text-sm ${isStepActive ? 'text-amber-300' : 'text-white'}`}>
+                                {s.stage}
                               </span>
-                              <span className="font-mono text-[10px] text-amber-300/70">
-                                {s.time}
+                              <span className="font-mono text-[11px] font-extrabold px-2 py-0.5 rounded bg-black/40 text-amber-300 border border-amber-500/30">
+                                {s.badge}
                               </span>
                             </div>
-                            <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
+                            <p className="text-xs text-amber-100/90 leading-relaxed font-sans font-medium">
                               {s.desc}
                             </p>
                           </div>
@@ -505,53 +518,53 @@ export const RemediationVideoPlayer: React.FC = () => {
               </div>
 
               {/* Status Note */}
-              <div className="pt-4 flex items-center justify-between text-xs text-amber-200/60">
-                <span className="flex items-center gap-1.5">
-                  <Server className="w-3.5 h-3.5 text-amber-400" />
-                  <span>In-VPC Single Tenant</span>
+              <div className="pt-4 flex items-center justify-between text-xs text-amber-200 font-semibold">
+                <span className="flex items-center gap-2">
+                  <Server className="w-4 h-4 text-amber-400" />
+                  <span>Single-Tenant In-VPC Deployment</span>
                 </span>
-                <span>Zero telemetry leaves perimeter</span>
+                <span>Zero telemetry leaves customer network</span>
               </div>
             </div>
 
           </div>
 
-          {/* Bottom Telemetry Verification Row (Solid Espresso Amber Matte) */}
-          <div className="bg-[#150f08] border-t border-amber-500/30 px-6 sm:px-8 py-6">
+          {/* Bottom Telemetry Verification Row (Solid Warm Amber Cards) */}
+          <div className="bg-[#341d06] border-t-2 border-amber-500/50 px-6 sm:px-8 py-7">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               
-              <div className="p-5 rounded-2xl bg-[#1c140a] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#22160c] transition-all shadow-md">
-                <div className="text-xs font-sans text-amber-300 uppercase tracking-wider mb-1 font-bold">
+              <div className="p-5.5 rounded-2xl bg-[#221203] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2b1704] transition-all shadow-xl">
+                <div className="text-xs font-sans text-amber-400 uppercase tracking-wider mb-1.5 font-black">
                   {scenario.metric1.label}
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-white font-sans tracking-tight">
+                <div className="text-3xl sm:text-4xl font-black text-white font-sans tracking-tight">
                   {isResolved ? scenario.metric1.resolved : scenario.metric1.initial}
                 </div>
-                <p className="text-xs text-amber-100/70 mt-1">
+                <p className="text-xs text-amber-200/80 mt-1.5 font-medium leading-relaxed">
                   {scenario.metric1.note}
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-[#1c140a] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#22160c] transition-all shadow-md">
-                <div className="text-xs font-sans text-amber-300 uppercase tracking-wider mb-1 font-bold">
+              <div className="p-5.5 rounded-2xl bg-[#221203] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2b1704] transition-all shadow-xl">
+                <div className="text-xs font-sans text-amber-400 uppercase tracking-wider mb-1.5 font-black">
                   {scenario.metric2.label}
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-white font-sans tracking-tight">
+                <div className="text-3xl sm:text-4xl font-black text-white font-sans tracking-tight">
                   {isResolved ? scenario.metric2.resolved : scenario.metric2.initial}
                 </div>
-                <p className="text-xs text-amber-100/70 mt-1">
+                <p className="text-xs text-amber-200/80 mt-1.5 font-medium leading-relaxed">
                   {scenario.metric2.note}
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-[#1c140a] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#22160c] transition-all shadow-md">
-                <div className="text-xs font-sans text-amber-300 uppercase tracking-wider mb-1 font-bold">
+              <div className="p-5.5 rounded-2xl bg-[#221203] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2b1704] transition-all shadow-xl">
+                <div className="text-xs font-sans text-amber-400 uppercase tracking-wider mb-1.5 font-black">
                   {scenario.metric3.label}
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-sans tracking-tight">
+                <div className="text-3xl sm:text-4xl font-black text-emerald-400 font-sans tracking-tight">
                   {isResolved ? scenario.metric3.resolved : scenario.metric3.initial}
                 </div>
-                <p className="text-xs text-amber-100/70 mt-1">
+                <p className="text-xs text-amber-200/80 mt-1.5 font-medium leading-relaxed">
                   {scenario.metric3.note}
                 </p>
               </div>

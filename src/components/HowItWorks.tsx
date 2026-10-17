@@ -233,46 +233,46 @@ export const HowItWorks: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Clean Telemetry & Action Inspector (Solid Espresso Amber Matte) */}
-            <div className="lg:col-span-6 bg-[#140e07] text-white rounded-3xl p-7 sm:p-9 border border-amber-500/40 flex flex-col justify-between shadow-2xl shadow-black/60 relative overflow-hidden font-sans">
+            {/* Right Column: Clean Telemetry & Action Inspector (True Rich Amber) */}
+            <div className="lg:col-span-6 bg-gradient-to-b from-[#2b1704] via-[#1f1103] to-[#140a02] text-white rounded-3xl p-7 sm:p-9 border-2 border-amber-500/50 flex flex-col justify-between shadow-2xl shadow-amber-950/40 relative overflow-hidden font-sans">
               <div>
                 {/* Header Bar */}
-                <div className="flex items-center justify-between pb-4 mb-5 border-b border-amber-500/30 text-xs">
+                <div className="flex items-center justify-between pb-4 mb-5 border-b-2 border-amber-500/40 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-                    <span className="text-amber-200/80 font-bold uppercase tracking-wider text-[11px]">
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-md shadow-amber-400/50" />
+                    <span className="text-amber-300 font-extrabold uppercase tracking-wider text-[11px]">
                       Lifecycle Telemetry Inspector
                     </span>
                   </div>
-                  <span className="text-amber-300 font-mono text-[11px]">
+                  <span className="text-amber-300 font-mono font-bold text-xs">
                     Step {activeStepIndex + 1} of {STEPS.length}
                   </span>
                 </div>
 
-                <div className="text-base font-bold text-white mb-4">
+                <div className="text-lg font-black text-white mb-4">
                   {activeStep.snippet.title}
                 </div>
 
-                {/* Structured Event Rows (Solid Espresso Amber Matte Cards) */}
-                <div className="space-y-2.5 py-1">
+                {/* Structured Event Rows (Solid Rich Amber Cards) */}
+                <div className="space-y-3 py-1">
                   {activeStep.snippet.lines.map((line, lIdx) => (
                     <div 
                       key={lIdx}
-                      className={`p-3.5 rounded-xl border text-xs leading-relaxed transition-all duration-200 hover:scale-[1.01] ${
+                      className={`p-4 rounded-xl border text-xs leading-relaxed transition-all duration-200 hover:scale-[1.01] shadow-md ${
                         line.success 
-                          ? 'bg-[#0f1d13] border-emerald-500/45 text-emerald-300 font-medium' :
+                          ? 'bg-[#122e1b] border-2 border-emerald-400/80 text-emerald-300 font-bold' :
                         line.error 
-                          ? 'bg-[#220f12] border-rose-500/45 text-rose-300 font-medium' :
+                          ? 'bg-[#351014] border-2 border-rose-400/80 text-rose-300 font-bold' :
                         line.highlight 
-                          ? 'bg-[#24170c] border-amber-400/50 text-amber-200 font-medium' :
-                          'bg-[#1a1209] border-amber-500/30 text-amber-100/90 hover:border-amber-400/50 hover:bg-[#20150b]'
+                          ? 'bg-[#3d2207] border-2 border-amber-400 text-white font-bold ring-1 ring-amber-400/30' :
+                          'bg-[#241303] border border-amber-500/40 text-amber-100 hover:border-amber-400 hover:bg-[#2d1805]'
                       }`}
                     >
-                      <div className="flex items-start gap-2.5">
-                        <span className="font-mono text-amber-400/70 text-[10px] shrink-0 mt-0.5 select-none font-bold">
+                      <div className="flex items-start gap-3">
+                        <span className="font-mono text-amber-400 text-xs shrink-0 mt-0.5 select-none font-black">
                           {String(lIdx + 1).padStart(2, '0')}
                         </span>
-                        <span className="font-mono text-[11px] sm:text-xs break-all">
+                        <span className="font-sans text-xs sm:text-sm font-semibold break-all">
                           {line.text}
                         </span>
                       </div>

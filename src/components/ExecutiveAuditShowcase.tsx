@@ -138,83 +138,83 @@ export function ExecutiveAuditShowcase() {
           </div>
         </div>
 
-        {/* 4 Value Pillars (Solid Espresso Amber Matte Cards) */}
+        {/* 4 Value Pillars (True Rich Amber Cards) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           
-          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#24170c] border border-amber-500/40 flex items-center justify-center text-amber-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#3a2007] border border-amber-400/50 flex items-center justify-center text-amber-400 mb-4 shadow-md">
                 <Calendar className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Weekly &amp; Monthly Cadence</h4>
-              <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
+              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
                 Automated digests dispatched every Monday at 9:00 AM local time, plus an end-of-month executive stability review.
               </p>
             </div>
-            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
+            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
               <span>Cadence</span>
-              <span className="text-amber-200 font-medium">Scheduled</span>
+              <span className="text-amber-300 font-extrabold">Scheduled</span>
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#0e1d14] border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#0e2417] border border-emerald-400/50 flex items-center justify-center text-emerald-400 mb-4 shadow-md">
                 <Globe className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Host Timezone Detection</h4>
-              <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
+              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
                 Detects host timezone directly. Reports arrive right at the start of your engineering team&apos;s working week without manual cron setup.
               </p>
             </div>
-            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
+            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
               <span>Timing</span>
-              <span className="text-emerald-400 font-medium">Auto-Synced</span>
+              <span className="text-emerald-400 font-extrabold">Auto-Synced</span>
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#0f1929] border border-blue-500/40 flex items-center justify-center text-blue-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#102035] border border-blue-400/50 flex items-center justify-center text-blue-400 mb-4 shadow-md">
                 <GitPullRequest className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Permanent Code Fixes</h4>
-              <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
+              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
                 Correlates recurring telemetry hotspots and drafts actionable GitHub pull requests to eliminate architectural debt at the root.
               </p>
             </div>
-            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
+            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
               <span>Outcome</span>
-              <span className="text-blue-400 font-medium">Automated PRs</span>
+              <span className="text-blue-400 font-extrabold">Automated PRs</span>
             </div>
           </SpotlightCard>
 
-          <SpotlightCard className="bg-[#160f08] border border-amber-500/35 hover:border-amber-400/70 hover:bg-[#1c130a] p-6 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#1e1329] border border-purple-500/40 flex items-center justify-center text-purple-400 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#281538] border border-purple-400/50 flex items-center justify-center text-purple-400 mb-4 shadow-md">
                 <Send className="w-5 h-5" />
               </div>
               <h4 className="text-base font-bold text-white mb-1.5">Direct Channel Delivery</h4>
-              <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
+              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
                 Delivered straight to Slack, Telegram, or email with cryptographically verified PDF attachments ready for compliance reviews.
               </p>
             </div>
-            <div className="text-xs text-amber-200/60 pt-3 mt-4 border-t border-amber-500/25 flex items-center justify-between">
+            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
               <span>Format</span>
-              <span className="text-purple-400 font-medium">Slack · Telegram · PDF</span>
+              <span className="text-purple-400 font-extrabold">Slack · Telegram · PDF</span>
             </div>
           </SpotlightCard>
 
         </div>
 
-        {/* ── Interactive Report Showcase (Solid Espresso Amber Matte) ── */}
-        <div className="bg-[#120d06] border border-amber-500/40 rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.7)] overflow-hidden">
+        {/* ── Interactive Report Showcase (True Warm Amber Canvas) ── */}
+        <div className="bg-gradient-to-b from-[#2b1704] via-[#1f1103] to-[#140a02] border-2 border-amber-500/60 rounded-3xl shadow-[0_20px_80px_rgba(245,158,11,0.22)] overflow-hidden">
           
           {/* Top Bar with Tabs and Meta Controls */}
-          <div className="bg-[#181108] border-b border-amber-500/30 px-6 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-[#381e05] border-b-2 border-amber-500/40 px-6 sm:px-8 py-4.5 flex flex-wrap items-center justify-between gap-4">
             
             {/* View Selector Tabs */}
-            <div className="flex items-center gap-1.5 bg-[#0e0a05] p-1 rounded-xl border border-amber-500/35">
+            <div className="flex items-center gap-1.5 bg-[#180d02] p-1.5 rounded-xl border border-amber-500/40">
               <button
                 type="button"
                 onClick={() => setActiveTab('weekly')}
