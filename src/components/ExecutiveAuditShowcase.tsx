@@ -1,607 +1,402 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Calendar, 
-  Clock, 
   CheckCircle2, 
   Download, 
   Send, 
-  Bot, 
   Globe, 
-  RefreshCw, 
-  Layers,
+  FileText,
   ShieldCheck,
-  GitPullRequest
+  GitPullRequest,
+  Check,
+  Clock
 } from 'lucide-react';
-import { SpotlightCard } from './SpotlightCard';
-
-interface AuditIncident {
-  id: string;
-  title: string;
-  service: string;
-  trigger: string;
-  mttr: string;
-  immediateAction: string;
-  immediatePoints: string[];
-  prTitle: string;
-  prDetail: string;
-  recommendation: string;
-}
-
-const AUDIT_INCIDENTS: AuditIncident[] = [
-  {
-    id: 'INC-5021',
-    title: 'PostgreSQL Connection Pool Contention',
-    service: 'checkout-api (18 Pods)',
-    trigger: 'Connection pool saturation (98%)',
-    mttr: '8.4s',
-    immediateAction: 'Terminated 10 idle transaction handles on primary database cluster via allowlisted runbook.',
-    immediatePoints: [
-      'Pool active slots restored from 99% to 22%',
-      'HTTP 504 gateway timeouts dropped to 0.00%'
-    ],
-    prTitle: 'PR #482 (checkout-service)',
-    prDetail: 'Added explicit defer db.Release() in transaction pipeline and tuned pg_bouncer limits.',
-    recommendation: 'Merge PR #482 before the upcoming marketing traffic window. The fix permanently closes orphaned connection handles.'
-  },
-  {
-    id: 'INC-5018',
-    title: 'Ingress API Gateway 504 Spikes',
-    service: 'checkout-ingress (32 Pods)',
-    trigger: 'Sudden inbound traffic surge',
-    mttr: '6.2s',
-    immediateAction: 'Triggered preemptive horizontal pod scaling to 32 replicas across secondary availability zones.',
-    immediatePoints: [
-      'Scaled ingress worker capacity from 8 to 32 pods',
-      'P99 request latency normalized to 52ms'
-    ],
-    prTitle: 'PR #485 (infra-terraform)',
-    prDetail: 'Adjusted HorizontalPodAutoscaler CPU target from 85% to 65% for burst tolerance.',
-    recommendation: 'Apply Terraform changes to staging cluster to validate new autoscaling step-down window.'
-  },
-  {
-    id: 'INC-5009',
-    title: 'Redis Session Cache Memory Pressure',
-    service: 'session-cache (Cluster 7.2)',
-    trigger: 'Memory utilization exceeded 95%',
-    mttr: '4.1s',
-    immediateAction: 'Flushed expired session key namespace with zero eviction impact on active customer tokens.',
-    immediatePoints: [
-      'Pruned 480k expired token keys safely',
-      'Memory utilization reduced from 96% to 38%'
-    ],
-    prTitle: 'PR #479 (auth-service)',
-    prDetail: 'Added strict TTL enforcement on temporary guest cart session tokens.',
-    recommendation: 'PR #479 is merged and verified on staging. Scheduled for production release in the next deployment cycle.'
-  }
-];
 
 export function ExecutiveAuditShowcase() {
-  const [activeTab, setActiveTab] = useState<'weekly' | 'monthly' | 'delivery'>('weekly');
-  const [selectedIncidentIndex, setSelectedIncidentIndex] = useState<number>(0);
-  const [copiedNotification, setCopiedNotification] = useState<string | null>(null);
+  const [copiedLink, setCopiedLink] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
-
-  const selectedIncident = AUDIT_INCIDENTS[selectedIncidentIndex];
 
   const handleDownload = () => {
     setIsDownloading(true);
     setTimeout(() => {
+      // Create and trigger an authentic downloadable executive report
+      const reportContent = `%PDF-1.4
+%
+1 0 obj
+<< /Title (Amber Executive Reliability Audit - Week 41)
+   /Author (Amber SRE Autonomous Engine)
+   /Creator (Amber In-VPC Reporting Kernel)
+   /Producer (Amber Sovereign Kernel)
+   /CreationDate (D:20261017090000Z) >>
+endobj
+2 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+3 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792]
+   /Contents 5 0 R
+   /Resources << /Font << /F1 6 0 R /F2 7 0 R >> >> >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 750 >>
+stream
+BT
+/F1 20 Tf
+50 720 Td
+(AMBER EXECUTIVE RELIABILITY DIGEST - WEEK 41) Tj
+/F2 10 Tf
+0 -20 Td
+(Generated: Monday 09:00 AM Local | Host: prod-aws-us-east-1 | Scope: 48 Services) Tj
+0 -30 Td
+/F1 12 Tf
+(EXECUTIVE SUMMARY & SLO ATTAINMENT) Tj
+/F2 10 Tf
+0 -18 Td
+(- Fleet SLO Attainment: 99.994% | Zero Uncontained Customer Outages) Tj
+0 -14 Td
+(- Median Automated MTTR: 8.4 Seconds across 14 Correlated Incidents) Tj
+0 -14 Td
+(- Autonomously Resolved: 14 / 14 Incidents (0 Manual Emergency Escalations)) Tj
+0 -14 Td
+(- Permanent Code Pull Requests: 28 Bug Fixes & Schema Optimizations Drafted) Tj
+0 -30 Td
+/F1 12 Tf
+(RESOLVED INCIDENT BREAKDOWN) Tj
+/F2 10 Tf
+0 -18 Td
+(1. INC-5021 [P1] PostgreSQL Pool Saturated -> Terminated 4 idle handles in 8.4s -> PR #482 Drafted) Tj
+0 -14 Td
+(2. INC-5018 [P1] Ingress 504 Timeout Surge -> Scaled HPA to 32 warm pods in 6.2s -> PR #485 Tuned) Tj
+0 -14 Td
+(3. INC-5009 [P2] Redis Session Cache Memory Eviction -> Pruned 480k guest keys in 4.1s -> PR #479 Merged) Tj
+0 -30 Td
+/F1 11 Tf
+(COMPLIANCE & INTEGRITY) Tj
+/F2 9 Tf
+0 -16 Td
+(Cryptographically signed with Ed25519 & SHA-256 HMAC payload binding.) Tj
+0 -12 Td
+(Zero telemetry egress. Verified SOC-2 Type II audit-ready artifact.) Tj
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000212 00000 n 
+0000000262 00000 n 
+0000000325 00000 n 
+0000000620 00000 n 
+0000000472 00000 n 
+0000000546 00000 n 
+trailer
+<< /Size 8 /Root 2 0 R /Info 1 0 R >>
+startxref
+1420
+%%EOF`;
+
+      const blob = new Blob([reportContent], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Amber_Executive_Reliability_Audit_W41.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
       setIsDownloading(false);
       setDownloadSuccess(true);
       setTimeout(() => setDownloadSuccess(false), 3000);
-    }, 700);
+    }, 600);
   };
 
-  const handleCopy = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedNotification(label);
-    setTimeout(() => setCopiedNotification(null), 2500);
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText('https://ambersre.xyz/audits/weekly-sample.pdf');
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2500);
   };
 
   return (
-    <section id="executive-audits" className="px-8 md:px-16 py-32 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden scroll-mt-20">
-      {/* Background Subtle Gradient */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-500/10 blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto relative z-10">
+    <section 
+      id="executive-audits" 
+      className="px-8 md:px-16 py-32 bg-[#ffffff] text-[#0a0a0a] border-b border-black/10 relative scroll-mt-20 font-sans"
+    >
+      <div className="max-w-7xl mx-auto">
         
-        {/* Section Header */}
-        <div className="flex justify-between items-center text-xs font-sans font-medium tracking-wider text-amber-200/70 uppercase border-b border-amber-500/20 pb-5 mb-16">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400" />
-            <span className="text-white font-semibold">Automated Engineering Reports</span>
+        {/* Section Eyebrow Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-16 border-b border-black/10 gap-4">
+          <div className="flex items-center gap-2 text-xs font-sans font-bold tracking-widest text-[#d97706] uppercase">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#d97706] animate-pulse" />
+            <span>Automated Engineering Audits &amp; Executive Reporting</span>
           </div>
-          <div className="hidden sm:block text-amber-200/60 text-xs">
-            Host Timezone Auto-Detected · Zero Telemetry Egress
-          </div>
-          <div className="text-amber-300 font-medium">
-            Weekly &amp; Monthly Deliveries
+          <div className="text-xs text-black/60 font-medium">
+            Host Timezone Auto-Detected · Zero Telemetry Egress · SOC-2 Ready
           </div>
         </div>
 
-        {/* Section Title */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16">
+        {/* Section Headline */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-20">
           <div className="lg:col-span-8">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08]">
-              Automated Reliability Audits &amp; <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#facc15] via-[#fbbf24] to-[#d97706]">
-                Executive Digests.
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-[-0.03em] text-[#0a0a0a] leading-[1.04]">
+              Reliability Audits &amp; <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d97706] via-[#b45309] to-[#92400e]">
+                Executive PDF Digests.
               </span>
             </h2>
           </div>
           <div className="lg:col-span-4">
-            <p className="text-amber-100/70 text-sm sm:text-base leading-relaxed font-sans">
-              Translate incident telemetry into clear engineering ROI. Track system SLOs, automated remediations, and permanent code fixes without spending hours drafting manual post-mortems.
+            <p className="text-black/70 text-base sm:text-lg font-normal leading-relaxed">
+              Translate machine alerts into boardroom clarity. Amber automatically compiles incident timelines, autonomous remediations, and permanent pull requests into tamper-proof PDF digests delivered every Monday morning.
             </p>
           </div>
         </div>
 
-        {/* 4 Value Pillars (True Rich Amber Cards) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* 4 Clean Editorial Feature Cards (White Background) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           
-          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+          <div className="p-7 rounded-2xl bg-[#fafafa] border border-black/10 hover:border-[#d97706]/50 transition-all duration-200 flex flex-col justify-between shadow-sm">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#3a2007] border border-amber-400/50 flex items-center justify-center text-amber-400 mb-4 shadow-md">
-                <Calendar className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[#d97706] flex items-center justify-center mb-5">
+                <Calendar className="w-6 h-6" />
               </div>
-              <h4 className="text-base font-bold text-white mb-1.5">Weekly &amp; Monthly Cadence</h4>
-              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
+              <h3 className="text-lg font-black text-[#0a0a0a] mb-2">Weekly &amp; Monthly Cadence</h3>
+              <p className="text-sm text-black/65 leading-relaxed">
                 Automated digests dispatched every Monday at 9:00 AM local time, plus an end-of-month executive stability review.
               </p>
             </div>
-            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
+            <div className="pt-4 mt-6 border-t border-black/10 flex items-center justify-between text-xs text-black/50">
               <span>Cadence</span>
-              <span className="text-amber-300 font-extrabold">Scheduled</span>
+              <span className="font-bold text-[#b45309]">Scheduled On Autopilot</span>
             </div>
-          </SpotlightCard>
+          </div>
 
-          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+          <div className="p-7 rounded-2xl bg-[#fafafa] border border-black/10 hover:border-emerald-500/50 transition-all duration-200 flex flex-col justify-between shadow-sm">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#0e2417] border border-emerald-400/50 flex items-center justify-center text-emerald-400 mb-4 shadow-md">
-                <Globe className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 flex items-center justify-center mb-5">
+                <Globe className="w-6 h-6" />
               </div>
-              <h4 className="text-base font-bold text-white mb-1.5">Host Timezone Detection</h4>
-              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
-                Detects host timezone directly. Reports arrive right at the start of your engineering team&apos;s working week without manual cron setup.
+              <h3 className="text-lg font-black text-[#0a0a0a] mb-2">Host Timezone Detection</h3>
+              <p className="text-sm text-black/65 leading-relaxed">
+                Directly reads host timezone from your cluster. Reports arrive right at the start of your engineering week without manual cron setup.
               </p>
             </div>
-            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
+            <div className="pt-4 mt-6 border-t border-black/10 flex items-center justify-between text-xs text-black/50">
               <span>Timing</span>
-              <span className="text-emerald-400 font-extrabold">Auto-Synced</span>
+              <span className="font-bold text-emerald-700">Auto-Detected</span>
             </div>
-          </SpotlightCard>
+          </div>
 
-          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+          <div className="p-7 rounded-2xl bg-[#fafafa] border border-black/10 hover:border-blue-500/50 transition-all duration-200 flex flex-col justify-between shadow-sm">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#102035] border border-blue-400/50 flex items-center justify-center text-blue-400 mb-4 shadow-md">
-                <GitPullRequest className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 flex items-center justify-center mb-5">
+                <GitPullRequest className="w-6 h-6" />
               </div>
-              <h4 className="text-base font-bold text-white mb-1.5">Permanent Code Fixes</h4>
-              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
-                Correlates recurring telemetry hotspots and drafts actionable GitHub pull requests to eliminate architectural debt at the root.
+              <h3 className="text-lg font-black text-[#0a0a0a] mb-2">Permanent Code Fixes</h3>
+              <p className="text-sm text-black/65 leading-relaxed">
+                Correlates recurring alert hotspots and drafts production-ready GitHub pull requests to eliminate architectural debt permanently.
               </p>
             </div>
-            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
+            <div className="pt-4 mt-6 border-t border-black/10 flex items-center justify-between text-xs text-black/50">
               <span>Outcome</span>
-              <span className="text-blue-400 font-extrabold">Automated PRs</span>
+              <span className="font-bold text-blue-700">Automated PRs</span>
             </div>
-          </SpotlightCard>
+          </div>
 
-          <SpotlightCard className="bg-[#241404] border-2 border-amber-500/40 hover:border-amber-300 hover:bg-[#2e1905] p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+          <div className="p-7 rounded-2xl bg-[#fafafa] border border-black/10 hover:border-purple-500/50 transition-all duration-200 flex flex-col justify-between shadow-sm">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#281538] border border-purple-400/50 flex items-center justify-center text-purple-400 mb-4 shadow-md">
-                <Send className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-600 flex items-center justify-center mb-5">
+                <Send className="w-6 h-6" />
               </div>
-              <h4 className="text-base font-bold text-white mb-1.5">Direct Channel Delivery</h4>
-              <p className="text-xs text-amber-100/80 leading-relaxed font-sans">
+              <h3 className="text-lg font-black text-[#0a0a0a] mb-2">Multi-Channel Delivery</h3>
+              <p className="text-sm text-black/65 leading-relaxed">
                 Delivered straight to Slack, Telegram, or email with cryptographically verified PDF attachments ready for compliance reviews.
               </p>
             </div>
-            <div className="text-xs text-amber-200/70 pt-3 mt-4 border-t border-amber-500/30 flex items-center justify-between font-bold">
+            <div className="pt-4 mt-6 border-t border-black/10 flex items-center justify-between text-xs text-black/50">
               <span>Format</span>
-              <span className="text-purple-400 font-extrabold">Slack · Telegram · PDF</span>
+              <span className="font-bold text-purple-700">Slack · Telegram · PDF</span>
             </div>
-          </SpotlightCard>
+          </div>
 
         </div>
 
-        {/* ── Interactive Report Showcase (True Warm Amber Canvas) ── */}
-        <div className="bg-gradient-to-b from-[#2b1704] via-[#1f1103] to-[#140a02] border-2 border-amber-500/60 rounded-3xl shadow-[0_20px_80px_rgba(245,158,11,0.22)] overflow-hidden">
-          
-          {/* Top Bar with Tabs and Meta Controls */}
-          <div className="bg-[#381e05] border-b-2 border-amber-500/40 px-6 sm:px-8 py-4.5 flex flex-wrap items-center justify-between gap-4">
+        {/* ── Highlighted PDF Feature Showcase (Clean Two-Column White Box) ── */}
+        <div className="bg-[#fafafa] border border-black/10 rounded-3xl p-8 sm:p-12 lg:p-16 shadow-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* View Selector Tabs */}
-            <div className="flex items-center gap-1.5 bg-[#180d02] p-1.5 rounded-xl border border-amber-500/40">
-              <button
-                type="button"
-                onClick={() => setActiveTab('weekly')}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-sans font-semibold transition-all cursor-pointer ${
-                  activeTab === 'weekly'
-                    ? 'bg-[#d97706] text-white shadow-md font-bold'
-                    : 'text-amber-200/70 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Weekly Digest</span>
-                <span className="text-[10px] text-amber-200/60 font-mono hidden sm:inline">Mon 09:00</span>
-              </button>
+            {/* Left: The PDF Feature Explanation */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[#b45309] text-xs font-bold uppercase tracking-wider">
+                <FileText className="w-3.5 h-3.5" />
+                <span>The PDF Audit Feature</span>
+              </div>
 
-              <button
-                type="button"
-                onClick={() => setActiveTab('monthly')}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-sans font-semibold transition-all cursor-pointer ${
-                  activeTab === 'monthly'
-                    ? 'bg-[#d97706] text-white shadow-md font-bold'
-                    : 'text-amber-200/70 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Monthly Review</span>
-                <span className="text-[10px] text-amber-200/60 font-mono hidden sm:inline">1st / Mo</span>
-              </button>
+              <h3 className="text-3xl sm:text-4xl font-black text-[#0a0a0a] tracking-tight leading-tight">
+                Audit-Grade Reliability Reports Delivered On Autopilot.
+              </h3>
 
-              <button
-                type="button"
-                onClick={() => setActiveTab('delivery')}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-sans font-semibold transition-all cursor-pointer ${
-                  activeTab === 'delivery'
-                    ? 'bg-[#d97706] text-white shadow-md font-bold'
-                    : 'text-amber-200/70 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Send className="w-3.5 h-3.5" />
-                <span>Channel Previews</span>
-              </button>
-            </div>
+              <p className="text-black/75 text-base leading-relaxed">
+                On-call engineers waste 20+ hours every month manually assembling post-mortem decks and compliance reports. Amber automatically summarizes all cluster incidents, mean time to recovery (MTTR), and preventions into an immutable, executive PDF.
+              </p>
 
-            {/* Quick Actions */}
-            <div className="flex items-center gap-3">
-              <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-amber-200/70">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>In-VPC Single Tenant</span>
-              </span>
-
-              <button
-                type="button"
-                onClick={handleDownload}
-                disabled={isDownloading}
-                className="flex items-center gap-2 bg-[#22160b] hover:bg-[#2b1c0e] text-white border border-amber-500/40 px-3.5 py-1.5 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer shadow-sm"
-              >
-                {isDownloading ? (
-                  <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-amber-400" />
-                    <span>Generating PDF...</span>
-                  </>
-                ) : downloadSuccess ? (
-                  <>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Report Exported</span>
-                  </>
-                ) : (
-                  <>
-                    <Download className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Export Audit PDF</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-          </div>
-
-          {/* Interactive Report Content Canvas */}
-          <div className="p-6 sm:p-8 lg:p-10">
-            <AnimatePresence mode="wait">
-              
-              {/* TAB 1: Weekly SRE Digest */}
-              {activeTab === 'weekly' && (
-                <motion.div
-                  key="weekly"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-6"
-                >
-                  {/* Overview Card (Solid Espresso Amber Surface) */}
-                  <div className="p-6 rounded-2xl bg-[#1a1209] border border-amber-500/40 flex flex-wrap items-center justify-between gap-4 shadow-lg">
-                    <div>
-                      <div className="flex items-center gap-2 text-xs font-sans text-amber-400 uppercase tracking-wider mb-1 font-bold">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span>Weekly Reliability Digest · Week 41</span>
-                        <span className="text-amber-500/40">|</span>
-                        <span className="text-amber-200/80 font-normal">Monday 09:00 AM Local</span>
-                      </div>
-                      <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                        Production Fleet Reliability Summary
-                      </h3>
-                      <p className="text-xs text-amber-100/70 mt-1">
-                        Fleet: <span className="text-amber-200 font-semibold">prod-aws-us-east-1 (48 nodes)</span> · 
-                        Coverage: <span className="text-amber-200 font-semibold">Oct 10 – Oct 17</span>
-                      </p>
+              <div className="space-y-3.5 pt-2">
+                {[
+                  'Second-by-second incident chronology from alert ingestion to verified recovery',
+                  'Proof of SLO attainment (99.994%) and prevented downtime for executive review',
+                  'Direct links to permanent developer pull requests pay down tech debt',
+                  'Cryptographically signed with Ed25519 & SHA-256 HMAC (SOC-2 Type II compatible)'
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3 text-sm text-black/80 font-medium">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
-
-                    <div className="flex items-center gap-4">
-                      <div className="text-right">
-                        <div className="text-xs text-amber-300 uppercase font-bold">Median MTTR</div>
-                        <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-sans">8.4s</div>
-                      </div>
-                      <div className="w-px h-8 bg-amber-500/30" />
-                      <div className="text-right">
-                        <div className="text-xs text-amber-300 uppercase font-bold">Resolved Autonomously</div>
-                        <div className="text-2xl sm:text-3xl font-black text-white font-sans">14 / 14</div>
-                      </div>
-                    </div>
+                    <span>{item}</span>
                   </div>
+                ))}
+              </div>
 
-                  {/* ── Interactive Incident Selector (Click to Inspect) ── */}
+              {/* Action Buttons */}
+              <div className="pt-6 flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  disabled={isDownloading}
+                  className="px-6 py-3.5 rounded-full bg-[#d97706] hover:bg-black text-white font-sans text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all duration-200 cursor-pointer shadow-md shadow-[#d97706]/20 hover:shadow-lg active:scale-98"
+                >
+                  {isDownloading ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Generating Report...</span>
+                    </>
+                  ) : downloadSuccess ? (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-white" />
+                      <span>Downloaded Audit PDF</span>
+                    </>
+                  ) : (
+                    <>
+                      <Download className="w-4 h-4" />
+                      <span>Download Sample Audit PDF</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  className="px-5 py-3.5 rounded-full bg-white hover:bg-black/5 text-black/80 font-sans text-xs font-bold border border-black/15 transition-colors cursor-pointer flex items-center gap-2"
+                >
+                  <span>{copiedLink ? '✓ Link Copied to Clipboard' : 'Copy Sample Link'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right: Crisp Printed Document Preview Mockup */}
+            <div className="lg:col-span-6">
+              <div className="bg-white border border-stone-200 shadow-xl rounded-2xl p-6 sm:p-8 space-y-6 relative overflow-hidden">
+                
+                {/* Document Top Bar */}
+                <div className="flex items-center justify-between pb-4 border-b border-stone-200 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="font-black text-[#d97706] tracking-wider text-sm">AMBER</span>
+                    <span className="text-stone-300">|</span>
+                    <span className="text-stone-500 font-bold uppercase tracking-wider text-[11px]">Reliability Digest</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-stone-500 font-mono text-[11px]">
+                    <Clock className="w-3.5 h-3.5 text-stone-400" />
+                    <span>Week 41 · Mon 09:00 AM</span>
+                  </div>
+                </div>
+
+                {/* Report Document Title */}
+                <div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-1">
+                    Executive Infrastructure Digest
+                  </div>
+                  <h4 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight">
+                    Production Fleet Reliability Summary
+                  </h4>
+                  <p className="text-xs text-stone-500 mt-1">
+                    Fleet: <strong className="text-stone-800">prod-aws-us-east-1 (48 Nodes)</strong> · Scope: <strong className="text-stone-800">Oct 10 – Oct 17</strong>
+                  </p>
+                </div>
+
+                {/* 4 Stat Highlights Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-stone-50 p-4 rounded-xl border border-stone-200 text-center">
                   <div>
-                    <div className="text-xs font-sans font-bold uppercase tracking-wider text-amber-300/80 mb-3 px-1">
-                      Select Incident to Inspect Resolution &amp; PR:
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      {AUDIT_INCIDENTS.map((inc, iIdx) => {
-                        const isIncSelected = selectedIncidentIndex === iIdx;
+                    <div className="text-[10px] uppercase font-bold text-stone-400">SLO Attainment</div>
+                    <div className="text-xl font-black text-emerald-600 mt-0.5">99.994%</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-stone-400">Median MTTR</div>
+                    <div className="text-xl font-black text-stone-900 mt-0.5">8.4s</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-stone-400">Resolved</div>
+                    <div className="text-xl font-black text-stone-900 mt-0.5">14 / 14</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-stone-400">Code PRs</div>
+                    <div className="text-xl font-black text-blue-600 mt-0.5">28 PRs</div>
+                  </div>
+                </div>
 
-                        return (
-                          <button
-                            type="button"
-                            key={inc.id}
-                            onClick={() => setSelectedIncidentIndex(iIdx)}
-                            className={`p-3.5 rounded-xl text-left border transition-all duration-200 cursor-pointer ${
-                              isIncSelected
-                                ? 'bg-[#24170c] border-amber-400 text-white shadow-md scale-[1.01] ring-1 ring-amber-400/30'
-                                : 'bg-[#150f08] hover:bg-[#1c140a] border-amber-500/30 text-amber-200/80 hover:border-amber-500/50'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between text-xs mb-1">
-                              <span className="font-mono font-bold text-amber-300">{inc.id}</span>
-                              <span className="text-[10px] text-emerald-400 font-semibold">{inc.mttr}</span>
-                            </div>
-                            <div className="text-xs font-bold text-white tracking-tight truncate">
-                              {inc.title}
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
+                {/* Incident Rows Breakdown */}
+                <div className="space-y-2.5">
+                  <div className="text-xs font-bold text-stone-400 uppercase tracking-wider">
+                    Resolved Outages &amp; Permanent Fixes:
                   </div>
 
-                  {/* Incident Resolution Breakdown Detail Card */}
-                  <div className="border border-amber-500/40 rounded-2xl bg-[#181108] overflow-hidden shadow-lg">
-                    <div className="p-5 bg-[#1f150b] border-b border-amber-500/30 flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <div className="text-sm font-bold text-white flex items-center gap-2">
-                          <span className="text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono">P1</span>
-                          <span>{selectedIncident.title} ({selectedIncident.id})</span>
-                        </div>
-                        <div className="text-xs text-amber-200/80 mt-1">
-                          Service: <span className="text-white font-medium">{selectedIncident.service}</span> · Trigger: {selectedIncident.trigger}
-                        </div>
-                      </div>
-
-                      <span className="text-xs text-emerald-300 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/40 font-bold flex items-center gap-1.5 shadow-sm">
-                        <CheckCircle2 className="w-3.5 h-3.5" /> Resolved in {selectedIncident.mttr}
-                      </span>
-                    </div>
-
-                    {/* Dual Action Resolution */}
-                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                      
-                      {/* Left: Immediate Action */}
-                      <div className="p-4 rounded-xl bg-[#0e0a05] border border-amber-500/30 space-y-2">
-                        <div className="text-xs font-bold text-amber-300 uppercase tracking-wider">
-                          1. Immediate Automated Self-Healing
-                        </div>
-                        <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
-                          {selectedIncident.immediateAction}
-                        </p>
-                        <div className="text-xs text-amber-200/80 space-y-1 pt-1 font-mono">
-                          {selectedIncident.immediatePoints.map((pt, pIdx) => (
-                            <div key={pIdx} className="text-emerald-400">✓ {pt}</div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Right: Permanent PR */}
-                      <div className="p-4 rounded-xl bg-[#0e0a05] border border-amber-500/30 space-y-2">
-                        <div className="text-xs font-bold text-blue-300 uppercase tracking-wider">
-                          2. Permanent Root Cause Fix
-                        </div>
-                        <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
-                          {selectedIncident.prDetail}
-                        </p>
-                        <div className="text-xs text-blue-300 space-y-1 pt-1 font-mono">
-                          <div>✦ {selectedIncident.prTitle}</div>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    {/* Preventative Recommendation */}
-                    <div className="m-6 mt-0 p-4 rounded-xl bg-[#22160b] border border-amber-500/40 space-y-1.5">
-                      <div className="text-xs font-bold text-amber-300 uppercase tracking-wider">
-                        Preventative Architecture Recommendation
-                      </div>
-                      <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
-                        {selectedIncident.recommendation}
-                      </p>
-                    </div>
-
-                  </div>
-                </motion.div>
-              )}
-
-              {/* TAB 2: Monthly Review */}
-              {activeTab === 'monthly' && (
-                <motion.div
-                  key="monthly"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-6"
-                >
-                  <div className="p-6 rounded-2xl bg-[#1a1209] border border-amber-500/40 flex flex-wrap items-center justify-between gap-4 shadow-lg">
+                  <div className="p-3 rounded-lg bg-stone-50 border border-stone-200 flex items-center justify-between text-xs">
                     <div>
-                      <div className="text-xs font-sans text-amber-400 uppercase tracking-wider mb-1 font-bold">
-                        Monthly Infrastructure Review
-                      </div>
-                      <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                        30-Day Fleet Stability &amp; Reliability Attainment
-                      </h3>
-                      <p className="text-xs text-amber-100/70 mt-1">
-                        Scope: 42 Microservices · Compliance Standard: SOC-2 Type II Compatible Format
-                      </p>
+                      <div className="font-bold text-stone-900">INC-5021: PostgreSQL Pool Contention</div>
+                      <div className="text-stone-500 text-[11px] mt-0.5">4 idle connections drained · Permanent PR #482 drafted</div>
                     </div>
-
-                    <div className="text-right">
-                      <div className="text-xs text-amber-300 uppercase font-bold">SLO Attainment</div>
-                      <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-sans">99.994%</div>
-                    </div>
+                    <span className="font-mono text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-1 rounded">8.4s MTTR</span>
                   </div>
 
-                  {/* 3 Metrics Cards (Solid Espresso Amber Matte) */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div className="p-5 rounded-2xl bg-[#181108] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#1f150b] transition-all shadow-md">
-                      <div className="text-xs text-amber-300 uppercase mb-1 font-bold">Downtime Prevented</div>
-                      <div className="text-3xl font-black text-emerald-400 mb-1 font-sans">11.4 Hours</div>
-                      <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
-                        Automated rollbacks and connection drains resolved issues before cascading service failures occurred.
-                      </p>
+                  <div className="p-3 rounded-lg bg-stone-50 border border-stone-200 flex items-center justify-between text-xs">
+                    <div>
+                      <div className="font-bold text-stone-900">INC-5018: Ingress API Gateway 504 Timeout Surge</div>
+                      <div className="text-stone-500 text-[11px] mt-0.5">Preemptive scaling to 32 pods · PR #485 HPA tuned</div>
                     </div>
-
-                    <div className="p-5 rounded-2xl bg-[#181108] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#1f150b] transition-all shadow-md">
-                      <div className="text-xs text-amber-300 uppercase mb-1 font-bold">Hotspots Resolved</div>
-                      <div className="text-3xl font-black text-amber-300 mb-1 font-sans">28 PRs</div>
-                      <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
-                        28 memory leaks and unindexed queries permanently resolved via developer pull requests.
-                      </p>
-                    </div>
-
-                    <div className="p-5 rounded-2xl bg-[#181108] border border-amber-500/30 hover:border-amber-400/60 hover:bg-[#1f150b] transition-all shadow-md">
-                      <div className="text-xs text-amber-300 uppercase mb-1 font-bold">Post-Mortem Overhead</div>
-                      <div className="text-3xl font-black text-blue-400 mb-1 font-sans">0 Hours</div>
-                      <p className="text-xs text-amber-100/70 leading-relaxed font-sans">
-                        Reports exported directly with cryptographically verified SHA-256 approval chains and immutable logs.
-                      </p>
-                    </div>
+                    <span className="font-mono text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-1 rounded">6.2s MTTR</span>
                   </div>
 
-                  {/* Executive Narrative */}
-                  <div className="p-6 rounded-2xl bg-[#181108] border border-amber-500/35 space-y-2">
-                    <div className="text-xs font-bold text-white uppercase tracking-wider">
-                      Fleet Executive Summary
+                  <div className="p-3 rounded-lg bg-stone-50 border border-stone-200 flex items-center justify-between text-xs">
+                    <div>
+                      <div className="font-bold text-stone-900">INC-5009: Redis Session Cache Memory Pressure</div>
+                      <div className="text-stone-500 text-[11px] mt-0.5">Flushed 480k expired guest keys · PR #479 merged</div>
                     </div>
-                    <p className="text-xs text-amber-100/90 leading-relaxed font-sans">
-                      Over the past 30 days, 4,812 alerts across Kubernetes and database layers were correlated into 23 distinct incidents. 19 were resolved autonomously within static guardrails, and 4 with single-click on-call Slack approval. Zero manual emergency escalations were required.
-                    </p>
+                    <span className="font-mono text-emerald-600 font-bold text-xs bg-emerald-50 px-2 py-1 rounded">4.1s MTTR</span>
                   </div>
-                </motion.div>
-              )}
+                </div>
 
-              {/* TAB 3: Channel Delivery */}
-              {activeTab === 'delivery' && (
-                <motion.div
-                  key="delivery"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start"
-                >
-                  {/* Slack Preview */}
-                  <div className="p-6 rounded-2xl bg-[#181108] border border-amber-500/35 space-y-4 shadow-lg">
-                    <div className="flex items-center justify-between pb-3 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-white">#prod-reliability</span>
-                        <span className="text-amber-500/40">·</span>
-                        <span>Slack Channel</span>
-                      </div>
-                      <span className="text-emerald-400 text-[11px] font-bold">Delivered 09:00 AM</span>
-                    </div>
+                {/* Cryptographic Signature Footer */}
+                <div className="pt-3 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-400 font-mono">
+                  <span className="flex items-center gap-1.5 text-stone-600 font-sans font-medium">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Ed25519 Signed · In-VPC Single Tenant</span>
+                  </span>
+                  <span>SOC-2 Type II Compatible</span>
+                </div>
 
-                    <div className="p-5 rounded-xl bg-[#0e0a05] border-l-4 border-l-amber-400 border border-amber-500/30 space-y-2 text-xs">
-                      <div className="font-bold text-white">
-                        Weekly Reliability Digest (Week 41)
-                      </div>
-                      <p className="text-amber-100/90 text-xs leading-relaxed font-sans">
-                        Weekly summary for <strong>prod-aws-us-east-1</strong>: 0 uncontained outages. 3 incidents mitigated with average MTTR of 8.4 seconds.
-                      </p>
-                      <div className="pt-2">
-                        <button
-                          type="button"
-                          onClick={handleDownload}
-                          className="px-4 py-2 rounded-xl bg-[#d97706] hover:bg-[#b45309] text-white font-sans text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-md shadow-amber-500/20"
-                        >
-                          <Download className="w-3.5 h-3.5" /> Download Audit PDF (4.2 MB)
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Telegram Preview */}
-                  <div className="p-6 rounded-2xl bg-[#181108] border border-amber-500/35 space-y-4 shadow-lg">
-                    <div className="flex items-center justify-between pb-3 border-b border-amber-500/25 text-xs text-amber-200/70 font-sans">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-white">@AmberSREBot</span>
-                        <span className="text-amber-500/40">·</span>
-                        <span>Telegram Dispatch</span>
-                      </div>
-                      <span className="text-blue-400 text-[11px] font-bold">Delivered 09:00 AM</span>
-                    </div>
-
-                    <div className="p-5 rounded-xl bg-[#0e0a05] border border-amber-500/30 space-y-3 text-xs">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-white flex items-center gap-1.5">
-                          <Bot className="w-4 h-4 text-blue-400" />
-                          <span>Amber Executive Digest</span>
-                        </span>
-                        <span className="text-amber-300 font-mono text-[11px]">9:00 AM</span>
-                      </div>
-                      <div className="text-amber-100/90 text-xs space-y-1 font-sans">
-                        <div><strong>Cluster:</strong> prod-aws-us-east-1</div>
-                        <div><strong>SLA Attainment:</strong> 99.994%</div>
-                        <div><strong>Action:</strong> PR #482 ready for review before peak window.</div>
-                      </div>
-                      <div className="pt-1">
-                        <button
-                          type="button"
-                          onClick={() => handleCopy('https://ambersre.xyz/audits/W41.pdf', 'Link Copied')}
-                          className="w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-sans text-xs font-bold text-center border border-white/15 transition-colors cursor-pointer"
-                        >
-                          Copy Audit PDF Link
-                        </button>
-                        {copiedNotification && (
-                          <div className="text-xs text-emerald-400 text-center mt-2 font-bold">
-                            {copiedNotification}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                </motion.div>
-              )}
-
-            </AnimatePresence>
-          </div>
-
-          {/* Footer Bar */}
-          <div className="bg-[#181108] border-t border-amber-500/30 px-6 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4 text-xs text-amber-200/70">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Cryptographically signed with Ed25519 · Zero telemetry leaves customer VPC</span>
+              </div>
             </div>
-            <div className="flex items-center gap-4 text-amber-200/70">
-              <span>Slack Webhook + Telegram Bot API</span>
-              <span className="text-amber-500/40">|</span>
-              <span className="text-white font-semibold">BSL 1.1 Source-Available</span>
-            </div>
-          </div>
 
+          </div>
         </div>
 
       </div>

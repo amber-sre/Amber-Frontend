@@ -233,46 +233,46 @@ export const HowItWorks: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Clean Telemetry & Action Inspector (True Rich Amber) */}
-            <div className="lg:col-span-6 bg-gradient-to-b from-[#2b1704] via-[#1f1103] to-[#140a02] text-white rounded-3xl p-7 sm:p-9 border-2 border-amber-500/50 flex flex-col justify-between shadow-2xl shadow-amber-950/40 relative overflow-hidden font-sans">
+            {/* Right Column: Clean Telemetry & Action Inspector (Editorial Light Canvas) */}
+            <div className="lg:col-span-6 bg-[#fafafa] text-[#0a0a0a] rounded-3xl p-8 sm:p-10 border border-black/10 flex flex-col justify-between shadow-sm relative overflow-hidden font-sans">
               <div>
                 {/* Header Bar */}
-                <div className="flex items-center justify-between pb-4 mb-5 border-b-2 border-amber-500/40 text-xs">
+                <div className="flex items-center justify-between pb-4 mb-5 border-b border-black/10 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shadow-md shadow-amber-400/50" />
-                    <span className="text-amber-300 font-extrabold uppercase tracking-wider text-[11px]">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#d97706] animate-pulse" />
+                    <span className="text-[#b45309] font-bold uppercase tracking-wider text-[11px]">
                       Lifecycle Telemetry Inspector
                     </span>
                   </div>
-                  <span className="text-amber-300 font-mono font-bold text-xs">
+                  <span className="text-black/50 font-mono font-bold text-xs">
                     Step {activeStepIndex + 1} of {STEPS.length}
                   </span>
                 </div>
 
-                <div className="text-lg font-black text-white mb-4">
+                <div className="text-xl font-black text-[#0a0a0a] mb-5 tracking-tight">
                   {activeStep.snippet.title}
                 </div>
 
-                {/* Structured Event Rows (Solid Rich Amber Cards) */}
+                {/* Structured Event Rows (Clean Light Cards) */}
                 <div className="space-y-3 py-1">
                   {activeStep.snippet.lines.map((line, lIdx) => (
                     <div 
                       key={lIdx}
-                      className={`p-4 rounded-xl border text-xs leading-relaxed transition-all duration-200 hover:scale-[1.01] shadow-md ${
+                      className={`p-4 rounded-xl border text-xs leading-relaxed transition-all duration-200 hover:scale-[1.01] shadow-sm ${
                         line.success 
-                          ? 'bg-[#122e1b] border-2 border-emerald-400/80 text-emerald-300 font-bold' :
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-950 font-medium' :
                         line.error 
-                          ? 'bg-[#351014] border-2 border-rose-400/80 text-rose-300 font-bold' :
+                          ? 'bg-rose-50 border-rose-200 text-rose-950 font-medium' :
                         line.highlight 
-                          ? 'bg-[#3d2207] border-2 border-amber-400 text-white font-bold ring-1 ring-amber-400/30' :
-                          'bg-[#241303] border border-amber-500/40 text-amber-100 hover:border-amber-400 hover:bg-[#2d1805]'
+                          ? 'bg-amber-50 border-amber-300 text-amber-950 font-medium' :
+                          'bg-white border-black/10 text-black/80 hover:border-black/20'
                       }`}
                     >
                       <div className="flex items-start gap-3">
-                        <span className="font-mono text-amber-400 text-xs shrink-0 mt-0.5 select-none font-black">
+                        <span className="font-mono text-[#d97706] text-xs shrink-0 mt-0.5 select-none font-bold">
                           {String(lIdx + 1).padStart(2, '0')}
                         </span>
-                        <span className="font-sans text-xs sm:text-sm font-semibold break-all">
+                        <span className="font-sans text-xs sm:text-sm font-medium break-all">
                           {line.text}
                         </span>
                       </div>
@@ -282,12 +282,12 @@ export const HowItWorks: React.FC = () => {
               </div>
 
               {/* Bottom Navigation */}
-              <div className="pt-6 mt-6 border-t border-amber-500/30 flex items-center justify-between text-xs text-amber-200/60">
+              <div className="pt-6 mt-6 border-t border-black/10 flex items-center justify-between text-xs text-black/60 font-sans">
                 <span>In-VPC Deterministic Pipeline</span>
                 <button
                   type="button"
                   onClick={() => setActiveStepIndex((activeStepIndex + 1) % STEPS.length)}
-                  className="text-white hover:text-amber-400 transition-colors flex items-center gap-1 font-bold cursor-pointer hover:translate-x-0.5"
+                  className="text-black hover:text-[#d97706] transition-colors flex items-center gap-1.5 font-bold cursor-pointer hover:translate-x-0.5"
                 >
                   <span>Next Step</span>
                   <ArrowRight className="w-3.5 h-3.5" />

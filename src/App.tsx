@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import { SpotlightCard } from './components/SpotlightCard';
 import { AnimatedCounter } from './components/AnimatedCounter';
-import { RemediationVideoPlayer } from './components/RemediationVideoPlayer';
 import { BlogView } from './components/BlogView';
 import { HowItWorks } from './components/HowItWorks';
 import { FaqSection } from './components/FaqSection';
@@ -410,7 +409,6 @@ export default function App() {
           <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="hover:text-[#d97706] text-black font-bold transition-colors cursor-pointer">How It Works</a>
           <a href="#platform" onClick={(e) => scrollToSection(e, 'platform')} className="hover:text-black transition-colors cursor-pointer">Platform</a>
           <a href="#thesis" onClick={(e) => scrollToSection(e, 'thesis')} className="hover:text-black transition-colors cursor-pointer">Architecture</a>
-          <a href="#live-engine" onClick={(e) => scrollToSection(e, 'live-engine')} className="hover:text-black transition-colors cursor-pointer">Simulator</a>
           <a href="#benchmarks" onClick={(e) => scrollToSection(e, 'benchmarks')} className="hover:text-black transition-colors cursor-pointer">Benchmarks</a>
           <a href="#executive-audits" onClick={(e) => scrollToSection(e, 'executive-audits')} className="hover:text-black transition-colors cursor-pointer">Audits</a>
           <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="hover:text-black transition-colors cursor-pointer">Pricing</a>
@@ -649,14 +647,6 @@ export default function App() {
               </p>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Interactive Live Telemetry Engine Section (Pure Obsidian & Radiant Gold) */}
-      <section id="live-engine" className="px-8 md:px-16 py-28 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <RemediationVideoPlayer />
         </div>
       </section>
 
