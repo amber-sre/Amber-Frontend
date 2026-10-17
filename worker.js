@@ -193,29 +193,29 @@ export default {
         mutatingFixes = Math.max(10, Math.min(100000, Number(mutatingFixes) || 100));
         dedicatedSla = Boolean(dedicatedSla);
 
-        // Core Algorithm matching Autonomous ($2,499 / $2,299) and Response ($4,499 / $4,299)
+        // Core Algorithm matching Growth ($499), Autonomous ($1,799), and Response ($3,499)
         let monthlyBaseRate = 0;
 
-        if (nodes <= 100 && services <= 35 && mutatingFixes <= 100) {
-          monthlyBaseRate = 2499;
+        if (nodes <= 30 && services <= 15 && mutatingFixes <= 50) {
+          monthlyBaseRate = 499;
+        } else if (nodes <= 100 && services <= 35 && mutatingFixes <= 100) {
+          monthlyBaseRate = 1799;
         } else if (nodes <= 500 && services <= 150 && mutatingFixes <= 500) {
           const nodeExcess = Math.max(0, nodes - 100);
           const servExcess = Math.max(0, services - 35);
           const fixExcess = Math.max(0, mutatingFixes - 100);
-          const addOn = (nodeExcess * 3) + (servExcess * 4) + (fixExcess * 0.85);
-          monthlyBaseRate = Math.round(2499 + addOn);
+          const addOn = (nodeExcess * 2.5) + (servExcess * 3) + (fixExcess * 0.7);
+          monthlyBaseRate = Math.round(1799 + addOn);
         } else {
           const nodeExcess = Math.max(0, nodes - 500);
           const servExcess = Math.max(0, services - 150);
           const fixExcess = Math.max(0, mutatingFixes - 500);
-          const addOn = (nodeExcess * 2.5) + (servExcess * 5) + (fixExcess * 0.6);
-          monthlyBaseRate = Math.round(4499 + addOn);
+          const addOn = (nodeExcess * 2) + (servExcess * 4) + (fixExcess * 0.5);
+          monthlyBaseRate = Math.round(3499 + addOn);
         }
 
-        // Annual discount: exact $200/mo ($2,400/yr savings) for Autonomous & Response
-        const discount = monthlyBaseRate <= 4499 
-          ? 200 
-          : Math.round(200 + ((monthlyBaseRate - 4499) * 0.08));
+        // Annual discount: 2 months free (~17% discount)
+        const discount = Math.round(monthlyBaseRate * (2 / 12));
 
         const annualDiscountMonthly = monthlyBaseRate - discount;
         const finalMonthlyPrice = billingCycle === 'annual' ? annualDiscountMonthly : monthlyBaseRate;

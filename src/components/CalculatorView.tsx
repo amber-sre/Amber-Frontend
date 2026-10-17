@@ -34,46 +34,40 @@ const _evalQuote = (n: number, s: number, f: number, cycle: 'monthly' | 'annual'
   let baseMonthly: number;
   let tierName: string;
 
-  if (n <= 25 && s <= 15 && f <= 50) {
-    // Growth / Startup Tier bridging the 4 to 25 node gap ($499 - $899/mo)
+  if (n <= 30 && s <= 15 && f <= 50) {
+    // Growth / Startup Tier ($499/mo or $4,999/yr)
     tierName = 'Growth Startup Tier';
     const nodeExcess = Math.max(0, n - 4);
     const servExcess = Math.max(0, s - 5);
     const fixExcess = Math.max(0, f - 25);
-    baseMonthly = Math.round(599 + (nodeExcess * 18) + (servExcess * 12) + (fixExcess * 4));
+    baseMonthly = Math.round(499 + (nodeExcess * 10) + (servExcess * 8) + (fixExcess * 2));
   } else if (n <= 100 && s <= 35 && f <= 100) {
-    // Exact match for Autonomous Plan ($2,499 / $2,299)
+    // Exact match for Autonomous Plan ($1,799/mo or $17,990/yr)
     tierName = 'Autonomous Enterprise';
-    baseMonthly = 2499;
+    baseMonthly = 1799;
   } else if (n <= 500 && s <= 150 && f <= 500) {
-    // Interpolate smoothly between Autonomous ($2,499) and Response ($4,499)
+    // Interpolate smoothly between Autonomous ($1,799) and Response ($3,499)
     tierName = 'Response War-Room Tier';
     const nodeExcess = Math.max(0, n - 100);
     const servExcess = Math.max(0, s - 35);
     const fixExcess = Math.max(0, f - 100);
-    const addOn = (nodeExcess * 3) + (servExcess * 4) + (fixExcess * 0.85);
-    baseMonthly = Math.round(2499 + addOn);
+    const addOn = (nodeExcess * 2.5) + (servExcess * 3) + (fixExcess * 0.7);
+    baseMonthly = Math.round(1799 + addOn);
   } else {
-    // Enterprise scale starting from Response base ($4,499)
+    // Enterprise scale starting from Response base ($3,499)
     tierName = 'Custom Hyperscale Tier';
     const nodeExcess = Math.max(0, n - 500);
     const servExcess = Math.max(0, s - 150);
     const fixExcess = Math.max(0, f - 500);
-    const addOn = (nodeExcess * 2.5) + (servExcess * 5) + (fixExcess * 0.6);
-    baseMonthly = Math.round(4499 + addOn);
+    const addOn = (nodeExcess * 2) + (servExcess * 4) + (fixExcess * 0.5);
+    baseMonthly = Math.round(3499 + addOn);
   }
 
-  // Annual discount:
-  // Growth tier: ~17% ($100/mo) discount
-  // Autonomous ($2,499 -> $2,299) saves $200/mo ($2,400/yr)
-  // Response ($4,499 -> $4,299) saves $200/mo ($2,400/yr)
-  // Enterprise plans scale with 8% discount (minimum $200/mo savings)
-  const discount = baseMonthly <= 1200
-    ? Math.round(baseMonthly * 0.17)
-    : baseMonthly <= 4499 
-      ? 200 
-      : Math.round(200 + ((baseMonthly - 4499) * 0.08));
-
+  // Annual discount (~17% / 2 months free):
+  // Growth ($499 -> $416 saves $989/yr)
+  // Autonomous ($1,799 -> $1,499 saves $3,598/yr)
+  // Response ($3,499 -> $2,916 saves $6,998/yr)
+  const discount = Math.round(baseMonthly * (2 / 12));
   const finalMonthly = cycle === 'annual' ? (baseMonthly - discount) : baseMonthly;
   const savings = discount * 12;
 
