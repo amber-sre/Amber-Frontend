@@ -187,35 +187,31 @@ export default {
         const body = await request.json().catch(() => ({}));
         let { nodes = 100, services = 25, mutatingFixes = 100, dedicatedSla = false, billingCycle = 'annual' } = body || {};
 
-        // Sanitize & enforce boundaries (Supports hyper-scale up to 100k nodes)
-        nodes = Math.max(1, Math.min(100000, Number(nodes) || 100));
-        services = Math.max(1, Math.min(10000, Number(services) || 25));
-        mutatingFixes = Math.max(10, Math.min(100000, Number(mutatingFixes) || 100));
+        // Sanitize & enforce boundaries (Enterprise Custom: Min 150 nodes, 50 services, 150 fixes)
+        nodes = Math.max(150, Math.min(100000, Number(nodes) || 150));
+        services = Math.max(50, Math.min(10000, Number(services) || 50));
+        mutatingFixes = Math.max(150, Math.min(100000, Number(mutatingFixes) || 150));
         dedicatedSla = Boolean(dedicatedSla);
 
-        // Core Algorithm matching Growth ($499), Autonomous ($1,799), and Response ($3,499)
+        // Core Algorithm matching Custom Enterprise Fleet ($1,999 base at 150 nodes/50 services), scaling to Response ($3,499 at 500 nodes) & Hyperscale
         let monthlyBaseRate = 0;
 
-        if (nodes <= 30 && services <= 15 && mutatingFixes <= 50) {
-          monthlyBaseRate = 499;
-        } else if (nodes <= 100 && services <= 35 && mutatingFixes <= 100) {
-          monthlyBaseRate = 1799;
-        } else if (nodes <= 500 && services <= 150 && mutatingFixes <= 500) {
-          const nodeExcess = Math.max(0, nodes - 100);
-          const servExcess = Math.max(0, services - 35);
-          const fixExcess = Math.max(0, mutatingFixes - 100);
-          const addOn = (nodeExcess * 2.5) + (servExcess * 3) + (fixExcess * 0.7);
-          monthlyBaseRate = Math.round(1799 + addOn);
+        if (nodes <= 500 && services <= 200 && mutatingFixes <= 500) {
+          const nodeExcess = Math.max(0, nodes - 150);
+          const servExcess = Math.max(0, services - 50);
+          const fixExcess = Math.max(0, mutatingFixes - 150);
+          const addOn = (nodeExcess * 2.85) + (servExcess * 3) + (fixExcess * 0.57);
+          monthlyBaseRate = Math.round(1999 + addOn);
         } else {
           const nodeExcess = Math.max(0, nodes - 500);
-          const servExcess = Math.max(0, services - 150);
+          const servExcess = Math.max(0, services - 200);
           const fixExcess = Math.max(0, mutatingFixes - 500);
-          const addOn = (nodeExcess * 2) + (servExcess * 4) + (fixExcess * 0.5);
+          const addOn = (nodeExcess * 2) + (servExcess * 3.5) + (fixExcess * 0.4);
           monthlyBaseRate = Math.round(3499 + addOn);
         }
 
-        // Annual discount ($50–$100/mo off)
-        const discount = monthlyBaseRate <= 600 ? 83 : 100;
+        // Annual discount ($100/mo off)
+        const discount = 100;
 
         const annualDiscountMonthly = monthlyBaseRate - discount;
         const finalMonthlyPrice = billingCycle === 'annual' ? annualDiscountMonthly : monthlyBaseRate;

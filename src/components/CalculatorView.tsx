@@ -29,45 +29,37 @@ interface CalculatorViewProps {
   onNavigateToContact: (quoteNote?: string) => void;
 }
 
-// High-efficiency instant synchronous evaluation kernel matching Growth, Autonomous, Response, and Hyperscale tiers
+// High-efficiency instant synchronous evaluation kernel (Custom Enterprise Architecture: Min 150 Nodes, 50 Services)
+// Smoothly scales from Autonomous tier ceiling (100 nodes / $1,799) through Response tier (500 nodes / $3,499) to Hyperscale
 const _evalQuote = (n: number, s: number, f: number, cycle: 'monthly' | 'annual') => {
+  const safeN = Math.max(150, n);
+  const safeS = Math.max(50, s);
+  const safeF = Math.max(150, f);
+
   let baseMonthly: number;
   let tierName: string;
 
-  if (n <= 30 && s <= 15 && f <= 50) {
-    // Growth / Startup Tier ($499/mo or $4,999/yr)
-    tierName = 'Growth Startup Tier';
-    const nodeExcess = Math.max(0, n - 4);
-    const servExcess = Math.max(0, s - 5);
-    const fixExcess = Math.max(0, f - 25);
-    baseMonthly = Math.round(499 + (nodeExcess * 10) + (servExcess * 8) + (fixExcess * 2));
-  } else if (n <= 100 && s <= 35 && f <= 100) {
-    // Exact match for Autonomous Plan ($1,799/mo or $17,990/yr)
-    tierName = 'Autonomous Enterprise';
-    baseMonthly = 1799;
-  } else if (n <= 500 && s <= 150 && f <= 500) {
-    // Interpolate smoothly between Autonomous ($1,799) and Response ($3,499)
-    tierName = 'Response War-Room Tier';
-    const nodeExcess = Math.max(0, n - 100);
-    const servExcess = Math.max(0, s - 35);
-    const fixExcess = Math.max(0, f - 100);
-    const addOn = (nodeExcess * 2.5) + (servExcess * 3) + (fixExcess * 0.7);
-    baseMonthly = Math.round(1799 + addOn);
+  if (safeN <= 500 && safeS <= 200 && safeF <= 500) {
+    // Custom Enterprise Fleet: Base at 150 nodes / 50 services / 150 fixes = $1,999/mo
+    // Seamlessly lands on Response tier baseline ($3,499/mo) at 500 nodes / 150 services / 500 fixes
+    tierName = 'Enterprise Custom Fleet';
+    const nodeExcess = Math.max(0, safeN - 150);
+    const servExcess = Math.max(0, safeS - 50);
+    const fixExcess = Math.max(0, safeF - 150);
+    const addOn = (nodeExcess * 2.85) + (servExcess * 3) + (fixExcess * 0.57);
+    baseMonthly = Math.round(1999 + addOn);
   } else {
-    // Enterprise scale starting from Response base ($3,499)
+    // Enterprise Hyperscale tier (>500 nodes or >200 services)
     tierName = 'Custom Hyperscale Tier';
-    const nodeExcess = Math.max(0, n - 500);
-    const servExcess = Math.max(0, s - 150);
-    const fixExcess = Math.max(0, f - 500);
-    const addOn = (nodeExcess * 2) + (servExcess * 4) + (fixExcess * 0.5);
+    const nodeExcess = Math.max(0, safeN - 500);
+    const servExcess = Math.max(0, safeS - 200);
+    const fixExcess = Math.max(0, safeF - 500);
+    const addOn = (nodeExcess * 2) + (servExcess * 3.5) + (fixExcess * 0.4);
     baseMonthly = Math.round(3499 + addOn);
   }
 
-  // Annual discount ($50–$100/mo off):
-  // Growth ($499 -> $416 saves $989/yr, ~$83/mo)
-  // Autonomous ($1,799 -> $1,699 saves $1,200/yr, $100/mo)
-  // Response ($3,499 -> $3,399 saves $1,200/yr, $100/mo)
-  const discount = baseMonthly <= 600 ? 83 : 100;
+  // Annual discount: $100/mo off ($1,200/yr savings)
+  const discount = 100;
   const finalMonthly = cycle === 'annual' ? (baseMonthly - discount) : baseMonthly;
   const savings = discount * 12;
 
@@ -79,9 +71,9 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
   onNavigateToContact,
 }) => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
-  const [nodes, setNodes] = useState<number>(100);
-  const [services, setServices] = useState<number>(35);
-  const [mutatingFixes, setMutatingFixes] = useState<number>(100);
+  const [nodes, setNodes] = useState<number>(150);
+  const [services, setServices] = useState<number>(50);
+  const [mutatingFixes, setMutatingFixes] = useState<number>(150);
   const [teamSize, setTeamSize] = useState<number>(20);
 
   // 0ms Real-Time Instant Calculation (60 FPS smooth dragging)
@@ -257,40 +249,40 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                     01 // Compute Infrastructure
                   </span>
                   <h3 className="text-base font-sans font-bold text-stone-900 tracking-tight">Monitored Cloud &amp; K8s Nodes</h3>
-                  <p className="text-xs font-sans text-stone-500 mt-0.5">Total VM instances, EC2 hosts, and Kubernetes worker nodes (Growth tier starts at 4 nodes)</p>
+                  <p className="text-xs font-sans text-stone-500 mt-0.5">Total VM instances, EC2 hosts, and Kubernetes worker nodes (Enterprise architecture starts at 150 nodes)</p>
                 </div>
                 
                 {/* Clean Numeric Input with professional font */}
                 <div className="flex items-center self-start sm:self-auto bg-stone-50 hover:bg-stone-100/80 focus-within:bg-white border border-stone-300 focus-within:border-stone-900 rounded-xl px-3.5 py-1.5 transition-all shadow-inner">
                   <input
                     type="number"
-                    min={4}
+                    min={150}
                     max={100000}
                     value={nodes === 0 ? '' : nodes}
                     onChange={(e) => {
-                      const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
-                      setNodes(isNaN(val) ? 0 : Math.max(0, val));
+                      const val = e.target.value === '' ? 150 : parseInt(e.target.value, 10);
+                      setNodes(isNaN(val) ? 150 : Math.max(150, val));
                     }}
                     className="w-20 sm:w-24 text-right font-sans font-bold text-stone-900 bg-transparent outline-none text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    placeholder="100"
+                    placeholder="150"
                   />
                   <span className="text-xs font-sans font-semibold text-stone-500 ml-1.5 select-none">Nodes</span>
                 </div>
               </div>
 
-              {/* Slider with range: min=4, max=5000, step=1 */}
+              {/* Slider with range: min=150, max=5000, step=10 */}
               <input
                 type="range"
-                min={4}
+                min={150}
                 max={5000}
-                step={1}
-                value={Math.min(Math.max(4, nodes), 5000)}
-                onChange={(e) => setNodes(Number(e.target.value))}
+                step={10}
+                value={Math.min(Math.max(150, nodes), 5000)}
+                onChange={(e) => setNodes(Math.max(150, Number(e.target.value)))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-xs font-sans font-medium text-stone-400 mt-2">
-                <span>4 Nodes (Growth)</span>
+                <span>150 Nodes (Baseline)</span>
                 <span>{nodes > 5000 ? `${nodes.toLocaleString()} (Custom)` : '2,500 Nodes'}</span>
                 <span>5,000 Nodes</span>
               </div>
@@ -298,7 +290,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
               {/* Quick Presets in clean modern typography */}
               <div className="flex flex-wrap items-center gap-2 mt-3.5 pt-3.5 border-t border-stone-100">
                 <span className="text-xs font-sans font-semibold text-stone-400 mr-0.5 select-none">Presets:</span>
-                {[10, 25, 50, 100, 250, 500, 1000, 2500, 5000].map((preset) => (
+                {[150, 250, 500, 1000, 2500, 5000].map((preset) => (
                   <button
                     key={preset}
                     type="button"
@@ -323,40 +315,40 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                     02 // Service Topology
                   </span>
                   <h3 className="text-base font-sans font-bold text-stone-900 tracking-tight">Active Production Microservices</h3>
-                  <p className="text-xs font-sans text-stone-500 mt-0.5">Distinct services with dedicated telemetry &amp; runbook mapping</p>
+                  <p className="text-xs font-sans text-stone-500 mt-0.5">Distinct services with dedicated telemetry &amp; runbook mapping (Minimum: 50 services)</p>
                 </div>
                 
                 {/* Clean Numeric Input */}
                 <div className="flex items-center self-start sm:self-auto bg-stone-50 hover:bg-stone-100/80 focus-within:bg-white border border-stone-300 focus-within:border-stone-900 rounded-xl px-3.5 py-1.5 transition-all shadow-inner">
                   <input
                     type="number"
-                    min={5}
+                    min={50}
                     max={10000}
                     value={services === 0 ? '' : services}
                     onChange={(e) => {
-                      const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
-                      setServices(isNaN(val) ? 0 : Math.max(0, val));
+                      const val = e.target.value === '' ? 50 : parseInt(e.target.value, 10);
+                      setServices(isNaN(val) ? 50 : Math.max(50, val));
                     }}
                     className="w-20 sm:w-24 text-right font-sans font-bold text-stone-900 bg-transparent outline-none text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    placeholder="35"
+                    placeholder="50"
                   />
                   <span className="text-xs font-sans font-semibold text-stone-500 ml-1.5 select-none">Services</span>
                 </div>
               </div>
 
-              {/* Slider with stable fixed range: min=5, max=500, step=5 */}
+              {/* Slider with stable fixed range: min=50, max=500, step=5 */}
               <input
                 type="range"
-                min={5}
+                min={50}
                 max={500}
                 step={5}
-                value={Math.min(Math.max(5, services), 500)}
-                onChange={(e) => setServices(Number(e.target.value))}
+                value={Math.min(Math.max(50, services), 500)}
+                onChange={(e) => setServices(Math.max(50, Number(e.target.value)))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-xs font-sans font-medium text-stone-400 mt-2">
-                <span>5 Services</span>
+                <span>50 Services (Baseline)</span>
                 <span>{services > 500 ? `${services.toLocaleString()} (Custom)` : '250 Services'}</span>
                 <span>500 Services</span>
               </div>
@@ -364,7 +356,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
               {/* Quick Presets */}
               <div className="flex flex-wrap items-center gap-2 mt-3.5 pt-3.5 border-t border-stone-100">
                 <span className="text-xs font-sans font-semibold text-stone-400 mr-0.5 select-none">Presets:</span>
-                {[15, 35, 75, 150, 200, 300, 500].map((preset) => (
+                {[50, 75, 100, 150, 200, 300, 500].map((preset) => (
                   <button
                     key={preset}
                     type="button"
@@ -389,40 +381,40 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                     03 // Autonomous Remediations
                   </span>
                   <h3 className="text-base font-sans font-bold text-stone-900 tracking-tight">Monthly Mutating Actions</h3>
-                  <p className="text-xs font-sans text-stone-500 mt-0.5">Autonomous pod restarts, connection drains, state heals &amp; rollbacks</p>
+                  <p className="text-xs font-sans text-stone-500 mt-0.5">Autonomous pod restarts, connection drains, state heals &amp; rollbacks (Minimum: 150 fixes)</p>
                 </div>
                 
                 {/* Clean Numeric Input */}
                 <div className="flex items-center self-start sm:self-auto bg-stone-50 hover:bg-stone-100/80 focus-within:bg-white border border-stone-300 focus-within:border-stone-900 rounded-xl px-3.5 py-1.5 transition-all shadow-inner">
                   <input
                     type="number"
-                    min={10}
+                    min={150}
                     max={100000}
                     value={mutatingFixes === 0 ? '' : mutatingFixes}
                     onChange={(e) => {
-                      const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
-                      setMutatingFixes(isNaN(val) ? 0 : Math.max(0, val));
+                      const val = e.target.value === '' ? 150 : parseInt(e.target.value, 10);
+                      setMutatingFixes(isNaN(val) ? 150 : Math.max(150, val));
                     }}
                     className="w-20 sm:w-24 text-right font-sans font-bold text-stone-900 bg-transparent outline-none text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                    placeholder="100"
+                    placeholder="150"
                   />
                   <span className="text-xs font-sans font-semibold text-stone-500 ml-1.5 select-none">Fixes / mo</span>
                 </div>
               </div>
 
-              {/* Slider with range: min=10, max=5000, step=10 */}
+              {/* Slider with range: min=150, max=5000, step=10 */}
               <input
                 type="range"
-                min={10}
+                min={150}
                 max={5000}
                 step={10}
-                value={Math.min(Math.max(10, mutatingFixes), 5000)}
-                onChange={(e) => setMutatingFixes(Number(e.target.value))}
+                value={Math.min(Math.max(150, mutatingFixes), 5000)}
+                onChange={(e) => setMutatingFixes(Math.max(150, Number(e.target.value)))}
                 className="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-[#d97706]"
               />
 
               <div className="flex justify-between text-xs font-sans font-medium text-stone-400 mt-2">
-                <span>10 Fixes</span>
+                <span>150 Fixes (Baseline)</span>
                 <span>{mutatingFixes > 5000 ? `${mutatingFixes.toLocaleString()} (Custom)` : '2,500 Fixes'}</span>
                 <span>5,000 Fixes</span>
               </div>
@@ -430,7 +422,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
               {/* Quick Presets */}
               <div className="flex flex-wrap items-center gap-2 mt-3.5 pt-3.5 border-t border-stone-100">
                 <span className="text-xs font-sans font-semibold text-stone-400 mr-0.5 select-none">Presets:</span>
-                {[25, 50, 100, 250, 500, 1000, 2500, 5000].map((preset) => (
+                {[150, 250, 500, 1000, 2500, 5000].map((preset) => (
                   <button
                     key={preset}
                     type="button"
@@ -562,9 +554,7 @@ export const CalculatorView: React.FC<CalculatorViewProps> = ({
                 {tierName}
               </h2>
               <p className="text-stone-500 font-sans text-xs mt-1">
-                {nodes <= 25 
-                  ? 'Self-serve single-tenant SRE engine for seed & growth teams with offline Ed25519 token.'
-                  : 'Dedicated single-tenant SRE engine with offline signed license key.'}
+                Dedicated single-tenant SRE engine with offline signed Ed25519 license key.
               </p>
 
               {/* Price Block - 0ms Real-time Instant Updates */}
