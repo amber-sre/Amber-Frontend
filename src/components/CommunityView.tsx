@@ -305,25 +305,25 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                 <tr>
                   <th className="py-4 px-5">Capability</th>
                   <th className="py-4 px-5 text-[#d97706] font-bold">Community (Free)</th>
-                  <th className="py-4 px-5 text-stone-900 font-bold">Growth ($499/mo)</th>
-                  <th className="py-4 px-5 text-stone-900 font-bold">Autonomous ($1,799/mo)</th>
-                  <th className="py-4 px-5 text-stone-900 font-bold">Response ($3,499/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Growth ($2,499/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Autonomous ($5,999/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Sovereign ($11,999/mo)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-200">
                 <tr>
                   <td className="py-3.5 px-5 font-medium text-stone-800">Node Limit</td>
                   <td className="py-3.5 px-5 text-emerald-700 font-bold">Up to 3 nodes</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 30 nodes</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 100 nodes</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 500+ nodes</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 50 nodes</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 250 nodes</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Unlimited Enterprise Fleet</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-5 font-medium text-stone-800">Production Services</td>
                   <td className="py-3.5 px-5 text-emerald-700 font-bold">Up to 5 services</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 15 services</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 35 services</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Enterprise Fleet</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Up to 25 services</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Unlimited Services</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Unlimited Multi-VPC</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-5 font-medium text-stone-800">Monthly Alerts</td>
@@ -371,36 +371,36 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                   <td className="py-3.5 px-5 font-medium text-stone-800">Pre-Built SRE Runbooks</td>
                   <td className="py-3.5 px-5 text-emerald-600 font-bold">50+ Pre-Built</td>
                   <td className="py-3.5 px-5 text-stone-900 font-semibold">50+ Pre-Built</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">50+ Pre-Built + 5 Custom</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">✔ White-Glove Authoring</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">50+ Pre-Built + Auto-PRs</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">✔ Custom Driver Engineering</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-5 font-medium text-stone-800">Automated Remediation &amp; Rollback</td>
                   <td className="py-3.5 px-5 text-stone-500 font-medium">Read-Only Triage &amp; Proof</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 50 Auto-Actions / mo</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 100 Auto-Actions / mo</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 500 High-Volume / mo</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 150 Auto-Actions / mo</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 500 Auto-Actions / mo</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Unlimited Auto-Actions</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-5 font-medium text-stone-800">Executive CTO Audits</td>
                   <td className="py-3.5 px-5 text-stone-400">—</td>
                   <td className="py-3.5 px-5 text-stone-400">—</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 5 Monthly Board Audits</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Unlimited Enterprise Audits</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Weekly Ed25519 Signed PDFs</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Custom Compliance &amp; Audit Packs</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-5 font-medium text-stone-800">Smart Log Pruning (~95% Saved)</td>
                   <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included (amber log-pruner)</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Included</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Enterprise Automated</td>
-                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Multi-VPC Policy Engine</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 60%+ Cloud Cut</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ 90% High-Throughput Cut</td>
+                  <td className="py-3.5 px-5 text-emerald-600 font-bold">✔ Air-Gapped Retention Engine</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-5 font-medium text-stone-800">Support SLA</td>
                   <td className="py-3.5 px-5 text-stone-600">GitHub Community</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Discord &amp; Email Support</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Private Discord SLA Bridge</td>
-                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Dedicated Slack Connect &amp; P0 Bridge</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Email &amp; Slack Support</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">4-hr SLA &amp; Direct SRE Channel</td>
+                  <td className="py-3.5 px-5 text-stone-900 font-semibold">Sub-10s MTTR SLA &amp; 15-min Hotline</td>
                 </tr>
               </tbody>
             </table>

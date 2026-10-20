@@ -193,25 +193,26 @@ export default {
         mutatingFixes = Math.max(150, Math.min(100000, Number(mutatingFixes) || 150));
         dedicatedSla = Boolean(dedicatedSla);
 
-        // Core Algorithm matching Custom Enterprise Fleet ($1,999 base at 150 nodes/50 services), scaling to Response ($3,499 at 500 nodes) & Hyperscale
+        // Core Algorithm matching Custom Enterprise Fleet ($5,999 base at 150 nodes/50 services), scaling to Sovereign ($11,999 at 500 nodes) & Hyperscale
         let monthlyBaseRate = 0;
 
         if (nodes <= 500 && services <= 200 && mutatingFixes <= 500) {
           const nodeExcess = Math.max(0, nodes - 150);
           const servExcess = Math.max(0, services - 50);
           const fixExcess = Math.max(0, mutatingFixes - 150);
-          const addOn = (nodeExcess * 2.85) + (servExcess * 3) + (fixExcess * 0.57);
-          monthlyBaseRate = Math.round(1999 + addOn);
+          const addOn = (nodeExcess * 12.5) + (servExcess * 8) + (fixExcess * 1.5);
+          monthlyBaseRate = Math.round(5999 + addOn);
         } else {
           const nodeExcess = Math.max(0, nodes - 500);
           const servExcess = Math.max(0, services - 200);
           const fixExcess = Math.max(0, mutatingFixes - 500);
-          const addOn = (nodeExcess * 2) + (servExcess * 3.5) + (fixExcess * 0.4);
-          monthlyBaseRate = Math.round(3499 + addOn);
+          const addOn = (nodeExcess * 9.5) + (servExcess * 7) + (fixExcess * 1.2);
+          monthlyBaseRate = Math.round(11999 + addOn);
         }
 
-        // Annual discount ($100/mo off)
-        const discount = 100;
+        // Annual discount (~15% off)
+        const discountRate = 0.15;
+        const discount = Math.round(monthlyBaseRate * discountRate);
 
         const annualDiscountMonthly = monthlyBaseRate - discount;
         const finalMonthlyPrice = billingCycle === 'annual' ? annualDiscountMonthly : monthlyBaseRate;

@@ -30,7 +30,7 @@ interface CalculatorViewProps {
 }
 
 // High-efficiency instant synchronous evaluation kernel (Custom Enterprise Architecture: Min 150 Nodes, 50 Services)
-// Smoothly scales from Autonomous tier ceiling (100 nodes / $1,799) through Response tier (500 nodes / $3,499) to Hyperscale
+// Smoothly scales from Autonomous tier ($5,999/mo) through Sovereign tier ($11,999/mo) to Hyperscale
 const _evalQuote = (n: number, s: number, f: number, cycle: 'monthly' | 'annual') => {
   const safeN = Math.max(150, n);
   const safeS = Math.max(50, s);
@@ -40,26 +40,27 @@ const _evalQuote = (n: number, s: number, f: number, cycle: 'monthly' | 'annual'
   let tierName: string;
 
   if (safeN <= 500 && safeS <= 200 && safeF <= 500) {
-    // Custom Enterprise Fleet: Base at 150 nodes / 50 services / 150 fixes = $1,999/mo
-    // Seamlessly lands on Response tier baseline ($3,499/mo) at 500 nodes / 150 services / 500 fixes
-    tierName = 'Enterprise Custom Fleet';
+    // Custom Enterprise Fleet: Base at 150 nodes / 50 services / 150 fixes = $5,999/mo
+    // Seamlessly lands on Sovereign baseline ($11,999/mo) as scale compounds
+    tierName = 'Enterprise Autonomous Fleet';
     const nodeExcess = Math.max(0, safeN - 150);
     const servExcess = Math.max(0, safeS - 50);
     const fixExcess = Math.max(0, safeF - 150);
-    const addOn = (nodeExcess * 2.85) + (servExcess * 3) + (fixExcess * 0.57);
-    baseMonthly = Math.round(1999 + addOn);
+    const addOn = (nodeExcess * 12.5) + (servExcess * 8) + (fixExcess * 1.5);
+    baseMonthly = Math.round(5999 + addOn);
   } else {
-    // Enterprise Hyperscale tier (>500 nodes or >200 services)
-    tierName = 'Custom Hyperscale Tier';
+    // Enterprise Sovereign & Hyperscale tier (>500 nodes or >200 services)
+    tierName = 'Custom Sovereign Hyperscale';
     const nodeExcess = Math.max(0, safeN - 500);
     const servExcess = Math.max(0, safeS - 200);
     const fixExcess = Math.max(0, safeF - 500);
-    const addOn = (nodeExcess * 2) + (servExcess * 3.5) + (fixExcess * 0.4);
-    baseMonthly = Math.round(3499 + addOn);
+    const addOn = (nodeExcess * 9.5) + (servExcess * 7) + (fixExcess * 1.2);
+    baseMonthly = Math.round(11999 + addOn);
   }
 
-  // Annual discount: $100/mo off ($1,200/yr savings)
-  const discount = 100;
+  // Annual discount: ~15% off
+  const discountRate = 0.15;
+  const discount = Math.round(baseMonthly * discountRate);
   const finalMonthly = cycle === 'annual' ? (baseMonthly - discount) : baseMonthly;
   const savings = discount * 12;
 
