@@ -174,18 +174,13 @@ export default function App() {
         return;
       }
 
-      // Check Custom Calculator route (/calculator)
+      // Check Custom Calculator route (/calculator) - Redirect smoothly to pricing
       if (cleanPath === 'calculator' || cleanHash === 'calculator') {
-        setCurrentView('calculator');
-        updatePageSEO(
-          'Amber ROI & Infrastructure Downtime Calculator — Autonomous SRE Savings',
-          'Calculate engineering hours saved and MTTR reduction with autonomous incident remediation.',
-          '/calculator'
-        );
-        if (window.location.pathname !== '/calculator') {
-          window.history.replaceState(null, '', '/calculator');
+        setCurrentView('landing');
+        if (window.location.pathname !== '/') {
+          window.history.replaceState(null, '', '/#pricing');
         }
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        setTimeout(() => smoothScrollTo('pricing'), 50);
         return;
       }
 
@@ -1420,10 +1415,10 @@ export default function App() {
           <div className="bg-white border border-stone-200 hover:border-amber-400/60 rounded-3xl p-6 sm:p-8 shadow-sm transition-all duration-300 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="space-y-2 max-w-2xl">
               <h4 className="text-xl sm:text-2xl font-black text-[#0c0a09] tracking-tight">
-                Need a Custom Infrastructure Scope?
+                Managing 500+ Nodes or Need Custom Multi-VPC Architecture?
               </h4>
               <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
-                From seed-stage startups (4+ nodes) to hyperscale fleets. Model transparent pricing for your exact Kubernetes worker nodes, engineering team scale, and auto-remediation quotas on our dedicated calculator.
+                From high-throughput consumer fleets to regulated multi-cloud topologies. Connect directly with our Principal SRE team for custom deployment boundaries, bespoke driver adapters, and contractual SLA guarantees.
               </p>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 pt-1 text-xs text-stone-600 font-sans">
                 <span className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Zero per-seat taxes</span>
@@ -1435,14 +1430,17 @@ export default function App() {
             <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-2 w-full lg:w-auto shrink-0">
               <button
                 type="button"
-                onClick={navigateToCalculator}
+                onClick={() => {
+                  setSelectedPlan('Sovereign');
+                  smoothScrollTo('connect');
+                }}
                 className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-stone-900 hover:bg-black text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer group"
               >
-                <span>Open Custom Calculator</span>
+                <span>Talk to Principal SRE Team</span>
                 <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
               </button>
               <span className="text-[11px] text-stone-400 text-center lg:text-right">
-                Instant server-calculated dynamic quote
+                Dedicated architecture review &amp; SOC 2 security packet
               </span>
             </div>
           </div>
