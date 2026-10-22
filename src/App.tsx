@@ -1313,7 +1313,7 @@ export default function App() {
                     </span>
                   </div>
                   <div className="text-[11px] font-sans text-[#b45309] mt-0.5 font-bold">
-                    {billingCycle === 'annual' ? '₹40,000 / mo per client (Billed annually) • Save $1,200/yr per client' : '₹50,000 / mo per client • Billed monthly, cancel anytime'}
+                    {billingCycle === 'annual' ? '$500 / mo per client (Billed annually) • Save $1,200/yr per client' : '$600 / mo per client • Billed monthly, cancel anytime'}
                   </div>
                 </div>
 
@@ -1360,7 +1360,7 @@ export default function App() {
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span>Agency Margin Economics:</span>
                   </div>
-                  Bill clients typical ₹1.5L–₹2L/mo ($2,000/mo) for DevOps SLAs. Pay Amber just ₹40,000/mo ($500/mo). Keep <strong className="text-emerald-700 font-bold">75%–80% net margin</strong> with zero extra hires.
+                  Bill clients standard $1,500–$2,500/mo for DevOps SLAs. Pay Amber just $500/mo. Keep <strong className="text-emerald-700 font-bold">75%–80% net margin</strong> with zero extra hires.
                 </div>
               </div>
 
@@ -1406,7 +1406,7 @@ export default function App() {
                     </span>
                   </div>
                   <div className="text-[11px] font-sans text-stone-500 mt-0.5">
-                    {billingCycle === 'annual' ? '₹7.5 Lakh / mo flat (Billed annually) • Unlimited Clients • Save $18,000/yr' : '₹9 Lakh / mo • Billed monthly, cancel anytime'}
+                    {billingCycle === 'annual' ? '$90,000 billed annually • Unlimited Clients • Save $18,000/yr' : '$9,000 / mo • Billed monthly, cancel anytime'}
                   </div>
                 </div>
 
@@ -1463,7 +1463,7 @@ export default function App() {
                   onClick={() => handleSelectPlan('Agency Enterprise')}
                   className="w-full py-3 px-5 rounded-xl bg-[#1c1917] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-stone-900/10 hover:shadow-lg"
                 >
-                  <span>Deploy Agency Enterprise</span>
+                  <span>Schedule Partner Briefing</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
