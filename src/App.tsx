@@ -448,9 +448,9 @@ export default function App() {
           transition={{ duration: 0.6 }}
           className="flex justify-between items-center text-xs font-sans font-medium tracking-wider text-black/50 uppercase border-b border-black/10 pb-4 relative z-10"
         >
-          <div>SRE Engine</div>
-          <div className="hidden sm:block">Deterministic Cloud Autonomy</div>
-          <div className="text-black font-bold">Sub-Second Automated Triage</div>
+          <div>SRE Control Plane</div>
+          <div className="hidden sm:block">In-VPC Kubernetes &amp; Docker Autonomy</div>
+          <div className="text-black font-bold">Zero Telemetry Egress</div>
         </motion.div>
 
         {/* Word 1: AMBER (Top Left) */}
@@ -479,7 +479,7 @@ export default function App() {
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-[#d97809]"></span>
               </span>
               <span className="text-xs font-sans tracking-wider uppercase text-black/70 font-semibold">
-                Deterministic Incident Convergence
+                Headless SRE Control Plane
               </span>
             </div>
 
@@ -489,7 +489,7 @@ export default function App() {
                 onClick={navigateToCommunity}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#d97809] hover:bg-black text-white font-sans font-bold text-xs uppercase tracking-wider shadow-md shadow-[#d97809]/20 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
               >
-                <span>Try Now</span>
+                <span>Deploy Free (3 Nodes)</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -500,17 +500,17 @@ export default function App() {
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white hover:bg-[#d97809] border-2 border-[#d97809] text-[#d97809] hover:text-white font-sans font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
               >
                 <Star className="w-3.5 h-3.5 fill-[#d97809] group-hover:fill-white text-[#d97809] group-hover:text-white transition-colors" />
-                <span>Star us on GitHub</span>
+                <span>Audit on GitHub</span>
               </a>
             </div>
           </div>
 
           <div className="md:col-span-7 md:text-right space-y-2.5">
             <p className="text-black/80 text-base md:text-xl font-medium leading-relaxed max-w-xl md:ml-auto">
-              When production catches fire, Amber brings the system <span className="text-[#d97809] font-bold">back to calm</span>.
+              Autonomous incident diagnosis and <span className="text-[#d97809] font-bold">1-click remediations</span> inside your private VPC.
             </p>
             <p className="text-black/65 text-sm md:text-lg font-normal leading-relaxed max-w-xl md:ml-auto">
-              Autonomous incident detection, causal diagnosis, and <span className="text-[#d97809] font-bold">verified remediation</span>. Protect your engineering team from 3:00 AM alert burnout and stop revenue loss from preventable downtime.
+              Amber correlates alert storms, shreds routine log noise, and sends cryptographically signed fix buttons directly to your on-call Slack and Telegram channels. No random bash commands. Zero telemetry egress.
             </p>
           </div>
         </motion.div>
@@ -525,19 +525,19 @@ export default function App() {
           >
             <div className="flex items-center gap-2">
               <span className="text-[#d97809] font-bold">01</span>
-              <span>500 alerts / sec throughput</span>
+              <span>In-VPC Execution (0 Egress)</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-[#d97809] font-bold">02</span>
-              <span>&lt;3s triage latency</span>
+              <span>&lt;3s Triage &amp; Root Cause</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-[#d97809] font-bold">03</span>
-              <span>Static risk registry</span>
+              <span>Static Tool Allowlist</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-[#d97809] font-bold">04</span>
-              <span>SHA-256 signed approval</span>
+              <span>SHA-256 Signed Slack Approvals</span>
             </div>
           </motion.div>
 
@@ -641,6 +641,68 @@ export default function App() {
                 After any mutating tool executes, automated health verification probes inspect target cluster metrics, triggering rollbacks on anomalies.
               </p>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Intentionally Headless Section */}
+      <section className="px-8 md:px-16 py-28 bg-[#fafaf9] border-b border-black/5">
+        <div className="flex justify-between items-center text-xs font-sans font-medium tracking-wider text-black/50 uppercase border-b border-black/10 pb-4 mb-16">
+          <div>Control Plane Architecture</div>
+          <div>Zero Web Bloat</div>
+          <div>ChatOps &amp; Terminal CLI</div>
+        </div>
+
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-3xl mb-16">
+            <h3 className="text-3xl sm:text-5xl font-black tracking-tight text-[#0a0a0a] mb-4">
+              Intentionally headless. <br />
+              <span className="text-[#d97706]">Built for where SREs actually work.</span>
+            </h3>
+            <p className="text-black/70 text-base sm:text-lg leading-relaxed font-sans">
+              During a Sev-1 outage at 3:00 AM, nobody wants to open a slow browser dashboard, fight VPN tunnels, or log into another web console. Amber communicates where on-call engineers already live: your Slack channels, Telegram alert groups, and terminal shell.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-2xl border border-black/10 shadow-sm flex flex-col justify-between">
+              <div>
+                <div className="text-xs font-mono font-bold text-[#d97706] mb-3 uppercase tracking-wider">01 / Mobile &amp; ChatOps</div>
+                <h4 className="text-xl font-bold text-[#0a0a0a] mb-3">Slack &amp; Telegram Bot</h4>
+                <p className="text-black/65 text-sm leading-relaxed mb-4">
+                  Real-time alert cards with root cause diagnosis, offending pod logs, and inline <strong>⚡ 1-Click Approve</strong> / <strong>❌ Reject</strong> buttons directly on your mobile device.
+                </p>
+              </div>
+              <div className="p-3 bg-stone-900 rounded-lg text-emerald-400 font-mono text-xs">
+                /amber approve inc_5021 --sha256
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-black/10 shadow-sm flex flex-col justify-between">
+              <div>
+                <div className="text-xs font-mono font-bold text-[#d97706] mb-3 uppercase tracking-wider">02 / Local Terminal</div>
+                <h4 className="text-xl font-bold text-[#0a0a0a] mb-3">amber CLI</h4>
+                <p className="text-black/65 text-sm leading-relaxed mb-4">
+                  Inspect Sentinel health, toggle smart log pruning, trigger preflight cluster checks, and audit cryptographic tokens directly from your VPC terminal.
+                </p>
+              </div>
+              <div className="p-3 bg-stone-900 rounded-lg text-amber-300 font-mono text-xs">
+                $ amber status &amp;&amp; amber log-pruner on
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl border border-black/10 shadow-sm flex flex-col justify-between">
+              <div>
+                <div className="text-xs font-mono font-bold text-[#d97706] mb-3 uppercase tracking-wider">03 / Privacy Boundary</div>
+                <h4 className="text-xl font-bold text-[#0a0a0a] mb-3">Zero Telemetry Egress</h4>
+                <p className="text-black/65 text-sm leading-relaxed mb-4">
+                  All metrics, logs, query traces, and AI inferences stay completely inside your private VPC. Amber has no centralized multi-tenant storage or external analytic beacons.
+                </p>
+              </div>
+              <div className="p-3 bg-stone-900 rounded-lg text-stone-300 font-mono text-xs">
+                Egress: 0 bytes leaves your VPC
+              </div>
+            </div>
           </div>
         </div>
       </section>

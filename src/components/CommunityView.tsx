@@ -275,7 +275,7 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                   Sovereign In-VPC Monitoring &amp; 3-Node Enforcement
                 </h3>
                 <p className="text-sm text-stone-600 leading-relaxed mb-3">
-                  Zero external webhooks required. Sentinel auto-discovers your local Kubernetes cluster or Docker hosts and auto-heals up to 3 managed nodes. If your VPC contains more than 3 nodes, Amber securely manages the first 3 nodes and surfaces a seamless upgrade prompt to keep your cluster compliant.
+                  Zero external webhooks required. Sentinel auto-discovers your local Kubernetes cluster or Docker hosts and auto-heals up to 3 managed nodes. If your VPC contains more than 3 nodes, Amber securely manages the first 3 nodes and prompts for an upgrade license key to expand coverage.
                 </p>
                 <div className="flex items-center justify-between gap-3 bg-stone-100 border border-stone-300 p-3 rounded-lg font-mono text-xs text-stone-800">
                   <span className="text-stone-700">Optional Webhook Ingress (Legacy Prometheus/Datadog):</span>

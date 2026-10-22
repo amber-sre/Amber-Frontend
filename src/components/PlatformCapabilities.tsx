@@ -171,7 +171,7 @@ export function PlatformCapabilities() {
             Autonomous incident remediation built for production engineering teams.
           </h2>
           <p className="text-stone-600 font-sans text-lg leading-relaxed max-w-2xl">
-            Not generic AI sludge. Amber isolates probabilistic reasoning from production clusters, enforcing deterministic cryptographic control across the entire incident lifecycle.
+            Amber isolates probabilistic reasoning from production clusters, enforcing deterministic cryptographic control across the entire incident lifecycle.
           </p>
         </div>
 
