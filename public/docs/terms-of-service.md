@@ -58,10 +58,15 @@ To guarantee deterministic system latency (<100ms webhook ingestion, <3s triage)
 │                     │                          │ • Custom Drivers & Bare-Metal IPC     │
 │                     │                          │ • Named Principal SRE (15-min Hotline)│
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
-│ AGENCY PARTNER      │ • Monthly: $600/client/mo│ • 100% White-Label (Custom Domain)    │
-│ (White-Label MSP)   │   (₹50,000 / mo)         │ • 15 Services & 25 Nodes per Client   │
-│                     │ • Annual: $500/client/mo │ • 🎁 Buy 5 Clients, 6th Client FREE   │
-│                     │   (₹40,000 / mo)         │ • White-Labeled Signed PDF Uptime     │
+│ AGENCY PARTNER      │ • Monthly: $299/client/mo│ • 100% White-Label (Custom Domain)    │
+│ (1–9 Clients)       │   (₹24,800 / mo)         │ • 15 Services & 25 Nodes per Client   │
+│                     │ • Annual: $249/client/mo │ • 🎁 Buy 5 Clients, 6th Client FREE   │
+│                     │   (₹20,600 / mo)         │ • White-Labeled Signed PDF Uptime     │
+├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
+│ AGENCY ENTERPRISE   │ • Monthly: $199/client/mo│ • White-Label Volume (Min 10 Clients) │
+│ (10+ Clients Volume)│   (₹16,500 / mo)         │ • 35 Services & 50 Nodes per Client   │
+│                     │ • Annual: $169/client/mo │ • Dedicated Local Licensing Server    │
+│                     │   (₹14,000 / mo)         │ • Custom Driver SDK & Multi-Tenant    │
 └─────────────────────┴──────────────────────────┴───────────────────────────────────────┘
 ```
 

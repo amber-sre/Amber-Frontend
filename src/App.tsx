@@ -1293,7 +1293,7 @@ export default function App() {
 
               <div>
                 <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-[#d97706] mb-2 flex items-center gap-2">
-                  <span>White-Label MSP • Per-Client License</span>
+                  <span>White-Label MSP • 1–9 Client Accounts</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Partner
@@ -1306,19 +1306,21 @@ export default function App() {
                 <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                      {billingCycle === 'annual' ? '$500' : '$600'}
+                      {billingCycle === 'annual' ? '$249' : '$299'}
                     </span>
                     <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
                       / client / month
                     </span>
                   </div>
                   <div className="text-[11px] font-sans text-[#b45309] mt-0.5 font-bold">
-                    {billingCycle === 'annual' ? '$500 / mo per client (Billed annually) • Save $1,200/yr per client' : '$600 / mo per client • Billed monthly, cancel anytime'}
+                    {billingCycle === 'annual' ? '$249 / mo per client (Billed annually) • Save $600/yr per client' : '$299 / mo per client • Billed monthly, cancel anytime'}
                   </div>
                 </div>
 
                 {/* Clean Capacity Highlight */}
                 <div className="py-2.5 px-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs font-sans text-amber-950 flex items-center justify-between mb-5">
+                  <span className="font-bold text-stone-900">1–9 Clients</span>
+                  <span className="text-amber-500/40">•</span>
                   <span className="font-bold text-stone-900">15 Services / Client</span>
                   <span className="text-amber-500/40">•</span>
                   <span className="font-bold text-stone-900">25 Nodes / Client</span>
@@ -1360,7 +1362,7 @@ export default function App() {
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span>Agency Margin Economics:</span>
                   </div>
-                  Bill clients standard $1,500–$2,500/mo for DevOps SLAs. Pay Amber just $500/mo. Keep <strong className="text-emerald-700 font-bold">75%–80% net margin</strong> with zero extra hires.
+                  Bill clients standard $1,500–$2,500/mo for DevOps SLAs. Pay Amber just $249/mo. Keep <strong className="text-emerald-700 font-bold">85%–90% net margin</strong> with zero extra hires.
                 </div>
               </div>
 
@@ -1381,49 +1383,49 @@ export default function App() {
               {/* Top Floating Badge */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-md bg-[#1c1917] text-white font-sans font-bold text-[9px] uppercase tracking-widest shadow-md flex items-center gap-1.5 border border-stone-700">
                 <ShieldCheck className="w-3 h-3 text-[#d97706]" />
-                ENTERPRISE DEDICATED MSP
+                ENTERPRISE VOLUME MSP • MIN 10 CLIENTS
               </div>
 
               <div>
                 <div className="text-[11px] font-sans font-bold uppercase tracking-wider text-stone-500 mb-2">
-                  White-Label Dedicated • 20+ Client Accounts
+                  White-Label Volume • 10+ Client Accounts
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#0c0a09] mb-1 font-sans tracking-tight">
                   Agency Enterprise
                 </h3>
                 <p className="text-stone-600 text-xs sm:text-[13px] leading-relaxed mb-4 font-normal min-h-[36px]">
-                  For large MSPs &amp; high-volume DevOps consultancies managing 20+ client environments with custom compliance.
+                  For high-volume MSPs &amp; DevOps consultancies managing 10+ client environments with custom compliance.
                 </p>
 
                 {/* Price Display */}
                 <div className="pt-3 pb-3 border-y border-stone-200/80 mb-4">
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl sm:text-4xl font-black text-[#0c0a09] tracking-tight">
-                      {billingCycle === 'annual' ? '$7,500' : '$9,000'}
+                      {billingCycle === 'annual' ? '$169' : '$199'}
                     </span>
                     <span className="text-stone-500 text-[11px] font-sans font-semibold uppercase tracking-wider">
-                      / month flat
+                      / client / month
                     </span>
                   </div>
-                  <div className="text-[11px] font-sans text-stone-500 mt-0.5">
-                    {billingCycle === 'annual' ? '$90,000 billed annually • Unlimited Clients • Save $18,000/yr' : '$9,000 / mo • Billed monthly, cancel anytime'}
+                  <div className="text-[11px] font-sans text-stone-500 mt-0.5 font-bold">
+                    {billingCycle === 'annual' ? '$169 / mo per client (Min 10 Clients • $1,690/mo base) • Save $360/yr per client' : '$199 / mo per client (Min 10 Clients • $1,990/mo base) • Billed monthly'}
                   </div>
                 </div>
 
                 {/* Clean Capacity Highlight */}
                 <div className="py-2.5 px-3.5 rounded-xl bg-stone-100/90 border border-stone-200/90 text-xs font-sans text-stone-700 flex items-center justify-between mb-5">
-                  <span className="font-bold text-stone-900">Unlimited Clients</span>
+                  <span className="font-bold text-stone-900">Min 10 Clients</span>
                   <span className="text-stone-300">•</span>
-                  <span className="font-bold text-stone-900">Unlimited Nodes</span>
+                  <span className="font-bold text-stone-900">50 Nodes / Client</span>
                   <span className="text-stone-300">•</span>
-                  <span className="text-stone-900 font-bold">Dedicated Server</span>
+                  <span className="font-bold text-stone-900">35 Services / Client</span>
                 </div>
 
                 {/* Features List */}
                 <ul className="space-y-2.5 text-xs sm:text-[13px] text-stone-700 font-sans">
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
-                    <span><strong>Everything in Agency Partner</strong> with zero per-client caps</span>
+                    <span><strong>Everything in Agency Partner</strong> with volume enterprise economics</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-[#d97706] shrink-0 mt-0.5" />
@@ -1453,7 +1455,7 @@ export default function App() {
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span>Enterprise MSP Margin Economics:</span>
                   </div>
-                  Managing 25 clients at $2,000/mo = $50,000/mo billings. Amber cost: $7,500/mo. Keep <strong className="text-emerald-700 font-bold">$42,500+ monthly net margin</strong> (85% margin).
+                  Managing 10 clients at $2,000/mo = $20,000/mo billings. Amber cost: $1,690/mo. Keep <strong className="text-emerald-700 font-bold">$18,300+ monthly net margin</strong> (90% margin).
                 </div>
               </div>
 
