@@ -305,9 +305,9 @@ export const CommunityView: React.FC<CommunityViewProps> = ({ onBack, onNavigate
                 <tr>
                   <th className="py-4 px-5">Capability</th>
                   <th className="py-4 px-5 text-[#d97706] font-bold">Community (Free)</th>
-                  <th className="py-4 px-5 text-stone-900 font-bold">Growth ($2,499/mo)</th>
-                  <th className="py-4 px-5 text-stone-900 font-bold">Autonomous ($5,999/mo)</th>
-                  <th className="py-4 px-5 text-stone-900 font-bold">Sovereign ($11,999/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Growth ($199/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Autonomous ($799/mo)</th>
+                  <th className="py-4 px-5 text-stone-900 font-bold">Sovereign ($1,599/mo)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-200">

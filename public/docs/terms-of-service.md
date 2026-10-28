@@ -36,25 +36,25 @@ To guarantee deterministic system latency (<100ms webhook ingestion, <3s triage)
 │                     │                          │ • Read-Only IAM Diagnostics           │
 │                     │                          │ • Built-in Runbooks & Local Ollama    │
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
-│ GROWTH TIER         │ • Monthly: $2,999/mo     │ • Up to 25 Production Microservices  │
-│ (Self-Healing)      │   (₹2,50,000 / mo)       │ • Up to 50 Kubernetes / Cloud Nodes   │
-│                     │ • Annual: $2,499/mo      │ • Unlimited Alert Ingestion           │
-│                     │   ($29,988/yr / ₹25.2L)  │ • 150 Included Mutating Actions / mo  │
+│ GROWTH TIER         │ • Monthly: $199/mo       │ • Up to 25 Production Microservices  │
+│ (Self-Healing)      │   (₹16,500 / mo)         │ • Up to 50 Kubernetes / Cloud Nodes   │
+│                     │ • Annual: $169/mo        │ • Unlimited Alert Ingestion           │
+│                     │   ($2,028/yr / ₹1.7L)    │ • 150 Included Mutating Actions / mo  │
 │                     │                          │ • Flapping Shield & 60% Log Cut       │
 │                     │                          │ • 1-Click HITL (Slack & Telegram)     │
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
-│ LEVEL 1: AUTONOMOUS │ • Monthly: $6,899/mo     │ • Unlimited Production Microservices  │
-│ (Autonomous Fleet)  │   (₹5,80,000 / mo)       │ • Up to 250 Kubernetes / Cloud Nodes  │
-│                     │ • Annual: $5,999/mo      │ • Unlimited Alert Ingestion           │
-│                     │   ($71,988/yr / ₹60.0L)  │ • 500 Included Mutating Actions / mo  │
+│ LEVEL 1: AUTONOMOUS │ • Monthly: $799/mo       │ • Unlimited Production Microservices  │
+│ (Autonomous Fleet)  │   (₹66,000 / mo)         │ • Up to 250 Kubernetes / Cloud Nodes  │
+│                     │ • Annual: $679/mo        │ • Unlimited Alert Ingestion           │
+│                     │   ($8,148/yr / ₹6.8L)    │ • 500 Included Mutating Actions / mo  │
 │                     │                          │ • Full DB Draining & Auto-PR Drafting │
 │                     │                          │ • Air-Gapped Local Ollama (0 Egress)  │
 │                     │                          │ • Weekly Ed25519 Signed Audit PDFs    │
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
-│ LEVEL 2: SOVEREIGN  │ • Monthly: $13,999/mo    │ • Unlimited Microservices & Fleets    │
-│ (FinTech / Critical)│   (₹11,80,000 / mo)      │ • Unlimited Kubernetes / Cloud Nodes  │
-│                     │ • Annual: $11,999/mo     │ • Unlimited High-Volume Remediations  │
-│                     │   ($143,988/yr / ₹1.20Cr)│ • Contractual Sub-10s MTTR Guarantee  │
+│ LEVEL 2: SOVEREIGN  │ • Monthly: $1,599/mo     │ • Unlimited Microservices & Fleets    │
+│ (FinTech / Critical)│   (₹1,32,000 / mo)       │ • Unlimited Kubernetes / Cloud Nodes  │
+│                     │ • Annual: $1,349/mo      │ • Unlimited High-Volume Remediations  │
+│                     │   ($16,188/yr / ₹13.4L)  │ • Contractual Sub-10s MTTR Guarantee  │
 │                     │                          │ • Custom Drivers & Bare-Metal IPC     │
 │                     │                          │ • Named Principal SRE (15-min Hotline)│
 ├─────────────────────┼──────────────────────────┼───────────────────────────────────────┤
