@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    background-color: #050505;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #0a0a0a;
     font-family: 'Inter', sans-serif;
   }
 }
@@ -26,16 +26,17 @@
   animation-play-state: paused;
 }
 
-
-
-/* Hide scrollbar */
+/* Clean subtle scrollbar matching editorial light theme */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #e7e5e4;
   border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d6d3d1;
 }
