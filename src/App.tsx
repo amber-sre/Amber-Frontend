@@ -430,7 +430,7 @@ export default function App() {
             onClick={(e) => scrollToSection(e, 'connect')}
             className="flex items-center gap-2 bg-[#d97706] hover:bg-black text-white px-5 py-2.5 rounded-full font-sans font-bold text-xs tracking-wider uppercase shadow-md shadow-[#d97706]/20 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer group"
           >
-            <span>Schedule a Call</span>
+            <span>Deploy Amber</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>
