@@ -1939,7 +1939,7 @@ export default function App() {
                         </span>
                       ) : (
                         <>
-                          <span>Send Request</span>
+                          <span>Submit</span>
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                         </>
                       )}
