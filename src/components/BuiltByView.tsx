@@ -252,12 +252,12 @@ export const BuiltByView: React.FC<BuiltByViewProps> = ({ onBack, onNavigateToCo
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-xs sm:text-sm text-stone-300">
             <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1">
-              <div className="text-amber-400 font-bold">15-Min Onboarding on Zoom</div>
-              <div>I will personally hop on Zoom, review your cluster topology, and help spin up Amber in under 15 minutes.</div>
+              <div className="text-amber-400 font-bold">15-Min Walkthrough on Zoom</div>
+              <div>Hop on a quick Zoom call to review cluster prerequisites and verify your in-VPC container deployment.</div>
             </div>
             <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1">
-              <div className="text-amber-400 font-bold">Direct Founder Emergency Access</div>
-              <div>Subscribers get my personal Telegram and direct emergency line. If production catches fire, I'm in the war room.</div>
+              <div className="text-amber-400 font-bold">Continuous Engine Updates</div>
+              <div>Direct access to new engine releases, early telemetry adapters, and fast-tracked GitHub issue resolution.</div>
             </div>
           </div>
 
