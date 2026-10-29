@@ -63,11 +63,6 @@ export const BuiltByView: React.FC<BuiltByViewProps> = ({ onBack, onNavigateToCo
         
         {/* Hero Header */}
         <div className="space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-[11px] font-sans font-bold uppercase tracking-widest text-amber-800">
-            <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-            <span>Independent Systems Engineering • Founder Transparency</span>
-          </div>
-          
           <h1 className="text-4xl sm:text-6xl font-black text-[#0c0a09] tracking-tight leading-[1.08] font-sans">
             Built by Himanshu Joshi.
           </h1>
