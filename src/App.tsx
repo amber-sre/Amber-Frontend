@@ -26,11 +26,12 @@ import { CommunityView } from './components/CommunityView';
 import { PageTransition } from './components/PageTransition';
 import { CalculatorView } from './components/CalculatorView';
 import { ExecutiveAuditShowcase } from './components/ExecutiveAuditShowcase';
+import { BuiltByView } from './components/BuiltByView';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal' | 'community' | 'calculator'>('landing');
+  const [currentView, setCurrentView] = useState<'landing' | 'blog' | 'legal' | 'community' | 'calculator' | 'built-by'>('landing');
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const [isSplitting, setIsSplitting] = useState<boolean>(false);
 
@@ -174,6 +175,21 @@ export default function App() {
         return;
       }
 
+      // Check Built-By / Founder route (/built-by)
+      if (cleanPath === 'built-by' || cleanHash === 'built-by' || cleanPath === 'founder' || cleanHash === 'founder') {
+        setCurrentView('built-by');
+        updatePageSEO(
+          'Built by Himanshu Joshi — Systems Engineer & Author of Amber SRE',
+          'Independent systems and infrastructure engineer. Author of the Amber In-VPC SRE engine. Open-source contributor to LiteLLM.',
+          '/built-by'
+        );
+        if (window.location.pathname !== '/built-by') {
+          window.history.replaceState(null, '', '/built-by');
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
       // Check Custom Calculator route (/calculator) - Redirect smoothly to pricing
       if (cleanPath === 'calculator' || cleanHash === 'calculator') {
         setCurrentView('landing');
@@ -252,6 +268,16 @@ export default function App() {
         window.history.pushState(null, '', '/community');
       }
       setCurrentView('community');
+    });
+  };
+
+  const navigateToBuiltBy = () => {
+    if (currentView === 'built-by') return;
+    transitionTo(() => {
+      if (window.location.pathname !== '/built-by') {
+        window.history.pushState(null, '', '/built-by');
+      }
+      setCurrentView('built-by');
     });
   };
 
@@ -375,6 +401,13 @@ export default function App() {
         />
       )}
 
+      {currentView === 'built-by' && (
+        <BuiltByView 
+          onBack={navigateToLanding} 
+          onNavigateToContact={navigateToContactFromBlog} 
+        />
+      )}
+
       {currentView === 'landing' && (
         <div className="relative bg-[#ffffff] text-[#0a0a0a] font-sans selection:bg-[#d97706] selection:text-white min-h-screen overflow-x-hidden">
       
@@ -416,6 +449,13 @@ export default function App() {
           >
             <span>Blog</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-pulse" />
+          </button>
+          <button 
+            type="button" 
+            onClick={navigateToBuiltBy} 
+            className="hover:text-[#d97706] text-black/85 font-bold transition-colors cursor-pointer uppercase tracking-wider flex items-center gap-1"
+          >
+            <span>Built By</span>
           </button>
         </motion.div>
 
@@ -2088,6 +2128,11 @@ export default function App() {
               Resources
             </div>
             <ul className="space-y-2.5 text-xs font-sans text-black/70">
+              <li>
+                <button type="button" onClick={navigateToBuiltBy} className="hover:text-[#d97706] transition cursor-pointer text-left font-semibold text-black">
+                  Built by Founder (Himanshu)
+                </button>
+              </li>
               <li>
                 <button type="button" onClick={navigateToCommunity} className="hover:text-[#d97706] transition cursor-pointer text-left flex items-center gap-1.5 font-semibold text-black">
                   <span>Community Edition</span>
